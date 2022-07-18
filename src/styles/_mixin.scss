@@ -1,0 +1,55 @@
+@import "variables";
+
+@mixin container(){
+    height: 100vh;
+    background-color: $bg;
+    padding: 5rem 4rem 2rem 4rem;
+    @media screen and (max-width: $bp-mobile) {
+        padding: 2rem 0 2rem 3rem;
+    }
+}
+
+@mixin flexEvenlyCentered(){
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@mixin flexCenter() {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+@mixin flexEvenly(){
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@mixin centerItems(){
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@mixin centerItemsAbsolute(){
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin button($background,$color){
+    border-color: $darkTheme;
+    border-style: solid;
+    border-width: thin;
+    width: 100%;
+    padding: 14px;
+    font-size: 1vw;
+    background: $background;
+    border-radius: 8px;
+    color: $color;
+    box-shadow: 0 8px 24px rgba(146, 136, 224, 0.3);
+}
+
+
