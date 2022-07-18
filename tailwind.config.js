@@ -16,6 +16,7 @@ module.exports = {
       'tahiti': '#3ab7bf',
       'silver': '#ecebff',
       'grey': '#646464',
+      'errorBg': '#ffeeee',
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
     },
