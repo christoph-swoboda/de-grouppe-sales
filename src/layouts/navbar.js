@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import '../styles/navbar.css'
 import {AiOutlineDown, AiOutlineMenu} from "react-icons/ai";
 import image from '../assets/pp.jpg'
+import {Link} from "react-router-dom";
 
 const Navbar = ({user}) => {
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -38,12 +39,24 @@ const Navbar = ({user}) => {
                 {
                     (toggleMenu || screenWidth > 500) && (
                         <>
-                            <li className="items">Dashboard</li>
-                            <li className="items">New Creation</li>
-                            <li className="items">Inventory</li>
-                            <li className="items">Bestant</li>
-                            <li className="items">Evaluation</li>
-                            <li className="items">Instruction</li>
+                            <Link to={'/'}>
+                                <li className="items">Dashboard</li>
+                            </Link>
+                            <Link to={'/new'}>
+                                <li className="items">New Creation</li>
+                            </Link>
+                            <Link to={'/inventory'}>
+                                <li className="items">Inventory</li>
+                            </Link>
+                            <Link to={'/bestant'}>
+                                <li className="items">Bestant</li>
+                            </Link>
+                            <Link to={'/evaluation'}>
+                                <li className="items">Evaluation</li>
+                            </Link>
+                            <Link to={'/instruction'}>
+                                <li className="items">Instruction</li>
+                            </Link>
                             <li className='userInfo cursor-pointer'>
                                 <img src={image} alt='image'/>
                                 <div>
