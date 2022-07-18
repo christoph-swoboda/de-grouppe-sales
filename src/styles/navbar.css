@@ -52,10 +52,11 @@ nav {
 
 .modal-logout{
     position: absolute;
-    right: 7%;
-    background-color: black;
+    right: 5%;
+    background-color: #3A46A9;
     color: white;
-    padding: .5rem 2rem;
+    border-radius: 5px;
+    padding: 1rem 2rem;
 }
 
 .btn {

@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 
 const NotificationTable = () => {
-    return (<div className='box-content rounded-2xl bg-white mt-6  p-6 h-fit'>
+    return (
+        <div className='box-content rounded-2xl bg-white mt-6  p-6 h-fit'>
             <h2 className='text-left text-xl font-bold mb-2'>Upcoming Dates</h2>
             <h2 className='text-left text-grey mb-4'>Show:
                 <span className='text-mainBlue'>
@@ -14,7 +15,7 @@ const NotificationTable = () => {
 
             <div className="flex flex-col">
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                    <div className="py-2 inline-block min-w-full  sm:px-6 lg:px-8">
                         <div className="overflow-hidden">
                             <table className="min-w-full">
                                 <thead className=" border-y border-silver border-x-0">
@@ -51,10 +52,10 @@ const NotificationTable = () => {
                                         10/06/22
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                      Inactive
+                                        Inactive
                                     </td>
-                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                      Update
+                                    <td className=" text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <h2 className='bg-mainBlue rounded-3xl pl-3 pr-3 pt-1 pb-1 text-white uppercase'> Update</h2>
                                     </td>
                                 </tr>
 
@@ -70,7 +71,7 @@ const NotificationTable = () => {
                                         10/06/22
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                      Active
+                                        Active
                                     </td>
                                 </tr>
 
@@ -86,7 +87,7 @@ const NotificationTable = () => {
                                         10/06/22
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                      Active
+                                        Active
                                     </td>
                                 </tr>
 
@@ -96,7 +97,7 @@ const NotificationTable = () => {
                     </div>
                 </div>
             </div>
-
+            <a className='text-mainBlue underline uppercase font-bold text-sm cursor-pointer'>See More Notifications</a>
         </div>
     )
 }

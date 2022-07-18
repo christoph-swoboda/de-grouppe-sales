@@ -2,6 +2,8 @@ import React from "react"
 import '../../styles/dashboard.scss'
 import Banner from "./partial/banner";
 import NotificationTable from "./partial/notificationTable";
+import FunnelSection from "./partial/funnel";
+import {PieChart} from "./partial/pieChart";
 
 
 const Navbar = () => {
@@ -10,6 +12,12 @@ const Navbar = () => {
         <div className='dashboardContainer'>
             <Banner/>
             <NotificationTable/>
+            <FunnelSection/>
+            <div className='lg:grid lg:grid-cols-3 gap-6 sm:grid-cols-1 gap-6'>
+                <PieChart header='Beantargt, iForm eingerereicht'/>
+                <PieChart header='gestartet'/>
+                <PieChart header='abgeschlossen'/>
+            </div>
         </div>
     )
 }
