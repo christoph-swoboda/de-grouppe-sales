@@ -5,6 +5,7 @@ import Navbar from "./layouts/navbar";
 import Dashboard from "./pages/dashboard";
 import Footer from "./layouts/footer";
 import NewCreation from "./pages/newCreation";
+import Bestant from "./pages/bestant";
 
 function App() {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -16,6 +17,7 @@ function App() {
               <Routes>
                   <Route path="/" element={!user ? <Dashboard/> : <Navigate to="/login"/>}/>
                   <Route path="/new" element={!user ? <NewCreation/> : <Navigate to="/login"/>}/>
+                  <Route path="/bestant" element={!user ? <Bestant/> : <Navigate to="/login"/>}/>
               </Routes>
               <Footer/>
           </Router>
