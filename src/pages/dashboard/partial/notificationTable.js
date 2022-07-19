@@ -97,6 +97,7 @@ const NotificationTable = () => {
                     </div>
                 </div>
             </div>
+
             <a className='text-mainBlue underline uppercase font-bold text-sm cursor-pointer'>See More Notifications</a>
         </div>
     )
