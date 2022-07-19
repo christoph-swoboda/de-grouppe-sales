@@ -35,6 +35,10 @@ form{
 
 .search{
     padding: 7px 7px 7px 10px;
-    width: 40%;
+    width: 30%;
+    @media screen and (max-width: $bp-laptop) {
+        width: 100%;
+        margin: 10px;
+    }
     border: 1px solid silver;
 }
