@@ -5,5 +5,3 @@ A
 postcss.config.js,3\f\3f70684581fd16ab3be77ca959e0138ef3ee8bfb
 U
 %src/pages/dashboard/partial/banner.js,8\a\8a11b5f3457b7a2ed8a2fedbc641e336c85f8e3a
-E
-src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca

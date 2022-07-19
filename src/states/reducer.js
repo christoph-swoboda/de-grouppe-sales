@@ -1,6 +1,7 @@
 export const initialState = {
     user: {},
     newCreation:{},
+    statusModal:false,
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -13,6 +14,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 newCreation: action.item
+            }
+            case "SET_STATUS_MODAL":
+            return {
+                ...state,
+                statusModal: action.item
             }
         default:
             return state;

@@ -2,14 +2,23 @@ import React from "react";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import BestantStatus from "../../components/bestantStatus";
 import {Link} from "react-router-dom";
+import Modal from "../../components/modal";
+import Dashboard from "../dashboard";
+import useModal from "../../hooks/useModal";
+import {useStateValue} from "../../states/StateProvider";
+import StatusPopUp from "../../components/statusPopUp";
 
 const Bestant = () => {
+
+    const [{statusModal}, dispatch] = useStateValue();
+    const {toggleStatusModal} = useModal();
+
     return (
         <div className='dashboardContainer'>
             <div className='lg:flex justify-start mt-10 sm:block'>
                 <h2 className='text-2xl lg:text-left font-extrabold'>Wittrock Landtechnik</h2>
                 <Link to={'/bestant-list'} className='ml-auto text-mainBlue px-3 py-2 text-sm'>BACK TO LIST</Link>
-                <p className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2'>EDIT USER</p>
+                <p onClick={()=> dispatch({type: "SET_STATUS_MODAL", item: !statusModal})} className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2'>EDIT USER</p>
             </div>
             <div className=' lg:flex justify-start my-5 rounded-lg sm:block'>
                 <div>
@@ -34,18 +43,18 @@ const Bestant = () => {
                                 <p className='p-2 bg-lightgrey'>Report Package To Company</p>
                             </div>
                             <div className='grid grid-cols-1 gap-2 text-sm text-left ml-3'>
-                                <p className='p-2 bg-lightgrey '>DE213000588238</p>
-                                <p className='p-2 bg-lightgrey'>www.demo.com</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>DE213000588234343</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>www.demo.com</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
                             </div>
                         </div>
                     </div>
@@ -77,23 +86,23 @@ const Bestant = () => {
                                 <p className='p-2 bg-lightgrey'> Company Claim: Position</p>
                             </div>
                             <div className='grid grid-cols-1 gap-2 text-sm text-left ml-3'>
-                                <p className='p-2 bg-lightgrey w-80'>DE213000588238</p>
-                                <p className='p-2 bg-lightgrey'>www.demo.com</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>1/1/1900</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
-                                <p className='p-2 bg-lightgrey'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>DE213000588238</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>www.demo.com</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>1/1/1900</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
+                                <p className='p-2 bg-lightgrey whitespace-pre-wrap break-all'>''</p>
                             </div>
                         </div>
                     </div>
@@ -114,6 +123,12 @@ const Bestant = () => {
                     <BestantStatus/>
                 </div>
             </div>
+
+            <Modal toggle={toggleStatusModal}
+                   visible={statusModal}
+                   component={<StatusPopUp/>}
+                   className='addEmployeeContainer'
+            />
         </div>
     )
 }

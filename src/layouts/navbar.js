@@ -2,11 +2,12 @@ import React, {useEffect, useRef, useState} from "react";
 import '../styles/navbar.css'
 import {AiOutlineDown, AiOutlineMenu} from "react-icons/ai";
 import image from '../assets/pp.jpg'
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 const Navbar = ({user}) => {
     const [toggleMenu, setToggleMenu] = useState(false)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+    const path=useLocation()
     const toggleNav = () => {
         setToggleMenu(!toggleMenu)
     }
@@ -40,22 +41,22 @@ const Navbar = ({user}) => {
                     (toggleMenu || screenWidth > 500) && (
                         <>
                             <Link to={'/'}>
-                                <li className="items">Dashboard</li>
+                                <li className={`items ${path.pathname==='/' && 'text-mainBlue'}`}>Dashboard</li>
                             </Link>
                             <Link to={'/new'}>
-                                <li className="items">New Creation</li>
+                                <li className={`items ${path.pathname==='/new' && 'text-mainBlue'}`}>New Creation</li>
                             </Link>
                             <Link to={'/inventory'}>
-                                <li className="items">Inventory</li>
+                                <li className={`items ${path.pathname==='/inventory' && 'text-mainBlue'}`}>Inventory</li>
                             </Link>
                             <Link to={'/bestant-list'}>
-                                <li className="items">Bestant</li>
+                                <li className={`items ${path.pathname.includes('/bestant') && 'text-mainBlue'}`}>Bestant</li>
                             </Link>
                             <Link to={'/evaluation'}>
-                                <li className="items">Evaluation</li>
+                                <li className={`items ${path.pathname==='/evaluation' && 'text-mainBlue'}`}>Evaluation</li>
                             </Link>
                             <Link to={'/instruction'}>
-                                <li className="items">Instruction</li>
+                                <li className={`items ${path.pathname==='/instruction' && 'text-mainBlue'}`}>Instruction</li>
                             </Link>
                             <li className='userInfo cursor-pointer'>
                                 <img src={image} alt='image'/>

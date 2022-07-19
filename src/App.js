@@ -16,6 +16,7 @@ function App() {
           <Router>
               <Navbar/>
               <Routes>
+                  <Route path='*' exact element={<Navigate to="/"/>}/>
                   <Route path="/" element={!user ? <Dashboard/> : <Navigate to="/login"/>}/>
                   <Route path="/new" element={!user ? <NewCreation/> : <Navigate to="/login"/>}/>
                   <Route path="/bestant-list" element={!user ? <BestantList/> : <Navigate to="/login"/>}/>
