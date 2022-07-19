@@ -48,7 +48,7 @@ const Navbar = ({user}) => {
                             <Link to={'/inventory'}>
                                 <li className="items">Inventory</li>
                             </Link>
-                            <Link to={'/bestant'}>
+                            <Link to={'/bestant-list'}>
                                 <li className="items">Bestant</li>
                             </Link>
                             <Link to={'/evaluation'}>

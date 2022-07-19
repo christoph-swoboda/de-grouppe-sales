@@ -20,7 +20,7 @@ const SectionThree = () => {
 
 
     return (
-        <div className='bg-white'>
+        <div className='bg-white rounded-lg'>
             <h2 className='text-left text-xl pt-5 pl-10'>Section Three</h2>
             <form onSubmit={handleSubmit(onSubmit)}
                   className='lg:grid lg:grid-cols-3 gap-6 sm:grid-cols-1 gap-6 mb-10 p-10'

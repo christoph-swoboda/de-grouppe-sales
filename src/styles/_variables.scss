@@ -42,3 +42,17 @@ form{
     }
     border: 1px solid silver;
 }
+
+.customContainer{
+    width: 45vw;
+    @media screen and (max-width: $bp-laptop) {
+        width: 100vw;
+    }
+
+    p{
+        width: 20vw;
+        @media screen and (max-width: $bp-laptop) {
+            width: 40vw;
+        }
+    }
+}

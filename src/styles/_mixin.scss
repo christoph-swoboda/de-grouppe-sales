@@ -3,7 +3,7 @@
 @mixin container(){
     min-height: 100vh;
     background-color: $bg;
-    padding: 5rem 4rem 2rem 4rem;
+    padding: 5rem 3rem 2rem 3rem;
     @media screen and (max-width: $bp-tablet) {
         padding: 5rem 1rem 1rem 1rem;
     }
