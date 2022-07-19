@@ -15,6 +15,10 @@ const BestantStatus = () => {
                 fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
                 deserunt mollit anim id est laborum.
             </p>
+            <div className='flex justify-between py-2'>
+                <p className='text-xs text-grey'> ruv@mustermann.ruv.de</p>
+                <p className='text-xs text-grey'> 02/02/2022 16:04</p>
+            </div>
         </div>
     )
 }
