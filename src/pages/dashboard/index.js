@@ -11,7 +11,7 @@ const Navbar = () => {
     return (
         <div className='dashboardContainer'>
             <Banner/>
-            <div className='flex justify-around'>
+            <div className='lg:flex justify-around'>
                 <NotificationTable header={'Overdue Dates'} status={2}/>
                 <NotificationTable header={'Upcoming Dates'} status={1}/>
             </div>

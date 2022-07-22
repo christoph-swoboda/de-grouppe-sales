@@ -51,21 +51,18 @@ nav {
 
 .modal-logout{
     position: absolute;
+    display: flex;
+    flex-direction: column;
     right: 5%;
-    background-color: #3A46A9;
-    color: white;
+    background-color: white;
+    color: #3A46A9;
     border-radius: 5px;
     padding: 1rem 2rem;
 }
 
-.btn {
-    display: none;
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    padding: 5px;
-    color: #000;
-    font-size: 18px;
+.modal-logout button {
+    border-bottom: 1px solid #eaeaea;
+    border-top: 1px solid #eaeaea;
 }
 
 @media screen and (max-width: 500px) {

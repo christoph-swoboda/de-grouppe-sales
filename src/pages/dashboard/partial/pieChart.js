@@ -15,7 +15,7 @@ export const options = {
 
 export const PieChart = ({header, color})=> {
     return (
-        <div className='mt-5 p-12 rounded-lg bg-white' >
+        <div className='mt-5 p-16 rounded-lg bg-white' >
             <h2 className='text-left font-bold mb-1'>{header}</h2>
             <Doughnut data={
                 {

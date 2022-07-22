@@ -20,7 +20,7 @@ function App() {
                   <Route path='*' exact element={<Navigate to="/"/>}/>
                   <Route path="/" element={!user ? <Dashboard/> : <Navigate to="/login"/>}/>
                   <Route path="/new" element={!user ? <NewCreation/> : <Navigate to="/login"/>}/>
-                  <Route path="/instruction" element={!user ? <UserManagement/> : <Navigate to="/login"/>}/>
+                  <Route path="/benutzerverwaltung" element={!user ? <UserManagement/> : <Navigate to="/login"/>}/>
                   <Route path="/bestant-list" element={!user ? <BestantList/> : <Navigate to="/login"/>}/>
                   <Route path="/bestant/:id" element={!user ? <Bestant/> : <Navigate to="/login"/>}/>
               </Routes>

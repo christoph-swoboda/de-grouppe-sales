@@ -71,7 +71,9 @@ const Navbar = ({user}) => {
                 }
             </ul>
             <p className={modal ? 'modal-logout' : 'hidden'}>
-                <button> Log Out</button>
+                <button className='text-left p-1'> Settings </button>
+                <Link className='text-left p-1' to={'/benutzerverwaltung'}>Benutzerverwaltung</Link>
+                <button className='text-left p-1'> Log Out</button>
             </p>
             <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
         </nav>
