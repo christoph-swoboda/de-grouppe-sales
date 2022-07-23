@@ -75,7 +75,7 @@ const Navbar = ({user}) => {
                 <Link onClick={()=>setModal(!modal)} className='text-left p-1' to={'/benutzerverwaltung'}>Benutzerverwaltung</Link>
                 <button onClick={()=>setModal(!modal)} className='text-left p-1'> Log Out</button>
             </p>
-            <button hidden onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
+            <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
         </nav>
     )
 }

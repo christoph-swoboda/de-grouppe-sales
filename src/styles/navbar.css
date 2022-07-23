@@ -59,7 +59,15 @@ nav {
     border-radius: 5px;
     padding: 1rem 2rem;
 }
-
+.btn {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    padding: 5px;
+    color: #000;
+    font-size: 18px;
+}
 .modal-logout button {
     border-bottom: 1px solid #eaeaea;
     border-top: 1px solid #eaeaea;
@@ -70,6 +78,7 @@ nav {
         flex-direction: column;
         height: auto;
         background-color: white;
+        padding-bottom: 20px;
     }
 
     .items:nth-child(1) {
@@ -101,7 +110,8 @@ nav {
     }
     .modal-logout{
         margin-top: 1rem;
-        right: 25%;
+        width: 100vw;
+        right: 0;
     }
 
 
