@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 
 const BestantList = () => {
     const [search, setSearch] = useState()
+    const [modal, setModal] = useState(false);
 
     return (
         <div className='dashboardContainer'>
@@ -57,7 +58,11 @@ const BestantList = () => {
                                                                 <RiArrowDownSFill size='22px'/>
                                                             </p>
                                                         </div>
-                                                        <span className='mt-1'>{header.title}</span>
+                                                        <span className='tooltip mt-1'>{header.title}
+                                                            {/*<span className='tooltiptextclose'>*/}
+                                                            {/*    Hannoversche Volksbank description*/}
+                                                            {/*</span>*/}
+                                                        </span>
                                                     </p>
                                                 </th>
                                             ))
@@ -93,8 +98,11 @@ const BestantList = () => {
                                         <td className="w-1 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                                             P-Abschluss
                                         </td>
-                                        <td className="w-1  text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+                                        <td className="w-1 tooltip text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                                             <BsChatLeftText size='18px'/>
+                                            <td className='tooltiptext'>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                            </td>
                                         </td>
                                         <td className="w-1  text-xs text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <h2 className='border border-mainBlue text-mainBlue rounded-3xl px-2 py-1 font-bold uppercase'> Edit</h2>
@@ -126,8 +134,11 @@ const BestantList = () => {
                                         <td className="w-1 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                                             P-Abschluss
                                         </td>
-                                        <td className="w-1  text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+                                        <td className="w-1 tooltip text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                                             <BsChatLeftText size='18px'/>
+                                            <td className='tooltiptext'>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                            </td>
                                         </td>
                                         <td className="w-1  text-xs text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <h2 className='border border-mainBlue text-mainBlue rounded-3xl px-2 py-1 font-bold uppercase'> Edit</h2>
@@ -159,8 +170,11 @@ const BestantList = () => {
                                         <td className="w-1 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                                             P-Abschluss
                                         </td>
-                                        <td className="w-1  text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+                                        <td className="w-1 tooltip text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                                             <BsChatLeftText size='18px'/>
+                                            <td className='tooltiptext'>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                            </td>
                                         </td>
                                         <td className="w-1  text-xs text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <h2 className='border border-mainBlue text-mainBlue rounded-3xl px-2 py-1 font-bold uppercase'> Edit</h2>

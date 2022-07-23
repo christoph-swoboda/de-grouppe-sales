@@ -62,7 +62,7 @@ const Navbar = ({user}) => {
                                 <img src={image} alt='image'/>
                                 <div>
                                     <p onClick={() => setModal(!modal)}>Username</p>
-                                    <p onClick={() => setModal(!modal)} className='text-xs'>Id: 132255214</p>
+                                    <p onClick={() => setModal(!modal)} className='text-xs'>user@mail.co.de</p>
                                 </div>
                                 <p className='cursor-pointer m-1'><AiOutlineDown onClick={() => setModal(!modal)}/></p>
                             </li>
