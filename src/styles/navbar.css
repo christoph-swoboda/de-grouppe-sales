@@ -53,11 +53,11 @@ nav {
     position: absolute;
     display: flex;
     flex-direction: column;
-    right: 5%;
+    right: 3%;
     background-color: white;
     color: #3A46A9;
     border-radius: 5px;
-    padding: 1rem 2rem;
+    padding: 1rem;
 }
 .btn {
     display: none;

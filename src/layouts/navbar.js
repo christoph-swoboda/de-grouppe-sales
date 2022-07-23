@@ -4,7 +4,7 @@ import {AiOutlineDown, AiOutlineMenu} from "react-icons/ai";
 import image from '../assets/pp.jpg'
 import {Link, useLocation} from "react-router-dom";
 
-const Navbar = ({user}) => {
+const Navbar = ({user, role=1}) => {
     const [toggleMenu, setToggleMenu] = useState(false)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path=useLocation()
@@ -72,7 +72,10 @@ const Navbar = ({user}) => {
             </ul>
             <p className={modal ? 'modal-logout' : 'hidden'}>
                 <button onClick={()=>setModal(!modal)} className='text-left p-1'> Settings </button>
-                <Link onClick={()=>setModal(!modal)} className='text-left p-1' to={'/benutzerverwaltung'}>Benutzerverwaltung</Link>
+                {
+                    role===1 &&
+                    <Link onClick={()=>setModal(!modal)} className='text-left p-1' to={'/benutzerverwaltung'}>Benutzerverwaltung</Link>
+                }
                 <button onClick={()=>setModal(!modal)} className='text-left p-1'> Log Out</button>
             </p>
             <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
