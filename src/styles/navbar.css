@@ -82,7 +82,7 @@ nav {
         border-bottom: 1px solid #f1f1f1;
         text-align: center;
         margin-right: 0;
-        padding: 20px 0;
+        padding: 0;
     }
 
     .logo {
@@ -97,10 +97,11 @@ nav {
 
     .userInfo{
         margin-left: 0;
+        padding-top: 20px;
     }
     .modal-logout{
         margin-top: 1rem;
-        right: 35%;
+        right: 25%;
     }
 
 

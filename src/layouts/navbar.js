@@ -40,25 +40,25 @@ const Navbar = ({user}) => {
                 {
                     (toggleMenu || screenWidth > 500) && (
                         <>
-                            <Link to={'/'}>
-                                <li className={`items ${path.pathname==='/' && 'text-mainBlue'}`}>Dashboard</li>
+                            <Link to={'/'} onClick={toggleNav}>
+                                <li  className={`items ${path.pathname==='/' && 'text-mainBlue'}`}>Dashboard</li>
                             </Link>
-                            <Link to={'/new'}>
+                            <Link to={'/new'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname==='/new' && 'text-mainBlue'}`}>New Creation</li>
                             </Link>
-                            <Link to={'/inventory'}>
+                            <Link to={'/inventory'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname==='/inventory' && 'text-mainBlue'}`}>Inventory</li>
                             </Link>
-                            <Link to={'/bestant-list'}>
+                            <Link to={'/bestant-list'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname.includes('/bestant') && 'text-mainBlue'}`}>Bestant</li>
                             </Link>
-                            <Link to={'/evaluation'}>
+                            <Link to={'/evaluation'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname==='/evaluation' && 'text-mainBlue'}`}>Evaluation</li>
                             </Link>
-                            <Link to={'/instruction'}>
+                            <Link to={'/instruction'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname==='/instruction' && 'text-mainBlue'}`}>Instruction</li>
                             </Link>
-                            <li className='userInfo cursor-pointer'>
+                            <li className='userInfo cursor-pointer' >
                                 <img src={image} alt='image'/>
                                 <div>
                                     <p onClick={() => setModal(!modal)}>Username</p>
@@ -71,11 +71,11 @@ const Navbar = ({user}) => {
                 }
             </ul>
             <p className={modal ? 'modal-logout' : 'hidden'}>
-                <button className='text-left p-1'> Settings </button>
-                <Link className='text-left p-1' to={'/benutzerverwaltung'}>Benutzerverwaltung</Link>
-                <button className='text-left p-1'> Log Out</button>
+                <button onClick={()=>setModal(!modal)} className='text-left p-1'> Settings </button>
+                <Link onClick={()=>setModal(!modal)} className='text-left p-1' to={'/benutzerverwaltung'}>Benutzerverwaltung</Link>
+                <button onClick={()=>setModal(!modal)} className='text-left p-1'> Log Out</button>
             </p>
-            <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
+            <button hidden onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
         </nav>
     )
 }
