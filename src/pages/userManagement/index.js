@@ -1,15 +1,15 @@
 import React, {useState} from "react";
-import {GrCheckbox} from "react-icons/gr";
 import UserManagementTable from "./partial/table";
-import AdminTableView from "./partial/adminTableView";
+import BankManagerView from "./partial/bankManagerView";
 
-const UserManagement = ({role}) => {
+const UserManagement = () => {
     const [search, setSearch] = useState()
+    const role = JSON.parse(localStorage.role)
 
     return (
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between mt-10 sm:block'>
-                <h2 className='text-2xl lg:text-left font-extrabold'>{role === 1 ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
+                <h2 className='text-2xl lg:text-left font-extrabold'>{role === 'External' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
                 <p className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2'>ADD NEW USER</p>
             </div>
 
@@ -29,10 +29,11 @@ const UserManagement = ({role}) => {
                     </h2>
                 </div>
                 {
-                    role === 1 ?
-                        <AdminTableView role={1}/>
+                    role === 'Internal' ?
+                        <UserManagementTable role={role}/>
                         :
-                        <UserManagementTable role={2}/>
+                        <BankManagerView role={role}/>
+
                 }
             </div>
         </div>

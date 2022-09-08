@@ -1,7 +1,7 @@
 @import "variables";
 
 @mixin container(){
-    min-height: 100vh;
+    min-height: 92vh;
     background-color: $bg;
     padding: 5rem 3rem 2rem 3rem;
     @media screen and (max-width: $bp-tablet) {

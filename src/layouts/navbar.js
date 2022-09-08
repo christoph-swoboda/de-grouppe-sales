@@ -3,16 +3,23 @@ import '../styles/navbar.css'
 import {AiOutlineDown, AiOutlineMenu} from "react-icons/ai";
 import image from '../assets/pp.jpg'
 import {Link, useLocation} from "react-router-dom";
+import {BeatLoader} from "react-spinners";
 
-const Navbar = ({user, role=1}) => {
+const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path=useLocation()
     const toggleNav = () => {
         setToggleMenu(!toggleMenu)
     }
-    const [modal, setModal] = useState(false);
-    const modalRef = useRef();
+    const [modal, setModal] = useState(false)
+    const modalRef = useRef()
+    const location=useLocation()
+    const UserInfo=localStorage.user
+    const roleInfo=localStorage.role
+    const role=JSON.parse(roleInfo?roleInfo:false)
+    const user=JSON.parse(UserInfo?UserInfo:false)
 
     useEffect(() => {
         const changeWidth = () => {
@@ -32,8 +39,17 @@ const Navbar = ({user, role=1}) => {
         })
     }, []);
 
+    function logout(){
+        setLoading(true)
+        setModal(!modal)
+        localStorage.removeItem('user')
+        localStorage.removeItem('role')
+        setLoading(false)
+        window.location.replace('/login')
+    }
+
     return (
-        <nav ref={modalRef}>
+        <nav ref={modalRef} hidden={location.pathname==='/login'|| location.pathname==='/register'}>
             <ul className="list">
                 <li className='logo'>#DG-Projektportal</li>
                 <li className='time'>Firmenprojeckte | 22.04a</li>
@@ -46,23 +62,14 @@ const Navbar = ({user, role=1}) => {
                             <Link to={'/new'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname==='/new' && 'text-mainBlue'}`}>New Creation</li>
                             </Link>
-                            <Link to={'/inventory'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname==='/inventory' && 'text-mainBlue'}`}>Inventory</li>
-                            </Link>
                             <Link to={'/bestant-list'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname.includes('/bestant') && 'text-mainBlue'}`}>Bestant</li>
-                            </Link>
-                            <Link to={'/evaluation'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname==='/evaluation' && 'text-mainBlue'}`}>Evaluation</li>
-                            </Link>
-                            <Link to={'/instruction'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname==='/instruction' && 'text-mainBlue'}`}>Instruction</li>
                             </Link>
                             <li className='userInfo cursor-pointer' >
                                 <img src={image} alt='image'/>
                                 <div>
-                                    <p onClick={() => setModal(!modal)}>Username</p>
-                                    <p onClick={() => setModal(!modal)} className='text-xs'>user@mail.co.de</p>
+                                    <p onClick={() => setModal(!modal)}>{user?.fullname}</p>
+                                    <p onClick={() => setModal(!modal)} className='text-xs'>{user?.email}</p>
                                 </div>
                                 <p className='cursor-pointer m-1'><AiOutlineDown onClick={() => setModal(!modal)}/></p>
                             </li>
@@ -73,10 +80,12 @@ const Navbar = ({user, role=1}) => {
             <p className={modal ? 'modal-logout' : 'hidden'}>
                 <button onClick={()=>setModal(!modal)} className='text-left p-1'> Settings </button>
                 {
-                    role===1 &&
+                    role==='Internal' ?
                     <Link onClick={()=>setModal(!modal)} className='text-left p-1' to={'/benutzerverwaltung'}>Benutzerverwaltung</Link>
+                        :role==='External' &&
+                    <Link onClick={()=>setModal(!modal)} className='text-left p-1' to={'/Bank-Kooperationspartner'}>Bank-Kooperationspartner</Link>
                 }
-                <button onClick={()=>setModal(!modal)} className='text-left p-1'> Log Out</button>
+                <button onClick={logout} className='text-left p-1'> {!loading?'Log Out':<BeatLoader size={10} color={'#000000'}/>}</button>
             </p>
             <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
         </nav>

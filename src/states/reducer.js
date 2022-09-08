@@ -10,11 +10,6 @@ const reducer = (state, action) => {
                 ...state,
                 user: action.item
             }
-            case "SET_NEW_CREATION":
-            return {
-                ...state,
-                newCreation: action.item
-            }
             case "SET_STATUS_MODAL":
             return {
                 ...state,

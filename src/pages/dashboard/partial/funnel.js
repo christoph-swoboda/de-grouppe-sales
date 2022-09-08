@@ -3,8 +3,7 @@ import {Chart} from "./chart";
 
 const FunnelSection = () => {
     return (
-        <div className='box-content rounded-2xl bg-white mt-6  p-6 h-fit lg:flex justify-between'>
-
+        <div className='box-content rounded-2xl bg-offWhite mt-6  p-6 h-fit lg:flex justify-between'>
             <div className="flex flex-col lg:w-5/12 sm:w-12/12">
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 inline-block min-w-full  sm:px-6 lg:px-8">

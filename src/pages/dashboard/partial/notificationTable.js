@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 
 const NotificationTable = ({header, status}) => {
     return (
-        <div className='box-content rounded-2xl bg-white mt-6 mx-1  p-6 h-fit'>
+        <div className='box-content rounded-2xl bg-white mt-6 p-6 h-fit'>
             <h2 className='text-left text-xl font-bold mb-2'>{header}</h2>
             <h2 className='text-left text-grey mb-4'>Show:
                 <span className='text-mainBlue'>

@@ -11,8 +11,10 @@ const Navbar = () => {
     return (
         <div className='dashboardContainer'>
             <Banner/>
-            <div className='lg:flex justify-around'>
-                <NotificationTable header={'Overdue Dates'} status={2}/>
+            <div className='lg:flex justify-between'>
+                <div className='mr-4'>
+                    <NotificationTable header={'Overdue Dates'} status={2}/>
+                </div>
                 <NotificationTable header={'Upcoming Dates'} status={1}/>
             </div>
             <div className='lg:grid lg:grid-cols-3 gap-6 sm:grid-cols-1 gap-6'>
