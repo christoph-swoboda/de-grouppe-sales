@@ -49,7 +49,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav ref={modalRef} hidden={location.pathname==='/login'|| location.pathname==='/register'}>
+        <nav style={{zIndex:'1'}} ref={modalRef} hidden={location.pathname==='/login'|| location.pathname==='/register'}>
             <ul className="list">
                 <li className='logo'>#DG-Projektportal</li>
                 <li className='time'>Firmenprojeckte | 22.04a</li>

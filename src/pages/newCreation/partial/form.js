@@ -13,7 +13,7 @@ const Form = () => {
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
-        Api().post('/test', data).then(res=>{
+        Api().post('/test', data).then(res => {
             console.log('res', res.data)
         })
         console.log('data', data)
@@ -22,7 +22,6 @@ const Form = () => {
 
     return (
         <div className='bg-white rounded-lg'>
-            <h2 className='text-left text-xl pt-5 pl-10'>Section Three</h2>
             <form onSubmit={handleSubmit(onSubmit)}
                   className='lg:grid lg:grid-cols-5 gap-6 sm:grid-cols-1 gap-6 mb-10 p-10'
             >
@@ -234,6 +233,51 @@ const Form = () => {
                            style={{border: errors.WieVor_Text && '1px solid red'}}
                     />
                     {errors.WieVor_Text && touchedFields && <p>Wiedervor_Info Field is required</p>}
+                </section>
+
+                <section className='flex flex-col text-left text-grey text-sm'>
+                    <label>Direkt *</label>
+                    <input placeholder='placeholder ...'
+                           {...register('Direkt', {required: true})}
+                           style={{border: errors.Direkt && '1px solid red'}}
+                    />
+                    {errors.Direkt && touchedFields && <p>Direkt Field is required</p>}
+                </section>
+
+                <section className='flex flex-col text-left text-grey text-sm'>
+                    <label> Mobil *</label>
+                    <input placeholder='placeholder ...'
+                           {...register('Mobil', {required: true})}
+                           style={{border: errors.Mobil && '1px solid red'}}
+                    />
+                    {errors.Mobil && touchedFields && <p>Mobil Field is required</p>}
+                </section>
+
+                <section className='flex flex-col text-left text-grey text-sm'>
+                    <label> Privat  *</label>
+                    <input placeholder='placeholder ...'
+                           {...register('Privat', {required: true})}
+                           style={{border: errors.Privat  && '1px solid red'}}
+                    />
+                    {errors.Privat  && touchedFields && <p>Privat  Field is required</p>}
+                </section>
+
+                <section className='flex flex-col text-left text-grey text-sm'>
+                    <label>E-Mail *</label>
+                    <input placeholder='placeholder ...'
+                           {...register('E-Mail', {required: true})}
+                           style={{border: errors.EMail  && '1px solid red'}}
+                    />
+                    {errors.EMail && touchedFields && <p>E-Mail Field is required</p>}
+                </section>
+
+                <section className='flex flex-col text-left text-grey text-sm'>
+                    <label>Fax *</label>
+                    <input placeholder='placeholder ...'
+                           {...register('Fax', {required: true})}
+                           style={{border: errors.Fax && '1px solid red'}}
+                    />
+                    {errors.Fax && touchedFields && <p>Fax Field is required</p>}
                 </section>
 
                 <input

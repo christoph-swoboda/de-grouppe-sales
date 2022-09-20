@@ -1,94 +1,123 @@
-import React from "react";
-import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
-import BestantStatus from "../../components/bestantStatus";
-import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import Modal from "../../components/modal";
 import useModal from "../../hooks/useModal";
 import {useStateValue} from "../../states/StateProvider";
-import StatusPopUp from "../../components/statusPopUp";
+import CompanyInfoPopUp from "../../components/modal/companyInfoPopUp";
 import {BestantCompanyInfo} from "../../dummyData/bestantInfo";
+import CompanyData from "./partial/companyData";
+import Status from "./partial/status";
+import Api from "../../Api/api";
+import MilestoneTabs from "../../card/milestoneTabs";
+import {SyncLoader} from "react-spinners";
+import SubSteps from "./partial/subSteps";
+
 
 const Bestant = () => {
 
-    const [{statusModal}, dispatch] = useStateValue();
-    const {toggleStatusModal} = useModal();
+    const [{companyInfoModal, currentMilestone}, dispatch] = useStateValue();
+    const {toggleCompanyInfoModal} = useModal();
+    const [loading, setLoading] = useState(true)
+    const [stepsLoading, setStepsLoading] = useState(true)
+    const [notes, setNotes] = useState([])
+    const [subSteps, setSubSteps] = useState([])
+    const [nextStep, setNextStep] = useState([])
+    const [grid, setGrid] = useState([])
+    const [milestoneTabs, setMilestoneTabs] = useState([])
+    const [lastIndex, setLastIndex] = useState(null)
+    const [lastDoneIndex, setLastDoneIndex] = useState(0)
+
+    useEffect(() => {
+        Api().post('/milestones').then(res => {
+                console.log('tabs', res.data)
+                setMilestoneTabs(res.data.tabs)
+                setLastDoneIndex(res.data.done)
+                dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
+                setNotes(res.data.notes)
+                setLoading(false)
+            }
+        )
+
+    }, []);
+
+    useEffect(() => {
+        setStepsLoading(true)
+        let Data = new FormData()
+        Data.append('index', currentMilestone)
+        Data.append('name', 'Heller')
+
+        if (lastDoneIndex > 0) {
+            Api().post('/sub-steps', Data).then(res => {
+                console.log('subSteps', res.data)
+                setSubSteps(res.data.subSteps)
+                setGrid(res.data.grid)
+                setNextStep(res.data.next)
+                setStepsLoading(false)
+            })
+
+        }
+    }, [lastDoneIndex, currentMilestone]);
+
+
+    useEffect(() => {
+        let index = Object.keys(milestoneTabs).length - 1
+        setLastIndex(index)
+    }, [milestoneTabs]);
+
 
     return (
         <div className='dashboardContainer'>
-            <div className='lg:flex justify-start mt-10 sm:block'>
-                <h2 className='text-2xl lg:text-left font-extrabold'>Wittrock Landtechnik</h2>
-                <Link to={'/bestant-list'} className='ml-auto text-mainBlue px-3 py-2 text-sm'>BACK TO LIST</Link>
-                <p onClick={() => dispatch({type: "SET_STATUS_MODAL", item: !statusModal})}
-                   className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2'>EDIT USER</p>
+            <div className='lg:flex justify-start mt-10 sm:block mb-5'>
+                <h2 className='text-2xl lg:text-left font-extrabold'>Milestone Steps</h2>
             </div>
-            <div className=' lg:flex justify-start my-5 rounded-lg sm:block'>
-                <div>
-                    <div className='bg-white'>
-                        <div className='flex justify-between'>
-                            <h2 className='text-lg lg:text-left font-extrabold p-5'>Company Master Data</h2>
-                            <p className='p-5'><IoIosArrowUp size='25px'/></p>
-                        </div>
-                        <div className='px-5 pb-5 flex customContainer'>
-                            <div className='text-sm text-left'>
-                                {Object.keys(BestantCompanyInfo).map((key, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <p className='grid grid-cols-2 gap-2 whitespace-nowrap'>
-                                                <span className='p-2 bg-lightgrey my-1 '>{key}</span>
-                                                <span
-                                                    className='p-2 bg-lightgrey ml-1 my-1 '>{BestantCompanyInfo[key]}</span>
-                                            </p>
-                                        </div>
-                                    );
-                                })}
+
+            <CompanyData data={BestantCompanyInfo} toggle={toggleCompanyInfoModal}/>
+
+            <div className='lg:flex justify-between my-5 rounded-lg sm:block'>
+                <div className='bg-white px-5 m-2 pb-10 lg:w-1/4 lg:ml-0 rounded-lg h-fit'>
+                    {
+                        loading ?
+                            <div style={{height: '80vh'}}>
+                                <div className='mt-24'>
+                                    <SyncLoader size='10' color='grey'/>
+                                </div>
                             </div>
-                        </div>
+                            :
+                            milestoneTabs.map(tab => (
+                                <MilestoneTabs
+                                    key={tab.milestoneID}
+                                    id={tab.milestoneID}
+                                    label={tab.milestoneLabel}
+                                    loading={stepsLoading}
+                                    done={tab.milestoneDone}
+                                    lastIndex={lastIndex}
+                                    lastDoneIndex={lastDoneIndex}
+                                />
+                            ))
+                    }
+                </div>
+
+                <div className='lg:w-2/4 lg:ml-0 h-fit text-left'>
+                    <div className='bg-white p-5 m-2 pb-10'>
+                        <h2 className='text-2xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel}</h2>
+                        <SubSteps data={subSteps} loading={stepsLoading} lastDoneIndex={lastDoneIndex}/>
                     </div>
 
-                    <div className='bg-white mt-5'>
-                        <div className='flex justify-between'>
-                            <h2 className='text-lg lg:text-left font-extrabold p-5'>Contact Details Of Contact
-                                Person</h2>
-                            <p className='p-5'><IoIosArrowUp size='25px'/></p>
-                        </div>
-                        <div className='px-5 pb-5 flex customContainer'>
-                            <div className='text-sm text-left'>
-                                {Object.keys(BestantCompanyInfo).map((key, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <p className='grid grid-cols-2 gap-2 whitespace-nowrap'>
-                                                <span className='p-2 bg-lightgrey my-1 '>{key}</span>
-                                                <span
-                                                    className='p-2 bg-lightgrey ml-1 my-1 '>{BestantCompanyInfo[key]}</span>
-                                            </p>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className='flex justify-between bg-white mt-5'>
-                        <h2 className='text-lg lg:text-left font-extrabold p-5'>Remark History</h2>
-                        <p className='p-5'><IoIosArrowDown size='25px'/></p>
+                    <div hidden={stepsLoading} className='my-4 bg-white p-5 m-2 pb-10'>
+                        <h2 className='text-2xl'>{milestoneTabs[Number(currentMilestone) + 1]?.milestoneLabel}(Bevorstehende)</h2>
+                        <SubSteps data={nextStep} loading={stepsLoading} lastDoneIndex={lastDoneIndex} next/>
                     </div>
                 </div>
 
-                <div className='bg-white px-5 pb-10 w-full lg:ml-5 rounded-lg h-fit'>
-                    <div className='flex justify-between bg-white mt-5'>
-                        <h2 className='text-lg lg:text-left font-extrabold'>Status</h2>
-                        <p><IoIosArrowUp size='25px'/></p>
-                    </div>
-                    <BestantStatus/>
-                    <BestantStatus/>
-                    <BestantStatus/>
+
+                <div className='bg-white px-5 pb-10 lg:w-1/4 lg:ml-0 rounded-lg h-fit'>
+                    <Status notes={notes}/>
                 </div>
+
             </div>
 
-            <Modal toggle={toggleStatusModal}
-                   visible={statusModal}
-                   component={<StatusPopUp/>}
-                   className='addEmployeeContainer'
+            <Modal toggle={toggleCompanyInfoModal}
+                   visible={companyInfoModal}
+                   component={<CompanyInfoPopUp data={BestantCompanyInfo}/>}
             />
         </div>
     )

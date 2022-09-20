@@ -1,7 +1,8 @@
 export const initialState = {
     user: {},
     newCreation:{},
-    statusModal:false,
+    companyInfoModal:false,
+    currentMilestone:null,
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -10,10 +11,15 @@ const reducer = (state, action) => {
                 ...state,
                 user: action.item
             }
-            case "SET_STATUS_MODAL":
+            case "SET_COMPANYINFO_MODAL":
             return {
                 ...state,
-                statusModal: action.item
+                companyInfoModal: action.item
+            }
+            case "SET_CURRENTMILESTONE":
+            return {
+                ...state,
+                currentMilestone: action.item
             }
         default:
             return state;

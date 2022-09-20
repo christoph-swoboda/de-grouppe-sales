@@ -30,12 +30,11 @@ const Login = () => {
     };
 
     return (
-        <div className='container'>
-            <div className='bg-white rounded-lg'>
+            <div className='rounded-lg bg-white'>
                 <form onSubmit={handleSubmit(onSubmit)}
-                      className='mb-10 lg:p-10 sm:p-1 lg:w-4/12 sm:12/12 centerItemsAbsolute'>
-                    <h2 className='text-3xl pb-2'>LogIn</h2>
-
+                      className='mb-10 p-10 w-full md:w-6/12 lg:w-4/12 centerItemsAbsolute bg-white border border-whiteDark rounded-lg'>
+                    <h2 className='text-2xl mb-3'>#DG-Projektportal</h2>
+                    <h2 className='text-xl '>Login</h2>
                     <section className='flex flex-col text-left text-grey text-sm'>
                         <label className='py-2'>Email *</label>
                         <input placeholder='E-Mail'
@@ -72,18 +71,18 @@ const Login = () => {
                                 </button>
                                 :
                                 <input
-                                    className={(isValid) ? 'bg-mainBlue text-white cursor-pointer' : 'text-grey bg-whiteDark'}
+                                    className={(isValid) ? 'bg-mainBlue text-white cursor-pointer' : 'text-white bg-disableBlue'}
                                     disabled={!isValid} type="submit"
                                     value={'Einloggen'}
                                 />
                         }
                     </section>
                     <br/>
-                    <Link className='text-sm text-mainBlue' to={'/register'}>Sie haben kein Konto? Hier
-                        registrieren</Link>
+                    <Link className='text-sm' to={'/register'}>Sie haben kein Konto?
+                        <span className='ml-1 underline text-mainBlue'> Hier registrieren</span>
+                    </Link>
                 </form>
             </div>
-        </div>
     )
 }
 

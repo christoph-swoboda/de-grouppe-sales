@@ -1,6 +1,6 @@
 export const BestantCompanyInfo =
     {
-        TaxID: 'DE213000588234343',
+        'TaxID': 'DE213000588234343',
         'Transform to R+V': '\'\'',
         'Internet Address': 'www.demo.com',
         '1. Appointment Analysis': '1/1/1900',
@@ -12,10 +12,6 @@ export const BestantCompanyInfo =
         'DL Package Back': '1/1/1900',
         'Accompanying Office': '1/1/1900',
         'Report Package To Company': '1/1/1900',
-    }
-
-export const BestantInfo =
-    {
         'Project': '\'\'',
         'Condition Advisor': 'www.demo.com',
         'Bank': 'DE213000588234343',
@@ -26,7 +22,6 @@ export const BestantInfo =
         'Company Short ': '1/1/1900',
         'Company': '1/1/1900',
         'Company Contact Details': '1/1/1900',
-        'Accompanying Office': '1/1/1900',
         'MA': '1/1/1900',
         'Company Ansrpr Salutation': '1/1/1900',
         'Company Claim: Title': '1/1/1900',
