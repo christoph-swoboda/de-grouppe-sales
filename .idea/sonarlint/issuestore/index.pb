@@ -11,15 +11,8 @@ L
 src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 `
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
-<
-src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
 E
 src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
->
-src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
-:
-
-.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 c
 3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
 T
@@ -46,3 +39,14 @@ U
 %src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
 I
 src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
+<
+src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
+H
+src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
+:
+
+src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
+F
+src/styles/_mixin.scss,f\c\fcaf532d2ce47ef240bc6887160a81465e09748d
+E
+src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
