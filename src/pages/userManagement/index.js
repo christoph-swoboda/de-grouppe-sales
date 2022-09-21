@@ -3,7 +3,7 @@ import UserManagementTable from "./partial/table";
 import BankManagerView from "./partial/bankManagerView";
 import Api from "../../Api/api";
 import {useStateValue} from "../../states/StateProvider";
-import {Navigate, useHistory, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const UserManagement = () => {
     const [search, setSearch] = useState()
@@ -14,12 +14,12 @@ const UserManagement = () => {
     const [rows, setRows] = useState('10');
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [{userValidated, page},dispatch] = useStateValue();
-    const navigate=useNavigate()
+    const [{userValidated, page}, dispatch] = useStateValue();
+    const navigate = useNavigate()
 
     useEffect(() => {
-        if(role==='External'){
-           navigate('/')
+        if (role === 'External') {
+            navigate('/')
         }
         setLoading(true)
         let data = new FormData()
@@ -27,16 +27,16 @@ const UserManagement = () => {
         data.append('rows', rows)
         data.append('page', page)
 
-        Api().post('/getUsers',data).then(res => {
+        Api().post('/getUsers', data).then(res => {
             setUsers(res.data)
             setTotal(Number(res.data[0].totalUsers))
             setLoading(false)
         }).catch(e => {
             setLoading(false)
         })
-    }, [rows,userID,userValidated,page]);
+    }, [rows, userID, userValidated, page]);
 
-    function setPageStates(e){
+    function setPageStates(e) {
         dispatch({type: "SET_PAGE", item: 1})
         setRows(e.target.value)
     }
@@ -55,7 +55,7 @@ const UserManagement = () => {
                            onChange={(e) => setSearch(e.target.value)}
                     />
                     <p className='text-sm text-grey ml-auto mt-2'>
-                        {page === 1 ? page : (1 + (Number(rows)*page))-Number(rows)} bis {(users.length < Number(rows)) ? users.length+Number(rows)<total?users.length+(Number(rows)*page)-Number(rows):total : (Number(rows)+(Number(rows)*page))-Number(rows)} von {total} Eintragen
+                        {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Eintragen
                     </p>
                     <h2 className='text-sm text-grey ml-6 mt-2 ml-10'>
                         Eintrage anzigen: <span>

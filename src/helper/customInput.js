@@ -3,11 +3,6 @@ import React, {useEffect} from "react";
 import {GoCalendar} from "react-icons/go";
 
 const CustomInput = React.forwardRef((props, ref) => {
-
-    useEffect(() => {
-        console.log('pr', props.next)
-    }, []);
-
     return (
         <div onClick={props.onClick}
              className={`border border-whiteDark rounded-l p-2 cursor-pointer ${Number(props.current) < Number(props.last) + 1 ? 'completed' : Number(props.current) > Number(props.last) + 1 || props.next ? 'disabled' : 'bg-white'}`}
