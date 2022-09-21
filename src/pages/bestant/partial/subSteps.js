@@ -6,8 +6,11 @@ import {useForm, Controller} from "react-hook-form";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../../states/StateProvider";
+import moment from 'moment';
+import CustomInput from '../../../helper/customInput'
+import {GoCalendar} from "react-icons/go";
 
-const SubSteps = ({data, loading, next, lastDoneIndex}) => {
+const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
 
     const [Loading, setLoading] = useState(false)
     const ref = useRef()
@@ -21,7 +24,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex}) => {
 
     const onSubmit = async (Data) => {
         setLoading(true)
-        console.log('clicked', Data)
+        if(Number(currentMilestone) === Number(lastDoneIndex) + 1 ){
+            console.log('clicked', Data)
+        }
         // Api().post('/test', Data).then(res => {
         //     console.log('res', res.data)
         // }).catch(e => {
@@ -31,8 +36,24 @@ const SubSteps = ({data, loading, next, lastDoneIndex}) => {
     };
 
     useEffect(() => {
-        console.log('cur', currentMilestone, 'done', lastDoneIndex)
-    }, [currentMilestone]);
+        const chars = {'A': ' A', 'P': ' P'};
+        data?.map((d,index )=> {
+            if(grid[Number(d.substepID)-1]?.fieldValue && !next){
+                if (d.fieldType === 'date') {
+                    let date=moment(grid[Number(d.substepID) - 1]?.fieldValue?.replaceAll(/[AP]/g, m => chars[m])).toDate()
+                    const dateFormat = 'DD-MM-YYYY';
+                    const toDateFormat = moment(new Date(date)).format(dateFormat);
+                    let valid=moment(toDateFormat, dateFormat, true).isValid()
+                    if(valid){
+                        setValue(`${d.stepName}`, moment(grid[Number(d.substepID) - 1]?.fieldValue?.replaceAll(/[AP]/g, m => chars[m])).toDate())
+                    }
+                }
+                else{
+                    setValue(`${d.stepName}`,`${grid[d.substepID]?.fieldValue}`)
+                }
+            }
+        })
+    }, [data, grid,setValue]);
 
 
     return (
@@ -59,14 +80,14 @@ const SubSteps = ({data, loading, next, lastDoneIndex}) => {
                         <form onSubmit={handleSubmit(onSubmit)}
                               className='grid lg:grid-cols-3 md:grid-cols-1 gap-3.5 mt-6 rounded-lg'>
                             {
-                                data.map(val => (
+                                data.map((val, index) => (
                                     val.fieldType === 'option' ?
-                                        <section className='tooltip sm:flex sm:flex-col'>
+                                        <section key={index} className='tooltip sm:flex sm:flex-col'>
                                             <label className='text-xs text-grey label'>{val.stepName}</label>
                                             <select {...register(`${val.stepName}`)}
                                                     disabled={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
                                                     className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
-                                                    ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed':Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ?'disabled':'bg-white'}`}
+                                                    ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
                                             >
                                                 <option value="1">Option 1</option>
                                                 <option value="2">Option 2</option>
@@ -76,18 +97,20 @@ const SubSteps = ({data, loading, next, lastDoneIndex}) => {
                                         </section>
 
                                         : val.fieldType === 'date' ?
-                                            <section className='tooltip'>
+                                            <section key={index} className='tooltip'>
                                                 <label className='text-xs text-grey label'>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
                                                     render={({field}) => (
                                                         <DatePicker
-                                                            placeholderText='Select date'
+                                                            showYearDropdown
+                                                            placeholderText={`Datum wählen`}
                                                             onChange={(date) => field.onChange(date)}
                                                             selected={field.value}
-                                                            className={Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed':Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ?'disabled':'bg-white'}
+                                                            calendarIcon="Calendar"
                                                             readOnly={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
+                                                            customInput={<CustomInput next={next} last={lastDoneIndex} current={currentMilestone}/>}
                                                         />
                                                     )}
                                                 />
@@ -96,11 +119,11 @@ const SubSteps = ({data, loading, next, lastDoneIndex}) => {
                                                    className='tooltiptextclose'>{val.mouseoverText}</p>
                                             </section>
                                             :
-                                            <section className='tooltip'>
+                                            <section key={index} className='tooltip'>
                                                 <label className='text-xs text-grey label'>{val.stepName}</label>
                                                 <input placeholder='Text Input'
-                                                       className={`subStepInput w-full p-3 md:w-full
-                                                       ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed':Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ?'disabled':'bg-white'}`}
+                                                       className={`subStepInput w-full p-2 md:w-full
+                                                       ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
                                                        {...register(`${val.stepName}`)}
                                                        type="text"
                                                        disabled={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}

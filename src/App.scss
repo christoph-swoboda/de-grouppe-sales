@@ -17,6 +17,9 @@
 .centerItemsAbsolute{
   @include centerItemsAbsolute;
 }
+.centerItemsRelative{
+  @include flexEvenlyCentered;
+}
 hr{
   height: 1px;
   border: .1px solid #eaeaea;

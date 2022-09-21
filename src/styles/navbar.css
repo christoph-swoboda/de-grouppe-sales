@@ -36,7 +36,9 @@ nav {
 }
 
 .userInfo{
-    margin-left: 20rem;
+    position: relative;
+    margin-left: auto;
+    right: 3%;
     display: flex;
     align-items: center;
     justify-items: center;
@@ -57,7 +59,8 @@ nav {
     background-color: white;
     color: #3A46A9;
     border-radius: 5px;
-    padding: 1rem;
+    padding: 1rem 2.4rem;
+    border: 1px solid #d9d9d9;
 }
 .btn {
     display: none;
@@ -73,7 +76,7 @@ nav {
     border-top: 1px solid #eaeaea;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1200px) {
     .list {
         flex-direction: column;
         height: auto;
@@ -105,17 +108,24 @@ nav {
     }
 
     .userInfo{
-        margin-left: 0;
-        padding-top: 20px;
+        margin-left: 5%;
+        margin-right: 0;
+        padding-top: 50px;
     }
     .modal-logout{
-        margin-top: 1rem;
+        margin-top: .1rem;
         width: 100vw;
         right: 0;
     }
-
+    .modal-logout button{
+        text-align: center;
+    }
 
     .btn {
         display: block;
     }
 }
+
+/*@media screen and (max-width: 1200px) {*/
+
+/*}*/

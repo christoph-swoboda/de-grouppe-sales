@@ -1,10 +1,13 @@
-import React, {useState, useEffect} from "react"
-import {GrCheckbox} from "react-icons/gr"
-import {FaToggleOn} from "react-icons/fa"
-import {UserManagement} from "../../../dummyData/userManagement";
-import UserManagementCard from "../../../card/userManagement";
+import React from "react"
+import UserManagementCard from "../../../card/userManagementCard";
+import Pagination from "../../../components/pagination";
+import {useStateValue} from "../../../states/StateProvider";
+import {HashLoader, PacmanLoader, ScaleLoader, SyncLoader} from "react-spinners";
 
-const UserManagementTable = ({role}) => {
+const UserManagementTable = ({role, users, pageSize, loading, total}) => {
+
+    let PageSize = pageSize;
+    const [{page}, dispatch] = useStateValue();
 
     return (
         <div className="flex flex-col">
@@ -30,16 +33,33 @@ const UserManagementTable = ({role}) => {
                             </tr>
                             </thead>
                             {
-                                UserManagement.map(u => (
+                                loading?
+                                    <thead>
+                                    <tr className='mt-24 mb-24 flex justify-center m-auto'>
+                                       <td style={{marginLeft:'40vw'}}> <HashLoader/></td>
+                                    </tr>
+                                    </thead>
+                                    :
+                                users.map((u,index) => (
                                     <UserManagementCard
-                                        key={u.id}
+                                        key={index}
+                                        userID={u.ID}
                                         email={u.email}
-                                        prtnrNo={u.prtnrNo}
-                                        valid={u.valid}
+                                        prtnrNo={u.partnernr}
+                                        valid={u.isValid}
                                     />
                                 ))
                             }
                         </table>
+                        <div className='centerItemsRelative mt-3 mb-2'>
+                            <Pagination
+                                className="pagination-bar"
+                                currentPage={page}
+                                totalCount={total}
+                                pageSize={PageSize}
+                                onPageChange={pageNo => dispatch({type: "SET_PAGE", item: pageNo})}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

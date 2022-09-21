@@ -45,7 +45,7 @@ const Navbar = () => {
         localStorage.removeItem('user')
         localStorage.removeItem('role')
         setLoading(false)
-        window.location.replace('/login')
+        window.location.replace('/')
     }
 
     return (
@@ -54,7 +54,7 @@ const Navbar = () => {
                 <li className='logo'>#DG-Projektportal</li>
                 <li className='time'>Firmenprojeckte | 22.04a</li>
                 {
-                    (toggleMenu || screenWidth > 500) && (
+                    (toggleMenu || screenWidth > 1200) && (
                         <>
                             <Link to={'/'} onClick={toggleNav}>
                                 <li  className={`items ${path.pathname==='/' && 'text-mainBlue'}`}>Dashboard</li>
@@ -65,6 +65,21 @@ const Navbar = () => {
                             <Link to={'/bestant-list'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname.includes('/bestant') && 'text-mainBlue'}`}>Bestant</li>
                             </Link>
+                            {
+                                role==='Internal' ?
+                                    <Link to={'/benutzerverwaltung'}>
+                                        <li className={`items ${path.pathname.includes('/Benutzerverwaltung') && 'text-mainBlue'}`}>
+                                            Benutzerverwaltung
+                                        </li>
+                                    </Link>
+                                    :role==='BankManager' &&
+                                    <Link to={'/Bank-Kooperationspartner'}>
+                                        <li className={`items ${path.pathname.includes('/Bank-Kooperationspartner') && 'text-mainBlue'}`}>
+                                            Bank-Kooperationspartner
+                                        </li>
+                                    </Link>
+                            }
+
                             <li className='userInfo cursor-pointer' >
                                 <img src={image} alt='image'/>
                                 <div>
@@ -77,16 +92,10 @@ const Navbar = () => {
                     )
                 }
             </ul>
-            <p className={modal ? 'modal-logout' : 'hidden'}>
+            <div className={modal ? 'modal-logout' : 'hidden'}>
                 <button onClick={()=>setModal(!modal)} className='text-left p-1'> Settings </button>
-                {
-                    role==='Internal' ?
-                    <Link onClick={()=>setModal(!modal)} className='text-left p-1' to={'/benutzerverwaltung'}>Benutzerverwaltung</Link>
-                        :role==='External' &&
-                    <Link onClick={()=>setModal(!modal)} className='text-left p-1' to={'/Bank-Kooperationspartner'}>Bank-Kooperationspartner</Link>
-                }
                 <button onClick={logout} className='text-left p-1'> {!loading?'Log Out':<BeatLoader size={10} color={'#000000'}/>}</button>
-            </p>
+            </div>
             <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
         </nav>
     )

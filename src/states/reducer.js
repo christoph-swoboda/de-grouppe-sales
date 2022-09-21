@@ -3,6 +3,9 @@ export const initialState = {
     newCreation:{},
     companyInfoModal:false,
     currentMilestone:null,
+    userValidated:false,
+    page:1,
+    pageBestand:1,
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -20,6 +23,21 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 currentMilestone: action.item
+            }
+            case "SET_USER_VALIDATED":
+            return {
+                ...state,
+                userValidated: action.item
+            }
+            case "SET_PAGE":
+            return {
+                ...state,
+                page: action.item
+            }
+            case "SET_PAGE_BESTAND":
+            return {
+                ...state,
+                pageBestand: action.item
             }
         default:
             return state;

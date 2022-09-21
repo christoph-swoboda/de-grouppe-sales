@@ -1,6 +1,9 @@
 import React from "react";
+import {HashLoader} from "react-spinners";
+import ExternalUsersCard from "../../../card/bankManagerCard";
+import BankManagerCard from "../../../card/bankManagerCard";
 
-const BankManagerView = ({role}) => {
+const BankManagerView = ({role, users, pageSize, loading, total}) => {
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -28,25 +31,24 @@ const BankManagerView = ({role}) => {
                             </tr>
                             </thead>
                             <tbody>
-
-                            <tr className=" border-y border-silver border-x-0">
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                <td className="text-sm text-gray-900 font-light px-6 py-4 ">
-                                    susanne.kindler@ruv.de
-                                </td>
-                                <td className="text-sm text-gray-900 font-light px-6 py-4 ">
-                                    69018003
-                                </td>
-                                <td className="text-sm text-gray-900 font-light px-6 py-4 ">
-                                    Cristoph Swobda
-                                </td>
-                                <td className="text-sm text-gray-900 font-light px-6 py-4 ">
-                                    69018003
-                                </td>
-                                <td className=" text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                    <h2 className='border border-mainBlue rounded-3xl pl-3 pr-3 pt-1 pb-1 text-mainBlue font-extrabold uppercase'> Edit</h2>
-                                </td>
-                            </tr>
+                            {
+                                loading ?
+                                    <thead>
+                                    <tr className='mt-24 mb-24 flex justify-center m-auto'>
+                                        <td style={{marginLeft: '40vw'}}><HashLoader/></td>
+                                    </tr>
+                                    </thead>
+                                    :
+                                    users.map((u, index) => (
+                                        <BankManagerCard
+                                            key={index}
+                                            userID={u.ID}
+                                            email={u.email}
+                                            prtnrNo={u.partnernr}
+                                            valid={u.isValid}
+                                        />
+                                    ))
+                            }
 
                             </tbody>
                         </table>
