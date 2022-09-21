@@ -5,7 +5,7 @@ import {BsChatLeftText} from "react-icons/bs";
 const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBank,MA,PStatus,Note}) => {
     return (
         <tr className="border-y border-silver border-x-0 ">
-            <td className="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{index+1}</td>
+            {/*<td className="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{index+1}</td>*/}
             <td className="w-3/12 text-xs text-mainBlue underline font-light px-6 py-4 whitespace-pre-wrap">
                 <Link to={`/bestant/${FirmaKurz.replace(/ /g,"_")}`}>
                     {FirmaKurz}

@@ -12,7 +12,7 @@ import {useStateValue} from "../../states/StateProvider";
 const BestantList = () => {
     const [search, setSearch] = useState()
     const [loading, setLoading] = useState(false);
-    const [rows, setRows] = useState(10);
+    const [rows, setRows] = useState('10');
     let PageSize = rows;
     const [{pageBestand}, dispatch] = useStateValue();
     const [users, setUsers] = useState([]);
@@ -38,8 +38,8 @@ const BestantList = () => {
     }, [rows, userID, pageBestand]);
 
     function setPageStates(e) {
+        dispatch({type: "SET_PAGE_BESTAND", item: 1})
         setRows(e.target.value)
-        dispatch({type: "SET_PAGE", item: 1})
     }
 
 
@@ -61,13 +61,13 @@ const BestantList = () => {
                     </div>
 
                     <p className='text-sm text-grey ml-auto mt-2'>
-                        {pageBestand === 1 ? pageBestand : 1 + (Number(rows))} bis {(users.length < rows) ? users.length + Number(rows) < total ? users.length + Number(rows) : total : rows} von {total} Eintragen
+                        {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Eintragen
                     </p>
                     <h2 className='text-sm text-grey ml-6 mt-2 ml-10'>
                         Eintrage anzigen: <span>
                         <select onChange={setPageStates} className='bg-transparent text-mainBlue'>
-                            <option value={10}>{10}</option>
-                            <option value={25}>{25}</option>
+                            <option value={'10'}>{10}</option>
+                            <option value={'25'}>{25}</option>
                         </select>
                     </span>
                     </h2>
@@ -80,9 +80,9 @@ const BestantList = () => {
                                 <table className="min-w-full">
                                     <thead className=" border-y border-silver border-x-0">
                                     <tr>
-                                        <th scope="col" className="text-xs text-grey px-2 py-1 ">
-                                            #
-                                        </th>
+                                        {/*<th scope="col" className="text-xs text-grey px-2 py-1 ">*/}
+                                        {/*    #*/}
+                                        {/*</th>*/}
                                         {
                                             BestantTableHeaders.map(header => (
                                                 <th key={header.id} scope="col"

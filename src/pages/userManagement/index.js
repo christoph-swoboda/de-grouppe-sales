@@ -11,7 +11,7 @@ const UserManagement = () => {
     const role = JSON.parse(localStorage.role)
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
-    const [rows, setRows] = useState(10);
+    const [rows, setRows] = useState('10');
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
     const [{userValidated, page},dispatch] = useStateValue();
@@ -37,8 +37,8 @@ const UserManagement = () => {
     }, [rows,userID,userValidated,page]);
 
     function setPageStates(e){
-        setRows(e.target.value)
         dispatch({type: "SET_PAGE", item: 1})
+        setRows(e.target.value)
     }
 
 
@@ -55,13 +55,13 @@ const UserManagement = () => {
                            onChange={(e) => setSearch(e.target.value)}
                     />
                     <p className='text-sm text-grey ml-auto mt-2'>
-                        {page === 1 ? page : 1 + (Number(rows))} bis {(users.length < rows) ? users.length+Number(rows)<total?users.length+Number(rows):total : rows} von {total} Eintragen
+                        {page === 1 ? page : (1 + (Number(rows)*page))-Number(rows)} bis {(users.length < Number(rows)) ? users.length+Number(rows)<total?users.length+(Number(rows)*page)-Number(rows):total : (Number(rows)+(Number(rows)*page))-Number(rows)} von {total} Eintragen
                     </p>
                     <h2 className='text-sm text-grey ml-6 mt-2 ml-10'>
                         Eintrage anzigen: <span>
                         <select onChange={setPageStates} className='bg-transparent text-mainBlue'>
-                            <option value={10}>{10}</option>
-                            <option value={25}>{25}</option>
+                            <option value={'10'}>{10}</option>
+                            <option value={'25'}>{25}</option>
                         </select>
                     </span>
                     </h2>
