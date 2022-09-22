@@ -6,7 +6,7 @@ const CompanyData = ({data, toggle}) => {
     return (
         <div className='bg-white text-left'>
             <div className='flex justify-between'>
-                <h2 className='lg:text-left font-extrabold p-5'>Company Master Data</h2>
+                <h2 className='lg:text-left font-extrabold p-5'>Firmenname</h2>
                 <p className='p-5'><IoIosArrowUp size='25px'/></p>
             </div>
             <div className='px-5 pb-1 flex flex-wrap'>
@@ -20,9 +20,7 @@ const CompanyData = ({data, toggle}) => {
                     );
                 })}
             </div>
-            <button onClick={toggle} className='p-2 text-mainBlue underline ml-5 text-xs'>EXPAND
-                COMPANY DETAILS
-            </button>
+            <button onClick={toggle} className='p-2 text-mainBlue underline ml-5 text-xs'>Firmendetails</button>
         </div>
     )
 }

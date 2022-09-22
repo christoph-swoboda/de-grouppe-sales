@@ -1,18 +1,18 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react"
 import {RiseLoader} from "react-spinners";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import {useForm, Controller} from "react-hook-form";
-import Api from "../../../Api/api";
-import {toast} from "react-toastify";
-import {useStateValue} from "../../../states/StateProvider";
+import {Controller, useForm} from "react-hook-form"
+import {useStateValue} from "../../../states/StateProvider"
 import moment from 'moment';
 import CustomInput from '../../../helper/customInput'
-import {GoCalendar} from "react-icons/go";
+import DatePicker, {registerLocale} from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import de from "date-fns/locale/de";
+registerLocale("de", de);
 
 const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
 
     const [Loading, setLoading] = useState(false)
+    const [date, setDate] = useState('')
     const ref = useRef()
     const [{currentMilestone}] = useStateValue();
 
@@ -24,7 +24,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
 
     const onSubmit = async (Data) => {
         setLoading(true)
-        if(Number(currentMilestone) === Number(lastDoneIndex) + 1 ){
+        if (Number(currentMilestone) === Number(lastDoneIndex) + 1) {
             console.log('clicked', Data)
         }
         // Api().post('/test', Data).then(res => {
@@ -36,24 +36,30 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
     };
 
     useEffect(() => {
-        const chars = {'A': ' A', 'P': ' P'};
-        data?.map((d,index )=> {
-            if(grid[Number(d.substepID)-1]?.fieldValue && !next){
+        console.log('values', getValues('aktuellster Termin/Kontakt'))
+    }, [data, grid]);
+
+
+    useEffect(() => {
+        data?.map((d, index) => {
+            if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
                 if (d.fieldType === 'date') {
-                    let date=moment(grid[Number(d.substepID) - 1]?.fieldValue?.replaceAll(/[AP]/g, m => chars[m])).toDate()
+                    let newDate=moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
                     const dateFormat = 'DD-MM-YYYY';
-                    const toDateFormat = moment(new Date(date)).format(dateFormat);
+                    const toDateFormat = moment(new Date(newDate)).format(dateFormat);
                     let valid=moment(toDateFormat, dateFormat, true).isValid()
-                    if(valid){
-                        setValue(`${d.stepName}`, moment(grid[Number(d.substepID) - 1]?.fieldValue?.replaceAll(/[AP]/g, m => chars[m])).toDate())
+                    if (valid){
+                        setValue(`${d.stepName}`, newDate)
                     }
-                }
-                else{
-                    setValue(`${d.stepName}`,`${grid[d.substepID]?.fieldValue}`)
+                    else{
+                        console.log('errdate', newDate)
+                    }
+                } else {
+                    setValue(`${d.stepName}`, `${grid[d.substepID]?.fieldValue}`)
                 }
             }
         })
-    }, [data, grid,setValue]);
+    }, [data, grid, setValue]);
 
 
     return (
@@ -72,13 +78,13 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
                             hidden={next}
                             onClick={() => ref.current.click()}
                             className={'bg-mainBlue text-white cursor-pointer px-4 text-sm py-2  rounded-3xl'}
-                            style={{marginLeft: '90%'}}
+                            style={{marginLeft: '83%'}}
                             disabled={!isValid}>
-                            Save
+                            Speichern
                         </button>
 
                         <form onSubmit={handleSubmit(onSubmit)}
-                              className='grid lg:grid-cols-3 md:grid-cols-1 gap-3.5 mt-6 rounded-lg'>
+                              className='grid lg:grid-cols-3 md:grid-cols-1 gap-1 mt-6 rounded-lg'>
                             {
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?
@@ -104,19 +110,21 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
                                                     name={val.stepName}
                                                     render={({field}) => (
                                                         <DatePicker
+                                                            locale="de"
+                                                            dateFormat="P"
                                                             showYearDropdown
                                                             placeholderText={`Datum wählen`}
                                                             onChange={(date) => field.onChange(date)}
                                                             selected={field.value}
-                                                            calendarIcon="Calendar"
                                                             readOnly={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
-                                                            customInput={<CustomInput next={next} last={lastDoneIndex} current={currentMilestone}/>}
+                                                            customInput={<CustomInput next={next} last={lastDoneIndex}
+                                                                                      current={currentMilestone}/>}
                                                         />
                                                     )}
                                                 />
                                                 {/*<DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>*/}
                                                 <p hidden={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
-                                                   className='tooltiptextclose'>{val.mouseoverText}</p>
+                                                   className={getValues(val.stepName) ? 'hidden':'tooltiptextclose'}>{val.mouseoverText}</p>
                                             </section>
                                             :
                                             <section key={index} className='tooltip'>

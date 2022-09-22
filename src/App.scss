@@ -24,3 +24,7 @@ hr{
   height: 1px;
   border: .1px solid #eaeaea;
 }
+
+textarea:focus{
+  outline: none;
+}

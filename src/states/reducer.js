@@ -6,6 +6,7 @@ export const initialState = {
     userValidated:false,
     page:1,
     pageBestand:1,
+    noteSent:1,
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -38,6 +39,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 pageBestand: action.item
+            }
+            case "SET_NOTE_SENT":
+            return {
+                ...state,
+                noteSent: action.item
             }
         default:
             return state;

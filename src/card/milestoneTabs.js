@@ -15,7 +15,7 @@ const MilestoneTabs = ({label, done, lastIndex,lastDoneIndex, id,loading}) => {
         <div onClick={setMilestone}>
             <p className={`${done === '1'?'bg-complete border-lightgrey':currentMilestone.toString()===id?'border-mainBlue text-mainBlue': 'bg-pending border-lightgrey'}
                 ${lastIndex.toString() === id && 'bg-cancel'} 
-                m-2 text-sm border-2 p-1 cursor-pointer`}
+                m-2 text-sm border-2 pl-2 pr-1 py-1 cursor-pointer text-left`}
             >
                 {label}
                 <span className='float-right'><IoIosArrowForward/></span>

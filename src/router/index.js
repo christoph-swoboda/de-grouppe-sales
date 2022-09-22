@@ -19,6 +19,7 @@ export const RouteData=[
         path:'/new',
         name:'new',
         component:<NewCreation/>,
+
         redirection:'/login'
     },
     {
