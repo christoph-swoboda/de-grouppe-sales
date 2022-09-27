@@ -9,7 +9,7 @@ const BankManagerView = ({role, users, pageSize, loading, total}) => {
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 inline-block min-w-full  sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
-                        <table className="min-w-full">
+                        <table className="min-w-full text-left">
                             <thead className="border-y border-silver border-x-0">
                             <tr>
                                 <th scope="col" className="text-sm font-medium text-grey px-6 py-4 ">

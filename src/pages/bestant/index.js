@@ -15,7 +15,7 @@ import {useParams} from "react-router";
 
 const Bestant = () => {
 
-    const [{companyInfoModal, currentMilestone,noteSent}, dispatch] = useStateValue();
+    const [{companyInfoModal, currentMilestone, noteSent}, dispatch] = useStateValue();
     const {toggleCompanyInfoModal} = useModal();
     const [loading, setLoading] = useState(true)
     const [stepsLoading, setStepsLoading] = useState(true)
@@ -26,7 +26,9 @@ const Bestant = () => {
     const [milestoneTabs, setMilestoneTabs] = useState([])
     const [lastIndex, setLastIndex] = useState(null)
     const [lastDoneIndex, setLastDoneIndex] = useState(0)
+    const [currentSubStep, setCurrentSubStep] = useState([])
     const param = useParams()
+    const [options, setOptions] = useState([])
 
     useEffect(() => {
         let data = new FormData()
@@ -50,6 +52,7 @@ const Bestant = () => {
 
         if (lastDoneIndex > 0) {
             Api().post('/sub-steps', Data).then(res => {
+                // console.log('sS', res.data)
                 setSubSteps(res.data.subSteps)
                 setGrid(res.data.grid)
                 setNextStep(res.data.next)
@@ -60,10 +63,27 @@ const Bestant = () => {
     }, [lastDoneIndex, currentMilestone]);
 
     useEffect(() => {
+           let filtered= subSteps.filter(d => d.fieldType==='option')
+            let arr=[]
+            filtered.map(f=>{
+                // console.log('loop',f.substepID)
+                arr.push(f.substepID)
+
+                let Data = new FormData()
+                Data.append('milestoneID', currentMilestone)
+                Data.append('subStepID', f.substepID)
+                Api().post('/options', Data).then(res => {
+                    setOptions(res.data)
+                    console.log('res', res.data)
+                })
+                setCurrentSubStep(arr)
+            })
+    }, [subSteps]);
+
+    useEffect(() => {
         let index = Object.keys(milestoneTabs).length - 1
         setLastIndex(index)
     }, [milestoneTabs]);
-
 
     return (
         <div className='dashboardContainer'>
@@ -100,7 +120,14 @@ const Bestant = () => {
                 <div className='lg:w-2/4 lg:ml-0 h-fit text-left'>
                     <div className='bg-white p-5 m-2 pb-10'>
                         <h2 className='text-2xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(3)}</h2>
-                        <SubSteps data={subSteps} loading={stepsLoading} lastDoneIndex={lastDoneIndex} grid={grid}/>
+                        <SubSteps
+                            data={subSteps}
+                            loading={stepsLoading}
+                            lastDoneIndex={lastDoneIndex}
+                            currentSubStep={currentSubStep}
+                            options={options}
+                            grid={grid}
+                        />
                     </div>
 
                     <div
@@ -108,8 +135,15 @@ const Bestant = () => {
                         className='my-4 bg-white p-5 m-2 pb-10'
                     >
                         <h2 className='text-2xl'>{milestoneTabs[Number(currentMilestone) + 1]?.milestoneLabel.substring(3)}(Bevorstehende)</h2>
-                        <SubSteps data={nextStep} loading={stepsLoading} lastDoneIndex={lastDoneIndex} next
-                                  grid={grid}/>
+                        <SubSteps
+                            data={nextStep}
+                            loading={stepsLoading}
+                            lastDoneIndex={lastDoneIndex}
+                            currentSubStep={currentSubStep}
+                            next
+                            options={options}
+                            grid={grid}
+                        />
                     </div>
                 </div>
 

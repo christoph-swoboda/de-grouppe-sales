@@ -61,9 +61,10 @@ const Status = ({notes, company}) => {
                           value={note}
                           onChange={(e) => setNote(e.target.value)}
                 />
-                <button className='px-3 py-2 m-2 rounded-3xl bg-mainBlue text-white text-sm'
+                <button className={`${!note?'bg-whiteDark cursor-no-drop':'bg-mainBlue text-white'} px-3 py-2 m-2 rounded-3xl text-sm`}
                         onClick={save}
                         hidden={!toggle}
+                        disabled={!note}
                 >{!loading ? 'Senden' : 'Senden...'}
                 </button>
             </div>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useCallback, useEffect, useRef, useState} from "react"
 import {RiseLoader} from "react-spinners";
 import {Controller, useForm} from "react-hook-form"
 import {useStateValue} from "../../../states/StateProvider"
@@ -7,14 +7,64 @@ import CustomInput from '../../../helper/customInput'
 import DatePicker, {registerLocale} from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import de from "date-fns/locale/de";
+import Api from "../../../Api/api";
+
 registerLocale("de", de);
 
-const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
+const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, options}) => {
 
     const [Loading, setLoading] = useState(false)
-    const [date, setDate] = useState('')
+    const [option, setOption] = useState([options])
+    // const [options, setOptions] = useState([])
     const ref = useRef()
     const [{currentMilestone}] = useStateValue();
+
+    const optionss = [
+        {
+            subStepID: '3',
+            optionValues: ['ja', 'nein']
+        },
+        {
+            subStepID: '5',
+            optionValues: ['easy', 'peasy']
+        },
+    ]
+    const opt = [
+        {
+            subStepID: '3',
+            optionValues: 'ja',
+        },
+        {
+            subStepID: '3',
+            optionValues: 'Nein'
+        },
+        {
+            subStepID: '5',
+            optionValues: 'Easy'
+        },
+        {
+            subStepID: '5',
+            optionValues: 'Peasy'
+        },
+    ]
+
+    useEffect(() => {
+        setOption([...option, options])
+        // if (!next && data.length > 0) {
+        //     let Data = new FormData()
+        //     Data.append('milestoneID', currentMilestone)
+        //     Data.append('subStepID', currentSubStep)
+        //     Api().post('/options', Data).then(res => {
+        //         setOption(res.data)
+        //         console.log('res', res.data)
+        //     })
+        // }
+    }, [data, currentSubStep, options]);
+
+    useEffect(() => {
+        console.log('option', option)
+    }, [option]);
+
 
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
@@ -25,8 +75,11 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
     const onSubmit = async (Data) => {
         setLoading(true)
         if (Number(currentMilestone) === Number(lastDoneIndex) + 1) {
-            console.log('clicked', Data)
         }
+        console.log('clicked', Data)
+        console.log('grid', grid, (grid[(Number(1)) + 1]?.fieldValue))
+        console.log('ssteps', data)
+
         // Api().post('/test', Data).then(res => {
         //     console.log('res', res.data)
         // }).catch(e => {
@@ -36,25 +89,25 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
     };
 
     useEffect(() => {
-        console.log('values', getValues('aktuellster Termin/Kontakt'))
-    }, [data, grid]);
-
-
-    useEffect(() => {
         data?.map((d, index) => {
             if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
                 if (d.fieldType === 'date') {
-                    let newDate=moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
+                    let newDate = moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
                     const dateFormat = 'DD-MM-YYYY';
                     const toDateFormat = moment(new Date(newDate)).format(dateFormat);
-                    let valid=moment(toDateFormat, dateFormat, true).isValid()
-                    if (valid){
+                    let valid = moment(toDateFormat, dateFormat, true).isValid()
+                    if (valid) {
                         setValue(`${d.stepName}`, newDate)
+                    } else {
+                        setValue(`${d.stepName}`, moment(new Date()).toDate())
+                        console.log('errdate', grid[Number(d.substepID) - 1]?.fieldValue)
                     }
-                    else{
-                        console.log('errdate', newDate)
-                    }
-                } else {
+                }
+                if (d.fieldType === 'option') {
+                    // setValue('Einspruch an FA erforderlich', 'ja')
+                    setValue(`${d.stepName}`, `${grid[d.substepID]?.fieldValue}`)
+                }
+                if (d.fieldType === 'text') {
                     setValue(`${d.stepName}`, `${grid[d.substepID]?.fieldValue}`)
                 }
             }
@@ -88,15 +141,44 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
                             {
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?
-                                        <section key={index} className='tooltip sm:flex sm:flex-col'>
+                                        <section key={index} placeholder='Wähle eine Option'
+                                                 className='tooltip sm:flex sm:flex-col'>
                                             <label className='text-xs text-grey label'>{val.stepName}</label>
-                                            <select {...register(`${val.stepName}`)}
-                                                    disabled={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
-                                                    className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
+                                            <select
+                                                // disabled={(grid[Number(val.substepID)-1]?.fieldValue)!==null}
+                                                {...register(`${val.stepName}`)}
+                                                // disabled={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
+                                                className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
                                                     ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
                                             >
-                                                <option value="1">Option 1</option>
-                                                <option value="2">Option 2</option>
+                                                {/*{*/}
+                                                {/*    currentSubStep.map(op=>{*/}
+                                                {/*        optionss[1]?.map((o, i) => (*/}
+                                                {/*            <option key={i} value={o.optionValue}>{o.optionValue}</option>*/}
+                                                {/*        ))*/}
+                                                {/*    })*/}
+                                                {/*}*/}
+                                                <option defaultValue disabled>Wähle eine Option</option>
+                                                {
+                                                    // optionss.map((op, i) => (
+                                                    //     // currentSubStep.includes(val.substepID) &&
+                                                    //     op.subStepID === val.substepID &&
+                                                    //     op?.optionValues.map((o, index) => (
+                                                    //         <option  key={index} value={o}>{o}</option>
+                                                    //     ))
+                                                    // ))
+                                                    option.map((op, i) => (
+                                                        // currentSubStep.includes(val.substepID) &&
+                                                        op.substepID === val.substepID ?
+                                                        <option key={i} value={op?.optionValue}>
+                                                            {op?.optionValue}
+                                                        </option>
+                                                            :
+                                                            <option key={i} hidden>
+
+                                                            </option>
+                                                    ))
+                                                }
                                             </select>
                                             <p hidden={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
                                                className='tooltiptextclose'>{val.mouseoverText}</p>
@@ -110,9 +192,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
                                                     name={val.stepName}
                                                     render={({field}) => (
                                                         <DatePicker
-                                                            locale="de"
-                                                            dateFormat="P"
-                                                            showYearDropdown
+                                                            locale="de" dateFormat="P" showYearDropdown
                                                             placeholderText={`Datum wählen`}
                                                             onChange={(date) => field.onChange(date)}
                                                             selected={field.value}
@@ -124,7 +204,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid}) => {
                                                 />
                                                 {/*<DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>*/}
                                                 <p hidden={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
-                                                   className={getValues(val.stepName) ? 'hidden':'tooltiptextclose'}>{val.mouseoverText}</p>
+                                                   className={getValues(val.stepName) ? 'hidden' : 'tooltiptextclose'}>{val.mouseoverText}</p>
                                             </section>
                                             :
                                             <section key={index} className='tooltip'>
