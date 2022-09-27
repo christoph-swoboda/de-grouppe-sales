@@ -131,7 +131,7 @@ form {
   width: 100%;
 
   @media screen and (max-width: $bp-laptop) {
-    width: 13vw;
+    width: 100%;
   }
   //@media screen and (max-width: $bp-mobile) {
   //  width: 70vw;
@@ -143,6 +143,7 @@ form {
 
 .subStepInput, .subStepSelect{
   color: #676767;
+  width: 100%;
   //@media screen and (max-width: $bp-laptop) {
   //  width: 11vw;
   //}
@@ -158,4 +159,23 @@ form {
 .completed{
   background-color: #f2fff9;
   cursor: none;
+}
+
+.saveMS{
+  margin-left: 94%;
+  @media screen and (max-width: 1920px) {
+    margin-left: 86%;
+  }
+  @media screen and (max-width: 1280px) {
+    margin-left: 80%;
+  }
+  @media screen and (max-width: 1440px) {
+    margin-left: 83%;
+  }
+  @media screen and (max-width: 810px) {
+    margin-left: 85%;
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: 70%;
+  }
 }

@@ -10,7 +10,7 @@ import Pagination from "../../components/pagination";
 import {useStateValue} from "../../states/StateProvider";
 
 const BestantList = () => {
-    const [search, setSearch] = useState()
+    const [search, setSearch] = useState(null)
     const [loading, setLoading] = useState(false);
     const [rows, setRows] = useState('10');
     let PageSize = rows;
@@ -41,6 +41,17 @@ const BestantList = () => {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
         setRows(e.target.value)
     }
+
+    // useEffect(() => {
+    //     if(search){
+    //         let Data=new FormData()
+    //         Data.append('email', search)
+    //         Api().post('/searchEmail', Data).then(res=>{
+    //             console.log('search',res.data)
+    //         })
+    //     }
+    // }, [search]);
+
 
 
     return (

@@ -13,8 +13,6 @@ N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
-I
-src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
 <
@@ -43,15 +41,17 @@ L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
 N
 src/components/authDirector.js,0\f\0f930eab094e16c7371f98ba1eac67cf228c3706
-X
-(src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
 E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
-L
-src/dummyData/bestantInfo.js,6\2\62db3afec19d67d869ac3bbdc2ae55301533f7df
 K
 src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
+Y
+)src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
+c
+3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
+V
+&src/pages/bestantList/partial/table.js,b\2\b265d6279560b6d0ce8e016d11c2eb22fdfb42c6

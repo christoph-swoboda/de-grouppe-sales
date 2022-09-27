@@ -14,7 +14,6 @@ const Status = ({notes, company}) => {
     const [{noteSent}, dispatch] = useStateValue();
 
     function save() {
-
         setLoading(true)
         let data = new FormData()
         data.append('note', note)
@@ -37,7 +36,7 @@ const Status = ({notes, company}) => {
     return (
         <>
             <div className='flex justify-between bg-white mt-5'>
-                <h2 className='text-lg lg:text-left font-extrabold'>Status</h2>
+                <h2 className='text-lg lg:text-left font-extrabold'>Bemerkungen</h2>
                 <p><IoIosArrowUp size='25px'/></p>
             </div>
             {
@@ -61,10 +60,11 @@ const Status = ({notes, company}) => {
                           value={note}
                           onChange={(e) => setNote(e.target.value)}
                 />
-                <button className={`${!note?'bg-whiteDark cursor-no-drop':'bg-mainBlue text-white'} px-3 py-2 m-2 rounded-3xl text-sm`}
-                        onClick={save}
-                        hidden={!toggle}
-                        disabled={!note}
+                <button
+                    className={`${!note || !note.replace(/\s/g, '').length ? 'bg-whiteDark cursor-no-drop' : 'bg-mainBlue text-white'} px-3 py-2 m-2 rounded-3xl text-sm`}
+                    onClick={save}
+                    hidden={!toggle}
+                    disabled={!note || !note.replace(/\s/g, '').length}
                 >{!loading ? 'Senden' : 'Senden...'}
                 </button>
             </div>

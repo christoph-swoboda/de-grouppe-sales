@@ -63,21 +63,21 @@ const Bestant = () => {
     }, [lastDoneIndex, currentMilestone]);
 
     useEffect(() => {
-           let filtered= subSteps.filter(d => d.fieldType==='option')
-            let arr=[]
-            filtered.map(f=>{
-                // console.log('loop',f.substepID)
-                arr.push(f.substepID)
+        let filtered = subSteps.filter(d => d.fieldType === 'option')
+        let arr = []
+        filtered.map(f => {
+            // console.log('loop',f.substepID)
+            arr.push(f.substepID)
 
-                let Data = new FormData()
-                Data.append('milestoneID', currentMilestone)
-                Data.append('subStepID', f.substepID)
-                Api().post('/options', Data).then(res => {
-                    setOptions(res.data)
-                    console.log('res', res.data)
-                })
-                setCurrentSubStep(arr)
+            let Data = new FormData()
+            Data.append('milestoneID', currentMilestone)
+            Data.append('subStepID', f.substepID)
+            Api().post('/options', Data).then(res => {
+                setOptions(res.data)
+                console.log('res', res.data)
             })
+            setCurrentSubStep(arr)
+        })
     }, [subSteps]);
 
     useEffect(() => {
@@ -91,14 +91,16 @@ const Bestant = () => {
 
     return (
         <div className='dashboardContainer'>
-            <div className='lg:flex justify-start mt-10 sm:block mb-5'>
-                <h2 className='text-2xl lg:text-left font-extrabold'>Milensteine Projektverlauf</h2>
-            </div>
-
-            <CompanyData data={BestantCompanyInfo} toggle={toggleCompanyInfoModal}/>
+            {/*<div className='lg:flex justify-start mt-10 sm:block mb-5'>*/}
+            {/*    <h2 className='text-2xl lg:text-left font-extrabold'>Milensteine Projektverlauf</h2>*/}
+            {/*</div>*/}
+            <CompanyData data={BestantCompanyInfo}
+                         company={param.id.replaceAll('_', ' ')}
+                         toggle={toggleCompanyInfoModal}
+            />
 
             <div className='lg:flex justify-between my-3 rounded-lg sm:block'>
-                <div className='bg-white px-2 m-1 pb-10 lg:w-1/4 lg:ml-0 rounded-lg h-fit'>
+                <div className='bg-white px-2 m-1 pb-10 lg:min-w-max lg:ml-0 rounded-lg h-fit'>
                     {
                         loading ?
                             <div style={{height: '80vh'}}>
@@ -121,9 +123,12 @@ const Bestant = () => {
                     }
                 </div>
 
-                <div className='lg:w-2/4 lg:ml-0 h-fit text-left'>
+                <div className='lg:w-2/4 2xl:w-2/4 lg:ml-0 h-fit text-left'>
                     <div className='bg-white p-5 m-2 pb-10'>
-                        <h2 className='text-2xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(3)}</h2>
+                        <h2 className='text-2xl text-center text-bold mb-2 '>Platzhalter</h2>
+                        {/*<hr/>*/}
+                        {/*<br/>*/}
+                        <h2 className='text-xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(3)}</h2>
                         <SubSteps
                             data={subSteps}
                             loading={stepsLoading}
@@ -152,7 +157,7 @@ const Bestant = () => {
                 </div>
 
 
-                <div className='bg-white px-3 pb-10 lg:w-1/4 lg:ml-0 rounded-lg h-fit'>
+                <div className='bg-white px-3 2xl:w-2/4 pb-10 xl:w-1/3 xl:ml-0 rounded-lg h-fit'>
                     {
                         loading ?
                             <div style={{height: '30vh'}}>
