@@ -81,6 +81,10 @@ const Bestant = () => {
     }, [subSteps]);
 
     useEffect(() => {
+        setOptions([])
+    }, [currentMilestone]);
+
+    useEffect(() => {
         let index = Object.keys(milestoneTabs).length - 1
         setLastIndex(index)
     }, [milestoneTabs]);

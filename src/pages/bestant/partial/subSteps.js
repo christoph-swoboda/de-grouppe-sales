@@ -50,23 +50,15 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
 
     useEffect(() => {
         setOption([])
-        if(options.length>0){
-            setOption([...option, ...new Set(options)])
-        }
-        // if (!next && data.length > 0) {
-        //     let Data = new FormData()
-        //     Data.append('milestoneID', currentMilestone)
-        //     Data.append('subStepID', currentSubStep)
-        //     Api().post('/options', Data).then(res => {
-        //         setOption(res.data)
-        //         console.log('res', res.data)
-        //     })
-        // }
-    }, [data, currentSubStep, options, currentMilestone]);
+    }, [currentMilestone]);
 
     useEffect(() => {
         setOption([])
-    }, [currentMilestone]);
+        if (options.length > 0) {
+            let arr=[...new Set(option), ...new Set(options)]
+            setOption([...new Set(arr)])
+        }
+    }, [data, currentSubStep, options, currentMilestone]);
 
 
     useEffect(() => {
@@ -152,11 +144,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                         <section key={index} placeholder='Wähle eine Option'
                                                  className='tooltip sm:flex sm:flex-col'>
                                             <label className='text-xs text-grey label'>{val.stepName}</label>
-                                            <select
-                                                // disabled={(grid[Number(val.substepID)-1]?.fieldValue)!==null}
-                                                {...register(`${val.stepName}`)}
-                                                // disabled={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
-                                                className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
+                                            <select {...register(`${val.stepName}`)}
+                                                    disabled={( next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
+                                                    className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
                                                     ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
                                             >
                                                 {/*{*/}
@@ -178,9 +168,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                                     option.map((op, i) => (
                                                         // currentSubStep.includes(val.substepID) &&
                                                         op.substepID === val.substepID ?
-                                                        <option key={i} value={op?.optionValue}>
-                                                            {op?.optionValue}
-                                                        </option>
+                                                            <option key={i} value={op?.optionValue}>
+                                                                {op?.optionValue}
+                                                            </option>
                                                             :
                                                             <option key={i} hidden>
 

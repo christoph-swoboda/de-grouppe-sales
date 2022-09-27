@@ -17,8 +17,6 @@ I
 src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
-J
-src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
 <
 src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
 :
