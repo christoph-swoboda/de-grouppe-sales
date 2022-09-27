@@ -49,7 +49,10 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     ]
 
     useEffect(() => {
-        setOption([...option, options])
+        setOption([])
+        if(options.length>0){
+            setOption([...option, ...new Set(options)])
+        }
         // if (!next && data.length > 0) {
         //     let Data = new FormData()
         //     Data.append('milestoneID', currentMilestone)
@@ -59,7 +62,12 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
         //         console.log('res', res.data)
         //     })
         // }
-    }, [data, currentSubStep, options]);
+    }, [data, currentSubStep, options, currentMilestone]);
+
+    useEffect(() => {
+        setOption([])
+    }, [currentMilestone]);
+
 
     useEffect(() => {
         console.log('option', option)
