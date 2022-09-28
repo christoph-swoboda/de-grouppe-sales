@@ -55,9 +55,9 @@ const Bestant = () => {
         if (lastDoneIndex > 0) {
             Api().post('/sub-steps', Data).then(res => {
                 setSubSteps(res.data.subSteps)
-                let filter=res.data.subSteps.filter(d => d.fieldType === 'option')
+                let filter = res.data.subSteps.filter(d => d.fieldType === 'option')
                 setFiltered(filter)
-                if(filter.length===0){
+                if (filter.length === 0) {
                     setStepsLoading(false)
                 }
                 setGrid(res.data.grid)
@@ -68,32 +68,24 @@ const Bestant = () => {
     }, [lastDoneIndex, currentMilestone, param.id]);
 
     useEffect(() => {
-            let arr = []
-            if (filtered?.length > 0) {
-                filtered.map((f, i) => {
-                    arr.push(f.substepID)
-                    let Data = new FormData()
-                    Data.append('milestoneID', currentMilestone)
-                    Data.append('subStepID', f.substepID)
-                    Api().post('/options', Data).then(async res => {
-                        await setOptions(res.data)
-                        if (i + 1 === filtered.length) {
-                            console.log('cm', currentMilestone)
-                            if(currentMilestone===11){
-                                setTimeout(() => {
-                                    setStepsLoading(false)
-                                }, 5000);
-                            }
-                            else{
-                                setStepsLoading(false)
-                            }
-                        }
-                    }).catch(e => {
+        let arr = []
+        if (filtered?.length > 0) {
+            filtered.map((f, i) => {
+                arr.push(f.substepID)
+                let Data = new FormData()
+                Data.append('milestoneID', currentMilestone)
+                Data.append('subStepID', f.substepID)
+                Api().post('/options', Data).then(async res => {
+                    await setOptions(res.data)
+                    if (i + 1 === filtered.length) {
                         setStepsLoading(false)
-                    })
-                    setCurrentSubStep(arr)
+                    }
+                }).catch(e => {
+                    setStepsLoading(false)
                 })
-            }
+                setCurrentSubStep(arr)
+            })
+        }
     }, [filtered]);
 
     useEffect(() => {

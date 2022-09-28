@@ -23,12 +23,12 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     }, [currentMilestone]);
 
     useEffect(() => {
-        setOption([])
+        // setOption([])
         if (options.length > 0) {
             let arr = [...new Set(option), ...new Set(options)]
             setOption([...new Set(arr)])
         }
-    }, [data, currentSubStep, options, currentMilestone, grid, lastDoneIndex, next, loading]);
+    }, [data, options]);
 
     useEffect(() => {
         console.log('op', option)
