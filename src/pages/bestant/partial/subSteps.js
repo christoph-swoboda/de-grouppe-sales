@@ -8,6 +8,7 @@ import DatePicker, {registerLocale} from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import de from "date-fns/locale/de";
 import Api from "../../../Api/api";
+import Options from "./fields/options";
 
 registerLocale("de", de);
 
@@ -112,31 +113,18 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                             {
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?
-                                        <section key={index} className='tooltip sm:flex sm:flex-col'>
-                                            <label className='text-sm text-grey label'>{val.stepName}</label>
-                                            <select {...register(`${val.stepName}`)}
-                                                    disabled={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
-                                                    className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
-                                                    ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
-                                            >
-                                                <option selected={getValues(val.stepName) === 'autoFill'} hidden>
-                                                    Wähle eine Option
-                                                </option>
-                                                {
-                                                    option.map((op, i) => (
-                                                        op.substepID === val.substepID ?
-                                                            <option key={i} value={op?.optionValue}>
-                                                                {op?.optionValue}
-                                                            </option>
-                                                            :
-                                                            <option key={i} hidden>
-
-                                                            </option>
-                                                    ))
-                                                }
-                                            </select>
-                                            <p className='tooltiptextclose'>{val.mouseoverText}</p>
-                                        </section>
+                                        <Options
+                                            key={index}
+                                            index={index}
+                                            grid={grid}
+                                            getValues={getValues}
+                                            register={register}
+                                            currentMilestone={currentMilestone}
+                                            lastDoneIndex={lastDoneIndex}
+                                            val={val}
+                                            option={option}
+                                            next={next}
+                                        />
 
                                         : val.fieldType === 'date' ?
                                             <section key={index} className='tooltip'>
