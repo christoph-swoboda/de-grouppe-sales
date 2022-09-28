@@ -78,7 +78,9 @@ const Bestant = () => {
                     Api().post('/options', Data).then(res => {
                         setOptions(res.data)
                         if (i + 1 === filtered.length) {
-                            setStepsLoading(false)
+                            setTimeout(() => {
+                                setStepsLoading(false)
+                            }, 2000);
                         }
                     }).catch(e => {
                         setStepsLoading(false)
