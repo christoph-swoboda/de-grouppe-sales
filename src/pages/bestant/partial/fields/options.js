@@ -1,6 +1,13 @@
 import React, {useState, useEffect} from "react";
 
 const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, option, register}) => {
+
+    const [options, setOptions] = useState([])
+
+    useEffect(() => {
+        setOptions(option)
+    }, [option]);
+
     return (
         <section className='tooltip sm:flex sm:flex-col'>
             <label className='text-sm text-grey label'>{val.stepName}</label>
@@ -13,7 +20,7 @@ const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, o
                     Wähle eine Option
                 </option>
                 {
-                    option.map((op, i) => (
+                    options?.map((op, i) => (
                         op.substepID === val.substepID ?
                             <option key={i} value={op?.optionValue}>
                                 {op?.optionValue}

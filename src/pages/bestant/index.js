@@ -84,20 +84,17 @@ const Bestant = () => {
                 Data.append('milestoneID', currentMilestone)
                 Data.append('subStepID', f.substepID)
                 await Api().post('/options', Data).then(res => {
-                    const timer = setTimeout(() => {
-                        setOptions(res.data)
-                    }, 1000);
+                    setOptions(res.data)
                     if (i + 1 === filtered.length) {
                         setStepsLoading(false)
                     }
-                    return () => clearTimeout(timer);
                 }).catch(e => {
                     setStepsLoading(false)
                 })
                 setCurrentSubStep(arr)
             })
         }
-    }, [currentMilestone, filtered, subSteps, nextStep, lastDoneIndex, lastIndex]);
+    }, [currentMilestone, filtered]);
 
     useEffect(() => {
         let index = Object.keys(milestoneTabs).length - 1

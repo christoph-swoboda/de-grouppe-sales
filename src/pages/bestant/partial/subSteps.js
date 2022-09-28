@@ -43,22 +43,21 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
             let arr = [...new Set(option), ...new Set(options)]
             setOption([...new Set(arr)])
         },
-        [data, options, currentSubStep, currentMilestone],
+        [data, options],
     );
-
-    useEffect(() => {
-        setOption([])
-    }, [currentMilestone]);
-
     useEffect(() => {
         memoizedCallback().then(r => r)
     }, [memoizedCallback]);
 
     useEffect(() => {
-        if (option.length > 0) {
-            console.log('op', option)
-        }
-    }, [option]);
+        setOption([])
+    }, [currentMilestone]);
+
+    // useEffect(() => {
+    //     if (option.length > 0) {
+    //         console.log('op', option)
+    //     }
+    // }, [option]);
 
     useEffect(() => {
         if (data.length > 0) {
