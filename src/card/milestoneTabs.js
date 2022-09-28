@@ -8,9 +8,12 @@ const MilestoneTabs = ({label, done, lastIndex,lastDoneIndex, id,loading}) => {
 
     function setMilestone(){
         if(!loading){
-            dispatch({type: "SET_CURRENTMILESTONE", item: id})
+            // setTimeout(() => {
+                dispatch({type: "SET_CURRENTMILESTONE", item: id})
+            // }, 1000);
         }
     }
+
     return (
         <div onClick={setMilestone}>
             <p className={`${done === '1'?'bg-complete border-lightgrey':currentMilestone.toString()===id?'border-mainBlue text-mainBlue': 'bg-pending border-lightgrey'}

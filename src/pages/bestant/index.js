@@ -56,7 +56,6 @@ const Bestant = () => {
                 setSubSteps(res.data.subSteps)
                 setGrid(res.data.grid)
                 setNextStep(res.data.next)
-                setStepsLoading(false)
             })
 
         }
@@ -72,6 +71,9 @@ const Bestant = () => {
             Data.append('subStepID', f.substepID)
             Api().post('/options', Data).then(res => {
                 setOptions(res.data)
+                setStepsLoading(false)
+            }).catch(e=>{
+                setStepsLoading(false)
             })
             setCurrentSubStep(arr)
         })
