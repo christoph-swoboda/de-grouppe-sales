@@ -42,25 +42,25 @@ const Status = ({notes, company}) => {
                 <CollapseExpand show={collapse2} id={2}/>
             </div>
             <div className={`${!collapse2 && 'hidden'}`}>
-            {
-                notes.map((note, index) => (
-                    <BestantStatus
-                        key={index}
-                        note={note.NOTES0}
-                        by={note.CREATEDBY}
-                        at={note.DATECREATE}
-                    />
-                ))
-            }
+                {
+                    notes.map((note, index) => (
+                        <BestantStatus
+                            key={index}
+                            note={note.NOTES0}
+                            by={note.CREATEDBY}
+                            at={note.DATECREATE}
+                        />
+                    ))
+                }
             </div>
 
             <div className='bg-white mt-2'>
-                <button className='px-3 py-2 m-2 rounded-3xl bg-mainBlue text-white text-sm'
+                <button hidden={!collapse2} className='px-3 py-2 m-2 rounded-3xl bg-mainBlue text-white text-sm'
                         onClick={() => setToggle(!toggle)}
                 >
                     {!toggle ? 'Neue Hinzufügen' : 'Abbrechen'}
                 </button>
-                <textarea placeholder='Neue Notiz hinzufügen' hidden={!toggle} rows='3'
+                <textarea placeholder='Neue Notiz hinzufügen' hidden={!toggle && collapse2} rows='3'
                           className='border border-whiteDark w-full rounded-lg p-3'
                           value={note}
                           onChange={(e) => setNote(e.target.value)}
@@ -68,9 +68,10 @@ const Status = ({notes, company}) => {
                 <button
                     className={`${!note || !note.replace(/\s/g, '').length ? 'bg-whiteDark cursor-no-drop' : 'bg-mainBlue text-white'} px-3 py-2 m-2 rounded-3xl text-sm`}
                     onClick={save}
-                    hidden={!toggle}
+                    hidden={!toggle && collapse2}
                     disabled={!note || !note.replace(/\s/g, '').length}
-                >{!loading ? 'Senden' : 'Senden...'}
+                >
+                    {!loading ? 'Senden' : 'Senden...'}
                 </button>
             </div>
         </>
