@@ -19,6 +19,7 @@ const Bestant = () => {
     const {toggleCompanyInfoModal} = useModal();
     const [loading, setLoading] = useState(true)
     const [stepsLoading, setStepsLoading] = useState(true)
+    const [hasOptions, setHasOptions] = useState(false)
     const [notes, setNotes] = useState([])
     const [subSteps, setSubSteps] = useState([])
     const [filtered, setFiltered] = useState([])
@@ -43,7 +44,7 @@ const Bestant = () => {
                 setLoading(false)
             }
         )
-    }, [noteSent]);
+    }, [noteSent, dispatch, param.id]);
 
     useEffect(() => {
         setStepsLoading(true)
@@ -53,30 +54,30 @@ const Bestant = () => {
 
         if (lastDoneIndex > 0) {
             Api().post('/sub-steps', Data).then(res => {
-                // console.log('sS', res.data)
                 setSubSteps(res.data.subSteps)
                 setGrid(res.data.grid)
                 setNextStep(res.data.next)
             })
 
         }
-    }, [lastDoneIndex, currentMilestone]);
+    }, [lastDoneIndex, currentMilestone, param.id]);
 
     useEffect(() => {
         setFiltered(subSteps.filter(d => d.fieldType === 'option'))
     }, [subSteps]);
 
     useEffect(() => {
-        console.log('fil', filtered)
-    }, [filtered]);
+        if (filtered?.length > 0) {
+            setHasOptions(true)
+        }
+    }, [filtered, subSteps]);
 
 
 
     useEffect(() => {
-        // console.log('ss', subSteps)
             let arr = []
+            if (hasOptions || filtered?.length > 0) {
                 filtered.map((f, i) => {
-                    console.log('f', f.substepID)
                     arr.push(f.substepID)
                     let Data = new FormData()
                     Data.append('milestoneID', currentMilestone)
@@ -86,15 +87,13 @@ const Bestant = () => {
                         if (i + 1 === filtered.length) {
                             setStepsLoading(false)
                         }
-                        // else {
-                        //     setStepsLoading(false)
-                        // }
-
                     }).catch(e => {
                         setStepsLoading(false)
                     })
                     setCurrentSubStep(arr)
                 })
+            }
+
     }, [filtered]);
 
     useEffect(() => {
@@ -109,9 +108,6 @@ const Bestant = () => {
 
     return (
         <div className='dashboardContainer'>
-            {/*<div className='lg:flex justify-start mt-10 sm:block mb-5'>*/}
-            {/*    <h2 className='text-2xl lg:text-left font-extrabold'>Milensteine Projektverlauf</h2>*/}
-            {/*</div>*/}
             <CompanyData data={BestantCompanyInfo}
                          company={param.id.replaceAll('_', ' ')}
                          toggle={toggleCompanyInfoModal}
