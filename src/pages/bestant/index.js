@@ -84,10 +84,13 @@ const Bestant = () => {
                 Data.append('milestoneID', currentMilestone)
                 Data.append('subStepID', f.substepID)
                 await Api().post('/options', Data).then(res => {
-                    setOptions(res.data)
+                    const timer = setTimeout(() => {
+                        setOptions(res.data)
+                    }, 7000);
                     if (i + 1 === filtered.length) {
                         setStepsLoading(false)
                     }
+                    return () => clearTimeout(timer);
                 }).catch(e => {
                     setStepsLoading(false)
                 })

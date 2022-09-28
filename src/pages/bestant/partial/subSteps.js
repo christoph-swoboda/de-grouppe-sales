@@ -40,10 +40,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     ]
     const memoizedCallback = useCallback(
         async () => {
-            if (options.length > 0) {
-                let arr = [...new Set(option), ...new Set(options)]
-                setOption([...new Set(arr)])
-            }
+            let arr = [...new Set(option), ...new Set(options)]
+            setOption([...new Set(arr)])
         },
         [data, options, currentSubStep, currentMilestone],
     );
@@ -53,7 +51,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     }, [currentMilestone]);
 
     useEffect(() => {
-        memoizedCallback().then(r=>r)
+        memoizedCallback().then(r => r)
     }, [memoizedCallback]);
 
     useEffect(() => {
