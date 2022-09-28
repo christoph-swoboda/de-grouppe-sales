@@ -15,26 +15,28 @@ registerLocale("de", de);
 const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, options}) => {
 
     const [Loading, setLoading] = useState(false)
-    const [option, setOption] = useState([options])
+    // const [option, setOption] = useState([options])
     const ref = useRef()
     const [{currentMilestone, calcOptions}, dispatch] = useStateValue();
 
-    useEffect(() => {
-        setOption([])
-    }, [currentMilestone]);
+    // useEffect(() => {
+    //     setOption([])
+    // }, [currentMilestone]);
+
+    // useEffect(() => {
+    //     // setOption([])
+    //     if (options.length > 0) {
+    //         console.log('ops', options)
+    //         let arr = [...new Set(option), ...new Set(options)]
+    //         setOption([...new Set(arr)])
+    //     }
+    // }, [data, options]);
 
     useEffect(() => {
-        // setOption([])
-        console.log('ops', options)
         if (options.length > 0) {
-            let arr = [...new Set(option), ...new Set(options)]
-            setOption([...new Set(arr)])
+            console.log('op', options)
         }
-    }, [data, options]);
-
-    useEffect(() => {
-        console.log('op', option)
-    }, [option]);
+    }, []);
 
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
@@ -61,7 +63,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     useEffect(() => {
         if(data.length>0){
             data?.map(async (d, index) => {
-                // dispatch({type: "SET_CALCOPTIONS", item: true})
                 if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
                     if (d.fieldType === 'date') {
                         let newDate = moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
@@ -76,11 +77,10 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                     }
                     if (d.fieldType === 'option') {
                         if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
-                            await setValue(`${d.stepName}`, option[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                            await setValue(`${d.stepName}`, options[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
                         } else {
                             await setValue(`${d.stepName}`, `autoFill`)
                         }
-                        // dispatch({type: "SET_CALCOPTIONS", item: false})
                     }
                     if (d.fieldType === 'text') {
                         setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
@@ -89,7 +89,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
             })
         }
 
-    }, [option, data, grid, setValue, next, options]);
+    }, [ data, grid, setValue, next, options]);
 
 
     return (
@@ -125,7 +125,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                             currentMilestone={currentMilestone}
                                             lastDoneIndex={lastDoneIndex}
                                             val={val}
-                                            option={option}
+                                            option={options}
                                             next={next}
                                         />
 

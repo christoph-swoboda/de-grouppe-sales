@@ -31,6 +31,13 @@ const Bestant = () => {
     const [currentSubStep, setCurrentSubStep] = useState([])
     const param = useParams()
     const [options, setOptions] = useState([])
+    const [option, setOption] = useState([])
+
+    useEffect(() => {
+        setSubSteps([])
+        setOptions([])
+        setOption([])
+    }, [currentMilestone]);
 
     useEffect(() => {
         let data = new FormData()
@@ -44,7 +51,7 @@ const Bestant = () => {
                 setLoading(false)
             }
         )
-    }, [noteSent, dispatch, param.id]);
+    }, [dispatch, noteSent, param.id]);
 
     useEffect(() => {
         setStepsLoading(true)
@@ -63,7 +70,6 @@ const Bestant = () => {
                 setGrid(res.data.grid)
                 setNextStep(res.data.next)
             })
-
         }
     }, [lastDoneIndex, currentMilestone, param.id]);
 
@@ -86,12 +92,22 @@ const Bestant = () => {
                 setCurrentSubStep(arr)
             })
         }
-    }, [filtered]);
+    }, [currentMilestone, filtered]);
 
     useEffect(() => {
-        setSubSteps([])
-        setOptions([])
-    }, [currentMilestone]);
+        // setOption([])
+        if (options.length > 0) {
+            // console.log('ops', options)
+            let arr = [...new Set(option), ...new Set(options)]
+            setOption([...new Set(arr)])
+        }
+    }, [options]);
+
+    // useEffect(() => {
+    //     if (option.length > 0) {
+    //         console.log('op', option)
+    //     }
+    // }, [option]);
 
     useEffect(() => {
         let index = Object.keys(milestoneTabs).length - 1
@@ -142,7 +158,7 @@ const Bestant = () => {
                                         loading={stepsLoading}
                                         lastDoneIndex={lastDoneIndex}
                                         currentSubStep={currentSubStep}
-                                        options={options}
+                                        options={option}
                                         grid={grid}
                                     />
                                 </div>
@@ -158,7 +174,7 @@ const Bestant = () => {
                                         lastDoneIndex={lastDoneIndex}
                                         currentSubStep={currentSubStep}
                                         next
-                                        options={options}
+                                        options={option}
                                         grid={grid}
                                     />
                                 </div>
