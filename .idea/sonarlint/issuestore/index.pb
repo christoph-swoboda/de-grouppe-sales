@@ -42,9 +42,5 @@ L
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
 G
 src/components/modal.js,f\f\ff0314594a6fd8966bdc4cc628de12ef8c7f037b
-E
-src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
-E
-src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20

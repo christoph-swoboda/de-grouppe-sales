@@ -6,6 +6,7 @@ export const initialState = {
     userValidated:false,
     collapse1:true,
     collapse2:true,
+    calcOptions:true,
     page:1,
     pageBestand:1,
     noteSent:1,
@@ -56,6 +57,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 collapse2: action.item
+            }
+            case "SET_CALCOPTIONS":
+            return {
+                ...state,
+                calcOptions: action.item
             }
         default:
             return state;

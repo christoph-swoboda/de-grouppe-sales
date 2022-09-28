@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {RiseLoader} from "react-spinners";
 import {Controller, useForm} from "react-hook-form"
 import {useStateValue} from "../../../states/StateProvider"
@@ -16,7 +16,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     const [Loading, setLoading] = useState(false)
     const [option, setOption] = useState([options])
     const ref = useRef()
-    const [{currentMilestone}] = useStateValue();
+    const [{currentMilestone, calcOptions}, dispatch] = useStateValue();
 
     useEffect(() => {
         setOption([])
@@ -30,10 +30,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
         }
     }, [data, currentSubStep, options, currentMilestone]);
 
-    // useEffect(() => {
-    //     console.log('option', option)
-    // }, [option]);
-
 
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
@@ -43,8 +39,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
 
     const onSubmit = async (Data) => {
         setLoading(true)
-        if (Number(currentMilestone) === Number(lastDoneIndex) + 1) {
-        }
+        // if (Number(currentMilestone) === Number(lastDoneIndex) + 1) {
+        // }
         console.log('clicked', Data)
         console.log('grid', grid, (grid[(Number(1)) + 1]?.fieldValue))
         console.log('ssteps', data)
@@ -59,6 +55,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
 
     useEffect(() => {
         data?.map((d, index) => {
+            dispatch({type: "SET_CALCOPTIONS", item: true})
             if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
                 if (d.fieldType === 'date') {
                     let newDate = moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
@@ -78,6 +75,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                     } else {
                         setValue(`${d.stepName}`, `autoFill`)
                     }
+                    dispatch({type: "SET_CALCOPTIONS", item: false})
                 }
                 if (d.fieldType === 'text') {
                     setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)

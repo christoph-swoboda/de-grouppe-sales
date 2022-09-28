@@ -4,10 +4,10 @@ import {useStateValue} from "../states/StateProvider";
 
 const MilestoneTabs = ({label, done, lastIndex,lastDoneIndex, id,loading}) => {
 
-    const [{currentMilestone}, dispatch] = useStateValue();
+    const [{currentMilestone,calcOptions}, dispatch] = useStateValue();
 
     function setMilestone(){
-        if(!loading){
+        if(!loading && calcOptions){
             // setTimeout(() => {
                 dispatch({type: "SET_CURRENTMILESTONE", item: id})
             // }, 1000);
