@@ -72,8 +72,6 @@ const Bestant = () => {
         }
     }, [filtered, subSteps]);
 
-
-
     useEffect(() => {
             let arr = []
             if (hasOptions || filtered?.length > 0) {
