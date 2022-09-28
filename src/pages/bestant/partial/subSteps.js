@@ -15,50 +15,46 @@ registerLocale("de", de);
 const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, options}) => {
 
     const [Loading, setLoading] = useState(false)
-    // const [option, setOption] = useState([options])
+    const [option, setOption] = useState([])
     const ref = useRef()
     const [{currentMilestone, calcOptions}, dispatch] = useStateValue();
-
-    // useEffect(() => {
-    //     setOption([])
-    // }, [currentMilestone]);
-
-    // useEffect(() => {
-    //     // setOption([])
-    //     if (options.length > 0) {
-    //         console.log('ops', options)
-    //         let arr = [...new Set(option), ...new Set(options)]
-    //         setOption([...new Set(arr)])
-    //     }
-    // }, [data, options]);
-
-    useEffect(() => {
-        if (options.length > 0) {
-            console.log('op', options)
-        }
-    }, []);
-
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
 
-    const onSubmit = async (Data) => {
-        setLoading(true)
-        // if (Number(currentMilestone) === Number(lastDoneIndex) + 1) {
-        // }
-        console.log('clicked', Data)
-        console.log('grid', grid, (grid[(Number(1)) + 1]?.fieldValue))
-        console.log('ssteps', data)
+    const op=[
+        {substepID: "2", optionValue: "Ja"},
+        {substepID: "2", optionValue: "Nein"},
+        {substepID: "8", optionValue: "Ja"},
+        {substepID: "8", optionValue: "Nein"},
+        {substepID: "9", optionValue: "Ja"},
+        {substepID: "9", optionValue: "Nein"},
+        {substepID: "10", optionValue: "Ja"},
+        {substepID: "10", optionValue: "Nein"},
+        {substepID: "15", optionValue: "Ja"},
+        {substepID: "15", optionValue: "Nein"},
+        {substepID: "16", optionValue: "Ja"},
+        {substepID: "16", optionValue: "Nein"},
+    ]
 
-        // Api().post('/test', Data).then(res => {
-        //     console.log('res', res.data)
-        // }).catch(e => {
-        //     setLoading(false)
-        //     toast.error('Something Went Wrong!!')
-        // })
-    };
+    useEffect(() => {
+        setOption([])
+    }, [currentMilestone]);
+
+    useEffect(() => {
+        if (options.length > 0) {
+            let arr = [...new Set(option), ...new Set(options)]
+            setOption([...new Set(arr)])
+        }
+    }, [data, options]);
+
+    useEffect(() => {
+        if(option.length>0){
+            console.log('op', option)
+        }
+    }, [option]);
 
     useEffect(() => {
         if(data.length>0){
@@ -77,7 +73,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                     }
                     if (d.fieldType === 'option') {
                         if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
-                            await setValue(`${d.stepName}`, options[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                            await setValue(`${d.stepName}`, option[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
                         } else {
                             await setValue(`${d.stepName}`, `autoFill`)
                         }
@@ -91,6 +87,21 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
 
     }, [ data, grid, setValue, next, options]);
 
+    const onSubmit = async (Data) => {
+        setLoading(true)
+        // if (Number(currentMilestone) === Number(lastDoneIndex) + 1) {
+        // }
+        console.log('clicked', Data)
+        console.log('grid', grid, (grid[(Number(1)) + 1]?.fieldValue))
+        console.log('ssteps', data)
+
+        // Api().post('/test', Data).then(res => {
+        //     console.log('res', res.data)
+        // }).catch(e => {
+        //     setLoading(false)
+        //     toast.error('Something Went Wrong!!')
+        // })
+    };
 
     return (
         <div>
@@ -125,7 +136,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                             currentMilestone={currentMilestone}
                                             lastDoneIndex={lastDoneIndex}
                                             val={val}
-                                            option={options}
+                                            option={op}
                                             next={next}
                                         />
 

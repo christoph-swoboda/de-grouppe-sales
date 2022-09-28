@@ -31,12 +31,10 @@ const Bestant = () => {
     const [currentSubStep, setCurrentSubStep] = useState([])
     const param = useParams()
     const [options, setOptions] = useState([])
-    const [option, setOption] = useState([])
 
     useEffect(() => {
         setSubSteps([])
         setOptions([])
-        setOption([])
     }, [currentMilestone]);
 
     useEffect(() => {
@@ -95,21 +93,6 @@ const Bestant = () => {
     }, [currentMilestone, filtered]);
 
     useEffect(() => {
-        // setOption([])
-        if (options.length > 0) {
-            // console.log('ops', options)
-            let arr = [...new Set(option), ...new Set(options)]
-            setOption([...new Set(arr)])
-        }
-    }, [options]);
-
-    // useEffect(() => {
-    //     if (option.length > 0) {
-    //         console.log('op', option)
-    //     }
-    // }, [option]);
-
-    useEffect(() => {
         let index = Object.keys(milestoneTabs).length - 1
         setLastIndex(index)
     }, [milestoneTabs]);
@@ -158,7 +141,7 @@ const Bestant = () => {
                                         loading={stepsLoading}
                                         lastDoneIndex={lastDoneIndex}
                                         currentSubStep={currentSubStep}
-                                        options={option}
+                                        options={options}
                                         grid={grid}
                                     />
                                 </div>
@@ -174,7 +157,7 @@ const Bestant = () => {
                                         lastDoneIndex={lastDoneIndex}
                                         currentSubStep={currentSubStep}
                                         next
-                                        options={option}
+                                        options={options}
                                         grid={grid}
                                     />
                                 </div>
