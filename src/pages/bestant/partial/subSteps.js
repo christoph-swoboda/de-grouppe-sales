@@ -30,6 +30,11 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
         }
     }, [data, currentSubStep, options, currentMilestone]);
 
+    // useEffect(() => {
+    //     console.log('option', option)
+    // }, [option]);
+
+
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
@@ -79,7 +84,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                 }
             }
         })
-    }, [data, grid, setValue, next, options, option]);
+    }, [data, grid, setValue, next, options, option, currentMilestone]);
 
 
     return (

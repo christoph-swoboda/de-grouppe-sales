@@ -66,19 +66,16 @@ const Bestant = () => {
         let filtered = subSteps.filter(d => d.fieldType === 'option')
         let arr = []
         filtered.map(f => {
-            // console.log('loop',f.substepID)
             arr.push(f.substepID)
-
             let Data = new FormData()
             Data.append('milestoneID', currentMilestone)
             Data.append('subStepID', f.substepID)
             Api().post('/options', Data).then(res => {
                 setOptions(res.data)
-                console.log('res', res.data)
             })
             setCurrentSubStep(arr)
         })
-    }, [subSteps]);
+    }, [subSteps, currentMilestone]);
 
     useEffect(() => {
         setOptions([])
