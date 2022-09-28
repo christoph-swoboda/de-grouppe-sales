@@ -13,8 +13,6 @@ N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
-E
-src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
 <
 src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
 :
@@ -43,8 +41,6 @@ N
 src/components/authDirector.js,0\f\0f930eab094e16c7371f98ba1eac67cf228c3706
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
-E
-src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 K

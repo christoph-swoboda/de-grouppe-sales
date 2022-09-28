@@ -4,6 +4,8 @@ export const initialState = {
     companyInfoModal:false,
     currentMilestone:null,
     userValidated:false,
+    collapse1:true,
+    collapse2:true,
     page:1,
     pageBestand:1,
     noteSent:1,
@@ -44,6 +46,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 noteSent: action.item
+            }
+            case "SET_COLLAPSE1":
+            return {
+                ...state,
+                collapse1: action.item
+            }
+            case "SET_COLLAPSE2":
+            return {
+                ...state,
+                collapse2: action.item
             }
         default:
             return state;

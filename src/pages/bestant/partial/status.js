@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import {IoIosArrowUp} from "react-icons/io";
+import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import BestantStatus from "../../../components/bestantStatus";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../../states/StateProvider";
+import CollapseExpand from "../../../components/collapseExpandSection";
 
 const Status = ({notes, company}) => {
     const [toggle, setToggle] = useState(false)
@@ -12,6 +13,7 @@ const Status = ({notes, company}) => {
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
     const [{noteSent}, dispatch] = useStateValue();
+    const [{collapse2}] = useStateValue();
 
     function save() {
         setLoading(true)
@@ -37,8 +39,9 @@ const Status = ({notes, company}) => {
         <>
             <div className='flex justify-between bg-white mt-5'>
                 <h2 className='text-lg lg:text-left font-extrabold'>Bemerkungen</h2>
-                <p><IoIosArrowUp size='25px'/></p>
+                <CollapseExpand show={collapse2} id={2}/>
             </div>
+            <div className={`${!collapse2 && 'hidden'}`}>
             {
                 notes.map((note, index) => (
                     <BestantStatus
@@ -49,6 +52,8 @@ const Status = ({notes, company}) => {
                     />
                 ))
             }
+            </div>
+
             <div className='bg-white mt-2'>
                 <button className='px-3 py-2 m-2 rounded-3xl bg-mainBlue text-white text-sm'
                         onClick={() => setToggle(!toggle)}

@@ -158,7 +158,6 @@ const Bestant = () => {
                                 </div>
                             </div>
 
-
                             <div className='bg-white px-3 2xl:w-2/4 pb-10 xl:w-1/3 xl:ml-0 rounded-lg h-fit'>
                                 <Status company={param.id.replaceAll('_', ' ')} notes={notes}/>
                             </div>
