@@ -12,24 +12,24 @@ const UserManagementTable = ({role, users, pageSize, loading, total}) => {
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="py-2 inline-block min-w-full  sm:px-6 lg:px-8">
+                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
                         <table className="min-w-full text-left">
                             <thead className="border-y border-silver border-x-0">
                             <tr>
-                                <th scope="col" className="text-sm font-medium text-grey px-6 py-4 ">
+                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2">
                                     #
                                 </th>
-                                <th scope="col" className="text-sm font-medium text-grey px-6 py-4 ">
+                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2 ">
                                     eMail
                                 </th>
-                                <th scope="col" className="text-sm font-medium text-grey px-6 py-4 ">
+                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2 ">
                                     partnernummer
                                 </th>
-                                <th scope="col" className="text-sm text-left font-medium text-grey px-6 py-4">
+                                <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2">
                                     eMail bestätigt
                                 </th>
-                                <th scope="col" className="text-sm font-medium text-grey px-6 py-4"/>
+                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2"/>
                             </tr>
                             </thead>
                             {

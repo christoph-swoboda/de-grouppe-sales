@@ -12,43 +12,42 @@ export const RouteData=[
         path:'/',
         name:'dashboard',
         component:<Dashboard/>,
-        redirection:'/login'
+        redirection:'/anmeldung'
     },
     {
         id:0,
-        path:'/new',
+        path:'/neu',
         name:'new',
         component:<NewCreation/>,
-
-        redirection:'/login'
+        redirection:'/anmeldung'
     },
     {
         id:2,
         path:"/benutzerverwaltung",
         name:'benutzerverwaltung',
         component:<UserManagement/>,
-        redirection:'/login'
+        redirection:'/anmeldung'
     },
     {
         id:1,
         path:"/Bank-Kooperationspartner",
         name:'Bank-Kooperationspartner',
         component:<UserManagement/>,
-        redirection:'/login'
+        redirection:'/anmeldung'
     },
     {
         id:3,
-        path:'/bestant-list',
+        path:'/bestand-liste',
         name:'bestant-list',
         component:<BestantList/>,
-        redirection:'/login'
+        redirection:'/anmeldung'
     },
     {
         id:4,
-        path:'/bestant/:id',
+        path:'/bestand/:id',
         name:'bestant',
         component:<Bestant/>,
-        redirection:'/login'
+        redirection:'/anmeldung'
     },
 
 ]

@@ -16,7 +16,7 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBan
         <tr className="border-y border-silver border-x-0 ">
             {/*<td className="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{index+1}</td>*/}
             <td className="w-2/12 text-xs text-mainBlue underline font-light px-6 py-4 whitespace-pre-wrap">
-                <Link to={`/bestant/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`}>
+                <Link to={`/bestand/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`}>
                     {FirmaKurz}
                 </Link>
             </td>
@@ -46,7 +46,7 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBan
             </td>
             <td className="w-1/12  text-xs text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                 <h2 className='border border-mainBlue text-mainBlue rounded-3xl px-2 py-1 font-bold uppercase'>
-                    <Link to={`/bestant/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`}>
+                    <Link to={`/bestand/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`}>
                         Edit
                     </Link>
                 </h2>

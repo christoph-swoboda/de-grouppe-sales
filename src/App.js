@@ -24,8 +24,8 @@ function App() {
                                    element={user ? route.component : <Navigate to={route.redirection}/>}/>
                         ))
                     }
-                    <Route path="/login" element={!user ? <Login/> : <Navigate to="/"/>}/>
-                    <Route path="/register" element={!user ? <Register/> : <Navigate to="/"/>}/>
+                    <Route path="/anmeldung" element={!user ? <Login/> : <Navigate to="/"/>}/>
+                    <Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>
                 </Routes>
                 <Footer/>
             </Router>

@@ -57,18 +57,18 @@ const Navbar = () => {
                     (toggleMenu || screenWidth > 1200) && (
                         <>
                             <Link to={'/'} onClick={toggleNav}>
-                                <li  className={`items ${path.pathname==='/' && 'text-mainBlue'}`}>Dashboard</li>
+                                <li  className={`items ${path.pathname==='/' && 'text-mainBlue'}`}>Armaturenbrett</li>
                             </Link>
-                            <Link to={'/new'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname==='/new' && 'text-mainBlue'}`}>New Creation</li>
+                            <Link to={'/neu'} onClick={toggleNav}>
+                                <li className={`items ${path.pathname==='/neu' && 'text-mainBlue'}`}>Neue Kreation</li>
                             </Link>
-                            <Link to={'/bestant-list'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname.includes('/bestant') && 'text-mainBlue'}`}>Bestant</li>
+                            <Link to={'/bestand-liste'} onClick={toggleNav}>
+                                <li className={`items ${path.pathname.includes('/bestand') && 'text-mainBlue'}`}>Bestand</li>
                             </Link>
                             {
                                 role==='Internal' ?
                                     <Link to={'/benutzerverwaltung'}>
-                                        <li className={`items ${path.pathname.includes('/Benutzerverwaltung') && 'text-mainBlue'}`}>
+                                        <li className={`items ${path.pathname.includes('/benutzerverwaltung') && 'text-mainBlue'}`}>
                                             Benutzerverwaltung
                                         </li>
                                     </Link>
@@ -93,8 +93,8 @@ const Navbar = () => {
                 }
             </ul>
             <div className={modal ? 'modal-logout' : 'hidden'}>
-                <button onClick={()=>setModal(!modal)} className='text-left p-1'> Settings </button>
-                <button onClick={logout} className='text-left p-1'> {!loading?'Log Out':<BeatLoader size={10} color={'#000000'}/>}</button>
+                <button onClick={()=>setModal(!modal)} className='text-left p-1'> Einstellungen </button>
+                <button onClick={logout} className='text-left p-1'> {!loading?'Ausloggen':<BeatLoader size={10} color={'#000000'}/>}</button>
             </div>
             <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
         </nav>

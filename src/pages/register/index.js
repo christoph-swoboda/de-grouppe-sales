@@ -18,12 +18,12 @@ const Login = () => {
         setLoading(true)
         Api().post('/register', data).then(res => {
             if (res.status === 200) {
-                window.location.replace('/login')
+                window.location.replace('/anmeldung')
                 setLoading(false)
             }
         }).catch(e => {
             setLoading(false)
-            toast.error('Something Went Wrong!!')
+            toast.error('Etwas ist schief gelaufen!!')
         })
     };
 
@@ -96,7 +96,7 @@ const Login = () => {
                     />
                 </section>
                 <br/>
-                <Link className='text-sm' to={'/login'}>Sie haben bereits ein Konto?
+                <Link className='text-sm' to={'/anmeldung'}>Sie haben bereits ein Konto?
                     <span className='ml-1 underline text-mainBlue'> Hier einloggen</span>
                 </Link>
             </form>

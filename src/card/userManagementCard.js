@@ -3,6 +3,7 @@ import {GrCheckbox} from "react-icons/gr";
 import {FaToggleOn} from "react-icons/fa";
 import Api from "../Api/api";
 import {useStateValue} from "../states/StateProvider";
+import {toast} from "react-toastify";
 
 const UserManagementCard = ({email, prtnrNo, valid, userID}) => {
     const [edit, setEdit] = useState(false)
@@ -21,9 +22,11 @@ const UserManagementCard = ({email, prtnrNo, valid, userID}) => {
             setLoading(false)
             setEdit(false)
             dispatch({type: "SET_USER_VALIDATED", item:!userValidated})
+            toast.success('Benutzer erfolgreich validiert!')
         }).catch(e=>{
             setEdit(false)
             setLoading(false)
+            toast.error('Etwas ist schief gelaufen!!')
         })
     }
 
@@ -33,19 +36,18 @@ const UserManagementCard = ({email, prtnrNo, valid, userID}) => {
     }
 
     return (
-        <tbody>
+        <tbody className={`${edit && 'bg-yellowLight'}`}>
         <tr className=" border-y border-silver border-x-0">
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{userID}</td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+            <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{userID}</td>
+            <td className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
                 {email}
             </td>
             <td hidden={edit}
-                className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                 {prtnrNo}
             </td>
-            <td>
-                <input hidden={!edit}
-                       className="text-sm text-gray-900 font-light px-3 mt-5 py-2 whitespace-nowrap"
+            <td hidden={!edit}>
+                <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
                        type='text'
                        value={partnerNr}
                        onChange={(e) => setPartnerNo(e.target.value)}
@@ -55,7 +57,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID}) => {
             <td>
                 <button disabled={!edit}
                         onClick={() => setVerified('1')}
-                        className="text-sm text-gray-900 float-left font-light px-6 py-4 whitespace-nowrap">
+                        className="text-sm text-gray-900 font-light px-6 py-0 whitespace-nowrap">
                     {
                         verified==='1' ?
                             <FaToggleOn color={'#3A46A9'} style={{cursor: edit ? 'pointer' : 'default'}} size='30px'/>
@@ -66,27 +68,27 @@ const UserManagementCard = ({email, prtnrNo, valid, userID}) => {
             </td>
 
             <td hidden={!edit}
-                className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                <h2 onClick={cancel}
-                    className='border border-mainBlue rounded-3xl pl-3 pr-3 pt-1 pb-1 text-mainBlue font-extrabold uppercase cursor-pointer'
+                className="text-sm text-gray-900 font-light text-right whitespace-nowrap">
+                <button onClick={cancel}
+                    className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue text-center font-extrabold uppercase cursor-pointer'
                 >
-                    Cancel
-                </h2>
+                    Abbrechen
+                </button>
             </td>
             <td hidden={edit}
-                className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                <h2 onClick={() => setEdit(true)}
-                    className='border border-mainBlue rounded-3xl pl-3 pr-3 pt-1 pb-1 text-mainBlue font-extrabold uppercase cursor-pointer'
+                className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+                <button onClick={() => setEdit(true)}
+                    className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'
                 >
-                    Edit
-                </h2>
+                    Bearbeiten
+                </button>
             </td>
             <td hidden={!edit}
-                className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                 <button onClick={save}
-                        className='border border-mainBlue rounded-3xl pl-3 pr-3 pt-1 pb-1 bg-mainBlue text-white font-extrabold uppercase cursor-pointer'
+                        className='border border-mainBlue rounded-3xl px-3 py-1 bg-mainBlue text-white font-extrabold uppercase cursor-pointer'
                 >
-                    {loading?'Saving...':'Save'}
+                    {loading?'Das Sparen...':'Speichern'}
                 </button>
             </td>
         </tr>
