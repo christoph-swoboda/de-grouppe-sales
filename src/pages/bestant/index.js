@@ -130,7 +130,7 @@ const Bestant = () => {
                                     <h2 className='text-2xl text-center text-bold mb-2 '>Platzhalter</h2>
                                     {/*<hr/>*/}
                                     {/*<br/>*/}
-                                    <h2 className='text-xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(3)}</h2>
+                                    <h2 className='text-xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(2)}</h2>
                                     <SubSteps
                                         data={subSteps}
                                         loading={stepsLoading}
