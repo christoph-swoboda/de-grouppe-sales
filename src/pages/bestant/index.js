@@ -129,7 +129,7 @@ const Bestant = () => {
                                 <div className='bg-white p-5 m-2 pb-10'>
                                     <h2 className='text-2xl text-center text-bold mb-2 '>Platzhalter</h2>
                                     {/*<hr/>*/}
-                                    {/*<br/>*/}
+                                    <br/>
                                     <h2 className='text-xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(2)}</h2>
                                     <SubSteps
                                         data={subSteps}
@@ -145,7 +145,7 @@ const Bestant = () => {
                                     hidden={stepsLoading || Number(currentMilestone) < Number(lastDoneIndex) + 1 || nextStep.length === 0}
                                     className='my-4 bg-white p-5 m-2 pb-10'
                                 >
-                                    <h2 className='text-2xl'>{milestoneTabs[Number(currentMilestone) + 1]?.milestoneLabel.substring(3)}(Bevorstehende)</h2>
+                                    <h2 className='text-2xl'>{milestoneTabs[Number(currentMilestone) + 1]?.milestoneLabel.substring(2)}(Bevorstehende)</h2>
                                     <SubSteps
                                         data={nextStep}
                                         loading={stepsLoading}

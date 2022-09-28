@@ -25,7 +25,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     useEffect(() => {
         setOption([])
         if (options.length > 0) {
-            let arr=[...new Set(option), ...new Set(options)]
+            let arr = [...new Set(option), ...new Set(options)]
             setOption([...new Set(arr)])
         }
     }, [data, currentSubStep, options, currentMilestone]);
@@ -64,19 +64,22 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                         setValue(`${d.stepName}`, newDate)
                     } else {
                         setValue(`${d.stepName}`, moment(new Date()).toDate())
-                        console.log('errdate', grid[Number(d.substepID) - 1]?.fieldValue)
                     }
                 }
                 if (d.fieldType === 'option') {
-                    // setValue('Einspruch an FA erforderlich', 'ja')
-                    setValue(`${d.stepName}`, `${grid[d.substepID]?.fieldValue}`)
+                    // setValue(`${d.stepName}`, `autoFill`)
+                    if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
+                        setValue(`${d.stepName}`, option[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                    } else {
+                        setValue(`${d.stepName}`, `autoFill`)
+                    }
                 }
                 if (d.fieldType === 'text') {
-                    setValue(`${d.stepName}`, `${grid[d.substepID]?.fieldValue}`)
+                    setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
                 }
             }
         })
-    }, [data, grid, setValue]);
+    }, [data, grid, setValue, next, options, option]);
 
 
     return (
@@ -104,32 +107,18 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                             {
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?
-                                        <section key={index} placeholder='Wähle eine Option'
-                                                 className='tooltip sm:flex sm:flex-col'>
+                                        <section key={index} className='tooltip sm:flex sm:flex-col'>
                                             <label className='text-sm text-grey label'>{val.stepName}</label>
                                             <select {...register(`${val.stepName}`)}
-                                                    disabled={( next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
+                                                    disabled={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
                                                     className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
                                                     ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
                                             >
-                                                {/*{*/}
-                                                {/*    currentSubStep.map(op=>{*/}
-                                                {/*        optionss[1]?.map((o, i) => (*/}
-                                                {/*            <option key={i} value={o.optionValue}>{o.optionValue}</option>*/}
-                                                {/*        ))*/}
-                                                {/*    })*/}
-                                                {/*}*/}
-                                                <option defaultValue disabled>Wähle eine Option</option>
+                                                <option selected={getValues(val.stepName) === 'autoFill'} hidden>
+                                                    Wähle eine Option
+                                                </option>
                                                 {
-                                                    // optionss.map((op, i) => (
-                                                    //     // currentSubStep.includes(val.substepID) &&
-                                                    //     op.subStepID === val.substepID &&
-                                                    //     op?.optionValues.map((o, index) => (
-                                                    //         <option  key={index} value={o}>{o}</option>
-                                                    //     ))
-                                                    // ))
                                                     option.map((op, i) => (
-                                                        // currentSubStep.includes(val.substepID) &&
                                                         op.substepID === val.substepID ?
                                                             <option key={i} value={op?.optionValue}>
                                                                 {op?.optionValue}
@@ -146,7 +135,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
 
                                         : val.fieldType === 'date' ?
                                             <section key={index} className='tooltip'>
-                                                <label className='text-sm min-w-screen text-grey label'>{val.stepName}</label>
+                                                <label
+                                                    className='text-sm min-w-screen text-grey label'>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
@@ -156,6 +146,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                                             placeholderText={`Datum wählen`}
                                                             onChange={(date) => field.onChange(date)}
                                                             selected={field.value}
+                                                            cssClass={'datePicker'}
                                                             readOnly={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
                                                             customInput={<CustomInput next={next} last={lastDoneIndex}
                                                                                       current={currentMilestone}/>}
@@ -163,7 +154,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                                     )}
                                                 />
                                                 {/*<DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>*/}
-                                                <p className={getValues(val.stepName) ? 'hidden' : 'tooltiptextclose'}>{val.mouseoverText}</p>
+                                                {/*<p className={getValues(val.stepName) ? 'hidden' : 'tooltiptextclose'}>{val.mouseoverText}</p>*/}
+                                                <p className='tooltiptextclose'>{val.mouseoverText}</p>
                                             </section>
                                             :
                                             <section key={index} className='tooltip'>
