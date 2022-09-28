@@ -43,7 +43,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
             let arr = [...new Set(option), ...new Set(options)]
             setOption([...new Set(arr)])
         },
-        [data, options],
+        [option, options],
     );
     useEffect(() => {
         memoizedCallback().then(r => r)
