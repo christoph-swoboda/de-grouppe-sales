@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useCallback, useEffect, useRef, useState} from "react"
 import {RiseLoader} from "react-spinners";
 import {Controller, useForm} from "react-hook-form"
 import {useStateValue} from "../../../states/StateProvider"
@@ -38,19 +38,23 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
         {substepID: "16", optionValue: "Ja"},
         {substepID: "16", optionValue: "Nein"},
     ]
+    const memoizedCallback = useCallback(
+        async () => {
+            if (options.length > 0) {
+                let arr = [...new Set(option), ...new Set(options)]
+                setOption([...new Set(arr)])
+            }
+        },
+        [data, options],
+    );
 
     useEffect(() => {
         setOption([])
     }, [currentMilestone]);
 
     useEffect(() => {
-        return () => {
-            if (options.length > 0) {
-                let arr = [...new Set(option), ...new Set(options)]
-                setOption([...new Set(arr)])
-            }
-        }
-    }, [data, option, options]);
+        memoizedCallback().then(r=>r)
+    }, [memoizedCallback, data, option]);
 
     // useEffect(() => {
     //     if (option.length > 0) {
