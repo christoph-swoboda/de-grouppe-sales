@@ -70,13 +70,13 @@ const Bestant = () => {
     useEffect(() => {
         let arr = []
         if (filtered?.length > 0) {
-            filtered.map((f, i) => {
+            filtered.map(async (f, i) => {
                 arr.push(f.substepID)
                 let Data = new FormData()
                 Data.append('milestoneID', currentMilestone)
                 Data.append('subStepID', f.substepID)
-                Api().post('/options', Data).then(async res => {
-                    await setOptions(res.data)
+                await Api().post('/options', Data).then(res => {
+                    setOptions(res.data)
                     if (i + 1 === filtered.length) {
                         setStepsLoading(false)
                     }
