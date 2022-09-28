@@ -86,7 +86,7 @@ const Bestant = () => {
                 await Api().post('/options', Data).then(res => {
                     const timer = setTimeout(() => {
                         setOptions(res.data)
-                    }, 7000);
+                    }, 1000);
                     if (i + 1 === filtered.length) {
                         setStepsLoading(false)
                     }
@@ -97,7 +97,7 @@ const Bestant = () => {
                 setCurrentSubStep(arr)
             })
         }
-    }, [currentMilestone, filtered]);
+    }, [currentMilestone, filtered, subSteps, nextStep, lastDoneIndex, lastIndex]);
 
     useEffect(() => {
         let index = Object.keys(milestoneTabs).length - 1
