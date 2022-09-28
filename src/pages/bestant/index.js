@@ -64,19 +64,29 @@ const Bestant = () => {
     useEffect(() => {
         let filtered = subSteps.filter(d => d.fieldType === 'option')
         let arr = []
-        filtered.map(f => {
-            arr.push(f.substepID)
-            let Data = new FormData()
-            Data.append('milestoneID', currentMilestone)
-            Data.append('subStepID', f.substepID)
-            Api().post('/options', Data).then(res => {
-                setOptions(res.data)
-                setStepsLoading(false)
-            }).catch(e=>{
-                setStepsLoading(false)
+        if(filtered.length>0){
+            filtered.map((f, i) => {
+                arr.push(f.substepID)
+                let Data = new FormData()
+                Data.append('milestoneID', currentMilestone)
+                Data.append('subStepID', f.substepID)
+                Api().post('/options', Data).then(res => {
+                    setOptions(res.data)
+                    if (i + 1 < filtered.length || res.data.length===0) {
+                        // setTimeout(() => {
+                        setStepsLoading(true)
+                        // }, 5000);
+                    }
+                    else{
+                        setStepsLoading(false)
+                    }
+                }).catch(e => {
+                    // setStepsLoading(false)
+                })
+                setCurrentSubStep(arr)
             })
-            setCurrentSubStep(arr)
-        })
+        }
+
     }, [subSteps, currentMilestone]);
 
     useEffect(() => {

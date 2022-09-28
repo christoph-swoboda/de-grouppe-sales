@@ -55,7 +55,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
 
     useEffect(() => {
         data?.map((d, index) => {
-            dispatch({type: "SET_CALCOPTIONS", item: true})
+            // dispatch({type: "SET_CALCOPTIONS", item: true})
             if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
                 if (d.fieldType === 'date') {
                     let newDate = moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
@@ -69,13 +69,12 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                     }
                 }
                 if (d.fieldType === 'option') {
-                    // setValue(`${d.stepName}`, `autoFill`)
                     if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
                         setValue(`${d.stepName}`, option[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
                     } else {
                         setValue(`${d.stepName}`, `autoFill`)
                     }
-                    dispatch({type: "SET_CALCOPTIONS", item: false})
+                    // dispatch({type: "SET_CALCOPTIONS", item: false})
                 }
                 if (d.fieldType === 'text') {
                     setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)

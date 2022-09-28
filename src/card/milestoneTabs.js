@@ -7,7 +7,7 @@ const MilestoneTabs = ({label, done, lastIndex,lastDoneIndex, id,loading}) => {
     const [{currentMilestone,calcOptions}, dispatch] = useStateValue();
 
     function setMilestone(){
-        if(!loading && calcOptions){
+        if(!loading){
             // setTimeout(() => {
                 dispatch({type: "SET_CURRENTMILESTONE", item: id})
             // }, 1000);
