@@ -21,6 +21,7 @@ const Bestant = () => {
     const [stepsLoading, setStepsLoading] = useState(true)
     const [notes, setNotes] = useState([])
     const [subSteps, setSubSteps] = useState([])
+    const [filtered, setFiltered] = useState([])
     const [nextStep, setNextStep] = useState([])
     const [grid, setGrid] = useState([])
     const [milestoneTabs, setMilestoneTabs] = useState([])
@@ -62,34 +63,42 @@ const Bestant = () => {
     }, [lastDoneIndex, currentMilestone]);
 
     useEffect(() => {
-        let filtered = subSteps.filter(d => d.fieldType === 'option')
-        let arr = []
-        if(filtered.length>0){
-            filtered.map((f, i) => {
-                arr.push(f.substepID)
-                let Data = new FormData()
-                Data.append('milestoneID', currentMilestone)
-                Data.append('subStepID', f.substepID)
-                Api().post('/options', Data).then(res => {
-                    setOptions(res.data)
-                    if (i + 1 < filtered.length || res.data.length===0) {
-                        // setTimeout(() => {
-                        setStepsLoading(true)
-                        // }, 5000);
-                    }
-                    else{
-                        setStepsLoading(false)
-                    }
-                }).catch(e => {
-                    // setStepsLoading(false)
-                })
-                setCurrentSubStep(arr)
-            })
-        }
-
-    }, [subSteps, currentMilestone]);
+        setFiltered(subSteps.filter(d => d.fieldType === 'option'))
+    }, [subSteps]);
 
     useEffect(() => {
+        console.log('fil', filtered)
+    }, [filtered]);
+
+
+
+    useEffect(() => {
+        // console.log('ss', subSteps)
+            let arr = []
+                filtered.map((f, i) => {
+                    console.log('f', f.substepID)
+                    arr.push(f.substepID)
+                    let Data = new FormData()
+                    Data.append('milestoneID', currentMilestone)
+                    Data.append('subStepID', f.substepID)
+                    Api().post('/options', Data).then(res => {
+                        setOptions(res.data)
+                        if (i + 1 === filtered.length) {
+                            setStepsLoading(false)
+                        }
+                        // else {
+                        //     setStepsLoading(false)
+                        // }
+
+                    }).catch(e => {
+                        setStepsLoading(false)
+                    })
+                    setCurrentSubStep(arr)
+                })
+    }, [filtered]);
+
+    useEffect(() => {
+        setSubSteps([])
         setOptions([])
     }, [currentMilestone]);
 
