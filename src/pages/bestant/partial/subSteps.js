@@ -24,7 +24,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
 
-    const op=[
+    const op = [
         {substepID: "2", optionValue: "Ja"},
         {substepID: "2", optionValue: "Nein"},
         {substepID: "8", optionValue: "Ja"},
@@ -44,20 +44,22 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
     }, [currentMilestone]);
 
     useEffect(() => {
-        if (options.length > 0) {
-            let arr = [...new Set(option), ...new Set(options)]
-            setOption([...new Set(arr)])
+        return () => {
+            if (options.length > 0) {
+                let arr = [...new Set(option), ...new Set(options)]
+                setOption([...new Set(arr)])
+            }
         }
-    }, [data, options]);
+    }, [data, option, options]);
+
+    // useEffect(() => {
+    //     if (option.length > 0) {
+    //         console.log('op', option)
+    //     }
+    // }, [option]);
 
     useEffect(() => {
-        if(option.length>0){
-            console.log('op', option)
-        }
-    }, [option]);
-
-    useEffect(() => {
-        if(data.length>0){
+        if (data.length > 0) {
             data?.map(async (d, index) => {
                 if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
                     if (d.fieldType === 'date') {

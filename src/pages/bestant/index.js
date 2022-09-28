@@ -69,10 +69,8 @@ const Bestant = () => {
                 setNextStep(res.data.next)
             })
         }
-
         Api().post('/customerDetails', Data).then(res => {
             setInfo(res.data[0])
-            console.log('cd', res.data[0].Zeile1)
         })
 
     }, [lastDoneIndex, currentMilestone, param.id]);
