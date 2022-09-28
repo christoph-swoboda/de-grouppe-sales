@@ -78,9 +78,15 @@ const Bestant = () => {
                     Api().post('/options', Data).then(async res => {
                         await setOptions(res.data)
                         if (i + 1 === filtered.length) {
-                            setTimeout(() => {
+                            console.log('cm', currentMilestone)
+                            if(currentMilestone===11){
+                                setTimeout(() => {
+                                    setStepsLoading(false)
+                                }, 5000);
+                            }
+                            else{
                                 setStepsLoading(false)
-                            }, 2000);
+                            }
                         }
                     }).catch(e => {
                         setStepsLoading(false)
