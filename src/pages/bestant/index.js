@@ -75,8 +75,8 @@ const Bestant = () => {
                     let Data = new FormData()
                     Data.append('milestoneID', currentMilestone)
                     Data.append('subStepID', f.substepID)
-                    Api().post('/options', Data).then(res => {
-                        setOptions(res.data)
+                    Api().post('/options', Data).then(async res => {
+                        await setOptions(res.data)
                         if (i + 1 === filtered.length) {
                             setTimeout(() => {
                                 setStepsLoading(false)
