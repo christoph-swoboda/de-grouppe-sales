@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 
-const Options = ({index, val, next, currentMilestone, lastDoneIndex, grid, getValues, option, register}) => {
+const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, option, register}) => {
     return (
-        <section key={index} className='tooltip sm:flex sm:flex-col'>
+        <section className='tooltip sm:flex sm:flex-col'>
             <label className='text-sm text-grey label'>{val.stepName}</label>
             <select {...register(`${val.stepName}`)}
                     disabled={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
