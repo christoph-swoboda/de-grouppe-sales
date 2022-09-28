@@ -85,7 +85,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
             })
         }
 
-    }, [ data, grid, setValue, next, options]);
+    }, [data, grid, setValue, next, options, option]);
 
     const onSubmit = async (Data) => {
         setLoading(true)
@@ -136,7 +136,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                             currentMilestone={currentMilestone}
                                             lastDoneIndex={lastDoneIndex}
                                             val={val}
-                                            option={op}
+                                            option={option}
                                             next={next}
                                         />
 

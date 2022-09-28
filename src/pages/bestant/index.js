@@ -19,7 +19,7 @@ const Bestant = () => {
     const {toggleCompanyInfoModal} = useModal();
     const [loading, setLoading] = useState(true)
     const [stepsLoading, setStepsLoading] = useState(true)
-    const [hasOptions, setHasOptions] = useState(false)
+    const [info, setInfo] = useState(null)
     const [notes, setNotes] = useState([])
     const [subSteps, setSubSteps] = useState([])
     const [filtered, setFiltered] = useState([])
@@ -69,6 +69,12 @@ const Bestant = () => {
                 setNextStep(res.data.next)
             })
         }
+
+        Api().post('/customerDetails', Data).then(res => {
+            setInfo(res.data[0])
+            console.log('cd', res.data[0].Zeile1)
+        })
+
     }, [lastDoneIndex, currentMilestone, param.id]);
 
     useEffect(() => {
@@ -100,6 +106,7 @@ const Bestant = () => {
     return (
         <div className='dashboardContainer'>
             <CompanyData data={BestantCompanyInfo}
+                         info={info}
                          company={param.id.replaceAll('_', ' ')}
                          toggle={toggleCompanyInfoModal}
             />
