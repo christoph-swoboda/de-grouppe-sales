@@ -80,7 +80,7 @@ const Bestant = () => {
                         if (i + 1 === filtered.length) {
                             setTimeout(() => {
                                 setStepsLoading(false)
-                            }, 2000);
+                            }, 1000);
                         }
                     }).catch(e => {
                         setStepsLoading(false)

@@ -56,34 +56,34 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
         // })
     };
 
-    useEffect(() => {
-        data?.map((d, index) => {
-            // dispatch({type: "SET_CALCOPTIONS", item: true})
-            if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
-                if (d.fieldType === 'date') {
-                    let newDate = moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
-                    const dateFormat = 'DD-MM-YYYY';
-                    const toDateFormat = moment(new Date(newDate)).format(dateFormat);
-                    let valid = moment(toDateFormat, dateFormat, true).isValid()
-                    if (valid) {
-                        setValue(`${d.stepName}`, newDate)
-                    } else {
-                        setValue(`${d.stepName}`, moment(new Date()).toDate())
-                    }
-                }
-                if (d.fieldType === 'option') {
-                    if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
-                        setValue(`${d.stepName}`, option[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
-                    } else {
-                        setValue(`${d.stepName}`, `autoFill`)
-                    }
-                    // dispatch({type: "SET_CALCOPTIONS", item: false})
-                }
-                if (d.fieldType === 'text') {
-                    setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
-                }
-            }
-        })
+    useEffect( () => {
+         data?.map(async (d, index) => {
+             // dispatch({type: "SET_CALCOPTIONS", item: true})
+             if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
+                 if (d.fieldType === 'date') {
+                     let newDate = moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
+                     const dateFormat = 'DD-MM-YYYY';
+                     const toDateFormat = moment(new Date(newDate)).format(dateFormat);
+                     let valid = moment(toDateFormat, dateFormat, true).isValid()
+                     if (valid) {
+                         setValue(`${d.stepName}`, newDate)
+                     } else {
+                         setValue(`${d.stepName}`, moment(new Date()).toDate())
+                     }
+                 }
+                 if (d.fieldType === 'option') {
+                     if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
+                         await setValue(`${d.stepName}`, option[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                     } else {
+                        await setValue(`${d.stepName}`, `autoFill`)
+                     }
+                     // dispatch({type: "SET_CALCOPTIONS", item: false})
+                 }
+                 if (d.fieldType === 'text') {
+                     setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
+                 }
+             }
+         })
     }, [data, grid, setValue, next, options, option, currentMilestone, lastDoneIndex, next, loading]);
 
 
