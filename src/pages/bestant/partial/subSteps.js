@@ -45,7 +45,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                 setOption([...new Set(arr)])
             }
         },
-        [data, options],
+        [data, options, currentSubStep, currentMilestone],
     );
 
     useEffect(() => {
@@ -54,13 +54,13 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
 
     useEffect(() => {
         memoizedCallback().then(r=>r)
-    }, [memoizedCallback, data, option]);
+    }, [memoizedCallback]);
 
-    // useEffect(() => {
-    //     if (option.length > 0) {
-    //         console.log('op', option)
-    //     }
-    // }, [option]);
+    useEffect(() => {
+        if (option.length > 0) {
+            console.log('op', option)
+        }
+    }, [option]);
 
     useEffect(() => {
         if (data.length > 0) {
@@ -115,7 +115,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                 loading ?
                     <div hidden={next} style={{height: '2vh'}} className='mt-24'>
                         <h2 style={{width: '42vw'}}>
-                            <span className='mx-2'><RiseLoader size='8' color='grey'/></span>
+                            <span className='mx-2'><RiseLoader size='8px' color='grey'/></span>
                             Holen sie sich die aktuellen meilensteindaten!
                         </h2>
                     </div>

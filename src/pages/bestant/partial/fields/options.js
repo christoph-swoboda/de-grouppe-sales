@@ -9,7 +9,7 @@ const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, o
                     className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
                                                     ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
             >
-                <option selected={getValues(val.stepName) === 'autoFill'} hidden>
+                <option value={getValues(val.stepName) === 'autoFill'} hidden>
                     Wähle eine Option
                 </option>
                 {
