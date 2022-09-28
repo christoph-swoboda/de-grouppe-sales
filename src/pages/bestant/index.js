@@ -55,6 +55,11 @@ const Bestant = () => {
         if (lastDoneIndex > 0) {
             Api().post('/sub-steps', Data).then(res => {
                 setSubSteps(res.data.subSteps)
+                let filter=res.data.subSteps.filter(d => d.fieldType === 'option')
+                setFiltered(filter)
+                if(filter.length===0){
+                    setStepsLoading(false)
+                }
                 setGrid(res.data.grid)
                 setNextStep(res.data.next)
             })
@@ -63,18 +68,8 @@ const Bestant = () => {
     }, [lastDoneIndex, currentMilestone, param.id]);
 
     useEffect(() => {
-        setFiltered(subSteps.filter(d => d.fieldType === 'option'))
-    }, [subSteps]);
-
-    useEffect(() => {
-        if (filtered?.length > 0) {
-            setHasOptions(true)
-        }
-    }, [filtered, subSteps]);
-
-    useEffect(() => {
             let arr = []
-            if (hasOptions || filtered?.length > 0) {
+            if (filtered?.length > 0) {
                 filtered.map((f, i) => {
                     arr.push(f.substepID)
                     let Data = new FormData()
@@ -91,7 +86,6 @@ const Bestant = () => {
                     setCurrentSubStep(arr)
                 })
             }
-
     }, [filtered]);
 
     useEffect(() => {

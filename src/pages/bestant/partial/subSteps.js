@@ -34,8 +34,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
         console.log('op', option)
     }, [option]);
 
-
-
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
