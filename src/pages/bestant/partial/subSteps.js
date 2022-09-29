@@ -42,7 +42,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                         if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
                             let filter=options.map(o=>o.filter(oo=>Number(oo.substepID)===Number(d.substepID)))
                             let filteredOption=filter.filter(f=>f.length>0)[0]
-                            console.log('o',filteredOption)
                             await setValue(`${d.stepName}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
                         } else {
                             await setValue(`${d.stepName}`, `autoFill`)
@@ -124,7 +123,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                                             onChange={(date) => field.onChange(date)}
                                                             selected={field.value}
                                                             cssClass={'datePicker'}
-                                                            readOnly={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
+                                                            readOnly={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
                                                             customInput={<CustomInput next={next} last={lastDoneIndex}
                                                                                       current={currentMilestone}/>}
                                                         />
@@ -142,7 +141,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                                        ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
                                                        {...register(`${val.stepName}`)}
                                                        type="text"
-                                                       disabled={next || Number(currentMilestone) !== Number(lastDoneIndex) + 1}
+                                                       disabled={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
                                                        style={{border: errors.email && '1px solid red'}}
                                                 />
                                                 {errors.email && touchedFields && <p>{errors.email.message}</p>}

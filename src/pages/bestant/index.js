@@ -26,6 +26,7 @@ const Bestant = () => {
     const [milestoneTabs, setMilestoneTabs] = useState([])
     const [lastIndex, setLastIndex] = useState(null)
     const [lastDoneIndex, setLastDoneIndex] = useState(0)
+    const [subString, setSubString] = useState(2)
     const [currentSubStep, setCurrentSubStep] = useState([])
     const param = useParams()
     const [options, setOptions] = useState([])
@@ -98,6 +99,16 @@ const Bestant = () => {
         setLastIndex(index)
     }, [milestoneTabs]);
 
+    useEffect(() => {
+        if(Number(currentMilestone) === lastIndex){
+            setSubString(0)
+        }
+        else{
+            setSubString(2)
+        }
+    }, [currentMilestone, lastIndex, subString]);
+
+
     return (
         <div className='dashboardContainer'>
             <CompanyData data={BestantCompanyInfo}
@@ -137,7 +148,7 @@ const Bestant = () => {
                                     <h2 className='text-2xl text-center text-bold mb-2 '>Platzhalter</h2>
                                     {/*<hr/>*/}
                                     <br/>
-                                    <h2 className='text-xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(2)}</h2>
+                                    <h2 className='text-xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(subString)}</h2>
                                     <SubSteps
                                         data={subSteps}
                                         loading={stepsLoading}
@@ -152,7 +163,7 @@ const Bestant = () => {
                                     hidden={stepsLoading || Number(currentMilestone) < Number(lastDoneIndex) + 1 || nextStep.length === 0}
                                     className='my-4 bg-white p-5 m-2 pb-10'
                                 >
-                                    <h2 className='text-2xl'>{milestoneTabs[Number(currentMilestone) + 1]?.milestoneLabel.substring(2)}(Bevorstehende)</h2>
+                                    <h2 className='text-2xl'>{milestoneTabs[Number(currentMilestone) + 1]?.milestoneLabel.substring(subString)}(Bevorstehende)</h2>
                                     <SubSteps
                                         data={nextStep}
                                         loading={stepsLoading}
