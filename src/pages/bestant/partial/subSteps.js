@@ -38,26 +38,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
         {substepID: "16", optionValue: "Ja"},
         {substepID: "16", optionValue: "Nein"},
     ]
-    const memoizedCallback = useCallback(
-        async () => {
-            let arr = [...new Set(option), ...new Set(options)]
-            setOption([...new Set(arr)])
-        },
-        [option, options],
-    );
-    useEffect(() => {
-        memoizedCallback().then(r => r)
-    }, [memoizedCallback]);
-
-    useEffect(() => {
-        setOption([])
-    }, [currentMilestone]);
-
-    // useEffect(() => {
-    //     if (option.length > 0) {
-    //         console.log('op', option)
-    //     }
-    // }, [option]);
 
     useEffect(() => {
         if (data.length > 0) {
@@ -76,7 +56,10 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                     }
                     if (d.fieldType === 'option') {
                         if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
-                            await setValue(`${d.stepName}`, option[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                            let filter=options.map(o=>o.filter(oo=>Number(oo.substepID)===Number(d.substepID)))
+                            let filteredOption=filter.filter(f=>f.length>0)[0]
+                            console.log('o',filteredOption)
+                            await setValue(`${d.stepName}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
                         } else {
                             await setValue(`${d.stepName}`, `autoFill`)
                         }
@@ -139,7 +122,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                             currentMilestone={currentMilestone}
                                             lastDoneIndex={lastDoneIndex}
                                             val={val}
-                                            option={option}
+                                            option={options}
                                             next={next}
                                         />
 

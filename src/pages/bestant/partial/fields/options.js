@@ -14,15 +14,17 @@ const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, o
                     Wähle eine Option
                 </option>
                 {
-                    option?.map((op, i) => (
-                        op.substepID === val.substepID ?
-                            <option key={i} value={op?.optionValue}>
-                                {op?.optionValue}
-                            </option>
-                            :
-                            <option key={i} hidden>
+                    option?.map((o, i) => (
+                        o.map(op=>(
+                            op.substepID === val.substepID ?
+                                <option key={i} value={op?.optionValue}>
+                                    {op?.optionValue}
+                                </option>
+                                :
+                                <option key={i} hidden>
 
-                            </option>
+                                </option>
+                        ))
                     ))
                 }
             </select>
