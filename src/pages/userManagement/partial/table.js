@@ -17,13 +17,13 @@ const UserManagementTable = ({role, users, pageSize, loading, total}) => {
                         <table className="min-w-full text-left">
                             <thead className="border-y border-silver border-x-0">
                             <tr>
-                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2">
-                                    #
+                                <th scope="col" className="text-sm w-1/12 font-medium text-grey px-6 py-2">
+
                                 </th>
-                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2 ">
+                                <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2 ">
                                     eMail
                                 </th>
-                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2 ">
+                                <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2 ">
                                     partnernummer
                                 </th>
                                 <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2">
@@ -43,6 +43,7 @@ const UserManagementTable = ({role, users, pageSize, loading, total}) => {
                                 users.map((u,index) => (
                                     <UserManagementCard
                                         key={index}
+                                        index={index}
                                         userID={u.ID}
                                         email={u.email}
                                         prtnrNo={u.partnernr}

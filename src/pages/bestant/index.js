@@ -12,9 +12,7 @@ import {ScaleLoader} from "react-spinners";
 import SubSteps from "./partial/subSteps";
 import {useParams} from "react-router";
 
-
 const Bestant = () => {
-
     const [{companyInfoModal, currentMilestone, noteSent}, dispatch] = useStateValue();
     const {toggleCompanyInfoModal} = useModal();
     const [loading, setLoading] = useState(true)
@@ -31,7 +29,6 @@ const Bestant = () => {
     const [currentSubStep, setCurrentSubStep] = useState([])
     const param = useParams()
     const [options, setOptions] = useState([])
-    const [option, setOption] = useState([])
 
     useEffect(() => {
         setSubSteps([])
@@ -57,7 +54,9 @@ const Bestant = () => {
         let Data = new FormData()
         Data.append('index', currentMilestone)
         Data.append('name', param.id.replaceAll('_', ' '))
-
+        Api().post('/customerDetails', Data).then(res => {
+            setInfo(res.data[0])
+        })
         if (lastDoneIndex > 0) {
             Api().post('/sub-steps', Data).then(res => {
                 setSubSteps(res.data.subSteps)
@@ -68,10 +67,6 @@ const Bestant = () => {
                 setNextStep(res.data.next)
             })
         }
-        Api().post('/customerDetails', Data).then(res => {
-            setInfo(res.data[0])
-        })
-
     }, [lastDoneIndex, currentMilestone, param.id]);
 
     useEffect(() => {
@@ -79,17 +74,6 @@ const Bestant = () => {
         if (filtered?.length > 0) {
             filtered.map(async (f, i) => {
                 arr.push(f.substepID)
-                // let Data = new FormData()
-                // Data.append('milestoneID', currentMilestone)
-                // Data.append('subStepID', f.substepID)
-                // await Api().post('/options', Data).then(res => {
-                //     setOptions(res.data)
-                //     if (i + 1 === filtered.length) {
-                //         setStepsLoading(false)
-                //     }
-                // }).catch(e => {
-                //     setStepsLoading(false)
-                // })
                 setCurrentSubStep(arr)
             })
         }

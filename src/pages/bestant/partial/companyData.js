@@ -12,7 +12,7 @@ const CompanyData = ({data, toggle, company, info}) => {
     const line2 = info?.Zeile2.replaceAll(/BANK:|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>` );
     let line3 = info?.Zeile3.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, '' );
     const withoutMail = line3?.replaceAll(/Anspr.:|\|+| Mob.:/gi, match => `<span style="color: #a1a1a1">${match} </span>` );
-    const Email = email?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, match => `<span style="color: #3062be; text-decoration: underline">${match} </span>` );
+    const Email = email?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, match => `<span style="color: #3A46A9; text-decoration: underline">${match} </span>` );
 
     useEffect(() => {
         if(info?.Zeile3){
@@ -25,10 +25,10 @@ const CompanyData = ({data, toggle, company, info}) => {
     }
 
     return (
-        <div className='bg-white text-left'>
+        <div className='bg-white text-left text-text'>
             <div className='flex justify-between'>
-                <h2 className='lg:text-left text-xl p-5 text-grey'>
-                    Firmenprojekt: <span className='font-extrabold text-text'>{company}</span>
+                <h2 className='lg:text-left text-xl p-5' style={{color:'#a1a1a1'}}>
+                    Firmenprojekt <span className='font-extrabold text-text'>{company}</span>
                 </h2>
                 <CollapseExpand show={collapse1} id={1}/>
             </div>
@@ -49,7 +49,7 @@ const CompanyData = ({data, toggle, company, info}) => {
                 <span dangerouslySetInnerHTML={{__html: withoutMail}}/>
                 <span dangerouslySetInnerHTML={{__html: Email}}/>
             </div>
-            <button onClick={toggle} className='py-2 text-mainBlue px-5 underline text-xs'>Firmendetails</button>
+            <button onClick={toggle} className='py-2 text-mainBlue mt-2 px-5 underline text-xs'>Firmendetails</button>
         </div>
     )
 }

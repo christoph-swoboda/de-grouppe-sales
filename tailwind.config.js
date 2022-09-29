@@ -14,7 +14,7 @@ module.exports = {
       'mainBlue': '#3A46A9',
       'disableBlue': '#7d83b2',
       'midnight': '#121063',
-      'text': '#1c1c1c',
+      'text': '#282828',
       'metal': '#565584',
       'tahiti': '#3ab7bf',
       'complete': '#E2EFDA',

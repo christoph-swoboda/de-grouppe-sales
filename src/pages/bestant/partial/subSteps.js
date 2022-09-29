@@ -15,7 +15,6 @@ registerLocale("de", de);
 const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, options}) => {
 
     const [Loading, setLoading] = useState(false)
-    const [option, setOption] = useState([])
     const ref = useRef()
     const [{currentMilestone, calcOptions}, dispatch] = useStateValue();
     const {
@@ -23,21 +22,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
-
-    const op = [
-        {substepID: "2", optionValue: "Ja"},
-        {substepID: "2", optionValue: "Nein"},
-        {substepID: "8", optionValue: "Ja"},
-        {substepID: "8", optionValue: "Nein"},
-        {substepID: "9", optionValue: "Ja"},
-        {substepID: "9", optionValue: "Nein"},
-        {substepID: "10", optionValue: "Ja"},
-        {substepID: "10", optionValue: "Nein"},
-        {substepID: "15", optionValue: "Ja"},
-        {substepID: "15", optionValue: "Nein"},
-        {substepID: "16", optionValue: "Ja"},
-        {substepID: "16", optionValue: "Nein"},
-    ]
 
     useEffect(() => {
         if (data.length > 0) {
@@ -71,7 +55,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
             })
         }
 
-    }, [data, grid, setValue, next, options, option]);
+    }, [data, grid, setValue, next, options]);
 
     const onSubmit = async (Data) => {
         setLoading(true)
