@@ -3,7 +3,7 @@ import React from "react";
 const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, option, register}) => {
 
     return (
-        <section className='tooltip sm:flex sm:flex-col'>
+        <section className='tooltip flex'>
             <label className='text-sm text-grey label'>{val.stepName}</label>
             <select {...register(`${val.stepName}`)}
                     disabled={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}

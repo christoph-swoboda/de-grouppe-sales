@@ -57,13 +57,13 @@ const Navbar = () => {
                     (toggleMenu || screenWidth > 1200) && (
                         <>
                             <Link to={'/'} onClick={toggleNav}>
-                                <li  className={`items ${path.pathname==='/' && 'text-mainBlue'}`}>Armaturenbrett</li>
+                                <li  className={`items ${path.pathname==='/' && 'text-mainBlue'}`}>Dashboard</li>
                             </Link>
                             <Link to={'/neu'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname==='/neu' && 'text-mainBlue'}`}>Neue Kreation</li>
+                                <li className={`items ${path.pathname==='/neu' && 'text-mainBlue'}`}>Neue</li>
                             </Link>
-                            <Link to={'/bestand-liste'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname.includes('/bestand') && 'text-mainBlue'}`}>Bestand</li>
+                            <Link to={'/firmenprojekte-liste'} onClick={toggleNav}>
+                                <li className={`items ${path.pathname.includes('/firmenprojekte') && 'text-mainBlue'}`}>Firmenprojekte</li>
                             </Link>
                             {
                                 role==='Internal' ?
@@ -73,8 +73,8 @@ const Navbar = () => {
                                         </li>
                                     </Link>
                                     :role==='BankManager' &&
-                                    <Link to={'/Bank-Kooperationspartner'}>
-                                        <li className={`items ${path.pathname.includes('/Bank-Kooperationspartner') && 'text-mainBlue'}`}>
+                                    <Link to={'/bank-Kooperationspartner'}>
+                                        <li className={`items ${path.pathname.includes('/bank-Kooperationspartner') && 'text-mainBlue'}`}>
                                             Bank-Kooperationspartner
                                         </li>
                                     </Link>

@@ -10,7 +10,7 @@ const CompanyData = ({data, toggle, company, info}) => {
     const line1 = info?.Zeile1.replaceAll(/Tel.|\|+|FKB:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     const line2 = info?.Zeile2.replaceAll(/BANK:|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     let line3 = info?.Zeile3.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, '');
-    const withoutMail = line3?.replaceAll(/Anspr.:|\|+| Mob.:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
+    const withoutMail = line3?.replaceAll(/Anspr.:|\|+| Mob.:| Email:| Tel.:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     const Email = email?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, match => `<span style="color: #3A46A9; text-decoration: underline">${match} </span>`);
 
     useEffect(() => {

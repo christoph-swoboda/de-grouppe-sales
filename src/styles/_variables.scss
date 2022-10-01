@@ -60,7 +60,7 @@ form {
 
 .tooltip {
   position: relative;
-  display: inline-block;
+  //display: inline-block;
 }
 
 /* Tooltip text */
@@ -170,7 +170,8 @@ form {
   //}
 }
 .label{
-  line-break: strict;
+  min-width: 50%;
+  margin-right: 10px;
 }
 .disabled{
   background-color: #e8e8e8;

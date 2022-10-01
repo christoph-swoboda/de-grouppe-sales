@@ -12,7 +12,7 @@ export const RouteData=[
         path:'/',
         name:'dashboard',
         component:<Dashboard/>,
-        redirection:'/anmeldung'
+        redirection:'/dashboard'
     },
     {
         id:0,
@@ -30,22 +30,22 @@ export const RouteData=[
     },
     {
         id:1,
-        path:"/Bank-Kooperationspartner",
+        path:"/bank-Kooperationspartner",
         name:'Bank-Kooperationspartner',
         component:<UserManagement/>,
         redirection:'/anmeldung'
     },
     {
         id:3,
-        path:'/bestand-liste',
-        name:'bestant-list',
+        path:'/firmenprojekte-liste',
+        name:'bestand-list',
         component:<BestantList/>,
         redirection:'/anmeldung'
     },
     {
         id:4,
-        path:'/bestand/:id',
-        name:'bestant',
+        path:'firmenprojekte/:id',
+        name:'bestand',
         component:<Bestant/>,
         redirection:'/anmeldung'
     },

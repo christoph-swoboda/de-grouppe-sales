@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import BestantStatus from "../../../components/bestantStatus";
 import Api from "../../../Api/api";
@@ -35,10 +35,15 @@ const Status = ({notes, company}) => {
         })
     }
 
+    useEffect(() => {
+      console.log('d',notes)
+    }, [notes]);
+
+
     return (
         <>
             <div className='flex justify-between bg-white mt-5'>
-                <h2 className='text-lg lg:text-left font-extrabold'>Bemerkungen</h2>
+                <h2 className='text-xl lg:text-left font-extrabold'>Bemerkungen</h2>
                 <CollapseExpand show={collapse2} id={2}/>
             </div>
             <div className={`${!collapse2 && 'hidden'}`}>

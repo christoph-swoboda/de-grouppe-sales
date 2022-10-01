@@ -93,7 +93,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                         </button>
 
                         <form onSubmit={handleSubmit(onSubmit)}
-                              className='grid 2xl:grid-cols-3 xl:grid-cols-2 md:grid-cols-1 gap-1 mt-6 rounded-lg'>
+                              className='grid 2xl:grid-cols-1 xl:grid-cols-1 md:grid-cols-1 gap-1 mt-6 rounded-lg'>
                             {
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?
@@ -110,9 +110,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                         />
 
                                         : val.fieldType === 'date' ?
-                                            <section key={index} className='tooltip'>
-                                                <label
-                                                    className='text-sm min-w-screen text-grey label'>{val.stepName}</label>
+                                            <section key={index} className='tooltip flex'>
+                                                <label className='text-sm text-grey label'>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
@@ -134,7 +133,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                                 <p className='tooltiptextclose'>{val.mouseoverText}</p>
                                             </section>
                                             :
-                                            <section key={index} className='tooltip'>
+                                            <section key={index} className='tooltip flex'>
                                                 <label className='text-sm text-grey label'>{val.stepName}</label>
                                                 <input placeholder='Text Input'
                                                        className={`subStepInput w-full p-2 md:w-full
