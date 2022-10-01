@@ -128,7 +128,7 @@ const Bestant = () => {
                         :
                         <>
                             <div className='bg-white px-2 m-1 pb-10 lg:min-w-max lg:ml-0 rounded-lg h-fit'>
-                                <h2 className='text-xl text-left py-5 px-2'>Projekt-Fortschritt</h2>
+                                <h2 className='text-xl font-bold text-left py-5 px-2'>Projekt-Fortschritt</h2>
                                 {
                                     milestoneTabs.map(tab => (
                                         <MilestoneTabs
@@ -146,7 +146,7 @@ const Bestant = () => {
 
                             <div className='lg:w-2/4 2xl:w-2/4 lg:ml-0 h-fit text-left'>
                                 <div className='bg-white p-5 m-2 pb-10'>
-                                    <h2 className='text-xl text-center text-bold mb-2 '>Platzhalter</h2>
+                                    <h2 className='text-xl text-center font-bold mb-2 '>Platzhalter</h2>
                                     <br/>
                                     <h2 className='text-xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(subString)}</h2>
                                     <SubSteps
