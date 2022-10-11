@@ -69,7 +69,7 @@ form {
   max-width: 220px;
   height: fit-content;
   padding: 20px;
-  text-align: center;
+  text-align: left;
   background-color: #FFF4C7;
   color: black;
   font-size: 12px;
@@ -85,6 +85,7 @@ form {
 .tooltip:hover .tooltiptext {
   transition-delay: .5s;
   visibility: visible;
+  text-align: left;
 }
 
 /* Tooltip text */

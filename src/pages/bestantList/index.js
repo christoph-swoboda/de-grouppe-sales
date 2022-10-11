@@ -116,7 +116,6 @@ const BestantList = () => {
                                             ))
                                         }
                                         <th scope="col" className="text-xs text-grey px-2 py-1"/>
-                                        <th scope="col" className="text-xs text-grey px-2 py-1"/>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -144,7 +143,7 @@ const BestantList = () => {
                                     }
                                     </tbody>
                                 </table>
-                                <div className='centerItemsRelative mt-3 mb-2'>
+                                <div className={`centerItemsRelative mt-3 mb-2 ${loading && 'opacity-0'}`}>
                                     <Pagination
                                         className="pagination-bar"
                                         currentPage={pageBestand}

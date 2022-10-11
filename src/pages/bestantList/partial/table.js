@@ -44,13 +44,6 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBan
                     {Note}
                 </span>
             </td>
-            <td className="w-1/12  text-xs text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                <h2 className='border border-mainBlue text-mainBlue rounded-3xl px-2 py-1 font-bold uppercase'>
-                    <Link to={`/firmenprojekte/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`}>
-                        Edit
-                    </Link>
-                </h2>
-            </td>
         </tr>
     )
 }

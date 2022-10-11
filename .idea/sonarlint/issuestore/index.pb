@@ -54,10 +54,6 @@ B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
 E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
-V
-&src/pages/bestantList/partial/table.js,b\2\b265d6279560b6d0ce8e016d11c2eb22fdfb42c6
-N
-src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
 I
 src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
 X
