@@ -24,8 +24,6 @@ L
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
 X
 (src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
-L
-src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
 N
 src/components/authDirector.js,0\f\0f930eab094e16c7371f98ba1eac67cf228c3706
 I
@@ -34,8 +32,6 @@ K
 src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
 c
 3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
-<
-package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 L
 src/dummyData/bestantInfo.js,6\2\62db3afec19d67d869ac3bbdc2ae55301533f7df
 >
@@ -58,3 +54,16 @@ I
 src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
 X
 (src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
+C
+src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
+:
+
+src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
+S
+#src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
+U
+%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
+[
++src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
+E
+src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716

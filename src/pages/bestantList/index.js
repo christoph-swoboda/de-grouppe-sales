@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {VscFilePdf} from "react-icons/vsc";
-import {RiFileExcel2Fill} from "react-icons/ri";
+import {RiArrowDownSFill, RiArrowUpSFill, RiFileExcel2Fill} from "react-icons/ri";
 import {BestantTableHeaders} from "../../dummyData/bestantTableHeaders";
 import Api from "../../Api/api";
 import BestantListTable from "./partial/table";
@@ -53,22 +53,29 @@ const BestantList = () => {
     // }, [search]);
 
 
-
     return (
         <div className='dashboardContainer'>
-            <h2 className='text-left text-xl pt-5 pb-5'>Bestand</h2>
+            <h2 className='text-left text-2xl pt-5 pb-5'>Bestand</h2>
             <div className=' bg-white'>
                 <div className='bg-white p-8 lg:flex sm:block'>
-                    <input className='mr-5 search' type='search' placeholder='sueche..'
-                           onChange={(e) => setSearch(e.target.value)}
-                    />
                     <div className='flex justify-center m-1'>
                         <RiFileExcel2Fill className='mr-1' size='25px' color={'#388E3C'}/>
-                        <span className='mr-1 mb-1 text-grey '>Excel Export</span>
+                        <span className='mr-1 mb-1 text-grey text-sm'>Excel Export</span>
+                    </div>
+                    <div className='flex justify-center m-1'>
+                        <RiFileExcel2Fill className='mr-1' size='25px' color={'#388E3C'}/>
+                        <span className='mr-1 mb-1 text-grey text-sm'>Excel Export All</span>
                     </div>
                     <div className='flex justify-center m-1'>
                         <VscFilePdf className='mr-1' size='25px' color={'#DB2955'}/>
-                        <span className='mr-1 mb-2 text-grey'>PDF Export</span>
+                        <span className='mr-1 mb-2 text-grey text-sm'>PDF Export</span>
+                    </div>
+
+                    <div className={`flex m-auto justify-center m-1 ${user?.role!=='Internal' && 'hidden'}`}>
+                        <select className='w-44 bg-transparent border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
+                            <option>View 1</option>
+                            <option>View 2</option>
+                        </select>
                     </div>
 
                     <p className='text-sm text-grey ml-auto mt-2'>
@@ -79,6 +86,7 @@ const BestantList = () => {
                         <select onChange={setPageStates} className='bg-transparent text-mainBlue'>
                             <option value={'10'}>{10}</option>
                             <option value={'25'}>{25}</option>
+                            <option value={'10000'}>Alle</option>
                         </select>
                     </span>
                     </h2>
@@ -91,31 +99,42 @@ const BestantList = () => {
                                 <table className="min-w-full text-left">
                                     <thead className=" border-y border-silver border-x-0">
                                     <tr>
-                                        {/*<th scope="col" className="text-xs text-grey px-2 py-1 ">*/}
-                                        {/*    #*/}
-                                        {/*</th>*/}
                                         {
                                             BestantTableHeaders.map(header => (
                                                 <th key={header.id} scope="col"
-                                                    className="text-sm pl-5 text-grey px-2 py-1 ">
-                                                    {header.title}
-                                                    {/*<tr className='flex justify-center'>*/}
-                                                    {/*    <td>*/}
-                                                    {/*        <RiArrowUpSFill size='22px'/>*/}
-                                                    {/*        <p className='-mt-4'>*/}
-                                                    {/*            <RiArrowDownSFill size='22px'/>*/}
-                                                    {/*        </p>*/}
-                                                    {/*    </td>*/}
-                                                    {/*    <td className='tooltip mt-1'>{header.title}*/}
-                                                    {/*        /!*<span className='tooltiptextclose'>*!/*/}
-                                                    {/*        /!*    Hannoversche Volksbank description*!/*/}
-                                                    {/*        /!*</span>*!/*/}
-                                                    {/*    </td>*/}
-                                                    {/*</tr>*/}
+                                                    className="text-sm pl-5 text-grey px-2 py-1 "
+                                                >
+                                                    <span className='flex justify-left'>
+                                                          <span className='tooltip mt-1 xl:h-fit lg:h-14'>
+                                                            {header.title}
+                                                              {/*<span className='tooltiptextclose'>*/}
+                                                              {/*    Hannoversche Volksbank description*/}
+                                                              {/*</span>*/}
+                                                        </span>
+                                                        <span>
+                                                            <p className='cursor-pointer'>
+                                                                <RiArrowUpSFill size='22px'/>
+                                                            </p>
+                                                            <p className='-mt-4 cursor-pointer'>
+                                                                <RiArrowDownSFill size='22px'/>
+                                                            </p>
+                                                        </span>
+                                                    </span>
+                                                    <span className={`${header.title==='MA' && 'opacity-0'}`}>
+                                                        <input className='w-full h-2 px-2 py-3 search'
+                                                               type='text'
+                                                               placeholder='Sueche...'
+                                                        />
+                                                    </span>
                                                 </th>
                                             ))
                                         }
-                                        <th scope="col" className="text-xs text-grey px-2 py-1"/>
+                                        {/*<th scope="col" className="text-xs text-grey px-2 py-1"/>*/}
+                                        {/*<th scope="col" className="text-xs text-grey px-2 py-1">*/}
+                                        {/*    <input className='mr-5 search' type='search' placeholder='sueche..'*/}
+                                        {/*           onChange={(e) => setSearch(e.target.value)}*/}
+                                        {/*    />*/}
+                                        {/*</th>*/}
                                     </tr>
                                     </thead>
                                     <tbody>

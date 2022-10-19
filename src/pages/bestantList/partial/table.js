@@ -14,31 +14,33 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBan
 
     return (
         <tr className="border-y border-silver border-x-0 ">
-            {/*<td className="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-900">{index+1}</td>*/}
-            <td className="w-2/12 text-xs text-mainBlue underline font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="w-2/12 text-sm text-mainBlue underline font-light px-6 py-4 whitespace-pre-wrap">
                 <Link to={`/firmenprojekte/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`}>
                     {FirmaKurz}
                 </Link>
             </td>
-            <td className="w-2/12 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="w-2/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {ZustBerater}
             </td>
-            <td className="w-2/12 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="w-2/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {Bank}
             </td>
-            <td className="w-2/12 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="w-2/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {RegioBereich}
             </td>
-            <td className="w-2/12 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="w-2/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {FBKBank}
             </td>
-            <td className="w-1/12 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="w-1/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {MA}
             </td>
-            <td className="w-2/12 text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="w-2/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {PStatus}
             </td>
-            <td className="w-1/12 tooltip text-xs text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                21.10.22
+            </td>
+            <td className="w-1/12 tooltip text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 <BsChatLeftText size='18px'/>
                 <span className='tooltiptext'>
                     {Note}
