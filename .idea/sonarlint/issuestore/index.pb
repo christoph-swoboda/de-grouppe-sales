@@ -67,3 +67,5 @@ U
 +src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
 E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
+L
+src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278

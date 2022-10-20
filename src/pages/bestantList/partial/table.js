@@ -28,7 +28,7 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBan
             <td className="w-2/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {RegioBereich}
             </td>
-            <td className="w-2/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
+            <td className="w-3/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {FBKBank}
             </td>
             <td className="w-1/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
@@ -37,7 +37,7 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBan
             <td className="w-2/12 text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 {PStatus}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+            <td className="w-1/12 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 21.10.22
             </td>
             <td className="w-1/12 tooltip text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">

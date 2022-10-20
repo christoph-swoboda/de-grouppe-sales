@@ -13,6 +13,8 @@ const BestantList = () => {
     const [search, setSearch] = useState(null)
     const [loading, setLoading] = useState(false);
     const [rows, setRows] = useState('10');
+    const [sortColumn, setSortColumn] = useState(7);
+    const [sortMethod, setSortMethod] = useState('asc');
     let PageSize = rows;
     const [{pageBestand}, dispatch] = useStateValue();
     const [users, setUsers] = useState([]);
@@ -26,6 +28,8 @@ const BestantList = () => {
         data.append('userID', userID)
         data.append('rows', rows)
         data.append('page', pageBestand)
+        data.append('sortColumn', sortColumn)
+        data.append('sortMethod', sortMethod)
 
         Api().post('/getBestands', data).then(res => {
             setUsers(res.data.bestands)
@@ -35,7 +39,7 @@ const BestantList = () => {
             setLoading(false)
             toast.error('Something went wrong!!')
         })
-    }, [rows, userID, pageBestand]);
+    }, [rows, userID, pageBestand, sortColumn, sortMethod]);
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -52,6 +56,14 @@ const BestantList = () => {
     //     }
     // }, [search]);
 
+    function ascSort(id){
+        setSortColumn(id)
+        setSortMethod('asc')
+    }
+    function descSort(id){
+        setSortColumn(id)
+        setSortMethod('desc')
+    }
 
     return (
         <div className='dashboardContainer'>
@@ -105,23 +117,27 @@ const BestantList = () => {
                                                     className="text-sm pl-5 text-grey px-2 py-1 "
                                                 >
                                                     <span className='flex justify-left'>
-                                                          <span className='tooltip mt-1 xl:h-fit lg:h-14'>
+                                                          <span className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn===header.id+1 && 'text-green'}`}>
                                                             {header.title}
                                                               {/*<span className='tooltiptextclose'>*/}
                                                               {/*    Hannoversche Volksbank description*/}
                                                               {/*</span>*/}
                                                         </span>
                                                         <span>
-                                                            <p className='cursor-pointer'>
+                                                            <p className={`cursor-pointer ${sortColumn===header.id+1 && sortMethod==='asc'?'text-green':''}`}
+                                                               onClick={()=>ascSort(header.id+1)}
+                                                            >
                                                                 <RiArrowUpSFill size='22px'/>
                                                             </p>
-                                                            <p className='-mt-4 cursor-pointer'>
+                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumn===header.id+1 && sortMethod==='desc'?' text-red':''}`}
+                                                               onClick={()=>descSort(header.id+1)}
+                                                            >
                                                                 <RiArrowDownSFill size='22px'/>
                                                             </p>
                                                         </span>
                                                     </span>
                                                     <span className={`${header.title==='MA' && 'opacity-0'}`}>
-                                                        <input className='w-full h-2 px-2 py-3 search'
+                                                        <input className='w-full h-2 px-2 py-3 search mb-4'
                                                                type='text'
                                                                placeholder='Sueche...'
                                                         />
