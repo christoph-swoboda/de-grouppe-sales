@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {VscFilePdf} from "react-icons/vsc";
 import {RiArrowDownSFill, RiArrowUpSFill, RiFileExcel2Fill} from "react-icons/ri";
 import {BestantTableHeaders} from "../../dummyData/bestantTableHeaders";
@@ -8,9 +8,11 @@ import {toast} from "react-toastify";
 import {ScaleLoader} from "react-spinners";
 import Pagination from "../../components/pagination";
 import {useStateValue} from "../../states/StateProvider";
+import {useReactToPrint} from "react-to-print"
+import ExcelExport from "./partial/excelFormat";
 
 const BestantList = () => {
-    const [search, setSearch] = useState(null)
+    const [printing, setPrinting] = useState(false)
     const [loading, setLoading] = useState(false);
     const [rows, setRows] = useState('10');
     const [sortColumn, setSortColumn] = useState(7);
@@ -21,6 +23,7 @@ const BestantList = () => {
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
     const [total, setTotal] = useState(0);
+    const componentRef = useRef();
 
     useEffect(() => {
         setLoading(true)
@@ -46,23 +49,30 @@ const BestantList = () => {
         setRows(e.target.value)
     }
 
-    // useEffect(() => {
-    //     if(search){
-    //         let Data=new FormData()
-    //         Data.append('email', search)
-    //         Api().post('/searchEmail', Data).then(res=>{
-    //             console.log('search',res.data)
-    //         })
-    //     }
-    // }, [search]);
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
 
-    function ascSort(id){
+    async function setPrintState() {
+        if (!loading) {
+            setPrinting(true)
+            setTimeout(() => handlePrint(), 1);
+            setTimeout(() => setPrinting(false), 1);
+        }
+    }
+
+    function ascSort(id) {
         setSortColumn(id)
         setSortMethod('asc')
     }
-    function descSort(id){
+
+    function descSort(id) {
         setSortColumn(id)
         setSortMethod('desc')
+    }
+
+    function printXl() {
+
     }
 
     return (
@@ -70,20 +80,15 @@ const BestantList = () => {
             <h2 className='text-left text-2xl pt-5 pb-5'>Bestand</h2>
             <div className=' bg-white'>
                 <div className='bg-white p-8 lg:flex sm:block'>
-                    <div className='flex justify-center m-1'>
-                        <RiFileExcel2Fill className='mr-1' size='25px' color={'#388E3C'}/>
-                        <span className='mr-1 mb-1 text-grey text-sm'>Excel Export</span>
-                    </div>
-                    <div className='flex justify-center m-1'>
-                        <RiFileExcel2Fill className='mr-1' size='25px' color={'#388E3C'}/>
-                        <span className='mr-1 mb-1 text-grey text-sm'>Excel Export All</span>
-                    </div>
-                    <div className='flex justify-center m-1'>
+                    <ExcelExport data={users} title={'Excel Export'} loading={loading}/>
+                    <ExcelExport data={users} title={'Excel Export All'} loading={loading}/>
+                    <div className={`${loading ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer`}
+                         onClick={setPrintState}>
                         <VscFilePdf className='mr-1' size='25px' color={'#DB2955'}/>
                         <span className='mr-1 mb-2 text-grey text-sm'>PDF Export</span>
                     </div>
 
-                    <div className={`flex m-auto justify-center m-1 ${user?.role!=='Internal' && 'hidden'}`}>
+                    <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hidden'}`}>
                         <select className='w-44 bg-transparent border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
                             <option>View 1</option>
                             <option>View 2</option>
@@ -108,7 +113,7 @@ const BestantList = () => {
                     <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={{minHeight: '50vh'}}>
                             <div className="overflow-hidden">
-                                <table className="min-w-full text-left">
+                                <table className="min-w-full text-left" ref={componentRef} id="table-to-xls">
                                     <thead className=" border-y border-silver border-x-0">
                                     <tr>
                                         {
@@ -117,40 +122,39 @@ const BestantList = () => {
                                                     className="text-sm pl-5 text-grey px-2 py-1 "
                                                 >
                                                     <span className='flex justify-left'>
-                                                          <span className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn===header.id+1 && 'text-green'}`}>
+                                                          <span
+                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id + 1 && 'text-mainBlue'}`}>
                                                             {header.title}
                                                               {/*<span className='tooltiptextclose'>*/}
                                                               {/*    Hannoversche Volksbank description*/}
                                                               {/*</span>*/}
                                                         </span>
-                                                        <span>
-                                                            <p className={`cursor-pointer ${sortColumn===header.id+1 && sortMethod==='asc'?'text-green':''}`}
-                                                               onClick={()=>ascSort(header.id+1)}
+                                                        <span hidden={printing}>
+                                                            <p className={`cursor-pointer ${sortColumn === header.id + 1 && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
+                                                               onClick={() => ascSort(header.id + 1)}
                                                             >
                                                                 <RiArrowUpSFill size='22px'/>
                                                             </p>
-                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumn===header.id+1 && sortMethod==='desc'?' text-red':''}`}
-                                                               onClick={()=>descSort(header.id+1)}
+                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumn === header.id + 1 && sortMethod === 'desc' ? 'text-mainBlue' : ''}`}
+                                                               onClick={() => descSort(header.id + 1)}
                                                             >
                                                                 <RiArrowDownSFill size='22px'/>
                                                             </p>
                                                         </span>
                                                     </span>
-                                                    <span className={`${header.title==='MA' && 'opacity-0'}`}>
+                                                    <span className={`${header.title === 'MA' && 'opacity-0'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4'
                                                                type='text'
+                                                               hidden={printing}
                                                                placeholder='Sueche...'
                                                         />
                                                     </span>
                                                 </th>
                                             ))
                                         }
-                                        {/*<th scope="col" className="text-xs text-grey px-2 py-1"/>*/}
-                                        {/*<th scope="col" className="text-xs text-grey px-2 py-1">*/}
-                                        {/*    <input className='mr-5 search' type='search' placeholder='sueche..'*/}
-                                        {/*           onChange={(e) => setSearch(e.target.value)}*/}
-                                        {/*    />*/}
-                                        {/*</th>*/}
+                                        <th scope="col" className="text-sm text-grey px-2 py-1"/>
+                                        <th scope="col" className="text-sm w-1/12 text-grey px-2 py-1"/>
+
                                     </tr>
                                     </thead>
                                     <tbody>

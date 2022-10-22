@@ -22,8 +22,6 @@ L
 src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 `
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
-X
-(src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
 N
 src/components/authDirector.js,0\f\0f930eab094e16c7371f98ba1eac67cf228c3706
 I
@@ -36,10 +34,6 @@ L
 src/dummyData/bestantInfo.js,6\2\62db3afec19d67d869ac3bbdc2ae55301533f7df
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
-G
-src/components/modal.js,f\f\ff0314594a6fd8966bdc4cc628de12ef8c7f037b
-W
-'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
 N

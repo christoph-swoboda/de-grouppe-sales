@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Modal from "../../components/modal";
+import Modal from "../../hooks/modal";
 import useModal from "../../hooks/useModal";
 import {useStateValue} from "../../states/StateProvider";
 import CompanyInfoPopUp from "../../components/modal/companyInfoPopUp";
