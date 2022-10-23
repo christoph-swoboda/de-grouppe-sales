@@ -81,7 +81,7 @@ const BestantList = () => {
             <div className=' bg-white'>
                 <div className='bg-white p-8 lg:flex sm:block'>
                     <ExcelExport data={users} title={'Excel Export'} loading={loading}/>
-                    <ExcelExport data={users} title={'Excel Export All'} loading={loading}/>
+                    <ExcelExport all title={'Excel Export All'} loading={loading}/>
                     <div className={`${loading ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer`}
                          onClick={setPrintState}>
                         <VscFilePdf className='mr-1' size='25px' color={'#DB2955'}/>
