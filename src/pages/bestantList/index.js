@@ -15,6 +15,8 @@ const BestantList = () => {
     const [printing, setPrinting] = useState(false)
     const [loading, setLoading] = useState(false);
     const [rows, setRows] = useState('10');
+    const [viewCount, setViewCount] = useState('');
+    const [views, setViews] = useState([]);
     const [sortColumn, setSortColumn] = useState(7);
     const [sortMethod, setSortMethod] = useState('asc');
     let PageSize = rows;
@@ -22,6 +24,7 @@ const BestantList = () => {
     const [users, setUsers] = useState([]);
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
+    const role = user.role === 'Internal' ? 'i' : user.role === 'External' ? 'e' : 's'
     const [total, setTotal] = useState(0);
     const componentRef = useRef();
 
@@ -43,6 +46,18 @@ const BestantList = () => {
             toast.error('Something went wrong!!')
         })
     }, [rows, userID, pageBestand, sortColumn, sortMethod]);
+
+    useEffect(() => {
+        let data = new FormData()
+        data.append('role', role)
+
+        Api().post('/getRoleViews', data).then(res => {
+            console.log('views', res.data.views)
+            setViewCount(Object.values(res.data.viewCount[0])[0])
+            setViews(Object.values(res.data.views))
+        })
+    }, [])
+
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -71,10 +86,6 @@ const BestantList = () => {
         setSortMethod('desc')
     }
 
-    function printXl() {
-
-    }
-
     return (
         <div className='dashboardContainer'>
             <h2 className='text-left text-2xl pt-5 pb-5'>Bestand</h2>
@@ -90,8 +101,13 @@ const BestantList = () => {
 
                     <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hidden'}`}>
                         <select className='w-44 bg-transparent border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
-                            <option>View 1</option>
-                            <option>View 2</option>
+                            <option disabled>View</option>
+                            {
+                                views.map((v, i) => (
+                                    <option key={i} value={v.viewName}> {v.viewName}</option>
+                                ))
+                            }
+
                         </select>
                     </div>
 
@@ -160,7 +176,9 @@ const BestantList = () => {
 
                                     {
                                         loading ?
-                                            <tr className='centerItemsAbsolute'><td><ScaleLoader size={110}/></td></tr>
+                                            <tr className='centerItemsAbsolute'>
+                                                <td><ScaleLoader size={110}/></td>
+                                            </tr>
                                             :
                                             users?.map((u, index) => (
                                                 <BestantListTable

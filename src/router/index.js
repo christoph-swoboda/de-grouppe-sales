@@ -12,7 +12,7 @@ export const RouteData=[
         path:'/',
         name:'dashboard',
         component:<Dashboard/>,
-        redirection:'/dashboard'
+        redirection:'/anmeldung'
     },
     {
         id:0,
