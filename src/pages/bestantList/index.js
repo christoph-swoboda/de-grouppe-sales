@@ -14,6 +14,7 @@ import ExcelExport from "./partial/excelFormat";
 const BestantList = () => {
     const [printing, setPrinting] = useState(false)
     const [loading, setLoading] = useState(false);
+    const [loadingViews, setLoadingViews] = useState(false);
     const [rows, setRows] = useState('10');
     const [viewCount, setViewCount] = useState('');
     const [views, setViews] = useState([]);
@@ -40,6 +41,7 @@ const BestantList = () => {
         Api().post('/getBestands', data).then(res => {
             setUsers(res.data.bestands)
             setTotal(Number(res.data?.bestands[0]?.totalCustomers))
+            setLoading(false)
         }).catch(e => {
             setLoading(false)
             toast.error('Something went wrong!!')
@@ -49,13 +51,13 @@ const BestantList = () => {
     useEffect(() => {
         let data = new FormData()
         data.append('role', role)
-
+        setLoadingViews(true)
         Api().post('/getRoleViews', data).then(res => {
             setViewCount(Object.values(res.data.viewCount[0])[0])
             setViews(Object.values(res.data.views))
-            setLoading(false)
+            setLoadingViews(false)
         }).catch(e => {
-            setLoading(false)
+            setLoadingViews(false)
             toast.error('Something went wrong!!')
         })
     }, [])
