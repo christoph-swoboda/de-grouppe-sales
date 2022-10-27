@@ -103,7 +103,7 @@ const BestantList = () => {
                     </div>
 
                     <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hidden'}`}>
-                        <select disabled={loading} className='w-44 bg-transparent border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
+                        <select disabled={loading} className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
                             {/*<option disabled selected>View</option>*/}
                             {
                                 views.map((v, i) => (
