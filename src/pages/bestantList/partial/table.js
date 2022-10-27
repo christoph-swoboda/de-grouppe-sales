@@ -42,7 +42,7 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBan
             </td>
             <td className="w-1/12 tooltip text-sm text-gray-900 font-light px-6 py-4 whitespace-pre-wrap">
                 <BsChatLeftText size='18px'/>
-                <span className='tooltiptext'>
+                <span className={`${Note ? 'tooltiptext' : 'hidden'}`}>
                     {Note}
                 </span>
             </td>
