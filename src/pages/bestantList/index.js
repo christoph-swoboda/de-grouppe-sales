@@ -30,6 +30,20 @@ const BestantList = () => {
     const componentRef = useRef();
 
     useEffect(() => {
+        let data = new FormData()
+        data.append('role', role)
+        setLoadingViews(true)
+        Api().post('/getRoleViews', data).then(res => {
+            setViewCount(Object.values(res.data.viewCount[0])[0])
+            setViews(Object.values(res.data.views))
+            setLoadingViews(false)
+        }).catch(e => {
+            setLoadingViews(false)
+            toast.error('Something went wrong!!')
+        })
+    }, [])
+
+    useEffect(() => {
         setLoading(true)
         let data = new FormData()
         data.append('userID', userID)
@@ -47,21 +61,6 @@ const BestantList = () => {
             toast.error('Something went wrong!!')
         })
     }, [rows, userID, pageBestand, sortColumn, sortMethod]);
-
-    useEffect(() => {
-        let data = new FormData()
-        data.append('role', role)
-        setLoadingViews(true)
-        Api().post('/getRoleViews', data).then(res => {
-            setViewCount(Object.values(res.data.viewCount[0])[0])
-            setViews(Object.values(res.data.views))
-            setLoadingViews(false)
-        }).catch(e => {
-            setLoadingViews(false)
-            toast.error('Something went wrong!!')
-        })
-    }, [])
-
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -105,7 +104,7 @@ const BestantList = () => {
 
                     <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hidden'}`}>
                         <select disabled={loading} className='w-44 bg-transparent border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
-                            <option disabled selected>View</option>
+                            {/*<option disabled selected>View</option>*/}
                             {
                                 views.map((v, i) => (
                                     <option key={i} value={v.viewName}> {v.viewName}</option>
