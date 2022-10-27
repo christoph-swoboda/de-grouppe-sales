@@ -40,7 +40,6 @@ const BestantList = () => {
         Api().post('/getBestands', data).then(res => {
             setUsers(res.data.bestands)
             setTotal(Number(res.data?.bestands[0]?.totalCustomers))
-            setLoading(false)
         }).catch(e => {
             setLoading(false)
             toast.error('Something went wrong!!')
@@ -52,9 +51,12 @@ const BestantList = () => {
         data.append('role', role)
 
         Api().post('/getRoleViews', data).then(res => {
-            console.log('views', res.data.views)
             setViewCount(Object.values(res.data.viewCount[0])[0])
             setViews(Object.values(res.data.views))
+            setLoading(false)
+        }).catch(e => {
+            setLoading(false)
+            toast.error('Something went wrong!!')
         })
     }, [])
 
@@ -100,8 +102,8 @@ const BestantList = () => {
                     </div>
 
                     <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hidden'}`}>
-                        <select className='w-44 bg-transparent border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
-                            <option disabled>View</option>
+                        <select disabled={loading} className='w-44 bg-transparent border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
+                            <option disabled selected>View</option>
                             {
                                 views.map((v, i) => (
                                     <option key={i} value={v.viewName}> {v.viewName}</option>
