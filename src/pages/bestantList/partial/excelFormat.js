@@ -16,6 +16,7 @@ const ExcelExport = ({data, title, loading, all}) => {
     const userID = user.ID
     const [loadingAll, setLoadingAll] = useState(false);
     const [usersAll, setUsers] = useState([]);
+    const fileName='Firmenprojekte-'+ formatDate(new Date())+'.xlsx';
 
     let sheet = workbook.addWorksheet("Firmenprojeckte excel daten");
 
@@ -28,17 +29,6 @@ const ExcelExport = ({data, title, loading, all}) => {
         "MA",
         "P-Status",
         "Date",
-        // "Note",
-    ];
-    sheet.getRow(2).values = [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
         // "Note",
     ];
     sheet.columns = [
@@ -75,6 +65,25 @@ const ExcelExport = ({data, title, loading, all}) => {
         }
     }, [data]);
 
+    function padTo2Digits(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    function formatDate(date) {
+        return (
+            [
+                date.getFullYear(),
+                padTo2Digits(date.getMonth() + 1),
+                padTo2Digits(date.getDate()),
+            ].join('-') +
+            '_' +
+            [
+                padTo2Digits(date.getHours()),
+                padTo2Digits(date.getMinutes()),
+            ].join('-')
+        );
+    }
+
     async function printXl() {
         if (all) {
             setLoadingAll(true)
@@ -95,7 +104,7 @@ const ExcelExport = ({data, title, loading, all}) => {
                 if (!loadingAll) {
                     workbook.xlsx.writeBuffer().then(function (buffer) {
                         const blob = new Blob([buffer], {type: "applicationi/xlsx"});
-                        saveAs(blob, "Firmenprojeckte.xlsx");
+                        saveAs(blob, fileName);
                     });
                 }
             })
@@ -103,7 +112,7 @@ const ExcelExport = ({data, title, loading, all}) => {
             if (!loading) {
                 workbook.xlsx.writeBuffer().then(function (buffer) {
                     const blob = new Blob([buffer], {type: "applicationi/xlsx"});
-                    saveAs(blob, "Firmenprojeckte.xlsx");
+                    saveAs(blob, fileName);
                 });
             }
         }
@@ -114,7 +123,7 @@ const ExcelExport = ({data, title, loading, all}) => {
              onClick={printXl}
         >
             <RiFileExcel2Fill className='mr-1' size='25px' color={'#388E3C'}/>
-            <span className='mr-1 mb-1 text-grey text-sm'>{!loadingAll ? title : 'wird heruntergeladen'}</span>
+            <span className='mr-1 mb-1 text-grey text-sm'>{!loadingAll ? title : 'wird heruntergeladen...'}</span>
         </div>
     )
 }

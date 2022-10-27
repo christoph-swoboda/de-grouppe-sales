@@ -123,7 +123,8 @@ const BestantList = () => {
                                                 >
                                                     <span className='flex justify-left'>
                                                           <span
-                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id + 1 && 'text-mainBlue'}`}>
+                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id + 1 && 'text-mainBlue'}`}
+                                                          >
                                                             {header.title}
                                                               {/*<span className='tooltiptextclose'>*/}
                                                               {/*    Hannoversche Volksbank description*/}
@@ -143,8 +144,7 @@ const BestantList = () => {
                                                         </span>
                                                     </span>
                                                     <span className={`${header.title === 'MA' && 'opacity-0'}`}>
-                                                        <input className='w-full h-2 px-2 py-3 search mb-4'
-                                                               type='text'
+                                                        <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                placeholder='Sueche...'
                                                         />
@@ -154,16 +154,13 @@ const BestantList = () => {
                                         }
                                         <th scope="col" className="text-sm text-grey px-2 py-1"/>
                                         <th scope="col" className="text-sm w-1/12 text-grey px-2 py-1"/>
-
                                     </tr>
                                     </thead>
                                     <tbody>
 
                                     {
                                         loading ?
-                                            <tr className='centerItemsAbsolute'>
-                                                <td><ScaleLoader size={110}/></td>
-                                            </tr>
+                                            <tr className='centerItemsAbsolute'><td><ScaleLoader size={110}/></td></tr>
                                             :
                                             users?.map((u, index) => (
                                                 <BestantListTable

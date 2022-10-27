@@ -15,7 +15,7 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank, index,RegioBereich,FBKBan
     return (
         <tr className="border-y border-silver border-x-0 ">
             <td className="w-2/12 text-sm text-mainBlue underline font-light px-6 py-4 whitespace-pre-wrap">
-                <Link to={`/firmenprojekte/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`}>
+                <Link to={`/firmenprojekte/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`} target="_blank">
                     {FirmaKurz}
                 </Link>
             </td>

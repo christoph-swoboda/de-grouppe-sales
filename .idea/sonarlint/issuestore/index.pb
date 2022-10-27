@@ -71,3 +71,5 @@ X
 (src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
 B
 src/hooks/modal.js,8\c\8c52ed482e84771557442efe64121ae46db5a2e0
+<
+package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a

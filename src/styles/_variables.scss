@@ -64,17 +64,17 @@ form {
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  max-width: 220px;
+  min-width: 100px;
+  max-width: 650px;
   height: fit-content;
   padding: 20px;
-  text-align: left;
   background-color: #FFF4C7;
   color: black;
   font-size: 12px;
   border-radius: 6px;
   position: absolute;
   top: -25px;
-  left: -195px;
+  left: -625px;
   /* Position the tooltip text - see examples below! */
   z-index: 1;
 }
@@ -85,7 +85,6 @@ form {
   visibility: visible;
   text-align: left;
 }
-
 /* Tooltip text */
 .tooltip .tooltiptextclose {
   visibility: hidden;
