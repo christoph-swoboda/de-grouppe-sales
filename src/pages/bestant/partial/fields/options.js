@@ -14,8 +14,8 @@ const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, o
                     Wähle eine Option
                 </option>
                 {
-                    option?.map((o, i) => (
-                        o.map(op => (
+                    option?.map(o => (
+                        o.map((op, i) => (
                             op.substepID === val.substepID ?
                                 <option key={i} value={op?.optionValue}>
                                     {op?.optionValue}

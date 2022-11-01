@@ -13,7 +13,7 @@ import ExcelExport from "./partial/excelFormat";
 
 const BestantList = () => {
     const [printing, setPrinting] = useState(false)
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [loadingViews, setLoadingViews] = useState(false);
     const [rows, setRows] = useState('10');
     const [viewCount, setViewCount] = useState('');
@@ -44,7 +44,6 @@ const BestantList = () => {
     }, [])
 
     useEffect(() => {
-        setLoading(true)
         let data = new FormData()
         data.append('userID', userID)
         data.append('rows', rows)
@@ -54,6 +53,7 @@ const BestantList = () => {
 
         Api().post('/getBestands', data).then(res => {
             setUsers(res.data.bestands)
+            console.log('res.data.bestands',res.data.bestands)
             setTotal(Number(res.data?.bestands[0]?.totalCustomers))
             setLoading(false)
         }).catch(e => {
@@ -136,13 +136,14 @@ const BestantList = () => {
                                     <thead className=" border-y border-silver border-x-0">
                                     <tr>
                                         {
+                                            !loading &&
                                             BestantTableHeaders.map(header => (
                                                 <th key={header.id} scope="col"
                                                     className="text-sm pl-5 text-grey px-2 py-1 "
                                                 >
                                                     <span className='flex justify-left'>
                                                           <span
-                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id + 1 && 'text-mainBlue'}`}
+                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
                                                           >
                                                             {header.title}
                                                               {/*<span className='tooltiptextclose'>*/}
@@ -150,19 +151,19 @@ const BestantList = () => {
                                                               {/*</span>*/}
                                                         </span>
                                                         <span hidden={printing}>
-                                                            <p className={`cursor-pointer ${sortColumn === header.id + 1 && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
-                                                               onClick={() => ascSort(header.id + 1)}
+                                                            <p className={`cursor-pointer ${sortColumn === header.id && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
+                                                               onClick={() => ascSort(header.id)}
                                                             >
                                                                 <RiArrowUpSFill size='22px'/>
                                                             </p>
-                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumn === header.id + 1 && sortMethod === 'desc' ? 'text-mainBlue' : ''}`}
-                                                               onClick={() => descSort(header.id + 1)}
+                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumn === header.id && sortMethod === 'desc' ? 'text-mainBlue' : ''}`}
+                                                               onClick={() => descSort(header.id)}
                                                             >
                                                                 <RiArrowDownSFill size='22px'/>
                                                             </p>
                                                         </span>
                                                     </span>
-                                                    <span className={`${header.title === 'MA' && 'opacity-0'}`}>
+                                                    <span className={`${(header.title === 'MA' || header.title==='Daten') && 'opacity-0'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                placeholder='Sueche...'
@@ -171,7 +172,6 @@ const BestantList = () => {
                                                 </th>
                                             ))
                                         }
-                                        <th scope="col" className="text-sm text-grey px-2 py-1"/>
                                         <th scope="col" className="text-sm w-1/12 text-grey px-2 py-1"/>
                                     </tr>
                                     </thead>

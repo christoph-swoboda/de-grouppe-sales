@@ -7,6 +7,7 @@ export const initialState = {
     collapse1:true,
     collapse2:true,
     calcOptions:true,
+    milestone3HasDate:false,
     page:1,
     pageBestand:1,
     noteSent:1,
@@ -62,6 +63,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 calcOptions: action.item
+            }
+            case "SET_MILESTONE3_HAS_DATE":
+            return {
+                ...state,
+                milestone3HasDate: action.item
             }
         default:
             return state;

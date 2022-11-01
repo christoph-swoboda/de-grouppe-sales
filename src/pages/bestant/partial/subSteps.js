@@ -12,16 +12,27 @@ import Options from "./fields/options";
 
 registerLocale("de", de);
 
-const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, options}) => {
+const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
 
     const [Loading, setLoading] = useState(false)
     const ref = useRef()
-    const [{currentMilestone, calcOptions}, dispatch] = useStateValue();
+    const [{currentMilestone,milestone3HasDate}, dispatch] = useStateValue();
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
+
+
+    useEffect(() => {
+        if(grid[1]?.fieldValue){
+            dispatch({type: "SET_MILESTONE3_HAS_DATE", item: true})
+        }
+        else{
+            dispatch({type: "SET_MILESTONE3_HAS_DATE", item: false})
+        }
+        console.log('grid[1]?.fieldvalue',grid[1]?.fieldValue)
+    }, [currentMilestone,grid]);
 
     useEffect(() => {
         if (data.length > 0) {
@@ -42,7 +53,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                         if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
                             let filter=options.map(o=>o.filter(oo=>Number(oo.substepID)===Number(d.substepID)))
                             let filteredOption=filter.filter(f=>f.length>0)[0]
-                            await setValue(`${d.stepName}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                            if(filteredOption){
+                                await setValue(`${d.stepName}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                            }
                         } else {
                             await setValue(`${d.stepName}`, `autoFill`)
                         }
@@ -132,6 +145,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, currentSubStep, opt
                                                 {/*<p className={getValues(val.stepName) ? 'hidden' : 'tooltiptextclose'}>{val.mouseoverText}</p>*/}
                                                 <p className='tooltiptextclose'>{val.mouseoverText}</p>
                                             </section>
+                                            : val.fieldType === 'headlines' ?
+                                            <input placeholder='headlines'/>
                                             :
                                             <section key={index} className='tooltip flex'>
                                                 <label className='text-sm text-grey label'>{val.stepName}</label>

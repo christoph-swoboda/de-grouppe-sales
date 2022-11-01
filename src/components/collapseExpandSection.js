@@ -16,7 +16,7 @@ const CollapseExpand = ({show, id}) => {
     }
 
     return (
-        <p className='p-5 cursor-pointer'
+        <div className='px-5 pb-5 cursor-pointer'
            onClick={toggle}
         >
             {
@@ -28,10 +28,10 @@ const CollapseExpand = ({show, id}) => {
                     :
                     <div className='tooltip'>
                         <IoIosArrowUp size='25px'/>
-                        <span className='tooltiptextInstant'>Zusammenbruch</span>
+                        <span className='tooltiptextInstant'>Einklappen</span>
                     </div>
             }
-        </p>
+        </div>
     )
 }
 

@@ -34,8 +34,6 @@ L
 src/dummyData/bestantInfo.js,6\2\62db3afec19d67d869ac3bbdc2ae55301533f7df
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
-E
-src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
 N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 Y
@@ -44,25 +42,15 @@ B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
 E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
-I
-src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
-X
-(src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
-S
-#src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
-U
-%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
-[
-+src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
 L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
 =
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
-W
-'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
 X
 (src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
 B
 src/hooks/modal.js,8\c\8c52ed482e84771557442efe64121ae46db5a2e0
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
+H
+src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551

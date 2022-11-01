@@ -1,30 +1,34 @@
 export const BestantTableHeaders=[
     {
-        id:0,
+        id:1,
         title:'Firma Kurz'
     },
     {
-        id:1,
+        id:2,
         title:'Zust. Berater'
     },
     {
-        id:2,
+        id:3,
         title:'Bank'
     },
     {
-        id:3,
+        id:4,
         title:'Region'
     },
     {
-        id:4,
+        id:5,
         title:'Kd-Bnerater Bank'
     },
     {
-        id:5,
+        id:6,
         title:'MA'
     },
     {
-        id:6,
+        id:7,
         title:'P-Status'
+    },
+    {
+        id:8,
+        title:'Daten'
     },
 ]

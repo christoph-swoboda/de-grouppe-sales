@@ -130,9 +130,9 @@ const Bestant = () => {
                             <div className='bg-white px-2 m-1 pb-10 lg:min-w-max lg:ml-0 rounded-lg h-fit'>
                                 <h2 className='text-xl font-bold text-left py-5 px-2'>Projekt-Fortschritt</h2>
                                 {
-                                    milestoneTabs.map(tab => (
+                                    milestoneTabs.map((tab, i) => (
                                         <MilestoneTabs
-                                            key={tab.milestoneID}
+                                            key={i}
                                             id={tab.milestoneID}
                                             label={tab.milestoneLabel}
                                             loading={stepsLoading}
@@ -145,15 +145,12 @@ const Bestant = () => {
                             </div>
 
                             <div className='lg:w-2/4 2xl:w-2/4 lg:ml-0 h-fit text-left'>
-                                <div className='bg-white p-5 m-2 pb-10'>
-                                    <h2 className='text-xl text-center font-bold mb-2 '>Platzhalter</h2>
-                                    <br/>
-                                    <h2 className='text-xl absolute'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(subString)}</h2>
+                                <div className='bg-white p-5 my-1 mx-2 pb-10  rounded-lg'>
+                                    <h2 className='text-xl absolute text-center font-bold mb-2'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(subString)}</h2>
                                     <SubSteps
                                         data={subSteps}
                                         loading={stepsLoading}
                                         lastDoneIndex={lastDoneIndex}
-                                        currentSubStep={currentSubStep}
                                         options={options}
                                         grid={grid}
                                     />
@@ -176,7 +173,7 @@ const Bestant = () => {
                                 {/*</div>*/}
                             </div>
 
-                            <div className='bg-white px-3 2xl:w-2/4 pb-10 xl:w-1/3 xl:ml-0 rounded-lg h-fit'>
+                            <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 xl:w-1/3 xl:ml-0 rounded-lg h-fit'>
                                 <Status company={param.id.replaceAll('_', ' ')} notes={notes}/>
                             </div>
                         </>

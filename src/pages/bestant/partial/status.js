@@ -35,15 +35,31 @@ const Status = ({notes, company}) => {
         })
     }
 
-    useEffect(() => {
-      console.log('d',notes)
-    }, [notes]);
-
-
     return (
         <>
             <div className='flex justify-between bg-white mt-5'>
-                <h2 className='text-xl lg:text-left font-extrabold'>Bemerkungen</h2>
+
+                <div className='bg-white text-left'>
+                    <button className='px-3 py-2 mx-2 mb-2 rounded-3xl bg-mainBlue text-white text-sm'
+                            onClick={() => setToggle(!toggle)}
+                    >
+                        {!toggle ? 'Neue Bemerkung' : 'Abbrechen'}
+                    </button>
+                    <textarea placeholder='Neue Notiz Bemerkung' hidden={!toggle} rows='3'
+                              className='border border-whiteDark w-full rounded-lg p-3'
+                              value={note}
+                              onChange={(e) => setNote(e.target.value)}
+                    />
+                    <button
+                        className={`${!note || !note.replace(/\s/g, '').length ? 'bg-whiteDark cursor-no-drop' : 'bg-mainBlue text-white'} px-3 py-2 m-2 rounded-3xl text-sm`}
+                        onClick={save}
+                        hidden={!toggle}
+                        disabled={!note || !note.replace(/\s/g, '').length}
+                    >
+                        {!loading ? 'Senden' : 'Senden...'}
+                    </button>
+                </div>
+
                 <CollapseExpand show={collapse2} id={2}/>
             </div>
             <div className={`${!collapse2 && 'hidden'}`}>
@@ -57,27 +73,6 @@ const Status = ({notes, company}) => {
                         />
                     ))
                 }
-            </div>
-
-            <div className='bg-white mt-2'>
-                <button hidden={!collapse2} className='px-3 py-2 m-2 rounded-3xl bg-mainBlue text-white text-sm'
-                        onClick={() => setToggle(!toggle)}
-                >
-                    {!toggle ? 'Neue Hinzufügen' : 'Abbrechen'}
-                </button>
-                <textarea placeholder='Neue Notiz hinzufügen' hidden={!toggle && collapse2} rows='3'
-                          className='border border-whiteDark w-full rounded-lg p-3'
-                          value={note}
-                          onChange={(e) => setNote(e.target.value)}
-                />
-                <button
-                    className={`${!note || !note.replace(/\s/g, '').length ? 'bg-whiteDark cursor-no-drop' : 'bg-mainBlue text-white'} px-3 py-2 m-2 rounded-3xl text-sm`}
-                    onClick={save}
-                    hidden={!toggle && collapse2}
-                    disabled={!note || !note.replace(/\s/g, '').length}
-                >
-                    {!loading ? 'Senden' : 'Senden...'}
-                </button>
             </div>
         </>
     )
