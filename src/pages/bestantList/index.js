@@ -44,6 +44,8 @@ const BestantList = () => {
     }, [])
 
     useEffect(() => {
+
+        setLoading(true)
         let data = new FormData()
         data.append('userID', userID)
         data.append('rows', rows)
@@ -53,7 +55,6 @@ const BestantList = () => {
 
         Api().post('/getBestands', data).then(res => {
             setUsers(res.data.bestands)
-            console.log('res.data.bestands',res.data.bestands)
             setTotal(Number(res.data?.bestands[0]?.totalCustomers))
             setLoading(false)
         }).catch(e => {

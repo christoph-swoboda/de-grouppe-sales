@@ -5,7 +5,7 @@ import Api from "../Api/api";
 import {useStateValue} from "../states/StateProvider";
 import {toast} from "react-toastify";
 
-const UserManagementCard = ({email, prtnrNo, valid, userID, index}) => {
+const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [partnerNr, setPartnerNo] = useState(prtnrNo)
@@ -38,7 +38,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, index}) => {
     return (
         <tbody className={`${edit && 'bg-yellowLight'}`}>
         <tr className=" border-y border-silver border-x-0">
-            <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900"/>
+            <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{name}</td>
             <td className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
                 {email}
             </td>

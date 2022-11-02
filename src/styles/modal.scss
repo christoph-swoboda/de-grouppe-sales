@@ -12,13 +12,13 @@
 
 .modal-content {
   background-color: white;
-  border-radius: 20px;
-  width: 55vw;
+  border-radius: 10px;
+  width: 600px;
   margin: 4vh auto;
-  height: 85vh;
+  height: 90vh;
   overflow-y: scroll;
   scrollbar-width: none;
-  padding: 2em;
+  padding: 1rem;
   @media screen and (max-width: $bp-mobile) {
     width: 100vw;
   }

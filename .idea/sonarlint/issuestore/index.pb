@@ -22,8 +22,6 @@ L
 src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 `
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
-N
-src/components/authDirector.js,0\f\0f930eab094e16c7371f98ba1eac67cf228c3706
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
 K
@@ -34,23 +32,37 @@ L
 src/dummyData/bestantInfo.js,6\2\62db3afec19d67d869ac3bbdc2ae55301533f7df
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
-N
-src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
-Y
-)src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
 B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
-E
-src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
 =
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
-X
-(src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
-B
-src/hooks/modal.js,8\c\8c52ed482e84771557442efe64121ae46db5a2e0
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 H
 src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
+\
+,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
+T
+$src/dummyData/bestantTableHeaders.js,1\4\144b0de3ff6a830550eca01ce4399488c0f19831
+E
+src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
+E
+src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
+C
+src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
+V
+&src/pages/bestantList/partial/table.js,b\2\b265d6279560b6d0ce8e016d11c2eb22fdfb42c6
+[
++src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
+I
+src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
+U
+%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
+O
+src/components/bestantStatus.js,5\c\5ca8ca76a5fdebd573b7bbb085fd2e7c3c5f505d
+W
+'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
+S
+#src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe

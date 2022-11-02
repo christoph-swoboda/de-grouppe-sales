@@ -1,12 +1,15 @@
 import {useStateValue} from "../states/StateProvider";
 
 const useModal = () => {
-    const [{companyInfoModal}, dispatch] = useStateValue();
+    const [{companyInfoModal,addUsersModal}, dispatch] = useStateValue();
 
     function toggleCompanyInfoModal() {
         dispatch({type: "SET_COMPANYINFO_MODAL", item: !companyInfoModal})
     }
-    return {toggleCompanyInfoModal}
+    function toggleAddUsersModal() {
+        dispatch({type: "SET_ADDUSERS_MODAL", item: !addUsersModal})
+    }
+    return {toggleCompanyInfoModal,toggleAddUsersModal}
 };
 
 export default useModal;

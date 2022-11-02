@@ -10,24 +10,24 @@ const UserManagementTable = ({role, users, pageSize, loading, total}) => {
     const [{page}, dispatch] = useStateValue();
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col ml-3">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
                         <table className="min-w-full text-left">
                             <thead className="border-y border-silver border-x-0">
                             <tr>
-                                <th scope="col" className="text-sm w-1/12 font-medium text-grey px-6 py-2">
-
-                                </th>
-                                <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2 ">
-                                    eMail
-                                </th>
-                                <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2 ">
-                                    partnernummer
-                                </th>
                                 <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2">
-                                    eMail bestätigt
+                                    Name
+                                </th>
+                                <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2 ">
+                                    E-Mail
+                                </th>
+                                <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2 ">
+                                    Partnernummer
+                                </th>
+                                <th scope="col" className="text-sm w-1/12 font-medium text-grey px-6 py-2">
+                                    Aktiv
                                 </th>
                                 <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2"/>
                             </tr>
@@ -44,6 +44,7 @@ const UserManagementTable = ({role, users, pageSize, loading, total}) => {
                                     <UserManagementCard
                                         key={index}
                                         index={index}
+                                        name={'User Name'}
                                         userID={u.ID}
                                         email={u.email}
                                         prtnrNo={u.partnernr}

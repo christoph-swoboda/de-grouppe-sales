@@ -2,6 +2,7 @@ export const initialState = {
     user: {},
     newCreation:{},
     companyInfoModal:false,
+    addUsersModal:false,
     currentMilestone:null,
     userValidated:false,
     collapse1:true,
@@ -23,6 +24,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 companyInfoModal: action.item
+            }
+            case "SET_ADDUSERS_MODAL":
+            return {
+                ...state,
+                addUsersModal: action.item
             }
             case "SET_CURRENTMILESTONE":
             return {

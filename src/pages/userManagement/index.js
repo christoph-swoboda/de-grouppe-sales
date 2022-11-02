@@ -4,6 +4,9 @@ import BankManagerView from "./partial/bankManagerView";
 import Api from "../../Api/api";
 import {useStateValue} from "../../states/StateProvider";
 import {useNavigate} from "react-router-dom";
+import Modal from "../../hooks/modal";
+import useModal from "../../hooks/useModal";
+import AddUsers from "../../components/modal/addUsers";
 
 const UserManagement = () => {
     const [search, setSearch] = useState()
@@ -14,8 +17,9 @@ const UserManagement = () => {
     const [rows, setRows] = useState('10');
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [{userValidated, page}, dispatch] = useStateValue();
+    const [{userValidated, page, addUsersModal}, dispatch] = useStateValue();
     const navigate = useNavigate()
+    const {toggleAddUsersModal} = useModal();
 
     useEffect(() => {
         if (role === 'External') {
@@ -26,6 +30,7 @@ const UserManagement = () => {
         data.append('userID', userID)
         data.append('rows', rows)
         data.append('page', page)
+        data.append('search', search)
 
         Api().post('/getUsers', data).then(res => {
             setUsers(res.data)
@@ -35,6 +40,8 @@ const UserManagement = () => {
             setLoading(false)
         })
     }, [rows, userID, userValidated, page]);
+
+    // }, [rows, userID, userValidated, page, search]);
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE", item: 1})
@@ -46,12 +53,14 @@ const UserManagement = () => {
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between mt-10 sm:block'>
                 <h2 className='text-2xl lg:text-left font-extrabold'>{role === 'External' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
-                <p className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2'>ADD NEW USER</p>
+                <p className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2 cursor-pointer' onClick={toggleAddUsersModal}>
+                    Neuen Benutzer anlegen
+                </p>
             </div>
 
             <div className='bg-white my-4'>
                 <div className='rounded-xl p-8 lg:flex sm:block'>
-                    <input className='mr-5 search' type='search' placeholder='sueche..'
+                    <input className='mr-5 xl:w-4/12 sm:w-full' type='search' placeholder='sueche..'
                            onChange={(e) => setSearch(e.target.value)}
                     />
                     <p className='text-sm text-grey ml-auto mt-2'>
@@ -73,6 +82,11 @@ const UserManagement = () => {
                         <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
                 }
             </div>
+
+            <Modal toggle={toggleAddUsersModal}
+                   visible={addUsersModal}
+                   component={<AddUsers/>}
+            />
         </div>
     )
 }
