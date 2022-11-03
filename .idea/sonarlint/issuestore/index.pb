@@ -46,3 +46,11 @@ S
 #src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
 V
 &src/dummyData/userManagementHeaders.js,c\9\c9a60b91cf144a9af6f566cf39791d35f2c42156
+U
+%src/pages/dashboard/partial/funnel.js,8\4\84006f052a683fe474ec279eaf685a4fe02fab77
+T
+$src/pages/dashboard/partial/chart.js,4\f\4ffb66b98d3740e48f54967f416e03efecb2a859
+K
+src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
+E
+src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8

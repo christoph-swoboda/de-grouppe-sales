@@ -8,6 +8,7 @@ import {toast} from "react-toastify";
 const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [loadingName, setLoadingName] = useState(false)
     const [partnerNr, setPartnerNo] = useState(prtnrNo)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -46,11 +47,12 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
         setEdit(true)
         let data = new FormData()
         data.append('userID', Number(id))
-
+        setLoadingName(true)
         Api().post('/getName', data).then(res=>{
             console.log('name',res.data[0]?.firstname)
             setFirstName(res.data[0]?.firstname)
             setLastName(res.data[0]?.lastname)
+            setLoadingName(false)
         })
     }
 
@@ -119,7 +121,8 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
             <td hidden={!edit}
                 className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                 <button onClick={save}
-                        className='border border-mainBlue rounded-3xl px-3 py-1 bg-mainBlue text-white font-extrabold uppercase cursor-pointer'
+                        disabled={loadingName}
+                        className={`border border-mainBlue rounded-3xl px-3 py-1 bg-mainBlue ${loadingName && 'bg-grey'} text-white font-extrabold uppercase cursor-pointer`}
                 >
                     {loading?'Das Sparen...':'Speichern'}
                 </button>
