@@ -16,6 +16,7 @@ const UserManagement = () => {
     const [users, setUsers] = useState([])
     const [searchResults, setSearchResults] = useState([])
     const user = JSON.parse(localStorage.getItem('user'))
+    const admin=user.isUserAdmin
     const userID = user.ID
     const role = user.role
     const [rows, setRows] = useState('10');
@@ -38,6 +39,11 @@ const UserManagement = () => {
     useEffect(() => {
         getUsers(searchKey)
     }, [rows, userID, userValidated, page, sortUserMethod, sortUserColum, addUsersDone, searchKey]);
+
+    useEffect(() => {
+        console.log('ad', admin)
+    }, [admin]);
+
 
 
     useEffect(() => {
@@ -125,11 +131,13 @@ const UserManagement = () => {
     return (
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between mt-10 sm:block'>
-                <h2 className='text-2xl lg:text-left font-extrabold'>{role === 'External' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
-                <p className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2 cursor-pointer'
-                   onClick={toggleAddUsersModal}>
-                    Neuen Benutzer anlegen
-                </p>
+                <h2 className='text-2xl lg:text-left font-extrabold'>{admin==='0' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
+                <div className={admin==='0' && 'hidden'}>
+                    <p className={`px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2 cursor-pointer`}
+                       onClick={toggleAddUsersModal}>
+                        Neuen Benutzer anlegen
+                    </p>
+                </div>
             </div>
 
             <div className='bg-white my-4'>
