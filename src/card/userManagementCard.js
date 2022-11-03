@@ -9,8 +9,8 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [partnerNr, setPartnerNo] = useState(prtnrNo)
-    const [firstName, setFirstName] = useState(name?.substr(0, name?.indexOf(',')))
-    const [lastName, setLastName] = useState(name?.substr( name?.indexOf(',')+1))
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [verified, setVerified] = useState(valid)
     const [{userValidated}, dispatch] = useStateValue();
     const user=JSON.parse(localStorage.user)
@@ -41,6 +41,17 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
     function cancel(){
         dispatch({type: "SET_USER_VALIDATED", item: !userValidated})
         setEdit(false)
+    }
+    function setEditStates(id){
+        setEdit(true)
+        let data = new FormData()
+        data.append('userID', Number(id))
+
+        Api().post('/getName', data).then(res=>{
+            console.log('name',res.data[0]?.firstname)
+            setFirstName(res.data[0]?.firstname)
+            setLastName(res.data[0]?.lastname)
+        })
     }
 
     return (
@@ -99,7 +110,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
             </td>
             <td hidden={edit || admin!=='1'}
                 className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
-                <button onClick={() => setEdit(true)}
+                <button onClick={()=>setEditStates(userID)}
                     className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'
                 >
                     Bearbeiten
