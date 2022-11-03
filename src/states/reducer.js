@@ -11,7 +11,7 @@ export const initialState = {
     calcOptions:true,
     milestone3HasDate:false,
     sortUserColum:1,
-    sortUserMethod:'asc',
+    sortUserMethod:'desc',
     page:1,
     pageBestand:1,
     noteSent:1,

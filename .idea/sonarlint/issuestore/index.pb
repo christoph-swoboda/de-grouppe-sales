@@ -14,8 +14,6 @@ J
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 U
 %src/pages/dashboard/partial/banner.js,8\a\8a11b5f3457b7a2ed8a2fedbc641e336c85f8e3a
-W
-'src/pages/dashboard/partial/pieChart.js,e\4\e40be764e1a2a76215055f7c5927133710e656ec
 `
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
 I

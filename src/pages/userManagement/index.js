@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import UserManagementTable from "./partial/table";
 import BankManagerView from "./partial/bankManagerView";
 import Api from "../../Api/api";
@@ -7,21 +7,83 @@ import {useNavigate} from "react-router-dom";
 import Modal from "../../hooks/modal";
 import useModal from "../../hooks/useModal";
 import AddUsers from "../../components/modal/addUsers";
+import {toast} from "react-toastify";
+import {BeatLoader} from "react-spinners";
 
 const UserManagement = () => {
-    const [search, setSearch] = useState(' ')
+    const [search, setSearch] = useState('')
+    const [searchKey, setSearchKey] = useState('')
     const [users, setUsers] = useState([])
+    const [searchResults, setSearchResults] = useState([])
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
     const role = user.role
     const [rows, setRows] = useState('10');
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [{userValidated, page, addUsersModal, sortUserColum, sortUserMethod, addUsersDone}, dispatch] = useStateValue();
+    const [loadingKeys, setLoadingKeys] = useState(false);
+    const [modal, setModal] = useState(false)
+    const [{
+        userValidated,
+        page,
+        addUsersModal,
+        sortUserColum,
+        sortUserMethod,
+        addUsersDone
+    }, dispatch] = useStateValue();
     const navigate = useNavigate()
     const {toggleAddUsersModal} = useModal();
+    const modalRef = useRef()
 
     useEffect(() => {
+        getUsers(searchKey)
+    }, [rows, userID, userValidated, page, sortUserMethod, sortUserColum, addUsersDone, searchKey]);
+
+
+    useEffect(() => {
+        const delayQuery = setTimeout(async () => {
+            if (search.match(/^ *$/) === null) {
+                let data = new FormData()
+                data.append('userID', userID)
+                data.append('search', search)
+                setLoadingKeys(true)
+                Api().post('/searchByMail', data).then(res => {
+                    setSearchResults(res.data)
+                    setLoadingKeys(false)
+                    dispatch({type: "SET_PAGE", item: 1})
+                }).catch((error) => {
+                    setLoadingKeys(false)
+                    toast.error('OOPS! something went wrong')
+                })
+            }
+        }, search ? 400 : 0)
+
+        return () => clearTimeout(delayQuery)
+    }, [search])
+
+    useEffect(() => {
+        if (searchResults.length > 0) {
+            setModal(true)
+        }
+    }, [searchResults]);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', (e) => {
+            if (!modalRef.current.contains(e.target)) {
+                setModal(false)
+            }
+        })
+    }, []);
+
+    useEffect(() => {
+        if (!search) {
+            setSearchKey('')
+            setModal(false)
+            setSearchResults([])
+        }
+    }, [search]);
+
+    function getUsers(src) {
         if (role === 'External') {
             navigate('/')
         }
@@ -30,7 +92,7 @@ const UserManagement = () => {
         data.append('userID', userID)
         data.append('rows', rows)
         data.append('page', page)
-        data.append('search', search)
+        data.append('search', src)
         data.append('sortColumn', sortUserColum)
         data.append('sortMethod', sortUserMethod)
 
@@ -41,14 +103,24 @@ const UserManagement = () => {
         }).catch(e => {
             setLoading(false)
         })
-    }, [rows, userID, userValidated, page, sortUserMethod, sortUserColum, search, addUsersDone]);
+    }
 
+    function setUpModal(e) {
+        setSearchKey(e.target.value)
+        setSearch(e.target.value)
+        setModal(false)
+    }
+
+    function searchSubmit(e) {
+        e.preventDefault();
+        getUsers(search)
+        setModal(false)
+    }
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE", item: 1})
         setRows(e.target.value)
     }
-
 
     return (
         <div className='dashboardContainer'>
@@ -62,9 +134,14 @@ const UserManagement = () => {
 
             <div className='bg-white my-4'>
                 <div className='rounded-xl p-8 lg:flex sm:block'>
-                    <input className='mr-5 xl:w-4/12 sm:w-full' type='search' placeholder='sueche..'
-                           onChange={(e) => setSearch(e.target.value)}
-                    />
+                    <form onSubmit={searchSubmit} className=' xl:w-3/12 sm:w-full'>
+                        <input type="text" className='mr-5 w-full'
+                               value={search}
+                               placeholder='Sueche..'
+                               onChange={(e) => setSearch(e.target.value)}
+                        />
+                        <input type="submit" value="Submit" hidden/>
+                    </form>
                     <p className='text-sm text-grey ml-auto mt-2'>
                         {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Eintragen
                     </p>
@@ -77,11 +154,26 @@ const UserManagement = () => {
                     </span>
                     </h2>
                 </div>
+                <div className='text-left absolute ml-9 -mt-9'>
+                    {loadingKeys && <BeatLoader size='8'/>}
+                </div>
+                <div ref={modalRef}
+                     className={`${!modal && 'hidden'} absolute w-72 max-h-80 ml-9 bg-offWhite p-5 z-10 -mt-6 overflow-y-scroll`}>
+                    {
+                        searchResults.map((res, i) => (
+                            <input type='button' key={i} onClick={setUpModal}
+                                   className='cursor-pointer flex flex-col text-mainBlue text-sm text-left border-none underline hover:text-red p-2'
+                                   value={res.email}
+                            />
+                        ))
+                    }
+
+                </div>
                 {
                     role === 'Internal' ?
-                        <UserManagementTable role={role} users={users} pageSize={rows} total={total} loading={loading}/>
+                        <UserManagementTable users={users} pageSize={rows} total={total} loading={loading}/>
                         :
-                        <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
+                        <BankManagerView users={users} pageSize={rows} total={total} loading={loading}/>
                 }
             </div>
 

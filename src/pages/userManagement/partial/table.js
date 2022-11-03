@@ -6,7 +6,7 @@ import {HashLoader} from "react-spinners";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {UserManagementHeaders} from "../../../dummyData/userManagementHeaders";
 
-const UserManagementTable = ({role, users, pageSize, loading, total}) => {
+const UserManagementTable = ({users, pageSize, loading, total}) => {
 
     let PageSize = pageSize;
     const [{page, sortUserColum, sortUserMethod}, dispatch] = useStateValue();

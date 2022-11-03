@@ -1,24 +1,12 @@
-import React, {useEffect} from "react"
+import React from "react"
 import '../../styles/dashboard.scss'
 import Banner from "./partial/banner";
 import NotificationTable from "./partial/notificationTable";
 import FunnelSection from "./partial/funnel";
-import {PieChart} from "./partial/pieChart";
-import Api from "../../Api/api";
-
+import {BarChart} from "./partial/barChart";
+import {Milestones} from "../../dummyData/milestones";
 
 const Navbar = () => {
-
-    const user=JSON.parse(localStorage.user)
-
-    useEffect(() => {
-        let data= new FormData
-        data.append('userID', user.ID)
-        Api().post('/checkAdmin',data).then(res=>{
-            localStorage.admin = Object.values(res.data[0])[0] === '1';
-        })
-    }, []);
-
 
     return (
         <div className='dashboardContainer'>
@@ -29,11 +17,29 @@ const Navbar = () => {
                 </div>
                 <NotificationTable header={'Upcoming Dates'} status={1}/>
             </div>
-            <div className='lg:grid lg:grid-cols-3 gap-6 sm:grid-cols-1 gap-6'>
-                <PieChart header='Beantargt, iForm eingerereicht' color={'#23B882'}/>
-                <PieChart header='gestartet' color={'#EC4872'}/>
-                <PieChart header='abgeschlossen' color={'#FFC700'}/>
+
+            <div className='bg-white my-4 rounded-xl text-left p-8'>
+                <h2 className='text-xl font-bold'>IST-Potenzial im jeweiligen Schritt</h2>
+                <h2 className='mb-6'>IST-Potenzial im jeweiligen Schritt</h2>
+
+                <div className='flex justify-between'>
+                    <div className='mt-2'>
+                        {
+                            Milestones.map(m => (
+                                <p className='border-b border-offWhite' key={m.id}
+                                   style={{paddingBottom: '.2px', fontSize: '1.8vh'}}
+                                >
+                                    {m.title}
+                                </p>
+                            ))
+                        }
+                    </div>
+                    <div className='w-9/12 text-left'>
+                        <BarChart data={15}/>
+                    </div>
+                </div>
             </div>
+
             <FunnelSection/>
         </div>
     )

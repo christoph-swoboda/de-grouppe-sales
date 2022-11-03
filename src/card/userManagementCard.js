@@ -13,7 +13,8 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
     const [lastName, setLastName] = useState(name?.substr( name?.indexOf(',')+1))
     const [verified, setVerified] = useState(valid)
     const [{userValidated}, dispatch] = useStateValue();
-    const admin=JSON.parse(localStorage.admin)
+    const user=JSON.parse(localStorage.user)
+    const admin=user.isUserAdmin
 
     function save() {
         setLoading(true)
@@ -49,13 +50,13 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
             <td hidden={!edit}>
                 <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
                        type='text'
-                       placeholder='vorname'
+                       placeholder='Vorname'
                        value={firstName}
                        onChange={(e) => setFirstName(e.target.value)}
                 />
                 <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap mt-1"
                        type='text'
-                       placeholder='nachname'
+                       placeholder='Nachname'
                        value={lastName}
                        onChange={(e) => setLastName(e.target.value)}
                 />
@@ -96,7 +97,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
                     Abbrechen
                 </button>
             </td>
-            <td hidden={edit || !admin}
+            <td hidden={edit || admin!=='1'}
                 className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                 <button onClick={() => setEdit(true)}
                     className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'

@@ -14,6 +14,8 @@ const AddUsers = () => {
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
+    const user=JSON.parse(localStorage.user)
+    const admin=user.isUserAdmin
 
     const onSubmit = async (data) => {
         setLoading(true)
@@ -177,7 +179,7 @@ const AddUsers = () => {
                     </label>
                 </section>
 
-                <label htmlFor="field-aktiv" className='mt-5' hidden={watch('role')!=='1'}>
+                <label htmlFor="field-aktiv" className='mt-5' hidden={watch('role')!=='1' || admin!=='1'}>
                     <input
                         {...register("admin")}
                         type="checkbox"
