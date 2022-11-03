@@ -9,15 +9,22 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [partnerNr, setPartnerNo] = useState(prtnrNo)
+    const [firstName, setFirstName] = useState(name?.substr(0, name?.indexOf(',')))
+    const [lastName, setLastName] = useState(name?.substr( name?.indexOf(',')+1))
     const [verified, setVerified] = useState(valid)
     const [{userValidated}, dispatch] = useStateValue();
+    const admin=JSON.parse(localStorage.admin)
 
     function save() {
         setLoading(true)
         let data = new FormData()
         data.append('userID', Number(userID))
         data.append('partnerNo', partnerNr)
-        Api().post('/validateNewUser', data).then(res => {
+        data.append('vorname', firstName)
+        data.append('nachname', lastName)
+        data.append('verified', verified)
+
+        Api().post('/updateUser', data).then(res => {
             setPartnerNo(res.data[0]?.partnernr)
             setLoading(false)
             setEdit(false)
@@ -38,7 +45,21 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
     return (
         <tbody className={`${edit && 'bg-yellowLight'}`}>
         <tr className=" border-y border-silver border-x-0">
-            <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{name}</td>
+            <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{name?name:'N/A'}</td>
+            <td hidden={!edit}>
+                <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
+                       type='text'
+                       placeholder='vorname'
+                       value={firstName}
+                       onChange={(e) => setFirstName(e.target.value)}
+                />
+                <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap mt-1"
+                       type='text'
+                       placeholder='nachname'
+                       value={lastName}
+                       onChange={(e) => setLastName(e.target.value)}
+                />
+            </td>
             <td className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
                 {email}
             </td>
@@ -56,7 +77,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
 
             <td>
                 <button disabled={!edit}
-                        onClick={() => setVerified('1')}
+                        onClick={() => verified==='1'?setVerified('0'):setVerified('1')}
                         className="text-sm text-gray-900 font-light px-6 py-0 whitespace-nowrap">
                     {
                         verified==='1' ?
@@ -75,7 +96,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
                     Abbrechen
                 </button>
             </td>
-            <td hidden={edit}
+            <td hidden={edit || !admin}
                 className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                 <button onClick={() => setEdit(true)}
                     className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'

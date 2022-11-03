@@ -5,10 +5,13 @@ export const initialState = {
     addUsersModal:false,
     currentMilestone:null,
     userValidated:false,
+    addUsersDone:false,
     collapse1:true,
     collapse2:true,
     calcOptions:true,
     milestone3HasDate:false,
+    sortUserColum:1,
+    sortUserMethod:'asc',
     page:1,
     pageBestand:1,
     noteSent:1,
@@ -29,6 +32,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 addUsersModal: action.item
+            }
+            case "SET_ADDUSERS_DONE":
+            return {
+                ...state,
+                addUsersDone: action.item
             }
             case "SET_CURRENTMILESTONE":
             return {
@@ -74,6 +82,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 milestone3HasDate: action.item
+            }
+            case "SET_SORTUSERCOLUMN":
+            return {
+                ...state,
+                sortUserColum: action.item
+            }
+            case "SET_SORTUSERMETHOD":
+            return {
+                ...state,
+                sortUserMethod: action.item
             }
         default:
             return state;

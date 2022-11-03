@@ -19,7 +19,6 @@ const Login = () => {
         Api().post('/login', data).then(res => {
             if (res.status === 200) {
                 localStorage.user = JSON.stringify(res.data[0])
-                localStorage.role = JSON.stringify(res.data[0].role)
                 window.location.replace('/')
                 setLoading(false)
             }

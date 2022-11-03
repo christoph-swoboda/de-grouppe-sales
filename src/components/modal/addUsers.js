@@ -8,8 +8,7 @@ import {useStateValue} from "../../states/StateProvider";
 
 const AddUsers = () => {
     const [loading, setLoading] = useState(false)
-    const [{addUsersModal}, dispatch] = useStateValue();
-    let keys = ''
+    const [{addUsersModal, addUsersDone}, dispatch] = useStateValue();
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
@@ -18,16 +17,18 @@ const AddUsers = () => {
 
     const onSubmit = async (data) => {
         setLoading(true)
-        console.log('data', data)
-        // Api().post('/register', data).then(res => {
-        //     if (res.status === 200) {
-        //         setLoading(false)
-        //         dispatch({type: "SET_ADDUSERS_MODAL", item: !addUsersModal})
-        //     }
-        // }).catch(e => {
-        //     setLoading(false)
-        //     toast.error('Etwas ist schief gelaufen!!')
-        // })
+        Api().post('/registerByAdmin', data).then(res => {
+            if (res.status === 200) {
+                setLoading(false)
+                dispatch({type: "SET_ADDUSERS_MODAL", item: !addUsersModal})
+                dispatch({type: "SET_ADDUSERS_DONE", item: !addUsersDone})
+                toast.success('Benutzer erfolgreich hinzugefügt!!')
+            }
+        }).catch(e => {
+            setLoading(false)
+            // dispatch({type: "SET_ADDUSERS_MODAL", item: !addUsersModal})
+            toast.error('Etwas ist schief gelaufen!!')
+        })
     };
 
     return (
@@ -150,7 +151,7 @@ const AddUsers = () => {
                         <input
                             {...register("role")}
                             type="radio"
-                            value="Innendienst"
+                            value="1"
                             id="field-role"
                         />
                         <span className='mx-1'>Innendienst</span>
@@ -160,7 +161,7 @@ const AddUsers = () => {
                             {...register("role")}
                             type="radio"
                             defaultChecked
-                            value=" R+V Mitarbeiter"
+                            value="2"
                             id="field-role"
                         />
                         <span className='mx-1'> R+V Mitarbeiter</span>
@@ -169,14 +170,14 @@ const AddUsers = () => {
                         <input
                             {...register("role")}
                             type="radio"
-                            value="Vorgesetzter"
+                            value="3"
                             id="field-role"
                         />
                         <span className='mx-1'> Vorgesetzter</span>
                     </label>
                 </section>
 
-                <label htmlFor="field-aktiv" className='mt-5'>
+                <label htmlFor="field-aktiv" className='mt-5' hidden={watch('role')!=='1'}>
                     <input
                         {...register("admin")}
                         type="checkbox"

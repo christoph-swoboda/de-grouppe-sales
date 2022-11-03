@@ -13,9 +13,6 @@ const BankManagerView = ({role, users, pageSize, loading, total}) => {
                             <thead className="border-y border-silver border-x-0">
                             <tr>
                                 <th scope="col" className="text-sm font-medium text-grey px-6 py-4 ">
-                                    #
-                                </th>
-                                <th scope="col" className="text-sm font-medium text-grey px-6 py-4 ">
                                     FP-Art
                                 </th>
                                 <th scope="col" className="text-sm font-medium text-grey px-6 py-4 ">
@@ -42,10 +39,12 @@ const BankManagerView = ({role, users, pageSize, loading, total}) => {
                                     users.map((u, index) => (
                                         <BankManagerCard
                                             key={index}
+                                            index={index}
+                                            name={u.fullname}
                                             userID={u.ID}
                                             email={u.email}
                                             prtnrNo={u.partnernr}
-                                            valid={u.isValid}
+                                            valid={u.isActive}
                                         />
                                     ))
                             }

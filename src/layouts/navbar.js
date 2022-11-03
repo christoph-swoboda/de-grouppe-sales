@@ -17,9 +17,8 @@ const Navbar = () => {
     const modalRef = useRef()
     const location=useLocation()
     const UserInfo=localStorage.user
-    const roleInfo=localStorage.role
-    const role=JSON.parse(roleInfo?roleInfo:false)
     const user=JSON.parse(UserInfo?UserInfo:false)
+    const role=user.role
 
     useEffect(() => {
         const changeWidth = () => {
@@ -43,7 +42,7 @@ const Navbar = () => {
         setLoading(true)
         setModal(!modal)
         localStorage.removeItem('user')
-        localStorage.removeItem('role')
+        localStorage.removeItem('admin')
         setLoading(false)
         window.location.replace('/anmeldung')
     }
@@ -72,7 +71,7 @@ const Navbar = () => {
                                             Benutzerverwaltung
                                         </li>
                                     </Link>
-                                    :role==='BankManager' &&
+                                    :role==='Supervisor' &&
                                     <Link to={'/bank-Kooperationspartner'}>
                                         <li className={`items ${path.pathname.includes('/bank-Kooperationspartner') && 'text-mainBlue'}`}>
                                             Bank-Kooperationspartner

@@ -1,12 +1,24 @@
-import React from "react"
+import React, {useEffect} from "react"
 import '../../styles/dashboard.scss'
 import Banner from "./partial/banner";
 import NotificationTable from "./partial/notificationTable";
 import FunnelSection from "./partial/funnel";
 import {PieChart} from "./partial/pieChart";
+import Api from "../../Api/api";
 
 
 const Navbar = () => {
+
+    const user=JSON.parse(localStorage.user)
+
+    useEffect(() => {
+        let data= new FormData
+        data.append('userID', user.ID)
+        Api().post('/checkAdmin',data).then(res=>{
+            localStorage.admin = Object.values(res.data[0])[0] === '1';
+        })
+    }, []);
+
 
     return (
         <div className='dashboardContainer'>

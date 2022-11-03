@@ -9,15 +9,15 @@ import useModal from "../../hooks/useModal";
 import AddUsers from "../../components/modal/addUsers";
 
 const UserManagement = () => {
-    const [search, setSearch] = useState()
+    const [search, setSearch] = useState(' ')
     const [users, setUsers] = useState([])
-    const role = JSON.parse(localStorage.role)
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
+    const role = user.role
     const [rows, setRows] = useState('10');
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [{userValidated, page, addUsersModal}, dispatch] = useStateValue();
+    const [{userValidated, page, addUsersModal, sortUserColum, sortUserMethod, addUsersDone}, dispatch] = useStateValue();
     const navigate = useNavigate()
     const {toggleAddUsersModal} = useModal();
 
@@ -31,6 +31,8 @@ const UserManagement = () => {
         data.append('rows', rows)
         data.append('page', page)
         data.append('search', search)
+        data.append('sortColumn', sortUserColum)
+        data.append('sortMethod', sortUserMethod)
 
         Api().post('/getUsers', data).then(res => {
             setUsers(res.data)
@@ -39,9 +41,8 @@ const UserManagement = () => {
         }).catch(e => {
             setLoading(false)
         })
-    }, [rows, userID, userValidated, page]);
+    }, [rows, userID, userValidated, page, sortUserMethod, sortUserColum, search, addUsersDone]);
 
-    // }, [rows, userID, userValidated, page, search]);
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE", item: 1})
@@ -53,7 +54,8 @@ const UserManagement = () => {
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between mt-10 sm:block'>
                 <h2 className='text-2xl lg:text-left font-extrabold'>{role === 'External' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
-                <p className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2 cursor-pointer' onClick={toggleAddUsersModal}>
+                <p className='px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2 cursor-pointer'
+                   onClick={toggleAddUsersModal}>
                     Neuen Benutzer anlegen
                 </p>
             </div>

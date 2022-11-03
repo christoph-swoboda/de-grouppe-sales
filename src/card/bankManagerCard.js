@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Api from "../Api/api";
 
-const BankManagerCard = ({userID,email, prtnrNo,valid}) => {
+const BankManagerCard = ({email, prtnrNo, valid, userID, name}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [partnerNr, setPartnerNo] = useState(prtnrNo)
@@ -14,21 +14,19 @@ const BankManagerCard = ({userID,email, prtnrNo,valid}) => {
 
     return (
             <tr>
-                <td>{userID}</td>
                 <td></td>
-                <td hidden={edit}
-                    className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     {prtnrNo}
                 </td>
-                <td>
-                    <input hidden={!edit}
-                           className="text-sm text-gray-900 font-light px-3 mt-5 py-2 whitespace-nowrap"
-                           type='text'
-                           value={partnerNr}
-                           onChange={(e) => setPartnerNo(e.target.value)}
-                    />
-                </td>
-                <td></td>
+                {/*<td>*/}
+                {/*    <input hidden={!edit}*/}
+                {/*           className="text-sm text-gray-900 font-light px-3 mt-5 py-2 whitespace-nowrap"*/}
+                {/*           type='text'*/}
+                {/*           value={partnerNr}*/}
+                {/*           onChange={(e) => setPartnerNo(e.target.value)}*/}
+                {/*    />*/}
+                {/*</td>*/}
+                <td>{name}</td>
                 <td></td>
                 <td hidden={!edit}
                     className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

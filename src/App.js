@@ -1,5 +1,5 @@
 import './App.scss';
-import React from "react";
+import React, {useEffect} from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes, HashRouter} from 'react-router-dom';
 import Navbar from "./layouts/navbar";
 import Footer from "./layouts/footer";
@@ -11,6 +11,14 @@ import {RouteData} from "./router/index";
 
 function App() {
     const user = JSON.parse(localStorage.getItem('user'));
+    const role = JSON.parse(localStorage.getItem('role'));
+    const admin = JSON.parse(localStorage.getItem('admin'));
+
+    // useEffect(() => {
+    //     if(!user || !role){
+    //         window.location.replace('/anmeldung')
+    //     }
+    // }, []);
 
     return (
         <div className="App">
