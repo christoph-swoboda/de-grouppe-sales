@@ -74,8 +74,8 @@ const AddUsers = () => {
                 </section>
 
                 <section className='flex flex-col text-left text-grey text-sm'>
-                    <label className='py-2'>Bestätigen Passwort *</label>
-                    <input placeholder='Bestätigen Passwort'
+                    <label className='py-2'>Passwort wiederholen *</label>
+                    <input placeholder='Passwort wiederholen'
                            type='password'
                            {...register("confirm_password", {
                                required: 'Ihr Passwort ist erforderlich',
