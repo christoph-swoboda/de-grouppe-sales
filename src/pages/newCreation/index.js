@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Form from "./partial/form";
 
 const NewCreation = () => {
-    const user=JSON.parse(localStorage.user)
-    const name=user.fullname
+    const [name, setName] = useState('')
+    useEffect(() => {
+        try {
+            const ls = localStorage.user
+            setName(JSON.parse(ls).fullname)
+        } catch (e) {window.location.reload()}
+    }, []);
 
     return (
         <div className='dashboardContainer'>

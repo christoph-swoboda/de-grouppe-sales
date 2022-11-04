@@ -24,7 +24,7 @@ const Login = () => {
             }
         }).catch(e => {
             setLoading(false)
-            toast.error('Something Went Wrong!!')
+            toast.error('Etwas ist schief gelaufen!!')
         })
     };
 
