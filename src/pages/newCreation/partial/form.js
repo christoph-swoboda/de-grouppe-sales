@@ -27,9 +27,9 @@ const Form = ({name}) => {
                 <h2 className='text-lg text-mainBlue text-left mb-6'><span className='text-grey'>Berater:</span> {name}</h2>
 
                 {/*first 6 section*/}
-                <div className='flex 2xl:justify-start lg:justify-start md:justify-items-start gap-3 flex-wrap'>
-                    {/*<div className='grid 2xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-2 gap-3'>*/}
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 xl:w-72 sm:w-72'>
+                {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start gap-3 flex-wrap'>*/}
+                    <div className='grid 2xl:grid-cols-12 lg:grid-cols-12 md:grid-cols-2 gap-3'>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Bank *</label>
                         <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
                             {...register('bank', {required: true})}
@@ -41,7 +41,7 @@ const Form = ({name}) => {
                         {errors.bank && touchedFields && <p>bank is required</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 xl:w-40 sm:w-72'>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2'>
                         <label>BLZ *</label>
                         <input placeholder='BLZ...'
                                {...register('blz', {required: true})}
@@ -50,7 +50,7 @@ const Form = ({name}) => {
                         {errors.blz && touchedFields && <p>BLZ Field is required</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 xl:w-72 sm:w-72'>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Region </label>
                         <input placeholder='Region...'
                                {...register('region', {required: false})}
@@ -59,7 +59,7 @@ const Form = ({name}) => {
                         {errors.region && touchedFields && <p>Region Field is required</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 xl:w-64 sm:w-72'>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>FKB Bank *</label>
                         <input placeholder='FKB Bank...'
                                {...register('fkb_bank', {required: true})}
@@ -68,7 +68,7 @@ const Form = ({name}) => {
                         {errors.fkb_bank && touchedFields && <p>FKB Bank Field is required</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 xl:w-96 sm:w-72'>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-3'>
                         <label>DGAPI KAM *</label>
                         <input placeholder='DGAPI KAM...'
                                {...register('dgapi', {required: true})}
@@ -77,7 +77,7 @@ const Form = ({name}) => {
                         {errors.dgapi && touchedFields && <p>DGAPI KAM Field is required</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 xl:w-72 sm:w-72'>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Bestands-/Newkunde *</label>
                         <select className='p-3 bg-transparent border border-whiteDark rounded-lg mb-10'
                                 {...register('bestands', {required: true})}
