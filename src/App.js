@@ -11,11 +11,13 @@ import {RouteData} from "./router/index";
 
 function App() {
 
-    const [user,setUser]=useState('')
+    // const [user,setUser]=useState('')
+    //
+    // useEffect(() => {
+    //     setUser(JSON.parse(localStorage.getItem('user')))
+    // }, []);
 
-    useEffect(() => {
-        setUser(JSON.parse(localStorage.getItem('user')))
-    }, []);
+    const user=JSON.parse(localStorage.getItem('user'))
 
     return (
         <div className="App">
