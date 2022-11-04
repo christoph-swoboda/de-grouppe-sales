@@ -24,15 +24,15 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
     const {isValid} = formState;
 
 
-    useEffect(() => {
-        if(grid[1]?.fieldValue){
-            dispatch({type: "SET_MILESTONE3_HAS_DATE", item: true})
-        }
-        else{
-            dispatch({type: "SET_MILESTONE3_HAS_DATE", item: false})
-        }
-        console.log('grid[1]?.fieldvalue',grid[1]?.fieldValue)
-    }, [currentMilestone,grid]);
+    // useEffect(() => {
+    //     if(grid[1]?.fieldValue){
+    //         dispatch({type: "SET_MILESTONE3_HAS_DATE", item: true})
+    //     }
+    //     else{
+    //         dispatch({type: "SET_MILESTONE3_HAS_DATE", item: false})
+    //     }
+    //     console.log('grid[1]?.fieldvalue',grid[1]?.fieldValue)
+    // }, [currentMilestone,grid]);
 
     useEffect(() => {
         if (data.length > 0) {

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {VscFilePdf} from "react-icons/vsc";
-import {RiArrowDownSFill, RiArrowUpSFill, RiFileExcel2Fill} from "react-icons/ri";
+import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {BestantTableHeaders} from "../../dummyData/bestantTableHeaders";
 import Api from "../../Api/api";
 import BestantListTable from "./partial/table";
@@ -16,7 +16,6 @@ const BestantList = () => {
     const [loading, setLoading] = useState(true);
     const [loadingViews, setLoadingViews] = useState(false);
     const [rows, setRows] = useState('10');
-    const [viewCount, setViewCount] = useState('');
     const [views, setViews] = useState([]);
     const [sortColumn, setSortColumn] = useState(7);
     const [sortMethod, setSortMethod] = useState('asc');
@@ -34,12 +33,11 @@ const BestantList = () => {
         data.append('role', role)
         setLoadingViews(true)
         Api().post('/getRoleViews', data).then(res => {
-            setViewCount(Object.values(res.data.viewCount[0])[0])
             setViews(Object.values(res.data.views))
             setLoadingViews(false)
         }).catch(e => {
             setLoadingViews(false)
-            toast.error('Something went wrong!!')
+            toast.error('Etwas ist schief gelaufen!!')
         })
     }, [])
 
@@ -59,7 +57,7 @@ const BestantList = () => {
             setLoading(false)
         }).catch(e => {
             setLoading(false)
-            toast.error('Something went wrong!!')
+            toast.error('Etwas ist schief gelaufen!!')
         })
     }, [rows, userID, pageBestand, sortColumn, sortMethod]);
 
@@ -104,8 +102,8 @@ const BestantList = () => {
                     </div>
 
                     <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hidden'}`}>
-                        <select disabled={loading} className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
-                            {/*<option disabled selected>View</option>*/}
+                        <select disabled={loading}
+                                className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
                             {
                                 views.map((v, i) => (
                                     <option key={i} value={v.viewName}> {v.viewName}</option>
@@ -147,9 +145,6 @@ const BestantList = () => {
                                                               className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
                                                           >
                                                             {header.title}
-                                                              {/*<span className='tooltiptextclose'>*/}
-                                                              {/*    Hannoversche Volksbank description*/}
-                                                              {/*</span>*/}
                                                         </span>
                                                         <span hidden={printing}>
                                                             <p className={`cursor-pointer ${sortColumn === header.id && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
@@ -164,7 +159,8 @@ const BestantList = () => {
                                                             </p>
                                                         </span>
                                                     </span>
-                                                    <span className={`${(header.title === 'MA' || header.title==='Daten') && 'opacity-0'}`}>
+                                                    <span
+                                                        className={`${(header.title === 'MA' || header.title === 'Daten') && 'opacity-0'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                placeholder='Sueche...'

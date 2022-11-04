@@ -16,7 +16,7 @@ const UserManagement = () => {
     const [users, setUsers] = useState([])
     const [searchResults, setSearchResults] = useState([])
     const user = JSON.parse(localStorage.getItem('user'))
-    const admin=user.isUserAdmin
+    const admin = user.isUserAdmin
     const userID = user.ID
     const role = user.role
     const [rows, setRows] = useState('10');
@@ -41,12 +41,6 @@ const UserManagement = () => {
     }, [rows, userID, userValidated, page, sortUserMethod, sortUserColum, addUsersDone, searchKey]);
 
     useEffect(() => {
-        console.log('ad', admin)
-    }, [admin]);
-
-
-
-    useEffect(() => {
         const delayQuery = setTimeout(async () => {
             if (search.match(/^ *$/) === null) {
                 let data = new FormData()
@@ -59,7 +53,7 @@ const UserManagement = () => {
                     dispatch({type: "SET_PAGE", item: 1})
                 }).catch((error) => {
                     setLoadingKeys(false)
-                    toast.error('OOPS! something went wrong')
+                    toast.error('HOPPLA! etwas ist schief gelaufen')
                 })
             }
         }, search ? 400 : 0)
@@ -131,8 +125,8 @@ const UserManagement = () => {
     return (
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between mt-10 sm:block'>
-                <h2 className='text-2xl lg:text-left font-extrabold'>{admin==='0' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
-                <div className={admin==='0' && 'hidden'}>
+                <h2 className='text-2xl lg:text-left font-extrabold'>{admin === '0' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
+                <div className={admin === '0' ? 'hidden' :''}>
                     <p className={`px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2 cursor-pointer`}
                        onClick={toggleAddUsersModal}>
                         Neuen Benutzer anlegen

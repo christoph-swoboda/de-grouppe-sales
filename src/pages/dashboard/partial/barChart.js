@@ -19,20 +19,6 @@ export const options = {
             height:3
         },
     },
-    scales: {
-        xAxes: [
-            {
-                stacked: true,
-                barPercentage: 0.2,
-            },
-        ],
-        yAxes: [
-            {
-                stacked: true,
-                barPercentage: 0.2,
-            },
-        ],
-    },
     responsive: true,
     plugins: {
         legend: {

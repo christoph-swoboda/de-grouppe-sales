@@ -11,10 +11,10 @@ const MilestoneTabs = ({label, done, lastIndex, lastDoneIndex, id, loading}) => 
             dispatch({type: "SET_CURRENTMILESTONE", item: id})
         }
     }
-
-    useEffect(() => {
-        console.log('milestone3HasDate',milestone3HasDate)
-    }, [milestone3HasDate, currentMilestone]);
+    //
+    // useEffect(() => {
+    //     console.log('milestone3HasDate',milestone3HasDate)
+    // }, [milestone3HasDate, currentMilestone]);
 
     return (
         <div onClick={setMilestone} className={`${!milestone3HasDate && 'bg-pending !important'}`}>

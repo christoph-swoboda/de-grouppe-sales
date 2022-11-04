@@ -35,8 +35,8 @@ const Form = ({name}) => {
                             {...register('bank', {required: true})}
                             style={{border: errors.bank && '1px solid red'}}
                         >
-                            <option selected value={1}> option 1</option>
-                            <option value={2}> option 2</option>
+                            <option value={1}> option 1</option>
+                            <option defaultValue value={2}> option 2</option>
                         </select>
                         {errors.bank && touchedFields && <p>bank is required</p>}
                     </section>
@@ -83,7 +83,7 @@ const Form = ({name}) => {
                                 {...register('bestands', {required: true})}
                                 style={{border: errors.bestands && '1px solid red'}}
                         >
-                            <option selected value={1}> option 1</option>
+                            <option defaultValue value={1}> option 1</option>
                             <option value={2}> option 2</option>
                         </select>
                         {errors.bestands && touchedFields && <p>Bestands-/Newkunde Field is required</p>}
