@@ -59,7 +59,7 @@ const AddUsers = () => {
                 <section className='flex flex-col text-left text-grey text-sm'>
                     <label className='py-2'>Passwort *</label>
                     <input placeholder='Passwort'
-                           type='password'
+                           type='text'
                            {...register('password', {
                                required: 'Ihr Passwort ist erforderlich',
                                pattern: {
@@ -76,7 +76,7 @@ const AddUsers = () => {
                 <section className='flex flex-col text-left text-grey text-sm'>
                     <label className='py-2'>Passwort wiederholen *</label>
                     <input placeholder='Passwort wiederholen'
-                           type='password'
+                           type='text'
                            {...register("confirm_password", {
                                required: 'Ihr Passwort ist erforderlich',
                                validate: (val) => {
@@ -145,7 +145,6 @@ const AddUsers = () => {
                     <span className='mx-1 text-sm text-grey'> Aktiv</span>
                 </label>
 
-                {/*<label className='py-3 text-grey text-sm'>User Role </label>*/}
                 <section className='text-sm text-text py-3'>
                     <label htmlFor="field-role">
                         <input
