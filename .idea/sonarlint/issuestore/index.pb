@@ -1,6 +1,4 @@
 
-F
-src/styles/_mixin.scss,f\c\fcaf532d2ce47ef240bc6887160a81465e09748d
 J
 src/hooks/usePagination.js,4\e\4e1ffbb183828d8250912b47cd79f1aa902a58b2
 J
@@ -34,8 +32,6 @@ E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
-V
-&src/dummyData/userManagementHeaders.js,c\9\c9a60b91cf144a9af6f566cf39791d35f2c42156
 U
 %src/pages/dashboard/partial/funnel.js,8\4\84006f052a683fe474ec279eaf685a4fe02fab77
 T
@@ -44,3 +40,24 @@ K
 src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
+:
+
+src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
+E
+src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
+J
+src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
+N
+src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
+V
+&src/pages/bestantList/partial/table.js,b\2\b265d6279560b6d0ce8e016d11c2eb22fdfb42c6
+P
+ src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
+C
+src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
+H
+src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
+J
+src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
+F
+src/styles/_mixin.scss,f\c\fcaf532d2ce47ef240bc6887160a81465e09748d

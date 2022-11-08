@@ -98,6 +98,7 @@ const UserManagement = () => {
 
         Api().post('/getUsers', data).then(res => {
             setUsers(res.data)
+            console.log('users', res.data)
             setTotal(Number(res.data[0].totalUsers))
             setLoading(false)
         }).catch(e => {
@@ -139,7 +140,7 @@ const UserManagement = () => {
                     <form onSubmit={searchSubmit} className=' xl:w-3/12 sm:w-full'>
                         <input type="text" className='mr-5 w-full'
                                value={search}
-                               placeholder='Sueche..'
+                               placeholder='Suche..'
                                onChange={(e) => setSearch(e.target.value)}
                         />
                         <input type="submit" value="Submit" hidden/>

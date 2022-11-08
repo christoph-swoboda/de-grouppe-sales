@@ -5,7 +5,7 @@ import Api from "../Api/api";
 import {useStateValue} from "../states/StateProvider";
 import {toast} from "react-toastify";
 
-const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
+const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loadingName, setLoadingName] = useState(false)
@@ -57,25 +57,28 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
     }
 
     return (
-        <tbody className={`${edit && 'bg-yellowLight'}`}>
-        <tr className=" border-y border-silver border-x-0">
-            <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{name?name:'N/A'}</td>
+        <tbody>
+        <tr className={`${edit && 'bg-yellowLight'} border-y border-silver border-x-0`}>
+            <td hidden={edit} className={`px-6 py-2 whitespace-nowrap text-sm text-gray-900`}>{name?name:'N/A'}</td>
             <td hidden={!edit}>
-                <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
-                       type='text'
-                       placeholder='Vorname'
-                       value={firstName}
-                       onChange={(e) => setFirstName(e.target.value)}
-                />
                 <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap mt-1"
                        type='text'
                        placeholder='Nachname'
                        value={lastName}
                        onChange={(e) => setLastName(e.target.value)}
                 />
+                <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
+                       type='text'
+                       placeholder='Vorname'
+                       value={firstName}
+                       onChange={(e) => setFirstName(e.target.value)}
+                />
             </td>
-            <td className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
+            <td hidden={edit} className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
                 {email}
+            </td>
+            <td hidden={!edit} className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
+
             </td>
             <td hidden={edit}
                 className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
@@ -101,6 +104,10 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name}) => {
                     }
                 </button>
             </td>
+            <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{created}</td>
+            <td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+            <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{lastLogin}</td>
+            {/*<td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"></td>*/}
 
             <td hidden={!edit}
                 className="text-sm text-gray-900 font-light text-right whitespace-nowrap">

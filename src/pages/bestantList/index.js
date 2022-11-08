@@ -90,9 +90,9 @@ const BestantList = () => {
 
     return (
         <div className='dashboardContainer'>
-            <h2 className='text-left text-2xl pt-5 pb-5'>Bestand</h2>
+            <h2 className='text-left text-2xl pt-5 pb-5'>Firmenprojekt</h2>
             <div className=' bg-white'>
-                <div className='bg-white p-8 lg:flex sm:block'>
+                <div className='bg-white pt-3 pb-1 px-3 lg:flex sm:block'>
                     <ExcelExport data={users} title={'Excel Export'} loading={loading}/>
                     <ExcelExport all title={'Excel Export All'} loading={loading}/>
                     <div className={`${loading ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer`}
@@ -163,7 +163,7 @@ const BestantList = () => {
                                                         className={`${(header.title === 'MA' || header.title === 'Daten') && 'opacity-0'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
-                                                               placeholder='Sueche...'
+                                                               placeholder='Suche...'
                                                         />
                                                     </span>
                                                 </th>

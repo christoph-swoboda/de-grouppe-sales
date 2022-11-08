@@ -5,6 +5,7 @@ import {useStateValue} from "../../../states/StateProvider";
 import {HashLoader} from "react-spinners";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {UserManagementHeaders} from "../../../dummyData/userManagementHeaders";
+import {formatDate} from "../../../helper/formatDate";
 
 const UserManagementTable = ({users, pageSize, loading, total}) => {
 
@@ -33,7 +34,7 @@ const UserManagementTable = ({users, pageSize, loading, total}) => {
                                     !loading &&
                                     UserManagementHeaders.map(header => (
                                         <th key={header.id} scope="col"
-                                            className="text-sm w-3/12 font-medium text-grey px-6 py-2"
+                                            className="text-sm font-medium text-grey px-6 py-2"
                                         >
                                                     <span className='flex justify-left'>
                                                           <span
@@ -56,7 +57,7 @@ const UserManagementTable = ({users, pageSize, loading, total}) => {
                                                     </span>
                                             {/*<span className={`${(header.title === 'MA' || header.title === 'Daten') && 'opacity-0'}`}>*/}
                                             {/*            <input className='w-full h-2 px-2 py-3 search mb-4' type='text'*/}
-                                            {/*                   placeholder='Sueche...'*/}
+                                            {/*                   placeholder='Suche...'*/}
                                             {/*            />*/}
                                             {/*</span>*/}
                                         </th>
@@ -73,13 +74,15 @@ const UserManagementTable = ({users, pageSize, loading, total}) => {
                                     </tr>
                                     </thead>
                                     :
-                                    users.map((u, index) => (
+                                    users?.map((u, index) => (
                                         <UserManagementCard
                                             key={index}
                                             index={index}
                                             name={u.fullname}
                                             userID={u.ID}
                                             email={u.email}
+                                            lastLogin={formatDate(u.dateLastLogin)}
+                                            created={formatDate(u.dateCreate)}
                                             prtnrNo={u.partnernr}
                                             valid={u.isActive}
                                         />
