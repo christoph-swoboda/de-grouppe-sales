@@ -19,7 +19,7 @@ const Form = ({name, dropdown}) => {
         Api().post('/saveNeu', data).then(res => {
             toast.success('Saved Successfully')
             setLoading(false)
-        }).catch(e=>{
+        }).catch(e => {
             toast.error('Something Went Wrong!!')
             setLoading(false)
             alert(e.response.data.message)
@@ -35,7 +35,7 @@ const Form = ({name, dropdown}) => {
         setValue('bank', dropdown[0]?.Bank)
     }, [dropdown]);
 
-    function setBankValue(i, Bank){
+    function setBankValue(i, Bank) {
         setBank(i)
         setValue('bank', Bank)
     }
@@ -58,13 +58,15 @@ const Form = ({name, dropdown}) => {
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Bank *</label>
-                        <select onChange={(e)=>setValue('bank', e.target.value)} className='p-3 bg-transparent border border-whiteDark rounded-lg'
+                        <select onChange={(e) => setValue('bank', e.target.value)}
+                                className='p-3 bg-transparent border border-whiteDark rounded-lg'
                                 {...register('bank', {required: false})}
                                 style={{border: errors.bank && '1px solid red'}}
                         >
                             {
                                 dropdown?.map((d, i) => (
-                                    <option onClick={() => setBankValue(i, d.Bank)} key={i} value={d.Bank}> {d.Bank}</option>
+                                    <option onClick={() => setBankValue(i, d.Bank)} key={i}
+                                            value={d.Bank}> {d.Bank}</option>
                                 ))
                             }
                         </select>
@@ -74,7 +76,7 @@ const Form = ({name, dropdown}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2'>
                         <label>BLZ *</label>
                         <input placeholder='BLZ...'
-                               // value={dropdown[bank]?.BLZ}
+                            // value={dropdown[bank]?.BLZ}
                                {...register('blz', {required: false})}
                                style={{border: errors.blz && '1px solid red'}}
                         />
@@ -201,10 +203,18 @@ const Form = ({name, dropdown}) => {
                     <section className='flex flex-col mb-10 text-left text-grey text-sm mt-2'>
                         <label>MA-Anzahi *</label>
                         <input placeholder='MA-Anzahi...'
-                               {...register('ma', {required: true})}
+                               type="number"
+                               {...register('ma', {
+                                   required: 'Feld ist erforderlich und muss aus Ziffern bestehen',
+                                   pattern: {
+                                       value: /^[0-9\/]*$/,
+                                       message: 'Wert muss aus Ziffern bestehen',
+                                   }
+                               })}
+                               required
                                style={{border: errors.ma && '1px solid red'}}
                         />
-                        {errors.ma && touchedFields && <p>MA-Anzahl Field is required</p>}
+                        {errors.ma && touchedFields && <p>{errors.ma.message}</p>}
                     </section>
                 </div>
 
@@ -263,11 +273,18 @@ const Form = ({name, dropdown}) => {
 
                     <section className='flex flex-col text-left text-grey text-sm'>
                         <label>E-Mail</label>
-                        <input placeholder='E-Mail...'
-                               {...register('email', {required: false})}
+                        <input placeholder='E-Mail'
+                               {...register('email', {
+                                   required: false,
+                                   pattern: {
+                                       value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                       message: 'Bitte geben Sie eine gültige E-Mail ein',
+                                   },
+                               })}
+                               type="email"
                                style={{border: errors.email && '1px solid red'}}
                         />
-                        {errors.email && touchedFields && <p>E-Mai Field is required</p>}
+                        {errors.email && touchedFields && <p>{errors.email.message}</p>}
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm'>
