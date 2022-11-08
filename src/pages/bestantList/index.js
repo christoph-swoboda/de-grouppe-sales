@@ -139,7 +139,7 @@ const BestantList = () => {
                                             !loading &&
                                             BestantTableHeaders.map(header => (
                                                 <th key={header.id} scope="col"
-                                                    className="text-sm pl-5 text-grey px-2 py-1 "
+                                                    className="text-sm pl-5 text-grey px-2"
                                                 >
                                                     <span className='flex justify-left'>
                                                           <span
@@ -170,7 +170,7 @@ const BestantList = () => {
                                                 </th>
                                             ))
                                         }
-                                        <th scope="col" className="text-sm w-1/12 text-grey px-2 py-1"/>
+                                        <th scope="col" className="text-sm w-1/12 text-grey px-2"/>
                                     </tr>
                                     </thead>
                                     <tbody>
