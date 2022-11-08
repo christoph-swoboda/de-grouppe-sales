@@ -41,8 +41,6 @@ E
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
-N
-src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
 P
  src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 C

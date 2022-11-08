@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Form from "./partial/form";
 import Api from "../../Api/api";
+import {BeatLoader} from "react-spinners";
 
 const NewCreation = () => {
     const [name, setName] = useState('')
@@ -34,7 +35,12 @@ const NewCreation = () => {
                 !loading && <Form name={name} dropdown={dropdownData}/>
             }
             {
-                loading && 'loading...'
+                loading &&
+                <div className='h-96 bg-white'>
+                    <div className='centerItemsAbsolute'>
+                        <BeatLoader size={10} color={'black'}/>
+                    </div>
+                </div>
             }
         </div>
     )

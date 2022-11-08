@@ -133,7 +133,7 @@ const BestantList = () => {
                         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={{minHeight: '50vh'}}>
                             <div className="overflow-hidden">
                                 <table className="min-w-full text-left" ref={componentRef} id="table-to-xls">
-                                    <thead className=" border-y border-silver border-x-0">
+                                    <thead className="border-y border-silver border-x-0">
                                     <tr>
                                         {
                                             !loading &&
