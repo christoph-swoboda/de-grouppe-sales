@@ -15,11 +15,13 @@ const Form = ({name, dropdown}) => {
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
+        setLoading(true)
         Api().post('/saveNeu', data).then(res => {
             toast.success('Saved Successfully')
+            setLoading(false)
         }).catch(e=>{
-            console.log('e',e.response.data.message)
             toast.error('Something Went Wrong!!')
+            setLoading(false)
             alert(e.response.data.message)
         })
     };
