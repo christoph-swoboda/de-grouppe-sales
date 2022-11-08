@@ -44,5 +44,3 @@ K
 src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
-N
-src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf

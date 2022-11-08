@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 const Form = ({name, dropdown}) => {
 
     const [loading, setLoading] = useState(false)
-    const [bank, setBank] = useState(0)
+    const [bank, setBank] = useState(dropdown[0]?.Bank)
 
     const {
         register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
@@ -28,18 +28,18 @@ const Form = ({name, dropdown}) => {
 
     useEffect(() => {
         setValue('berater', name)
-        setValue('blz', dropdown[bank]?.BLZ)
+        setValue('blz', dropdown?.filter(d => d.Bank === bank)[0]?.BLZ)
     }, [bank, dropdown, name]);
 
     useEffect(() => {
         setValue('bank', dropdown[0]?.Bank)
     }, [dropdown]);
 
-    function setBankValue(i, Bank) {
-        setBank(i)
-        setValue('bank', Bank)
+    function setBankValue(e) {
+        setBank(e)
+        setValue('bank', e)
+        setValue('blz', dropdown?.filter(d => d.Bank === bank)[0]?.BLZ)
     }
-
 
     return (
         <div className='bg-white rounded-lg'>
@@ -58,15 +58,14 @@ const Form = ({name, dropdown}) => {
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Bank *</label>
-                        <select onChange={(e) => setValue('bank', e.target.value)}
+                        <select onClick={(e) => setBankValue(e.target.value)}
                                 className='p-3 bg-transparent border border-whiteDark rounded-lg'
                                 {...register('bank', {required: false})}
                                 style={{border: errors.bank && '1px solid red'}}
                         >
                             {
                                 dropdown?.map((d, i) => (
-                                    <option onClick={() => setBankValue(i, d.Bank)} key={i}
-                                            value={d.Bank}> {d.Bank}</option>
+                                    <option key={i} value={d.Bank}> {d.Bank}</option>
                                 ))
                             }
                         </select>
@@ -76,7 +75,7 @@ const Form = ({name, dropdown}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2'>
                         <label>BLZ *</label>
                         <input placeholder='BLZ...'
-                            // value={dropdown[bank]?.BLZ}
+                               value={dropdown?.filter(d => d.Bank === bank)[0]?.BLZ}
                                {...register('blz', {required: false})}
                                style={{border: errors.blz && '1px solid red'}}
                         />
