@@ -37,7 +37,7 @@ const Form = ({name, dropdown}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Bank *</label>
                         <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
-                                {...register('bank', {required: true})}
+                                {...register('bank', {required: false})}
                                 style={{border: errors.bank && '1px solid red'}}
                         >
                             {
@@ -53,7 +53,7 @@ const Form = ({name, dropdown}) => {
                         <label>BLZ *</label>
                         <input placeholder='BLZ...'
                                value={dropdown[bank]?.BLZ}
-                               {...register('blz', {required: true})}
+                               {...register('blz', {required: false})}
                                style={{border: errors.blz && '1px solid red'}}
                         />
                         {errors.blz && touchedFields && <p>BLZ Field is required</p>}
