@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import Api from "../../../Api/api";
+import {toast} from "react-toastify";
 
 const Form = ({name, dropdown}) => {
 
@@ -15,9 +16,28 @@ const Form = ({name, dropdown}) => {
 
     const onSubmit = async (data) => {
         Api().post('/saveNeu', data).then(res => {
-            console.log('res', res.data)
+            toast.success('Saved Successfully')
+        }).catch(e=>{
+            console.log('e',e.response.data.message)
+            toast.error('Something Went Wrong!!')
+            alert(e.response.data.message)
         })
     };
+
+    useEffect(() => {
+        setValue('berater', name)
+        setValue('blz', dropdown[bank]?.BLZ)
+    }, [bank, dropdown, name]);
+
+    useEffect(() => {
+        setValue('bank', dropdown[0]?.Bank)
+    }, [dropdown]);
+
+    function setBankValue(i, Bank){
+        setBank(i)
+        setValue('bank', Bank)
+    }
+
 
     return (
         <div className='bg-white rounded-lg'>
@@ -36,13 +56,13 @@ const Form = ({name, dropdown}) => {
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Bank *</label>
-                        <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
+                        <select onChange={(e)=>setValue('bank', e.target.value)} className='p-3 bg-transparent border border-whiteDark rounded-lg'
                                 {...register('bank', {required: false})}
                                 style={{border: errors.bank && '1px solid red'}}
                         >
                             {
                                 dropdown?.map((d, i) => (
-                                    <option onClick={() => setBank(i)} key={i} value={d.Bank}> {d.Bank}</option>
+                                    <option onClick={() => setBankValue(i, d.Bank)} key={i} value={d.Bank}> {d.Bank}</option>
                                 ))
                             }
                         </select>
@@ -52,7 +72,7 @@ const Form = ({name, dropdown}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2'>
                         <label>BLZ *</label>
                         <input placeholder='BLZ...'
-                               value={dropdown[bank]?.BLZ}
+                               // value={dropdown[bank]?.BLZ}
                                {...register('blz', {required: false})}
                                style={{border: errors.blz && '1px solid red'}}
                         />
