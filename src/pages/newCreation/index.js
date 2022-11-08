@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Form from "./partial/form";
+import Api from "../../Api/api";
 
 const NewCreation = () => {
     const [name, setName] = useState('')
+    const [dropdownData, setDropdownData] = useState([])
     useEffect(() => {
         try {
             const ls = localStorage.user
@@ -10,10 +12,23 @@ const NewCreation = () => {
         } catch (e) {window.location.reload()}
     }, []);
 
+    const user=JSON.parse(localStorage.user)
+    const id=user.ID
+
+    useEffect(() => {
+        let data=new FormData
+        data.append('userID',id)
+
+        Api().post('/getFormDropdown',data).then(res=>{
+            setDropdownData(res.data)
+        })
+    }, []);
+
+
     return (
         <div className='dashboardContainer'>
             <h2 className='text-left text-xl font-bold pt-5 pb-5'>Neues Firmenprojekt</h2>
-            <Form name={name}/>
+            <Form name={name} dropdown={dropdownData}/>
         </div>
     )
 }

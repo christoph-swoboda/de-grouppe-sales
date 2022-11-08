@@ -1,10 +1,11 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import Api from "../../../Api/api";
 
-const Form = ({name}) => {
+const Form = ({name, dropdown}) => {
 
     const [loading, setLoading] = useState(false)
+    const [bank, setBank] = useState(0)
 
     const {
         register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
@@ -13,30 +14,37 @@ const Form = ({name}) => {
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
-        Api().post('/test', data).then(res => {
+        Api().post('/saveNeu', data).then(res => {
             console.log('res', res.data)
         })
-        console.log('data', data)
     };
-
 
     return (
         <div className='bg-white rounded-lg'>
             <form onSubmit={handleSubmit(onSubmit)} className='mb-10 p-10'>
                 {/*// className='lg:grid lg:grid-cols-5 gap-6 sm:grid-cols-1 gap-6 mb-10 p-10'*/}
-                <h2 className='text-lg text-mainBlue text-left mb-6'><span className='text-grey'>Berater:</span> {name}</h2>
+                <h2 className='text-lg text-mainBlue text-left mb-6'><span className='text-grey'>Berater:</span> {name}
+                </h2>
 
                 {/*first 6 section*/}
                 {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start gap-3 flex-wrap'>*/}
-                    <div className='grid 2xl:grid-cols-12 lg:grid-cols-12 md:grid-cols-2 gap-3'>
+                <div className='grid 2xl:grid-cols-12 lg:grid-cols-12 md:grid-cols-2 gap-3'>
+
+                    <section className='hidden'>
+                        <input{...register('berater', {required: false})} value={name}/>
+                    </section>
+
                     <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Bank *</label>
                         <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
-                            {...register('bank', {required: true})}
-                            style={{border: errors.bank && '1px solid red'}}
+                                {...register('bank', {required: true})}
+                                style={{border: errors.bank && '1px solid red'}}
                         >
-                            <option value={1}> option 1</option>
-                            <option defaultValue value={2}> option 2</option>
+                            {
+                                dropdown?.map((d, i) => (
+                                    <option onClick={() => setBank(i)} key={i} value={d.Bank}> {d.Bank}</option>
+                                ))
+                            }
                         </select>
                         {errors.bank && touchedFields && <p>bank is required</p>}
                     </section>
@@ -44,6 +52,7 @@ const Form = ({name}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2'>
                         <label>BLZ *</label>
                         <input placeholder='BLZ...'
+                               value={dropdown[bank]?.BLZ}
                                {...register('blz', {required: true})}
                                style={{border: errors.blz && '1px solid red'}}
                         />
@@ -83,8 +92,8 @@ const Form = ({name}) => {
                                 {...register('bestands', {required: true})}
                                 style={{border: errors.bestands && '1px solid red'}}
                         >
-                            <option defaultValue value={1}> option 1</option>
-                            <option value={2}> option 2</option>
+                            <option defaultValue value={'Neukunde'}>Neukunde</option>
+                            <option value={'Bestandskunde'}> Bestandskunde</option>
                         </select>
                         {errors.bestands && touchedFields && <p>Bestands-/Newkunde Field is required</p>}
                     </section>
@@ -95,7 +104,7 @@ const Form = ({name}) => {
 
                 {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start md:gap-3 2xl:gap-4 lg:gap-1 flex-wrap'>*/}
                 <div className='grid 2xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-2 gap-3'>
-                <section className='flex flex-col text-left text-grey text-sm mt-2 col-span-2'>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 col-span-2'>
                         <label>Firma *</label>
                         <input placeholder='Firma...'
                                {...register('firma', {required: true})}
@@ -184,10 +193,13 @@ const Form = ({name}) => {
                 <div className='grid 2xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-2 gap-3'>
                     <section className='flex flex-col text-left text-grey text-sm'>
                         <label> Anrede *</label>
-                        <input placeholder='Anrede...'
-                               {...register('anrede', {required: true})}
-                               style={{border: errors.anrede && '1px solid red'}}
-                        />
+                        <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
+                                {...register('anrede', {required: true})}
+                                style={{border: errors.bank && '1px solid red'}}
+                        >
+                            <option defaultValue value={'Frau'}> Frau</option>
+                            <option value={'Herr'}> Herr</option>
+                        </select>
                         {errors.anrede && touchedFields && <p>Anrede Field is required</p>}
                     </section>
 
@@ -275,7 +287,8 @@ const Form = ({name}) => {
 
                 {/*third 10 section*/}
 
-                <p className='text-sm text-grey text-left font-extralight mb-6 mt-3'>* Markierte Felder sind Pflichtfelder</p>
+                <p className='text-sm text-grey text-left font-extralight mb-6 mt-3'>* Markierte Felder sind
+                    Pflichtfelder</p>
                 <input
                     className={(isValid) ? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' : 'disabled'}
                     disabled={!isValid} type="submit"

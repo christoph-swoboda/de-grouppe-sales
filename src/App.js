@@ -1,5 +1,5 @@
 import './App.scss';
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {BrowserRouter as Router, Navigate, Route, Routes, HashRouter} from 'react-router-dom';
 import Navbar from "./layouts/navbar";
 import Footer from "./layouts/footer";
@@ -11,13 +11,7 @@ import {RouteData} from "./router/index";
 
 function App() {
 
-    // const [user,setUser]=useState('')
-    //
-    // useEffect(() => {
-    //     setUser(JSON.parse(localStorage.getItem('user')))
-    // }, []);
-
-    const user=JSON.parse(localStorage.getItem('user'))
+    const user = JSON.parse(localStorage.getItem('user'))
 
     return (
         <div className="App">
