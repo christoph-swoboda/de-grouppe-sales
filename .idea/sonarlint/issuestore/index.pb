@@ -26,10 +26,6 @@ L
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-\
-,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
-E
-src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
 U
@@ -45,12 +41,8 @@ E
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
-J
-src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
 N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
-V
-&src/pages/bestantList/partial/table.js,b\2\b265d6279560b6d0ce8e016d11c2eb22fdfb42c6
 P
  src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 C

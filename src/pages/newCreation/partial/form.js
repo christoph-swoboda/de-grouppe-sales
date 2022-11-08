@@ -72,7 +72,7 @@ const Form = ({name, dropdown}) => {
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:mr-14 lg:mr-0'>
-                        <label>BLZ *</label>
+                        <label>BLZ</label>
                         <input placeholder='BLZ...'
                                value={dropdown?.filter(d => d.Bank === bank)[0]?.BLZ}
                                {...register('blz', {required: false})}
@@ -109,7 +109,7 @@ const Form = ({name, dropdown}) => {
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
-                        <label>Bestands/Newkunde*</label>
+                        <label>Bestands/Neukunde*</label>
                         <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
                                 {...register('bestands', {required: true})}
                                 style={{border: errors.bestands && '1px solid red'}}
@@ -117,7 +117,7 @@ const Form = ({name, dropdown}) => {
                             <option defaultValue value={'Neukunde'}>Neukunde</option>
                             <option value={'Bestandskunde'}> Bestandskunde</option>
                         </select>
-                        {errors.bestands && touchedFields && <p>Bestands/Newkunde Feld ist erforderlich</p>}
+                        {errors.bestands && touchedFields && <p>Bestands/Neukunde Feld ist erforderlich</p>}
                     </section>
                 </div>
                 {/*first 6 section*/}
@@ -175,12 +175,12 @@ const Form = ({name, dropdown}) => {
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 col-span-2'>
-                        <label>Telefon zentral*</label>
+                        <label>Telefon zentrale*</label>
                         <input placeholder='Telefon zentral...'
                                {...register('telefon', {required: true})}
                                style={{border: errors.telefon && '1px solid red'}}
                         />
-                        {errors.telefon && touchedFields && <p>Telefon zentral Feld ist erforderlich</p>}
+                        {errors.telefon && touchedFields && <p>Telefon zentrale Feld ist erforderlich</p>}
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 col-span-2'>
@@ -202,8 +202,8 @@ const Form = ({name, dropdown}) => {
                     </section>
 
                     <section className='flex flex-col mb-10 text-left text-grey text-sm mt-2'>
-                        <label>MA-Anzahi *</label>
-                        <input placeholder='MA-Anzahi...'
+                        <label>MA-Anzahl *</label>
+                        <input placeholder='MA-Anzahl...'
                                type="number"
                                {...register('ma', {
                                    required: 'Feld ist erforderlich und muss aus Ziffern bestehen',
@@ -330,8 +330,7 @@ const Form = ({name, dropdown}) => {
 
                 {/*third 10 section*/}
 
-                <p className='text-sm text-grey text-left font-extralight mb-6 mt-5'>* Markierte Felder sind
-                    Pflichtfelder</p>
+                <p className='text-sm text-grey text-left font-extralight mb-6 mt-5'>* Pflichtfeld</p>
                 <input
                     className={(isValid) ? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' : 'disabled'}
                     disabled={!isValid} type="submit"

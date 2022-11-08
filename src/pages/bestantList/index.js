@@ -53,6 +53,7 @@ const BestantList = () => {
 
         Api().post('/getBestands', data).then(res => {
             setUsers(res.data.bestands)
+            console.log('bestands', res.data.bestands)
             setTotal(Number(res.data?.bestands[0]?.totalCustomers))
             setLoading(false)
         }).catch(e => {
@@ -93,8 +94,8 @@ const BestantList = () => {
             <h2 className='text-left text-2xl pt-5 pb-5'>Firmenprojekt</h2>
             <div className=' bg-white'>
                 <div className='bg-white pt-3 pb-1 px-3 lg:flex sm:block'>
-                    <ExcelExport data={users} title={'Excel Export'} loading={loading}/>
-                    <ExcelExport all title={'Excel Export All'} loading={loading}/>
+                    <ExcelExport all title={'Excel Export'} loading={loading}/>
+                    <ExcelExport all title={'Excel Export Gesamt'} loading={loading}/>
                     <div className={`${loading ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer`}
                          onClick={setPrintState}>
                         <VscFilePdf className='mr-1' size='25px' color={'#DB2955'}/>
@@ -192,6 +193,7 @@ const BestantList = () => {
                                                     MA={u.MA}
                                                     PStatus={u.PStatus}
                                                     Note={u.Note}
+                                                    printing={printing}
                                                 />
                                             ))
                                     }

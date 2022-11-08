@@ -32,31 +32,33 @@ const ExcelExport = ({data, title, loading, all}) => {
         // "Note",
     ];
     sheet.columns = [
-        {key: "FirmaKurz", width: 40},
-        {key: "ZustBerater", width: 40},
-        {key: "Bank", width: 40},
-        {key: "RegioBereich", width: 22},
-        {key: "FBKBank", width: 30},
-        {key: "MA", width: 10},
-        {key: "PStatus", width: 50},
-        {key: "Date", width: 30},
+        {key: "FirmaKurz", width: 40, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "ZustBerater", width: 40, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "Bank", width: 40, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "RegioBereich", width: 22, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "FBKBank", width: 30, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "MA", width: 10, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "PStatus", width: 50, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "Date", width: 30, style: { font: { name: 'Arial Black', size:10 } }},
         // { key: "Note", width: 330 },
     ];
 
     const row = sheet.getRow(1);
 
-    row.fill = {
-        type: 'pattern',
-        pattern: 'gray0625',
-        fgColor: {argb: 'bcbcbc'},
-    };
 
     row.eachCell((cell, rowNumber) => {
         sheet.getColumn(rowNumber).alignment = {
             vertical: "bottom",
             horizontal: "left"
         };
-        sheet.getColumn(rowNumber).font = {size: 14, family: 2};
+        sheet.getColumn(rowNumber).font = {size: 10, family: 2};
+        sheet.getRow(1).font = {
+            name: 'Arial Black',
+            color: { argb: '3E4052FF' },
+            family: 1,
+            size: 10,
+            bold: true
+        };
     });
 
     useEffect(() => {

@@ -2,7 +2,7 @@ import React from "react";
 
 const BestantStatus = ({note, by, at}) => {
     return (
-        <div className='box-content border border-silver rounded-lg px-4 py-2 mt-2'>
+        <div className={`${!note && 'hidden'} box-content border border-silver rounded-lg px-4 py-2 mt-2`}>
             <div className='lg:flex justify-between bg-white mt-5'>
                 <h2 className='ml-1'>
                     <span className='text-sm text-grey'>
