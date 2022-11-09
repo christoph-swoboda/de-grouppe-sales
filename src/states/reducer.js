@@ -7,10 +7,11 @@ export const initialState = {
     userValidated:false,
     addUsersDone:false,
     collapse1:true,
-    collapse2:true,
+    collapse2:false,
     calcOptions:true,
     milestone3HasDate:false,
     sortUserColum:1,
+    noteRows:3,
     sortUserMethod:'desc',
     page:1,
     pageBestand:1,
@@ -72,6 +73,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 collapse2: action.item
+            }
+            case "SET_NOTEROWS":
+            return {
+                ...state,
+                noteRows: action.item
             }
             case "SET_CALCOPTIONS":
             return {

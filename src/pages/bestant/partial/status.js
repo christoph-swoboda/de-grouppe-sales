@@ -5,14 +5,16 @@ import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../../states/StateProvider";
 import CollapseExpand from "../../../components/collapseExpandSection";
+import {BeatLoader} from "react-spinners";
+import {Link} from "react-router-dom";
 
-const Status = ({notes, company}) => {
+const Status = ({notes, company, loadingNotes, count}) => {
     const [toggle, setToggle] = useState(false)
     const [loading, setLoading] = useState(false)
     const [note, setNote] = useState('')
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
-    const [{noteSent}, dispatch] = useStateValue();
+    const [{noteSent, noteRows}, dispatch] = useStateValue();
     const [{collapse2}] = useStateValue();
 
     function save() {
@@ -35,10 +37,17 @@ const Status = ({notes, company}) => {
         })
     }
 
+    String.prototype.allReplace = function(obj) {
+        let retStr = this;
+        for (const x in obj) {
+            retStr = retStr.replace(new RegExp(x, 'g'), obj[x]);
+        }
+        return retStr;
+    };
+
     return (
         <>
             <div className='flex justify-between bg-white mt-5'>
-
                 <div className='bg-white text-left md:mt-5 xl:mt-0'>
                     <button className='px-3 py-2 mx-2 mb-2 rounded-3xl bg-mainBlue text-white text-sm'
                             onClick={() => setToggle(!toggle)}
@@ -60,20 +69,29 @@ const Status = ({notes, company}) => {
                     </button>
                 </div>
 
+                {/*<div onClick={()=>dispatch({type: "SET_NOTEROWS", item: 10})}>*/}
                 <CollapseExpand show={collapse2} id={2}/>
+                {/*</div>*/}
             </div>
-            <div className={`${!collapse2 && 'hidden'}`}>
+            <div>
                 {
-                    notes.map((note, index) => (
+                    notes?.map((n, index) => (
                         <BestantStatus
                             key={index}
-                            note={note.NOTES0}
-                            by={note.CREATEDBY}
-                            at={note.DATECREATE}
+                            note={n.NOTES0}
+                            by={n.CREATEDBY}
+                            at={n.DATECREATE}
                         />
                     ))
                 }
+                {(loadingNotes && noteRows === 10) && <BeatLoader size={10}/>}
             </div>
+            {
+                (count > 10 && !loadingNotes && noteRows === 10) &&
+                <Link to={`/alle-notizen/${company.allReplace({'/': '%2F', ' ': '_'})}`} target={'_blank'}>
+                    <button className='bg-mainBlue text-white rounded-2xl px-3 py-2 mt-2 text-sm'> Alles sehen</button>
+                </Link>
+            }
         </>
     )
 }

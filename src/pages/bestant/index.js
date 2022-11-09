@@ -13,9 +13,10 @@ import SubSteps from "./partial/subSteps";
 import {useParams} from "react-router";
 
 const Bestant = () => {
-    const [{companyInfoModal, currentMilestone, noteSent}, dispatch] = useStateValue();
+    const [{companyInfoModal, currentMilestone, noteSent, noteRows}, dispatch] = useStateValue();
     const {toggleCompanyInfoModal} = useModal();
     const [loading, setLoading] = useState(true)
+    const [loadingNotes, setLoadingNotes] = useState(false)
     const [stepsLoading, setStepsLoading] = useState(true)
     const [info, setInfo] = useState(null)
     const [notes, setNotes] = useState([])
@@ -26,6 +27,7 @@ const Bestant = () => {
     const [milestoneTabs, setMilestoneTabs] = useState([])
     const [lastIndex, setLastIndex] = useState(null)
     const [lastDoneIndex, setLastDoneIndex] = useState(0)
+    const [notesCount, setNotesCount] = useState(20)
     const [subString, setSubString] = useState(2)
     const [currentSubStep, setCurrentSubStep] = useState([])
     const param = useParams()
@@ -39,12 +41,12 @@ const Bestant = () => {
     useEffect(() => {
         let data = new FormData()
         data.append('firma', param.id.replaceAll('_', ' '))
+        data.append('rows', noteRows)
 
         Api().post('/milestones', data).then(res => {
                 setMilestoneTabs(res.data.tabs)
                 setLastDoneIndex(res.data.done)
                 dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
-                setNotes(res.data.notes)
                 setLoading(false)
             }
         )
@@ -63,12 +65,28 @@ const Bestant = () => {
                 setSubSteps(res.data.subSteps)
                 let filter = res.data.subSteps.filter(d => d.fieldType === 'option')
                 setFiltered(filter)
-                if (filter.length === 0) {setStepsLoading(false)}
+                if (filter.length === 0) {
+                    setStepsLoading(false)
+                }
                 setGrid(res.data.grid)
                 // setNextStep(res.data.next)
             })
         }
     }, [lastDoneIndex, currentMilestone, param.id]);
+
+
+    useEffect(() => {
+        setLoadingNotes(true)
+        let data = new FormData()
+        data.append('firma', param.id.replaceAll('_', ' '))
+        data.append('rows', noteRows)
+        Api().post('/getNotes', data).then(res => {
+                setNotes(res.data)
+                setNotesCount(res.data[0]?.total)
+                setLoadingNotes(false)
+            }
+        )
+    }, [noteRows]);
 
     useEffect(() => {
         let arr = []
@@ -81,7 +99,7 @@ const Bestant = () => {
     }, [currentMilestone, filtered]);
 
     useEffect(() => {
-        if(filtered.length>0){
+        if (filtered.length > 0) {
             let Data = new FormData()
             Data.append('milestoneID', currentMilestone)
             Data.append('subStepID', JSON.stringify(filtered))
@@ -100,10 +118,9 @@ const Bestant = () => {
     }, [milestoneTabs]);
 
     useEffect(() => {
-        if(Number(currentMilestone) === lastIndex){
+        if (Number(currentMilestone) === lastIndex) {
             setSubString(0)
-        }
-        else{
+        } else {
             setSubString(2)
         }
     }, [currentMilestone, lastIndex, subString]);
@@ -174,7 +191,9 @@ const Bestant = () => {
                             </div>
 
                             <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 lg:w-5/12 xl:ml-0 rounded-lg h-fit'>
-                                <Status company={param.id.replaceAll('_', ' ')} notes={notes}/>
+                                <Status company={param.id.replaceAll('_', ' ')} notes={notes}
+                                        loadingNotes={loadingNotes} count={notesCount}
+                                />
                             </div>
                         </>
                 }
