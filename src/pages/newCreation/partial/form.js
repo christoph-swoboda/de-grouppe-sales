@@ -175,8 +175,8 @@ const Form = ({name, dropdown}) => {
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 col-span-2'>
-                        <label>Telefon zentrale*</label>
-                        <input placeholder='Telefon zentral...'
+                        <label>Telefon zentrale *</label>
+                        <input placeholder='Telefon zentrale...'
                                {...register('telefon', {required: true})}
                                style={{border: errors.telefon && '1px solid red'}}
                         />

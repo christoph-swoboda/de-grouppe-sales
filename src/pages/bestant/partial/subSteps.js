@@ -106,7 +106,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                         </button>
 
                         <form onSubmit={handleSubmit(onSubmit)}
-                              className='grid 2xl:grid-cols-1 xl:grid-cols-1 md:grid-cols-1 gap-1 mt-6 rounded-lg'>
+                              className='grid grid-cols-1 gap-1 mt-6 rounded-lg'>
                             {
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?

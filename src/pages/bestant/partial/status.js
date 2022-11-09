@@ -39,7 +39,7 @@ const Status = ({notes, company}) => {
         <>
             <div className='flex justify-between bg-white mt-5'>
 
-                <div className='bg-white text-left'>
+                <div className='bg-white text-left md:mt-5 xl:mt-0'>
                     <button className='px-3 py-2 mx-2 mb-2 rounded-3xl bg-mainBlue text-white text-sm'
                             onClick={() => setToggle(!toggle)}
                     >

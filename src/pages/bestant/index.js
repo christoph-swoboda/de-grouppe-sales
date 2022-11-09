@@ -144,7 +144,7 @@ const Bestant = () => {
                                 }
                             </div>
 
-                            <div className='lg:w-2/4 2xl:w-2/4 lg:ml-0 h-fit text-left'>
+                            <div className='2xl:w-2/4 lg:ml-0 lg:w-5/12 h-fit text-left'>
                                 <div className='bg-white p-5 my-1 mx-2 pb-10  rounded-lg'>
                                     <h2 className='text-xl absolute text-center font-bold mb-2'>{milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(subString)}</h2>
                                     <SubSteps
@@ -173,7 +173,7 @@ const Bestant = () => {
                                 {/*</div>*/}
                             </div>
 
-                            <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 xl:w-1/3 xl:ml-0 rounded-lg h-fit'>
+                            <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 lg:w-5/12 xl:ml-0 rounded-lg h-fit'>
                                 <Status company={param.id.replaceAll('_', ' ')} notes={notes}/>
                             </div>
                         </>

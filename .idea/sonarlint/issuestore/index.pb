@@ -26,8 +26,6 @@ L
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-W
-'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
 U
 %src/pages/dashboard/partial/funnel.js,8\4\84006f052a683fe474ec279eaf685a4fe02fab77
 T
@@ -47,8 +45,6 @@ C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 H
 src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
-J
-src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 F
 src/styles/_mixin.scss,f\c\fcaf532d2ce47ef240bc6887160a81465e09748d
 I
@@ -65,8 +61,6 @@ Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
-S
-#src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
 E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 O

@@ -100,7 +100,7 @@ form {
   border-radius: 6px;
   position: absolute;
   left: -5px;
-  margin-top: -120px;
+  margin-top: -60px;
   /* Position the tooltip text - see examples below! */
   z-index: 1;
 }
@@ -170,6 +170,7 @@ form {
 .label{
   min-width: 50%;
   margin-right: 10px;
+  margin-top: 5px;
 }
 .disabled{
   background-color: #e8e8e8;
@@ -190,10 +191,10 @@ form {
     margin-left: 80%;
   }
   @media screen and (max-width: 1440px) {
-    margin-left: 83%;
+    margin-left: 80%;
   }
   @media screen and (max-width: 810px) {
-    margin-left: 85%;
+    margin-left: 86%;
   }
   @media screen and (max-width: 500px) {
     margin-left: 70%;
