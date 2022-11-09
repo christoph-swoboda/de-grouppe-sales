@@ -166,12 +166,12 @@ const Form = ({name, dropdown}) => {
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:col-span-2 lg:col-span-3'>
-                        <label>Firma Kruzname *</label>
-                        <input placeholder='Firma Kruzname...'
+                        <label>Firma Kurzname *</label>
+                        <input placeholder='Firma Kurzname...'
                                {...register('firmaKruz', {required: true})}
                                style={{border: errors.firmaKruz && '1px solid red'}}
                         />
-                        {errors.firmaKruz && touchedFields && <p>Firma Kruzname Feld ist erforderlich</p>}
+                        {errors.firmaKruz && touchedFields && <p>Firma Kurzname Feld ist erforderlich</p>}
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 col-span-2'>

@@ -50,7 +50,7 @@ const Bestant = () => {
                 setLoading(false)
             }
         )
-    }, [dispatch, noteSent, param.id]);
+    }, [dispatch, param.id]);
 
     useEffect(() => {
         setStepsLoading(true)
@@ -86,7 +86,7 @@ const Bestant = () => {
                 setLoadingNotes(false)
             }
         )
-    }, [noteRows]);
+    }, [noteRows, noteSent]);
 
     useEffect(() => {
         let arr = []

@@ -15,7 +15,7 @@ export const initialState = {
     sortUserMethod:'desc',
     page:1,
     pageBestand:1,
-    noteSent:1,
+    noteSent:true,
 };
 const reducer = (state, action) => {
     switch (action.type) {

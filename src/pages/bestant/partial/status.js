@@ -28,7 +28,7 @@ const Status = ({notes, company, loadingNotes, count}) => {
             setNote('')
             setLoading(false)
             setToggle(!toggle)
-            dispatch({type: "SET_NOTE_SENT", item: noteSent + 1})
+            dispatch({type: "SET_NOTE_SENT", item: !noteSent})
             toast.success('Notiz erfolgreich gesendet')
         }).catch(e => {
             toast.error('etwas ist schief gelaufen!!')
