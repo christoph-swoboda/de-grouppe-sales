@@ -211,3 +211,37 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.milestonesBesideChart{
+  font-size: 14px;
+  padding-top: .3vh;
+  padding-bottom: .3vh;
+  //padding-bottom: .1px;
+
+  @media screen and (min-width: 1920px) {
+    padding-top: 1.3vh;
+    padding-bottom: 1.25vh;
+  }
+  @media screen and (max-width: 1920px) and (min-width: 1440px) {
+    padding-top: .65vh;
+    padding-bottom: .65vh;
+  }
+  @media only screen and (max-width: 1440px) and (min-width: 1280px) {
+    padding-top: .3vh;
+    padding-bottom: .3vh;
+  }
+}
+
+#canvas-container {
+  height: 60vh;
+  width: 60vw;
+  position: relative;
+}
+
+//@media (min-width: 768px) {
+//  #canvas-container {
+//    height: auto;
+//    width: auto;
+//  }
+//}
+

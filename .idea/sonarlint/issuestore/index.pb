@@ -10,8 +10,6 @@ J
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-U
-%src/pages/dashboard/partial/banner.js,8\a\8a11b5f3457b7a2ed8a2fedbc641e336c85f8e3a
 `
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
 I
@@ -26,10 +24,6 @@ L
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-U
-%src/pages/dashboard/partial/funnel.js,8\4\84006f052a683fe474ec279eaf685a4fe02fab77
-T
-$src/pages/dashboard/partial/chart.js,4\f\4ffb66b98d3740e48f54967f416e03efecb2a859
 K
 src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
 E

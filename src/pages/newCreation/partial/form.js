@@ -17,10 +17,10 @@ const Form = ({name, dropdown}) => {
     const onSubmit = async (data) => {
         setLoading(true)
         Api().post('/saveNeu', data).then(res => {
-            toast.success('Saved Successfully')
+            toast.success('Erfolgreich gespeichert!')
             setLoading(false)
         }).catch(e => {
-            toast.error('Something Went Wrong!!')
+            toast.error('Etwas ist schief gelaufen!!')
             setLoading(false)
             // alert(e.response.data.message)
         })
