@@ -15,7 +15,12 @@ const CompanyData = ({data, toggle, company, info}) => {
 
     useEffect(() => {
         if (info?.Zeile3) {
-            setEmail(extractEmails(info?.Zeile3)[0])
+            let mail = extractEmails(info?.Zeile3)
+            if (mail) {
+                setEmail(mail[0])
+            } else {
+                setEmail('N/A')
+            }
         }
     }, [info]);
 

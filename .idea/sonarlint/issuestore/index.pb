@@ -51,3 +51,23 @@ J
 src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 F
 src/styles/_mixin.scss,f\c\fcaf532d2ce47ef240bc6887160a81465e09748d
+I
+src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
+V
+&src/dummyData/userManagementHeaders.js,c\9\c9a60b91cf144a9af6f566cf39791d35f2c42156
+N
+src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
+H
+src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
+Y
+)src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
+Q
+!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
+\
+,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
+S
+#src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
+E
+src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
+O
+src/components/bestantStatus.js,5\c\5ca8ca76a5fdebd573b7bbb085fd2e7c3c5f505d
