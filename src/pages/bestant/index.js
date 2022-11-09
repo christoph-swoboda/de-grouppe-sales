@@ -60,7 +60,7 @@ const Bestant = () => {
         Api().post('/customerDetails', Data).then(res => {
             setInfo(res.data[0])
         })
-        if (lastDoneIndex > 0) {
+        if (lastDoneIndex >= 0) {
             Api().post('/sub-steps', Data).then(res => {
                 setSubSteps(res.data.subSteps)
                 let filter = res.data.subSteps.filter(d => d.fieldType === 'option')
