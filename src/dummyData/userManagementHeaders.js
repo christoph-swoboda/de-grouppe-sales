@@ -9,7 +9,7 @@ export const UserManagementHeaders=[
     },
     {
         id:3,
-        title:'Partnernummer'
+        title:'VP-Nummer'
     },
     {
         id:4,

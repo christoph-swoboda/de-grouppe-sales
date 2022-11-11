@@ -6,7 +6,7 @@ import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
 
-const ExcelExport = ({data, title, loading, all}) => {
+const ExcelExport = ({data, title, loading, all, len}) => {
     const workbook = new excelJS.Workbook();
     workbook.creator = "test";
     workbook.lastModifiedBy = "test";
@@ -38,8 +38,8 @@ const ExcelExport = ({data, title, loading, all}) => {
         {key: "RegioBereich", width: 22, style: { font: { name: 'Arial Black', size:10 } }},
         {key: "FBKBank", width: 30, style: { font: { name: 'Arial Black', size:10 } }},
         {key: "MA", width: 10, style: { font: { name: 'Arial Black', size:10 } }},
-        {key: "PStatus", width: 50, style: { font: { name: 'Arial Black', size:10 } }},
-        {key: "Date", width: 30, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "PStatus", width: 30, style: { font: { name: 'Arial Black', size:10 } }},
+        {key: "Date", width: 22, style: { font: { name: 'Arial Black', size:10 } }},
         // { key: "Note", width: 330 },
     ];
 
@@ -121,7 +121,7 @@ const ExcelExport = ({data, title, loading, all}) => {
     }
 
     return (
-        <div className={`${loading || loadingAll ? 'opacity-50' :''} flex justify-center m-1 cursor-pointer`}
+        <div className={`${loading || loadingAll ? 'opacity-50' :''} flex justify-center m-1 cursor-pointer ${(len === 0) && 'hideDiv'} `}
              onClick={printXl}
         >
             <RiFileExcel2Fill className='mr-1' size='25px' color={'#388E3C'}/>

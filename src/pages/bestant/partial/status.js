@@ -84,10 +84,10 @@ const Status = ({notes, company, loadingNotes, count}) => {
                         />
                     ))
                 }
-                {(loadingNotes && noteRows === 10) && <BeatLoader size={10}/>}
+                {(loadingNotes && noteRows === 8) && <BeatLoader size={10}/>}
             </div>
             {
-                (count > 10 && !loadingNotes && noteRows === 10) &&
+                (count > 8 && !loadingNotes && noteRows === 8) &&
                 <Link to={`/alle-notizen/${company.allReplace({'/': '%2F', ' ': '_'})}`} target={'_blank'}>
                     <button className='bg-mainBlue text-white rounded-2xl px-3 py-2 mt-2 text-sm'> Alles sehen</button>
                 </Link>

@@ -36,7 +36,7 @@ const AddUsers = () => {
             <GrClose className='cursor-pointer float-right'
                      onClick={() => dispatch({type: "SET_ADDUSERS_MODAL", item: !addUsersModal})} size='24px'/>
             <h2 className='text-xl text-center'>Neuen Benutzer Hinzufügen</h2>
-            <p className='text-xs text-grey text-center'>* markiert sind zwingend auszufüllen</p>
+            <p className='text-xs text-grey text-center'>* Pflichtfeld</p>
 
             <form onSubmit={handleSubmit(onSubmit)} className='mb-10 px-16 py-1 bg-white rounded-lg'>
                 <section className='flex flex-col text-left text-grey text-sm'>
@@ -122,7 +122,7 @@ const AddUsers = () => {
                 </section>
 
                 <section className='flex flex-col text-left text-grey text-sm py-2'>
-                    <label className='pb-2'>Partnernr </label>
+                    <label className='pb-2'>VP-Nummer </label>
                     <input placeholder='Partnernr'
                            type='text'
                            {...register('partnernr', {
@@ -153,7 +153,7 @@ const AddUsers = () => {
                             value="1"
                             id="field-role"
                         />
-                        <span className='mx-1'>Innendienst</span>
+                        <span className='mr-3 ml-1'>Innendienst</span>
                     </label>
                     <label htmlFor="field-role">
                         <input
@@ -163,7 +163,7 @@ const AddUsers = () => {
                             value="2"
                             id="field-role"
                         />
-                        <span className='mx-1'> R+V Mitarbeiter</span>
+                        <span className='mr-3'> R+V Mitarbeiter</span>
                     </label>
                     <label htmlFor="field-role">
                         <input
@@ -172,12 +172,13 @@ const AddUsers = () => {
                             value="3"
                             id="field-role"
                         />
-                        <span className='mx-1'> Vorgesetzter</span>
+                        <span className='mr-1'> Vorgesetzter</span>
                     </label>
                 </section>
 
                 <label htmlFor="field-aktiv" className='mt-5' hidden={watch('role')!=='1'}>
                     <input
+                        className='mx-1'
                         {...register("admin")}
                         type="checkbox"
                         id="field-aktiv"
@@ -190,7 +191,7 @@ const AddUsers = () => {
                     <input
                         className={(isValid) ? 'bg-mainBlue text-white cursor-pointer' : 'bg-disableBlue text-white'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? 'Registrieren' : 'Überprüfen Sie...'}
+                        value={(!loading) ? 'Benutzer speichern' : 'Überprüfen Sie...'}
                     />
                 </section>
             </form>

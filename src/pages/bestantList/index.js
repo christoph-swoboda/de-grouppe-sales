@@ -16,9 +16,12 @@ const BestantList = () => {
     const [loading, setLoading] = useState(true);
     const [loadingViews, setLoadingViews] = useState(false);
     const [rows, setRows] = useState('10');
+    ;
     const [views, setViews] = useState([]);
     const [sortColumn, setSortColumn] = useState(7);
     const [sortMethod, setSortMethod] = useState('asc');
+    const [filterID, setFilterID] = useState(0);
+    const [filter, setFilter] = useState('');
     let PageSize = rows;
     const [{pageBestand}, dispatch] = useStateValue();
     const [users, setUsers] = useState([]);
@@ -42,25 +45,34 @@ const BestantList = () => {
     }, [])
 
     useEffect(() => {
+        const delayQuery = setTimeout(async () => {
+            setLoading(true)
+            let data = new FormData()
+            data.append('userID', userID)
+            data.append('rows', rows)
+            data.append('page', pageBestand)
+            data.append('sortColumn', sortColumn)
+            data.append('sortMethod', sortMethod)
+            data.append('filterID', filterID)
+            data.append('filter', filter)
 
-        setLoading(true)
-        let data = new FormData()
-        data.append('userID', userID)
-        data.append('rows', rows)
-        data.append('page', pageBestand)
-        data.append('sortColumn', sortColumn)
-        data.append('sortMethod', sortMethod)
+            Api().post('/getBestands', data).then(res => {
+                setUsers(res.data.bestands)
+                console.log('bestands', res.data.bestands)
+                setTotal(Number(res.data?.bestands[0]?.totalCustomers))
+                setLoading(false)
+                if (printing && users?.length>0) {
+                    setTimeout(() => handlePrint(), 1);
+                    setTimeout(() => setPrinting(false), 1);
+                }
+            }).catch(e => {
+                setLoading(false)
+                toast.error('Etwas ist schief gelaufen!!')
+            })
+        }, filter ? 400 : 0)
 
-        Api().post('/getBestands', data).then(res => {
-            setUsers(res.data.bestands)
-            console.log('bestands', res.data.bestands)
-            setTotal(Number(res.data?.bestands[0]?.totalCustomers))
-            setLoading(false)
-        }).catch(e => {
-            setLoading(false)
-            toast.error('Etwas ist schief gelaufen!!')
-        })
-    }, [rows, userID, pageBestand, sortColumn, sortMethod]);
+        return () => clearTimeout(delayQuery)
+    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter])
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -72,11 +84,8 @@ const BestantList = () => {
     });
 
     async function setPrintState() {
-        if (!loading) {
-            setPrinting(true)
-            setTimeout(() => handlePrint(), 1);
-            setTimeout(() => setPrinting(false), 1);
-        }
+        setPrinting(true)
+        setRows('10000')
     }
 
     function ascSort(id) {
@@ -89,58 +98,75 @@ const BestantList = () => {
         setSortMethod('desc')
     }
 
+    function enableFilter(id, val) {
+        setFilterID(id)
+        setFilter(val)
+    }
+
     return (
-        <div className='dashboardContainer'>
-            <h2 className='text-left text-2xl pt-5 pb-5'>Firmenprojekt</h2>
-            <div className=' bg-white'>
-                <div className='bg-white pt-3 pb-1 px-3 lg:flex sm:block'>
-                    <ExcelExport all title={'Excel Export'} loading={loading}/>
-                    <ExcelExport all title={'Excel Export Gesamt'} loading={loading}/>
-                    <div className={`${loading ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer`}
-                         onClick={setPrintState}>
-                        <VscFilePdf className='mr-1' size='25px' color={'#DB2955'}/>
-                        <span className='mr-1 mb-2 text-grey text-sm'>PDF Export</span>
+        <>
+            <div className={`dashboardContainer`}>
+                <h2 className='text-left text-2xl pt-5 pb-5'>Firmenprojekt</h2>
+                <div className='bg-white'>
+                    <div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>
+                        <ExcelExport all title={'Excel Export'} loading={loading} len={users?.length}/>
+                        <ExcelExport all title={'Excel Export Gesamt'} loading={loading} len={users?.length}/>
+                        <div
+                            className={`${loading ? 'opacity-50' : ''} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}
+                            onClick={setPrintState}>
+                            <VscFilePdf className='mr-1' size='25px' color={'#DB2955'}/>
+                            <span className='mr-1 mb-2 text-grey text-sm'>PDF Export</span>
+                        </div>
+
+                        <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hideDiv'}`}>
+                            <select disabled={loading}
+                                    className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
+                                {
+                                    views.map((v, i) => (
+                                        <option key={i} value={v.viewName}> {v.viewName}</option>
+                                    ))
+                                }
+
+                            </select>
+                        </div>
+
+                        <p className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey ml-auto mt-2`}>
+                            {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users?.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Eintragen
+                        </p>
+                        <h2 className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey ml-6 mt-2 ml-10`}>
+                            Eintrage anzigen:
+                            <span>
+                                <select onChange={setPageStates} className={` bg-transparent text-mainBlue`}>
+                                    <option value={'10'}>{10}</option>
+                                    <option value={'25'}>{25}</option>
+                                    <option value={'10000'}>Alle</option>
+                                </select>
+                            </span>
+                        </h2>
                     </div>
 
-                    <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hidden'}`}>
-                        <select disabled={loading}
-                                className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
-                            {
-                                views.map((v, i) => (
-                                    <option key={i} value={v.viewName}> {v.viewName}</option>
-                                ))
-                            }
-
-                        </select>
-                    </div>
-
-                    <p className='text-sm text-grey ml-auto mt-2'>
-                        {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Eintragen
-                    </p>
-                    <h2 className='text-sm text-grey ml-6 mt-2 ml-10'>
-                        Eintrage anzigen: <span>
-                        <select onChange={setPageStates} className='bg-transparent text-mainBlue'>
-                            <option value={'10'}>{10}</option>
-                            <option value={'25'}>{25}</option>
-                            <option value={'10000'}>Alle</option>
-                        </select>
-                    </span>
-                    </h2>
-                </div>
-
-                <div className="flex flex-col">
-                    <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={{minHeight: '50vh'}}>
-                            <div className="overflow-hidden">
-                                <table className="min-w-full text-left" ref={componentRef} id="table-to-xls">
-                                    <thead className="border-y border-silver border-x-0">
-                                    <tr>
-                                        {
-                                            !loading &&
-                                            BestantTableHeaders.map(header => (
-                                                <th key={header.id} scope="col"
-                                                    className="text-sm pl-5 text-grey px-2"
-                                                >
+                    <div className="flex flex-col">
+                        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={{minHeight: '50vh'}}>
+                                <div className="overflow-hidden">
+                                    {
+                                        (users?.length === 0 && !loading) &&
+                                        <div className='centerItemsAbsolute'>
+                                            <h2 className='text-2xl text-text font-bold'>Entschuldigung, keine Daten
+                                                gefunden</h2>
+                                        </div>
+                                    }
+                                    <table
+                                        className={`min-w-full text-left`}
+                                        ref={componentRef} id="table-to-xls">
+                                        <thead className="border-y border-silver border-x-0">
+                                        <tr>
+                                            {
+                                                !loading &&
+                                                BestantTableHeaders.map(header => (
+                                                    <th key={header.id} scope="col"
+                                                        className="text-sm pl-5 text-grey px-2"
+                                                    >
                                                     <span className='flex justify-left'>
                                                           <span
                                                               className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
@@ -160,60 +186,70 @@ const BestantList = () => {
                                                             </p>
                                                         </span>
                                                     </span>
-                                                    <span
-                                                        className={`${(header.title === 'MA' || header.title === 'Daten') && 'opacity-0'}`}>
+                                                        <span
+                                                            className={`${(header.title === 'MA' || header.title === 'Daten') && 'opacity-0'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
+                                                               maxLength="50"
+                                                               value={filterID === header.id ? filter : ''}
+                                                               onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />
                                                     </span>
-                                                </th>
-                                            ))
-                                        }
-                                        <th scope="col" className="text-sm w-1/12 text-grey px-2"/>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                                                    </th>
+                                                ))
+                                            }
+                                            {/*<th scope="col" className="text-sm w-1/12 text-grey px-2"/>*/}
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    {
-                                        loading ?
-                                            <tr className='centerItemsAbsolute'>
-                                                <td><ScaleLoader size={110}/></td>
-                                            </tr>
-                                            :
-                                            users?.map((u, index) => (
-                                                <BestantListTable
-                                                    key={index}
-                                                    index={index}
-                                                    FirmaKurz={u.FirmaKurz}
-                                                    FBKBank={u.FBKBank}
-                                                    ZustBerater={u.ZustBerater}
-                                                    Bank={u.Bank}
-                                                    RegioBereich={u.RegioBereich}
-                                                    MA={u.MA}
-                                                    PStatus={u.PStatus}
-                                                    Note={u.Note}
-                                                    printing={printing}
-                                                />
-                                            ))
-                                    }
-                                    </tbody>
-                                </table>
-                                <div className={`centerItemsRelative mt-3 mb-2 ${loading && 'opacity-0'}`}>
-                                    <Pagination
-                                        className="pagination-bar"
-                                        currentPage={pageBestand}
-                                        totalCount={total}
-                                        pageSize={PageSize}
-                                        onPageChange={pageNo => dispatch({type: "SET_PAGE_BESTAND", item: pageNo})}
-                                    />
+                                        {
+                                            loading ?
+                                                <tr className='centerItemsAbsolute'>
+                                                    <td><ScaleLoader size={110}/></td>
+                                                </tr>
+                                                :
+                                                users?.map((u, index) => (
+                                                    <BestantListTable
+                                                        key={index}
+                                                        index={index}
+                                                        FirmaKurz={u.FirmaKurz}
+                                                        FBKBank={u.FBKBank}
+                                                        ZustBerater={u.ZustBerater}
+                                                        Bank={u.Bank}
+                                                        RegioBereich={u.RegioBereich}
+                                                        MA={u.MA}
+                                                        PStatus={u.PStatus}
+                                                        Note={u.Note}
+                                                        printing={printing}
+                                                    />
+                                                ))
+                                        }
+                                        </tbody>
+                                    </table>
+                                    <div className={`centerItemsRelative mt-3 mb-2 ${loading && 'opacity-0'}`}>
+                                        {
+                                            users.length > 0 &&
+                                            <Pagination
+                                                className="pagination-bar"
+                                                currentPage={pageBestand}
+                                                totalCount={total}
+                                                pageSize={PageSize}
+                                                onPageChange={pageNo => dispatch({
+                                                    type: "SET_PAGE_BESTAND",
+                                                    item: pageNo
+                                                })}
+                                            />
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

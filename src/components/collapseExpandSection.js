@@ -13,7 +13,7 @@ const CollapseExpand = ({show, id}) => {
         else{
             dispatch({type: "SET_COLLAPSE2", item: !show})
             if(!show){
-                dispatch({type: "SET_NOTEROWS", item: 10})
+                dispatch({type: "SET_NOTEROWS", item: 8})
             }
             else{
                 dispatch({type: "SET_NOTEROWS", item: 3})

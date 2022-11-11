@@ -127,7 +127,7 @@ const UserManagement = () => {
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between mt-10 sm:block'>
                 <h2 className='text-2xl lg:text-left font-extrabold'>{admin === '0' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
-                <div className={admin === '0' ? 'hidden' :''}>
+                <div className={admin === '0' ? 'hidden' : ''}>
                     <p className={`px-3 py-2 rounded-2xl bg-mainBlue text-sm text-white ml-2 cursor-pointer`}
                        onClick={toggleAddUsersModal}>
                         Neuen Benutzer anlegen
@@ -135,8 +135,8 @@ const UserManagement = () => {
                 </div>
             </div>
 
-            <div className='bg-white my-4'>
-                <div className='rounded-xl p-8 lg:flex sm:block'>
+            <div className={`bg-white my-4`}>
+                <div className={`${(users?.length === 0 && !loading) && 'opacity-0'} rounded-xl p-8 lg:flex sm:block`}>
                     <form onSubmit={searchSubmit} className=' xl:w-3/12 sm:w-full'>
                         <input type="text" className='mr-5 w-full'
                                value={search}
@@ -173,11 +173,19 @@ const UserManagement = () => {
 
                 </div>
                 {
-                    role === 'Internal' ?
-                        <UserManagementTable users={users} pageSize={rows} total={total} loading={loading}/>
-                        :
-                        <BankManagerView users={users} pageSize={rows} total={total} loading={loading}/>
+                    (users?.length === 0 && !loading) &&
+                    <div className='centerItemsRelative h-80'>
+                        <h2 className='text-2xl text-text font-bold'>Entschuldigung, keine Daten gefunden</h2>
+                    </div>
                 }
+                <div className={`${(users?.length === 0 && !loading) && 'hidden'}`}>
+                    {
+                        role === 'Internal' ?
+                            <UserManagementTable users={users} pageSize={rows} total={total} loading={loading}/>
+                            :
+                            <BankManagerView users={users} pageSize={rows} total={total} loading={loading}/>
+                    }
+                </div>
             </div>
 
             <Modal toggle={toggleAddUsersModal}
