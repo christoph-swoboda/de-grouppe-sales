@@ -16,11 +16,11 @@ export const BestandView2Headers = [
         title: 'Zust. FBK'
     },
     {
-        id: 5,
+        id: 4,
         title: 'BD'
     },
     {
-        id: 4,
+        id: 5,
         title: 'FD'
     },
     {

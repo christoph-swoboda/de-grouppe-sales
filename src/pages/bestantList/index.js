@@ -52,11 +52,11 @@ const BestantList = () => {
             data.append('sortColumn', sortColumn)
             data.append('sortMethod', sortMethod)
             data.append('filterID', filterID)
-            data.append('filter', filter)
+            data.append('filter', JSON.stringify(filter))
 
             Api().post(url, data).then(res => {
                 setUsers(res.data.bestands)
-                console.log('bestands', res.data.bestands)
+                // console.log('bestands', res.data.bestands)
                 setTotal(Number(res.data?.bestands[0]?.totalCustomers))
                 setLoading(false)
                 if (printing && users?.length > 0) {

@@ -23,8 +23,8 @@ const BestandListDataSection = ({
                                     view
                                 }) => {
     const [{pageBestand}, dispatch] = useStateValue();
-    const searChableFields=[1,2,3,4,5,7]
-    const sortableFields=[1,2,3,4,5,6,7]
+    const searChableFields = [1, 2, 3, 4, 5, 7]
+    const sortableFields = [1, 2, 3, 4, 5, 6, 7]
 
     function ascSort(id) {
         dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
@@ -38,7 +38,24 @@ const BestandListDataSection = ({
 
     function enableFilter(id, val) {
         dispatch({type: "SET_SORTBESTANDFILTERID", item: id})
-        dispatch({type: "SET_SORTBESTANDFILTER", item: val})
+        if (id === 1) {
+            dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, a: val}})
+        }
+        if (id === 2) {
+            dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, b: val}})
+        }
+        if (id === 3) {
+            dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, c: val}})
+        }
+        if (id === 4) {
+            dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, d: val}})
+        }
+        if (id === 5) {
+            dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, e: val}})
+        }
+        if (id === 7) {
+            dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, f: val}})
+        }
     }
 
     return (
@@ -53,8 +70,7 @@ const BestandListDataSection = ({
                                     gefunden</h2>
                             </div>
                         }
-                        <table className='min-w-full text-left bg-white'
-                            ref={printPDFRef} id="table-to-xls">
+                        <table className='min-w-full text-left bg-white' ref={printPDFRef} id="table-to-xls">
                             <thead className="whitespace-nowrap border-y border-silver border-x-0">
                             <tr>
                                 {
@@ -62,7 +78,7 @@ const BestandListDataSection = ({
                                     headers.map(header => (
                                         <th key={header.id} scope="col"
                                             className="text-sm text-grey pl-1.5"
-                                            style={{minWidth:searChableFields.includes(header.id) ? '8rem' :'fit-content'}}
+                                            style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
                                         >
                                                     <span className='flex justify-left'>
                                                           <span
@@ -70,7 +86,8 @@ const BestandListDataSection = ({
                                                           >
                                                             {header.title}
                                                         </span>
-                                                        <span hidden={printing} className={`${!(sortableFields.includes(header.id)) && 'opacity-0'}`}>
+                                                        <span hidden={printing}
+                                                              className={`${!(sortableFields.includes(header.id)) && 'opacity-0'}`}>
                                                             <p className={`cursor-pointer ${sortColumn === header.id && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
                                                                onClick={() => ascSort(header.id)}
                                                             >
@@ -83,11 +100,12 @@ const BestandListDataSection = ({
                                                             </p>
                                                         </span>
                                                     </span>
-                                            <span className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
+                                            <span
+                                                className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                maxLength="50"
-                                                               value={filterID === header.id ? filter : ''}
+                                                               value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : filter.f}
                                                                onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />
