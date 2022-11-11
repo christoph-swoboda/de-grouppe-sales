@@ -81,8 +81,8 @@ const UserManagementTable = ({users, pageSize, loading, total}) => {
                                             name={u.fullname}
                                             userID={u.ID}
                                             email={u.email}
-                                            lastLogin={formatDate(u.dateLastLogin)}
-                                            created={formatDate(u.dateCreate)}
+                                            lastLogin={formatDate(u.dateLastLogin, true)}
+                                            created={formatDate(u.dateCreate, true)}
                                             prtnrNo={u.partnernr}
                                             valid={u.isActive}
                                         />

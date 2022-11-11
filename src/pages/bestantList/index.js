@@ -1,29 +1,23 @@
 import React, {useEffect, useRef, useState} from "react";
 import {VscFilePdf} from "react-icons/vsc";
-import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {BestantTableHeaders} from "../../dummyData/bestantTableHeaders";
 import Api from "../../Api/api";
-import BestantListTable from "./partial/table";
 import {toast} from "react-toastify";
-import {ScaleLoader} from "react-spinners";
-import Pagination from "../../components/pagination";
 import {useStateValue} from "../../states/StateProvider";
 import {useReactToPrint} from "react-to-print"
 import ExcelExport from "./partial/excelFormat";
+import BestandListDataSection from "../../components/bestandListDataSection";
+import {BestandView2Headers} from "../../dummyData/bestandView2Headers";
 
 const BestantList = () => {
     const [printing, setPrinting] = useState(false)
     const [loading, setLoading] = useState(true);
     const [loadingViews, setLoadingViews] = useState(false);
     const [rows, setRows] = useState('10');
-    ;
+    const [viewName, setViewName] = useState('Firmenprojekte');
     const [views, setViews] = useState([]);
-    const [sortColumn, setSortColumn] = useState(7);
-    const [sortMethod, setSortMethod] = useState('asc');
-    const [filterID, setFilterID] = useState(0);
-    const [filter, setFilter] = useState('');
     let PageSize = rows;
-    const [{pageBestand}, dispatch] = useStateValue();
+    const [{pageBestand, sortColumn, sortMethod, filterID, filter}, dispatch] = useStateValue();
     const [users, setUsers] = useState([]);
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
@@ -45,6 +39,10 @@ const BestantList = () => {
     }, [])
 
     useEffect(() => {
+        let url = '/getBestands'
+        if (viewName === 'Projekt-Tafel') {
+            url = 'getBestands2'
+        }
         const delayQuery = setTimeout(async () => {
             setLoading(true)
             let data = new FormData()
@@ -56,12 +54,12 @@ const BestantList = () => {
             data.append('filterID', filterID)
             data.append('filter', filter)
 
-            Api().post('/getBestands', data).then(res => {
+            Api().post(url, data).then(res => {
                 setUsers(res.data.bestands)
                 console.log('bestands', res.data.bestands)
                 setTotal(Number(res.data?.bestands[0]?.totalCustomers))
                 setLoading(false)
-                if (printing && users?.length>0) {
+                if (printing && users?.length > 0) {
                     setTimeout(() => handlePrint(), 1);
                     setTimeout(() => setPrinting(false), 1);
                 }
@@ -72,7 +70,12 @@ const BestantList = () => {
         }, filter ? 400 : 0)
 
         return () => clearTimeout(delayQuery)
-    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter])
+    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName])
+
+    useEffect(() => {
+        dispatch({type: "SET_SORTBESTANDFILTER", item: ''})
+        dispatch({type: "SET_SORTBESTANDFILTERID", item: 0})
+    }, [viewName]);
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -86,21 +89,6 @@ const BestantList = () => {
     async function setPrintState() {
         setPrinting(true)
         setRows('10000')
-    }
-
-    function ascSort(id) {
-        setSortColumn(id)
-        setSortMethod('asc')
-    }
-
-    function descSort(id) {
-        setSortColumn(id)
-        setSortMethod('desc')
-    }
-
-    function enableFilter(id, val) {
-        setFilterID(id)
-        setFilter(val)
     }
 
     return (
@@ -119,11 +107,13 @@ const BestantList = () => {
                         </div>
 
                         <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hideDiv'}`}>
-                            <select disabled={loading}
+                            <select disabled={loading} onChange={(e) => setViewName(e.target.value)}
                                     className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
                                 {
                                     views.map((v, i) => (
-                                        <option key={i} value={v.viewName}> {v.viewName}</option>
+                                        <option key={i} disabled={v.viewName === 'leerer Test'} value={v.viewName}>
+                                            {v.viewName}
+                                        </option>
                                     ))
                                 }
 
@@ -144,109 +134,20 @@ const BestantList = () => {
                             </span>
                         </h2>
                     </div>
-
-                    <div className="flex flex-col">
-                        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={{minHeight: '50vh'}}>
-                                <div className="overflow-hidden">
-                                    {
-                                        (users?.length === 0 && !loading) &&
-                                        <div className='centerItemsAbsolute'>
-                                            <h2 className='text-2xl text-text font-bold'>Entschuldigung, keine Daten
-                                                gefunden</h2>
-                                        </div>
-                                    }
-                                    <table
-                                        className={`min-w-full text-left`}
-                                        ref={componentRef} id="table-to-xls">
-                                        <thead className="border-y border-silver border-x-0">
-                                        <tr>
-                                            {
-                                                !loading &&
-                                                BestantTableHeaders.map(header => (
-                                                    <th key={header.id} scope="col"
-                                                        className="text-sm pl-5 text-grey px-2"
-                                                    >
-                                                    <span className='flex justify-left'>
-                                                          <span
-                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
-                                                          >
-                                                            {header.title}
-                                                        </span>
-                                                        <span hidden={printing}>
-                                                            <p className={`cursor-pointer ${sortColumn === header.id && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
-                                                               onClick={() => ascSort(header.id)}
-                                                            >
-                                                                <RiArrowUpSFill size='22px'/>
-                                                            </p>
-                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumn === header.id && sortMethod === 'desc' ? 'text-mainBlue' : ''}`}
-                                                               onClick={() => descSort(header.id)}
-                                                            >
-                                                                <RiArrowDownSFill size='22px'/>
-                                                            </p>
-                                                        </span>
-                                                    </span>
-                                                        <span
-                                                            className={`${(header.title === 'MA' || header.title === 'Daten') && 'opacity-0'}`}>
-                                                        <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
-                                                               hidden={printing}
-                                                               maxLength="50"
-                                                               value={filterID === header.id ? filter : ''}
-                                                               onChange={(e) => enableFilter(header.id, e.target.value)}
-                                                               placeholder='Suche...'
-                                                        />
-                                                    </span>
-                                                    </th>
-                                                ))
-                                            }
-                                            {/*<th scope="col" className="text-sm w-1/12 text-grey px-2"/>*/}
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        {
-                                            loading ?
-                                                <tr className='centerItemsAbsolute'>
-                                                    <td><ScaleLoader size={110}/></td>
-                                                </tr>
-                                                :
-                                                users?.map((u, index) => (
-                                                    <BestantListTable
-                                                        key={index}
-                                                        index={index}
-                                                        FirmaKurz={u.FirmaKurz}
-                                                        FBKBank={u.FBKBank}
-                                                        ZustBerater={u.ZustBerater}
-                                                        Bank={u.Bank}
-                                                        RegioBereich={u.RegioBereich}
-                                                        MA={u.MA}
-                                                        PStatus={u.PStatus}
-                                                        Note={u.Note}
-                                                        printing={printing}
-                                                    />
-                                                ))
-                                        }
-                                        </tbody>
-                                    </table>
-                                    <div className={`centerItemsRelative mt-3 mb-2 ${loading && 'opacity-0'}`}>
-                                        {
-                                            users.length > 0 &&
-                                            <Pagination
-                                                className="pagination-bar"
-                                                currentPage={pageBestand}
-                                                totalCount={total}
-                                                pageSize={PageSize}
-                                                onPageChange={pageNo => dispatch({
-                                                    type: "SET_PAGE_BESTAND",
-                                                    item: pageNo
-                                                })}
-                                            />
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <BestandListDataSection
+                        users={users}
+                        loading={loading}
+                        printPDFRef={componentRef}
+                        headers={viewName === 'Firmenprojekte' ? BestantTableHeaders : BestandView2Headers}
+                        printing={printing}
+                        sortColumn={sortColumn}
+                        sortMethod={sortMethod}
+                        total={total}
+                        PageSize={PageSize}
+                        filterID={filterID}
+                        filter={filter}
+                        view={viewName}
+                    />
                 </div>
             </div>
         </>

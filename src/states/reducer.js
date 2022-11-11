@@ -16,6 +16,10 @@ export const initialState = {
     page:1,
     pageBestand:1,
     noteSent:true,
+    sortColumn:7,
+    sortMethod:'asc',
+    filterID:0,
+    filter:'',
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -98,6 +102,26 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 sortUserMethod: action.item
+            }
+            case "SET_SORTBESTANDCOLUMN":
+            return {
+                ...state,
+                sortColumn: action.item
+            }
+            case "SET_SORTBESTANDMETHOD":
+            return {
+                ...state,
+                sortMethod: action.item
+            }
+            case "SET_SORTBESTANDFILTER":
+            return {
+                ...state,
+                filter: action.item
+            }
+            case "SET_SORTBESTANDFILTERID":
+            return {
+                ...state,
+                filterID: action.item
             }
         default:
             return state;

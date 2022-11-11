@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {BsChatLeftText} from "react-icons/bs";
 
-const BestantListTable = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PStatus,Note, printing}) => {
+const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PStatus,Note, printing}) => {
 
     String.prototype.allReplace = function(obj) {
         let retStr = this;
@@ -50,4 +50,4 @@ const BestantListTable = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PS
     )
 }
 
-export default BestantListTable
+export default FirmenprojekteView

@@ -35,8 +35,6 @@ F
 src/styles/_mixin.scss,f\c\fcaf532d2ce47ef240bc6887160a81465e09748d
 I
 src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
-H
-src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 ]
@@ -59,7 +57,5 @@ C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 J
 src/components/allNotes.js,2\5\2548fc89f9e4dba934290b135234b123d7e2bbc5
-V
-&src/pages/bestantList/partial/table.js,b\2\b265d6279560b6d0ce8e016d11c2eb22fdfb42c6
 U
 %src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
