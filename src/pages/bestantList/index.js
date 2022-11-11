@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {VscFilePdf} from "react-icons/vsc";
+import {AiTwotonePrinter} from "react-icons/ai";
 import {BestantTableHeaders} from "../../dummyData/bestantTableHeaders";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
@@ -59,9 +59,10 @@ const BestantList = () => {
                 // console.log('bestands', res.data.bestands)
                 setTotal(Number(res.data?.bestands[0]?.totalCustomers))
                 setLoading(false)
-                if (printing && users?.length > 0) {
+                if (printing && users?.length > 0 && rows==='10000') {
                     setTimeout(() => handlePrint(), 1);
                     setTimeout(() => setPrinting(false), 1);
+                    setRows('10')
                 }
             }).catch(e => {
                 setLoading(false)
@@ -102,8 +103,8 @@ const BestantList = () => {
                         <div
                             className={`${loading ? 'opacity-50' : ''} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}
                             onClick={setPrintState}>
-                            <VscFilePdf className='mr-1' size='25px' color={'#DB2955'}/>
-                            <span className='mr-1 mb-2 text-grey text-sm'>PDF Export</span>
+                            <AiTwotonePrinter className='mr-1' size='25px' color={'#DB2955'}/>
+                            <span className='mr-1 mb-2 text-grey text-sm'>Drucken</span>
                         </div>
 
                         <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hideDiv'}`}>
