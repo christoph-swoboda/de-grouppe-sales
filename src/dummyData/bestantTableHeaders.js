@@ -17,7 +17,7 @@ export const BestantTableHeaders=[
     },
     {
         id:5,
-        title:'Kd-Bnerater Bank'
+        title:'Kd-Berater Bank'
     },
     {
         id:6,
@@ -29,6 +29,6 @@ export const BestantTableHeaders=[
     },
     {
         id:8,
-        title:'Daten'
+        title:'P-Datum'
     },
 ]
