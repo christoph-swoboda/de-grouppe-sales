@@ -26,6 +26,10 @@ const BestantList = () => {
     const componentRef = useRef();
 
     useEffect(() => {
+        dispatch({type: "SET_PAGE_BESTAND", item: 1})
+    }, [viewName]);
+
+    useEffect(() => {
         let data = new FormData()
         data.append('role', role)
         setLoadingViews(true)
