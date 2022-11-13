@@ -39,6 +39,11 @@ const Bestant = () => {
     }, [currentMilestone]);
 
     useEffect(() => {
+        let index = Object.keys(milestoneTabs).length
+        setLastIndex(index)
+    }, [milestoneTabs]);
+
+    useEffect(() => {
         let data = new FormData()
         data.append('firma', param.id.replaceAll('_', ' '))
         data.append('rows', noteRows)
@@ -60,7 +65,14 @@ const Bestant = () => {
         Api().post('/customerDetails', Data).then(res => {
             setInfo(res.data[0])
         })
-        if (lastDoneIndex >= 0) {
+    }, []);
+
+    useEffect(() => {
+        setStepsLoading(true)
+        let Data = new FormData()
+        Data.append('index', currentMilestone)
+        Data.append('name', param.id.replaceAll('_', ' '))
+        if (lastDoneIndex >= 0 && currentMilestone) {
             Api().post('/sub-steps', Data).then(res => {
                 setSubSteps(res.data.subSteps)
                 let filter = res.data.subSteps.filter(d => d.fieldType === 'option')
@@ -74,7 +86,6 @@ const Bestant = () => {
         }
     }, [lastDoneIndex, currentMilestone, param.id]);
 
-
     useEffect(() => {
         setLoadingNotes(true)
         let data = new FormData()
@@ -87,16 +98,6 @@ const Bestant = () => {
             }
         )
     }, [noteRows, noteSent]);
-
-    useEffect(() => {
-        let arr = []
-        if (filtered?.length > 0) {
-            filtered.map(async (f, i) => {
-                arr.push(f.substepID)
-                setCurrentSubStep(arr)
-            })
-        }
-    }, [currentMilestone, filtered]);
 
     useEffect(() => {
         if (filtered.length > 0) {
@@ -113,9 +114,14 @@ const Bestant = () => {
     }, [currentMilestone, filtered]);
 
     useEffect(() => {
-        let index = Object.keys(milestoneTabs).length - 1
-        setLastIndex(index)
-    }, [milestoneTabs]);
+        let arr = []
+        if (filtered?.length > 0) {
+            filtered.map(async (f, i) => {
+                arr.push(f.substepID)
+                setCurrentSubStep(arr)
+            })
+        }
+    }, [currentMilestone, filtered]);
 
     useEffect(() => {
         if (Number(currentMilestone) === lastIndex) {

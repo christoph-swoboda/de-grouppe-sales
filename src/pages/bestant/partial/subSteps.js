@@ -57,11 +57,14 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                                 await setValue(`${d.stepName}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
                             }
                         } else {
-                            await setValue(`${d.stepName}`, `autoFill`)
+                            await setValue(`${d.stepName}`, 0)
                         }
                     }
                     if (d.fieldType === 'text') {
                         setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
+                    }
+                    if (d.fieldType === 'header') {
+                        setValue(`${d.stepName}`, `${grid[Number(d.substepID) ]?.fieldValue}`)
                     }
                 }
             })
@@ -145,8 +148,13 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                                                 {/*<p className={getValues(val.stepName) ? 'hidden' : 'tooltiptextclose'}>{val.mouseoverText}</p>*/}
                                                 <p className='tooltiptextclose'>{val.mouseoverText}</p>
                                             </section>
-                                            : val.fieldType === 'headlines' ?
-                                            <input placeholder='headlines'/>
+                                            : val.fieldType === 'header' ?
+                                            // <p>{val.stepName}</p>
+                                                <section key={index} className='tooltip flex'>
+                                                    <label style={{fontSize:'.9rem'}} className={`py-2 text-text w-full font-bold text-left`}>
+                                                        {val.stepName}
+                                                    </label>
+                                                </section>
                                             :
                                             <section key={index} className='tooltip flex'>
                                                 <label className='text-sm text-grey label'>{val.stepName}</label>
