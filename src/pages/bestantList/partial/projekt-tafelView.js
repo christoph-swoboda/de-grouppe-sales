@@ -40,56 +40,56 @@ const ProjectTafelView = ({
                     {FirmaKurz}
                 </Link>
             </td>
-            <td className="w-52 text-gray-900 font-light px-3">
+            <td className="w-52 text-gray-900 font-light pr-3">
                 {Firmenname}
             </td>
-            <td className="w-16 text-gray-900 font-light px-3">
+            <td className="w-16 text-gray-900 font-light pr-3">
                 {MA}
             </td>
-            <td className="w-40 text-gray-900 font-light px-3">
+            <td className="w-40 text-gray-900 font-light pr-3">
                 {ZustandigerFKB}
             </td>
-            <td className="text-gray-900 font-light px-3" >
+            <td className="text-gray-900 font-light pr-3" >
                 {BD}
             </td>
-            <td className="text-gray-900 font-light px-3" >
+            <td className="text-gray-900 font-light pr-3" >
                 {FD}
             </td>
 
-            <td className="text-gray-900 font-light px-3" >
+            <td className="text-gray-900 font-light pr-3" >
                 {DGAPIKAM}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(DL_Kzl_vollst, false)}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(Projtd_vollst, false)}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(Projtd_abge, false)}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(AA_FA_hin, false)}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(StSvGA_erst, false)}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(ArTfGA_erst, false)}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(ProjStart, false)}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(MAV_an_FKB, false)}
             </td>
-            <td className="px-3 font-light text-gray-900">
+            <td className="pr-3 font-light text-gray-900">
                 {formatDate(MAB_fertig, false)}
             </td>
             {/*<td className="px-6 font-light text-gray-900">*/}
             {/*    {date}*/}
             {/*</td>*/}
-            <td hidden={printing} className="tooltip text-gray-900 font-light px-3">
+            <td hidden={printing} className="tooltip text-gray-900 font-light pr-3">
                 <BsChatLeftText size='16px'/>
                 <span className={`${Note ? 'tooltiptext' : 'hidden'}`}>
                     {Note}

@@ -44,9 +44,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                         const toDateFormat = moment(new Date(newDate)).format(dateFormat);
                         let valid = moment(toDateFormat, dateFormat, true).isValid()
                         if (valid) {
-                            setValue(`${d.stepName}`, newDate)
+                            setValue(`${d.substepID}`, newDate)
                         } else {
-                            setValue(`${d.stepName}`, moment(new Date()).toDate())
+                            setValue(`${d.substepID}`, moment(new Date()).toDate())
                         }
                     }
                     if (d.fieldType === 'option') {
@@ -54,17 +54,17 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                             let filter=options.map(o=>o.filter(oo=>Number(oo.substepID)===Number(d.substepID)))
                             let filteredOption=filter.filter(f=>f.length>0)[0]
                             if(filteredOption){
-                                await setValue(`${d.stepName}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                                await setValue(`${d.substepID}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
                             }
                         } else {
-                            await setValue(`${d.stepName}`, 0)
+                            await setValue(`${d.stepName}`, 'autoFill')
                         }
                     }
                     if (d.fieldType === 'text') {
-                        setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
+                        setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
                     }
                     if (d.fieldType === 'header') {
-                        setValue(`${d.stepName}`, `${grid[Number(d.substepID) ]?.fieldValue}`)
+                        setValue(`${d.substepID}`, `${grid[Number(d.substepID) ]?.fieldValue}`)
                     }
                 }
             })
@@ -130,7 +130,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                                                 <label className='text-sm text-grey label'>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
-                                                    name={val.stepName}
+                                                    name={val.substepID}
                                                     render={({field}) => (
                                                         <DatePicker
                                                             locale="de" dateFormat="P" showYearDropdown
@@ -161,7 +161,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                                                 <input placeholder='Text Input'
                                                        className={`subStepInput w-full p-2 md:w-full
                                                        ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
-                                                       {...register(`${val.stepName}`)}
+                                                       {...register(`${val.substepID}`)}
                                                        type="text"
                                                        disabled={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
                                                        style={{border: errors.email && '1px solid red'}}

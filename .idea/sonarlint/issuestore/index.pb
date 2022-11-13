@@ -60,10 +60,6 @@ T
 $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
 T
 $src/dummyData/bestantTableHeaders.js,1\4\144b0de3ff6a830550eca01ce4399488c0f19831
-c
-3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
-I
-src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
 H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 N
@@ -73,9 +69,5 @@ N
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
-b
-2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
-X
-(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
 N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf

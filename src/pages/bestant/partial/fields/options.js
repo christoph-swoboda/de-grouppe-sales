@@ -5,8 +5,8 @@ const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, o
     return (
         <section className='tooltip flex'>
             <label className='text-sm text-grey label'>{val.stepName}</label>
-            <select {...register(`${val.stepName}`)}
-                    disabled={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
+            <select {...register(`${val.substepID}`)}
+                    disabled={(Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
                     className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
                     ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
             >
