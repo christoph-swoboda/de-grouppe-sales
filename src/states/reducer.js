@@ -10,6 +10,7 @@ export const initialState = {
     collapse2: false,
     calcOptions: true,
     milestone3HasDate: false,
+    sendMail: false,
     sortUserColum: 1,
     noteRows: 3,
     sortUserMethod: 'desc',
@@ -122,6 +123,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 filterID: action.item
+            }
+            case "SET_SENDMAIL":
+            return {
+                ...state,
+                sendMail: action.item
             }
         default:
             return state;

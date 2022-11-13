@@ -3,7 +3,6 @@ import Modal from "../../hooks/modal";
 import useModal from "../../hooks/useModal";
 import {useStateValue} from "../../states/StateProvider";
 import CompanyInfoPopUp from "../../components/modal/companyInfoPopUp";
-import {BestantCompanyInfo} from "../../dummyData/bestantInfo";
 import CompanyData from "./partial/companyData";
 import Status from "./partial/status";
 import Api from "../../Api/api";
@@ -60,7 +59,6 @@ const Bestant = () => {
     useEffect(() => {
         setStepsLoading(true)
         let Data = new FormData()
-        Data.append('index', currentMilestone)
         Data.append('name', param.id.replaceAll('_', ' '))
         Api().post('/customerDetails', Data).then(res => {
             setInfo(res.data[0])
@@ -134,8 +132,7 @@ const Bestant = () => {
 
     return (
         <div className='dashboardContainer'>
-            <CompanyData data={BestantCompanyInfo}
-                         info={info}
+            <CompanyData info={info}
                          company={param.id.replaceAll('_', ' ')}
                          toggle={toggleCompanyInfoModal}
             />
@@ -207,7 +204,7 @@ const Bestant = () => {
 
             <Modal toggle={toggleCompanyInfoModal}
                    visible={companyInfoModal}
-                   component={<CompanyInfoPopUp data={BestantCompanyInfo}/>}
+                   component={<CompanyInfoPopUp Info={info} company={param.id.replaceAll('_', ' ')}/>}
             />
         </div>
     )
