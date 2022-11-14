@@ -25,8 +25,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
-    const user=JSON.parse(localStorage.user)
-    const role=user.role
+    const user = JSON.parse(localStorage.user)
+    const role = user.role
 
     useEffect(() => {
         if (data.length > 0) {
@@ -73,6 +73,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
     const addObjectToArray = obj => {
         setUpdated(current => [...current, obj]);
     };
+
     function convertLocalToUTCDate(date) {
         if (!date) {
             return date
@@ -89,17 +90,21 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
         const key = 'id';
         const unique = [...new Map(update.map(item => [item[key], item])).values()]
         console.log('unique', unique)
+        if (unique.length > 0) {
+            setLoading(true)
+            Api().post('/saveSteps', unique).then(res => {
+                console.log('res', res.data)
+                toast.success('Data saved Successfully')
+                dispatch({type: "SET_SUBSTEPSAVED", item: !subStepSaved})
+                setLoading(false)
+            }).catch(e => {
+                setLoading(false)
+                toast.error('Etwas ist schief gelaufen!')
+            })
+        } else {
+            toast.warning('Sie haben nichts eingegeben')
+        }
 
-        setLoading(true)
-        Api().post('/saveSteps', unique).then(res => {
-            console.log('res', res.data)
-            toast.success('Data saved Successfully')
-            dispatch({type: "SET_SUBSTEPSAVED", item: !subStepSaved})
-            setLoading(false)
-        }).catch(e => {
-            setLoading(false)
-            toast.error('Something Went Wrong!!')
-        })
     };
 
     return (
@@ -117,7 +122,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                     <div hidden={loading}>
                         <button
                             onClick={() => ref.current.click()}
-                            className={`${role==='Supervisor' && 'opacity-0'} bg-mainBlue text-white cursor-pointer px-4 text-sm py-2 saveMS rounded-3xl`}
+                            className={`${role === 'Supervisor' && 'opacity-0'} bg-mainBlue text-white cursor-pointer px-4 text-sm py-2 saveMS rounded-3xl`}
                             disabled={!isValid}>
                             {Loading ? 'Sparen...' : 'Speichern'}
                         </button>
@@ -174,7 +179,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                                             onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
                                                             selected={field.value}
                                                             cssClass={'datePicker'}
-                                                            readOnly={role==='Supervisor'}
+                                                            readOnly={role === 'Supervisor'}
                                                             customInput={<CustomInput next={next} last={lastDoneIndex}
                                                                                       current={currentMilestone}/>}
                                                         />
@@ -207,7 +212,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                                 >
                                                     <label className='text-sm text-grey label'>{val.stepName}</label>
                                                     <input placeholder='Text Input'
-                                                           disabled={role==='Supervisor'}
+                                                           disabled={role === 'Supervisor'}
                                                            className={`subStepInput w-full p-2 md:w-full
                                                        ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
                                                            {...register(`${val.stepName}`)}
