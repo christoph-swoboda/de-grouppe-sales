@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import CollapseExpand from "../../../components/collapseExpandSection";
 import {useStateValue} from "../../../states/StateProvider";
 import ButtonMailto from "../../../helper/mailToButton";
+import {SkewLoader} from "react-spinners";
 
 const CompanyData = ({toggle, company, info}) => {
 
@@ -40,11 +41,14 @@ const CompanyData = ({toggle, company, info}) => {
                 <CollapseExpand show={collapse1} id={1}/>
             </div>
             <div className={`${!collapse1 && 'hidden'} px-5`}>
+                {
+                    !info && <div className='h-16'><SkewLoader size={10} color={'#6e6e6e'}/></div>
+                }
                 <div dangerouslySetInnerHTML={{__html: line1}}/>
                 <div dangerouslySetInnerHTML={{__html: line3}}/>
                 <span dangerouslySetInnerHTML={{__html: withoutMail}}/>
                 <span className='cursor-pointer' onClick={() => dispatch({type: 'SET_SENDMAIL', item: true})}
-                     dangerouslySetInnerHTML={{__html: Email}}/>
+                      dangerouslySetInnerHTML={{__html: Email}}/>
                 <div className='hideDiv'>
                     <ButtonMailto label={`Email: ${email}`} mailto={`mailto:${email}`}/>
                 </div>

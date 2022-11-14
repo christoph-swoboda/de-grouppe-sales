@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from "react";
-import {BestantTableHeaders} from "../dummyData/bestantTableHeaders";
+import React from "react";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {ScaleLoader} from "react-spinners";
-import BestantListTable from "../pages/bestantList/partial/firmenprojekteView";
+import FirmenprojekteView from "../pages/bestantList/partial/firmenprojekteView";
 import Pagination from "./pagination";
 import {useStateValue} from "../states/StateProvider";
-import FirmenprojekteView from "../pages/bestantList/partial/firmenprojekteView";
 import ProjectTafelView from "../pages/bestantList/partial/projekt-tafelView";
+import {formatDate} from "../helper/formatDate";
 
 const BestandListDataSection = ({
                                     users,
@@ -24,7 +23,7 @@ const BestandListDataSection = ({
                                 }) => {
     const [{pageBestand}, dispatch] = useStateValue();
     const searChableFields = [1, 2, 3, 4, 5, 7]
-    const sortableFields = [1, 2, 3, 4, 5, 6, 7]
+    const sortableFields = [1, 2, 3, 4, 5, 6, 7, 17, 9, 10, 11, 12, 13, 14, 15, 16]
 
     function ascSort(id) {
         dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
@@ -161,7 +160,7 @@ const BestandListDataSection = ({
                                             MAV_an_FKB={u.MAV_an_FKB}
                                             MAB_fertig={u.MAB_fertig}
                                             Note={u.Note}
-                                            date={u.Datum}
+                                            date={formatDate(u.Datum,false)}
                                             printing={printing}
                                         />
                                     ))

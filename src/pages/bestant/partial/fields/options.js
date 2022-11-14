@@ -1,14 +1,14 @@
 import React from "react";
 
-const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, option, register}) => {
+const Options = ({val, role, currentMilestone, lastDoneIndex, grid, getValues, option, register}) => {
 
     return (
-        <section className='tooltip flex'>
+        <>
             <label className='text-sm text-grey label'>{val.stepName}</label>
-            <select {...register(`${val.substepID}`)}
-                    disabled={(Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
+            <select {...register(`${val.stepName}`)}
+                    disabled={role==='Supervisor'}
                     className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
-                    ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
+                    ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
             >
                 <option value={getValues(val.stepName) === 'autoFill'} hidden>
                     Wähle eine Option
@@ -29,7 +29,7 @@ const Options = ({val, next, currentMilestone, lastDoneIndex, grid, getValues, o
                 }
             </select>
             <p className='tooltiptextclose'>{val.mouseoverText}</p>
-        </section>
+        </>
     )
 }
 

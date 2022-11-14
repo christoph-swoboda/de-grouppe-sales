@@ -20,8 +20,6 @@ L
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-E
-src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 H
 src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
 F
@@ -44,30 +42,16 @@ C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 J
 src/components/allNotes.js,2\5\2548fc89f9e4dba934290b135234b123d7e2bbc5
-U
-%src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
-J
-src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
-N
-src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
-Q
-!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
-Y
-)src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
-T
-$src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
-T
-$src/dummyData/bestantTableHeaders.js,1\4\144b0de3ff6a830550eca01ce4399488c0f19831
 H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
-N
-src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
 :
 
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
-N
-src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
+E
+src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
+J
+src/helper/mailToButton.js,6\e\6ec4f7ac7267f92e9c1498f7fd5f2576b3cdd0b7

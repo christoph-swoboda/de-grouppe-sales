@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {BsChatLeftText} from "react-icons/bs";
 
-const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PStatus,Note, printing}) => {
+const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PStatus,Note, printing, date}) => {
 
     String.prototype.allReplace = function(obj) {
         let retStr = this;
@@ -38,7 +38,7 @@ const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,
                 {PStatus}
             </td>
             <td className="w-24 font-light text-gray-900 pr-3">
-                21.10.22
+                {date}
             </td>
             <td hidden={printing} className="w-16 tooltip text-gray-900 font-light pr-3">
                 <BsChatLeftText size='16px'/>

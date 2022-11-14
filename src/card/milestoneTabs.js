@@ -18,7 +18,7 @@ const MilestoneTabs = ({label, done, lastIndex, lastDoneIndex, id, loading}) => 
 
     return (
         <div onClick={setMilestone}>
-            <p className={`${done === '1' ? 'bg-complete border-lightgrey' : currentMilestone.toString() === id ? 'border-mainBlue text-mainBlue' : 'bg-pending border-lightgrey'}
+            <p className={`${currentMilestone.toString() === id ? 'border-mainBlue text-mainBlue' :done === '1' ? 'bg-complete border-lightgrey' : 'bg-pending border-lightgrey'}
                 ${lastIndex.toString() === id && 'bg-whiteDark'} 
                 m-2 text-sm border-2 px-2 py-1 cursor-pointer text-left`
             }

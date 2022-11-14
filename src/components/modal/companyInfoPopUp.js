@@ -65,11 +65,12 @@ const CompanyInfoPopUp = ({company, Info}) => {
                     <div className='centerItemsAbsolute'>
                         <ScaleLoader/>
                     </div>
+
                     :
                     <div>
-                        <GrClose className='cursor-pointer float-right mt-10 mr-4'
+                        <GrClose className='cursor-pointer float-right -mt-10 mr-4'
                                  onClick={() => dispatch({type: "SET_COMPANYINFO_MODAL", item: !companyInfoModal})} size='24px'/>
-                        <div className='centerItemsAbsolute -mt-24'>
+                        <div className='mt-24'>
                             {/*<CompanyData info={Info}/>*/}
                             <p style={{color:'#a1a1a1'}}>{line1}</p>
                             <div dangerouslySetInnerHTML={{__html: line2}}/>

@@ -11,6 +11,7 @@ export const initialState = {
     calcOptions: true,
     milestone3HasDate: false,
     sendMail: false,
+    subStepSaved: false,
     sortUserColum: 1,
     noteRows: 3,
     sortUserMethod: 'desc',
@@ -128,6 +129,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 sendMail: action.item
+            }
+            case "SET_SUBSTEPSAVED":
+            return {
+                ...state,
+                subStepSaved: action.item
             }
         default:
             return state;

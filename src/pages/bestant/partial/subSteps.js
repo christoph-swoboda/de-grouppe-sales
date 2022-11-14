@@ -9,30 +9,24 @@ import "react-datepicker/dist/react-datepicker.css"
 import de from "date-fns/locale/de";
 import Api from "../../../Api/api";
 import Options from "./fields/options";
+import {toast} from "react-toastify";
 
 registerLocale("de", de);
 
-const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
+const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) => {
 
     const [Loading, setLoading] = useState(false)
+    const initialState = [];
+    const [update, setUpdated] = useState(initialState)
     const ref = useRef()
-    const [{currentMilestone,milestone3HasDate}, dispatch] = useStateValue();
+    const [{currentMilestone, milestone3HasDate, subStepSaved}, dispatch] = useStateValue();
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
-
-
-    // useEffect(() => {
-    //     if(grid[1]?.fieldValue){
-    //         dispatch({type: "SET_MILESTONE3_HAS_DATE", item: true})
-    //     }
-    //     else{
-    //         dispatch({type: "SET_MILESTONE3_HAS_DATE", item: false})
-    //     }
-    //     console.log('grid[1]?.fieldvalue',grid[1]?.fieldValue)
-    // }, [currentMilestone,grid]);
+    const user=JSON.parse(localStorage.user)
+    const role=user.role
 
     useEffect(() => {
         if (data.length > 0) {
@@ -44,68 +38,88 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                         const toDateFormat = moment(new Date(newDate)).format(dateFormat);
                         let valid = moment(toDateFormat, dateFormat, true).isValid()
                         if (valid) {
-                            setValue(`${d.substepID}`, newDate)
+                            setValue(`${d.stepName}`, newDate)
                         } else {
-                            setValue(`${d.substepID}`, moment(new Date()).toDate())
+                            setValue(`${d.stepName}`, moment(new Date()).toDate())
                         }
                     }
                     if (d.fieldType === 'option') {
                         if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
-                            let filter=options.map(o=>o.filter(oo=>Number(oo.substepID)===Number(d.substepID)))
-                            let filteredOption=filter.filter(f=>f.length>0)[0]
-                            if(filteredOption){
-                                await setValue(`${d.substepID}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                            let filter = options.map(o => o.filter(oo => Number(oo.substepID) === Number(d.substepID)))
+                            let filteredOption = filter.filter(f => f.length > 0)[0]
+                            if (filteredOption) {
+                                if ((grid[Number(d.substepID) - 1]?.fieldValue).length > 1) {
+                                    await setValue(`${d.stepName}`, grid[Number(d.substepID) - 1]?.fieldValue)
+                                } else {
+                                    await setValue(`${d.stepName}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                                }
                             }
                         } else {
-                            await setValue(`${d.stepName}`, 'autoFill')
+                            await setValue(`${d.stepName}`, null)
                         }
                     }
                     if (d.fieldType === 'text') {
-                        setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
+                        setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
                     }
-                    if (d.fieldType === 'header') {
-                        setValue(`${d.substepID}`, `${grid[Number(d.substepID) ]?.fieldValue}`)
-                    }
+                    // if (d.fieldType === 'header') {
+                    //     setValue(`${d.substepID}`, `${grid[Number(d.substepID) ]?.fieldValue}`)
+                    // }
                 }
             })
         }
 
     }, [data, grid, setValue, next, options]);
 
-    const onSubmit = async (Data) => {
-        setLoading(true)
-        // if (Number(currentMilestone) === Number(lastDoneIndex) + 1) {
-        // }
-        console.log('clicked', Data)
-        console.log('grid', grid, (grid[(Number(1)) + 1]?.fieldValue))
-        console.log('ssteps', data)
+    const addObjectToArray = obj => {
+        setUpdated(current => [...current, obj]);
+    };
+    function convertLocalToUTCDate(date) {
+        if (!date) {
+            return date
+        }
+        date = new Date(date)
+        date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+        return date
+    }
 
-        // Api().post('/test', Data).then(res => {
-        //     console.log('res', res.data)
-        // }).catch(e => {
-        //     setLoading(false)
-        //     toast.error('Something Went Wrong!!')
-        // })
+    const onSubmit = async (Data) => {
+        // console.log('clicked', Data)
+        // console.log('grid', grid, (grid[(Number(1)) + 1]?.fieldValue))
+        // console.log('ssteps', data)
+        const key = 'id';
+        const unique = [...new Map(update.map(item => [item[key], item])).values()]
+        console.log('unique', unique)
+
+        setLoading(true)
+        Api().post('/saveSteps', unique).then(res => {
+            console.log('res', res.data)
+            toast.success('Data saved Successfully')
+            dispatch({type: "SET_SUBSTEPSAVED", item: !subStepSaved})
+            setLoading(false)
+        }).catch(e => {
+            setLoading(false)
+            toast.error('Something Went Wrong!!')
+        })
     };
 
     return (
         <div>
             {
                 loading ?
-                    <div hidden={next} style={{height: '2vh'}} className='mt-24'>
-                        <h2 style={{width: '42vw'}}>
-                            <span className='mx-2'><RiseLoader size='8px' color='grey'/></span>
-                            Holen sie sich die aktuellen meilensteindaten!
+                    <div hidden={next} style={{height: '32vh'}} className='mt-24'>
+                        <h2 className='text-center text-sm'>
+                            Wenn Sie das hier lesen, haben Sie zu wenig zu tun oder wir müssen die
+                            Ladezeiten optimieren
                         </h2>
+                        <span className='centerItemsRelative mt-2'><RiseLoader size='8px' color='grey'/></span>
                     </div>
                     :
-                    <div hidden={next && loading}>
+                    <div hidden={loading}>
                         <button
-                            hidden={next}
                             onClick={() => ref.current.click()}
-                            className={'bg-mainBlue text-white cursor-pointer px-4 text-sm py-2 saveMS rounded-3xl'}
+                            className={`${role==='Supervisor' && 'opacity-0'} bg-mainBlue text-white cursor-pointer px-4 text-sm py-2 saveMS rounded-3xl`}
                             disabled={!isValid}>
-                            Speichern
+                            {Loading ? 'Sparen...' : 'Speichern'}
                         </button>
 
                         <form onSubmit={handleSubmit(onSubmit)}
@@ -113,32 +127,54 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                             {
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?
-                                        <Options
-                                            key={index}
-                                            grid={grid}
-                                            getValues={getValues}
-                                            register={register}
-                                            currentMilestone={currentMilestone}
-                                            lastDoneIndex={lastDoneIndex}
-                                            val={val}
-                                            option={options}
-                                            next={next}
-                                        />
-
+                                        <section
+                                            key={index} className='tooltip flex'
+                                            onChange={() =>
+                                                getValues(val.stepName) &&
+                                                addObjectToArray({
+                                                    firma: firma,
+                                                    id: val.substepID,
+                                                    milestone: currentMilestone,
+                                                    value: getValues(val.stepName),
+                                                })
+                                            }>
+                                            <Options
+                                                role={role}
+                                                key={index}
+                                                grid={grid}
+                                                getValues={getValues}
+                                                register={register}
+                                                currentMilestone={currentMilestone}
+                                                lastDoneIndex={lastDoneIndex}
+                                                val={val}
+                                                option={options}
+                                            />
+                                        </section>
                                         : val.fieldType === 'date' ?
-                                            <section key={index} className='tooltip flex'>
+                                            <section
+                                                onClick={() =>
+                                                    getValues(val.stepName) &&
+                                                    addObjectToArray({
+                                                        firma: firma,
+                                                        id: val.substepID,
+                                                        milestone: currentMilestone,
+                                                        value: getValues(val.stepName),
+                                                    })
+                                                }
+                                                key={index} className='tooltip flex'>
                                                 <label className='text-sm text-grey label'>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
-                                                    name={val.substepID}
+                                                    name={val.stepName}
                                                     render={({field}) => (
                                                         <DatePicker
+                                                            closeOnScroll={true}
                                                             locale="de" dateFormat="P" showYearDropdown
                                                             placeholderText={`Datum wählen`}
-                                                            onChange={(date) => field.onChange(date)}
+                                                            onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
                                                             selected={field.value}
                                                             cssClass={'datePicker'}
-                                                            readOnly={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
+                                                            readOnly={role==='Supervisor'}
                                                             customInput={<CustomInput next={next} last={lastDoneIndex}
                                                                                       current={currentMilestone}/>}
                                                         />
@@ -149,26 +185,38 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options}) => {
                                                 <p className='tooltiptextclose'>{val.mouseoverText}</p>
                                             </section>
                                             : val.fieldType === 'header' ?
-                                            // <p>{val.stepName}</p>
+                                                // <p>{val.stepName}</p>
                                                 <section key={index} className='tooltip flex'>
-                                                    <label style={{fontSize:'.9rem'}} className={`py-2 text-text w-full font-bold text-left`}>
+                                                    <label style={{fontSize: '.9rem'}}
+                                                           className={`py-2 text-text w-full font-bold text-left`}>
                                                         {val.stepName}
                                                     </label>
                                                 </section>
-                                            :
-                                            <section key={index} className='tooltip flex'>
-                                                <label className='text-sm text-grey label'>{val.stepName}</label>
-                                                <input placeholder='Text Input'
-                                                       className={`subStepInput w-full p-2 md:w-full
-                                                       ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : Number(currentMilestone) > Number(lastDoneIndex) + 1 || next ? 'disabled' : 'bg-white'}`}
-                                                       {...register(`${val.substepID}`)}
-                                                       type="text"
-                                                       disabled={(next || Number(currentMilestone) !== Number(lastDoneIndex) + 1 || grid[Number(val.substepID) - 1]?.fieldValue !== null)}
-                                                       style={{border: errors.email && '1px solid red'}}
-                                                />
-                                                {errors.email && touchedFields && <p>{errors.email.message}</p>}
-                                                <p className='tooltiptextclose'>{val.mouseoverText}</p>
-                                            </section>
+                                                :
+                                                <section
+                                                    onChange={() =>
+                                                        getValues(val.stepName) &&
+                                                        addObjectToArray({
+                                                            firma: firma,
+                                                            id: val.substepID,
+                                                            milestone: currentMilestone,
+                                                            value: getValues(val.stepName),
+                                                        })
+                                                    }
+                                                    key={index} className='tooltip flex'
+                                                >
+                                                    <label className='text-sm text-grey label'>{val.stepName}</label>
+                                                    <input placeholder='Text Input'
+                                                           disabled={role==='Supervisor'}
+                                                           className={`subStepInput w-full p-2 md:w-full
+                                                       ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
+                                                           {...register(`${val.stepName}`)}
+                                                           type="text"
+                                                           style={{border: errors.email && '1px solid red'}}
+                                                    />
+                                                    {errors.email && touchedFields && <p>{errors.email.message}</p>}
+                                                    <p className='tooltiptextclose'>{val.mouseoverText}</p>
+                                                </section>
                                 ))
                             }
                             <input ref={ref} hidden type="submit"/>

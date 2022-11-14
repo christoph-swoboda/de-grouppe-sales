@@ -5,10 +5,10 @@ import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../../states/StateProvider";
 import CollapseExpand from "../../../components/collapseExpandSection";
-import {BeatLoader} from "react-spinners";
+import {BarLoader, BeatLoader, ClipLoader} from "react-spinners";
 import {Link} from "react-router-dom";
 
-const Status = ({notes, company, loadingNotes, count}) => {
+const Status = ({notes, company, loadingNotes, count, role}) => {
     const [toggle, setToggle] = useState(false)
     const [loading, setLoading] = useState(false)
     const [note, setNote] = useState('')
@@ -51,6 +51,7 @@ const Status = ({notes, company, loadingNotes, count}) => {
                 <div className='bg-white text-left md:mt-5 xl:mt-0'>
                     <button className='px-3 py-2 mx-2 mb-2 rounded-3xl bg-mainBlue text-white text-sm'
                             onClick={() => setToggle(!toggle)}
+                            hidden={role==='Supervisor'}
                     >
                         {!toggle ? 'Neue Bemerkung' : 'Abbrechen'}
                     </button>
@@ -74,6 +75,8 @@ const Status = ({notes, company, loadingNotes, count}) => {
                 {/*</div>*/}
             </div>
             <div>
+                {loadingNotes && <div className='centerItemsRelative'><ClipLoader color={'#757575'}/></div>}
+
                 {
                     notes?.map((n, index) => (
                         <BestantStatus

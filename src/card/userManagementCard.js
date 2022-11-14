@@ -94,7 +94,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
 
             <td>
                 <button disabled={!edit}
-                        onClick={() => verified==='1'?setVerified('0'):setVerified('1')}
+                        onClick={() => setVerified('1')}
                         className="text-sm text-gray-900 font-light px-6 py-0 whitespace-nowrap">
                     {
                         verified==='1' ?

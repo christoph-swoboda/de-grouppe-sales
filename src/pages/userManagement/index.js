@@ -146,15 +146,17 @@ const UserManagement = () => {
                         <input type="submit" value="Submit" hidden/>
                     </form>
                     <p className='text-sm text-grey ml-auto mt-2'>
-                        {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Eintragen
+                        {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Einträge
                     </p>
                     <h2 className='text-sm text-grey ml-6 mt-2 ml-10'>
-                        Eintrage anzigen: <span>
-                        <select onChange={setPageStates} className='bg-transparent text-mainBlue'>
-                            <option value={'10'}>{10}</option>
-                            <option value={'25'}>{25}</option>
-                        </select>
-                    </span>
+                        Einträge anzeigen:
+                        <span>
+                            <select onChange={setPageStates} className='bg-transparent text-mainBlue'>
+                                <option value={'10'}>{10}</option>
+                                <option value={'25'}>{25}</option>
+                                <option value={'10000'}>Alle</option>
+                            </select>
+                        </span>
                     </h2>
                 </div>
                 <div className='text-left absolute ml-9 -mt-9'>

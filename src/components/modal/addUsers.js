@@ -123,7 +123,7 @@ const AddUsers = () => {
 
                 <section className='flex flex-col text-left text-grey text-sm py-2'>
                     <label className='pb-2'>VP-Nummer </label>
-                    <input placeholder='Partnernr'
+                    <input placeholder='VP-Nummer'
                            type='text'
                            {...register('partnernr', {
                                pattern: {
