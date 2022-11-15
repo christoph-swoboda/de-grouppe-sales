@@ -77,9 +77,14 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
 
         await Api().post(url, Data).then(res => {
             let sheet = workbook.addWorksheet(Sheet);
-            // console.log('r',Object.keys(res.data.bestands[0]))
             if (all) {
-                sheet.getRow(1).values = Object.keys(res.data.bestands[0]).slice(0, 8)
+                let arr = []
+                Object.keys(res.data.bestands[0]).map(k => {
+                    if (k !== 'MA') {
+                        arr.push(k)
+                    }
+                })
+                sheet.getRow(1).values = Object.values(arr).slice(0, 7)
             } else {
                 sheet.getRow(1).values = Object.keys(res.data.bestands[0])
             }
@@ -100,7 +105,6 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
             });
 
             let keys = []
-            console.log('d', res.data.bestands[0])
             Object.entries(res.data.bestands[0]).map(v => {
                 let hl = longest_str_in_array([res.data.bestands[0]])
                 keys.push({
@@ -112,7 +116,13 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
             })
 
             if (all) {
-                sheet.columns = keys.slice(0, 8);
+                let arr = []
+                keys.map(k => {
+                    if (k.key !== 'MA') {
+                        arr.push(k)
+                    }
+                })
+                sheet.columns = arr.slice(0, 7);
             } else {
                 sheet.columns = keys;
             }

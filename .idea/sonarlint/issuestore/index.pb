@@ -58,8 +58,6 @@ b
 2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
 T
 $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
-T
-$src/dummyData/bestantTableHeaders.js,1\4\144b0de3ff6a830550eca01ce4399488c0f19831
 c
 3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
 X
