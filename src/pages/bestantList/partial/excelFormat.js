@@ -66,18 +66,23 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
         Data.append('userID', userID)
 
         if (all) {
-            await prepareData('Firmenprojeckte excel daten', '/getBestands', data, 8)
+            await prepareData('Firmenprojeckte excel daten', '/getBestands', data)
         } else {
-            await prepareData('Excel Gesamt', '/allExcel', Data, 122)
+            await prepareData('Excel Gesamt', '/allExcel', Data)
         }
     }
 
-    async function prepareData(Sheet, url, Data, slice) {
+    async function prepareData(Sheet, url, Data) {
         setLoadingAll(true)
 
         await Api().post(url, Data).then(res => {
             let sheet = workbook.addWorksheet(Sheet);
-            sheet.getRow(1).values = Object.keys(res.data.bestands[0]).slice(0,slice)
+            // console.log('r',Object.keys(res.data.bestands[0]))
+            if (all) {
+                sheet.getRow(1).values = Object.keys(res.data.bestands[0]).slice(0, 8)
+            } else {
+                sheet.getRow(1).values = Object.keys(res.data.bestands[0])
+            }
             const row = sheet.getRow(1);
             row.eachCell((cell, rowNumber) => {
                 sheet.getColumn(rowNumber).alignment = {
@@ -95,20 +100,22 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
             });
 
             let keys = []
-            res.data.bestands.map(li => {
-
-                Object.entries(li).map(v => {
-                    // console.log('v', longest_str_in_array([li]))
-                    let hl = longest_str_in_array([li])
-                    keys.push({
-                        key: v[0],
-                        // width: (v[1] && v[1].toString().length > 10 && (v[1] && v[1].toString().length < 30)) ? 40 : (v[1] && v[1].toString().length > 30) ? 70 : !v[1] ? 15 : 30
-                        // width:v[1] && v[1].toString().length<20?30:v[1]?60:20
-                        width: hl>20 ? 40 :hl>30? 50: 10
-                    })
+            console.log('d', res.data.bestands[0])
+            Object.entries(res.data.bestands[0]).map(v => {
+                let hl = longest_str_in_array([res.data.bestands[0]])
+                keys.push({
+                    key: v[0],
+                    // width: (v[1] && v[1].toString().length > 10 && (v[1] && v[1].toString().length < 30)) ? 40 : (v[1] && v[1].toString().length > 30) ? 70 : !v[1] ? 15 : 30
+                    // width:v[1] && v[1].toString().length<20?30:v[1]?60:20
+                    width: hl > 20 ? 40 : hl > 30 ? 50 : 10
                 })
             })
-            sheet.columns = keys.slice(0, slice);
+
+            if (all) {
+                sheet.columns = keys.slice(0, 8);
+            } else {
+                sheet.columns = keys;
+            }
             sheet.addRows(res.data.bestands)
             setLoadingAll(false)
         }).catch(e => {
@@ -116,13 +123,13 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
             setLoadingAll(false)
         })
             .finally(e => {
-            if (!loadingAll) {
-                workbook.xlsx.writeBuffer().then(function (buffer) {
-                    const blob = new Blob([buffer], {type: "applicationi/xlsx"});
-                    saveAs(blob, fileName);
-                });
-            }
-        })
+                if (!loadingAll) {
+                    workbook.xlsx.writeBuffer().then(function (buffer) {
+                        const blob = new Blob([buffer], {type: "applicationi/xlsx"});
+                        saveAs(blob, fileName);
+                    });
+                }
+            })
     }
 
     return (

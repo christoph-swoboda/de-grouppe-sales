@@ -8,6 +8,8 @@ import {BeatLoader} from "react-spinners";
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
     const [loading, setLoading] = useState(false)
+    // const [user, setUser] = useState('')
+
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path=useLocation()
     const toggleNav = () => {
@@ -17,8 +19,17 @@ const Navbar = () => {
     const modalRef = useRef()
     const location=useLocation()
     const UserInfo=localStorage.user
-    const user=JSON.parse(UserInfo?UserInfo:false)
-    const role=user.role
+    let user=JSON.parse(UserInfo?UserInfo:false)
+
+    // useEffect(() => {
+    //     try {
+    //         const UserInfo=localStorage.user
+    //         setUser(JSON.parse(UserInfo?UserInfo:false))
+    //     } catch (e) {
+    //         window.location.reload()
+    //     }
+    // }, []);
+
 
     useEffect(() => {
         const changeWidth = () => {
@@ -66,13 +77,13 @@ const Navbar = () => {
                                 <li className={`items ${path.pathname.includes('/firmenprojekte') && 'text-mainBlue'}`}>Firmenprojekte</li>
                             </Link>
                             {
-                                role==='Internal' ?
+                                user?.role==='Internal' ?
                                     <Link to={'/benutzerverwaltung'}>
                                         <li className={`items ${path.pathname.includes('/benutzerverwaltung') && 'text-mainBlue'}`}>
                                             Benutzerverwaltung
                                         </li>
                                     </Link>
-                                    :role==='Supervisor' &&
+                                    :user?.role==='Supervisor' &&
                                     <Link to={'/bank-Kooperationspartner'}>
                                         <li className={`items ${path.pathname.includes('/bank-Kooperationspartner') && 'text-mainBlue'}`}>
                                             Bank-Kooperationspartner

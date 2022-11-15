@@ -36,17 +36,12 @@ T
 $src/pages/dashboard/partial/graph.js,7\3\7392f2a0ad32f84494ec2261ace956f01c94369a
 J
 src/components/barChart.js,6\b\6bf3702dbb7129b977af217f074af48792261860
-L
-src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 J
 src/components/allNotes.js,2\5\2548fc89f9e4dba934290b135234b123d7e2bbc5
 H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
-:
-
-src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
 E
@@ -55,18 +50,12 @@ J
 src/helper/mailToButton.js,6\e\6ec4f7ac7267f92e9c1498f7fd5f2576b3cdd0b7
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
-N
-src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
-U
-%src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
 E
 src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
 X
 (src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
 b
 2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
-E
-src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 T
 $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
 T
@@ -93,3 +82,7 @@ P
  src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
+U
+%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
+Y
+)src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20

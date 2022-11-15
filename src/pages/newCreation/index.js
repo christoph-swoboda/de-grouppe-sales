@@ -5,25 +5,27 @@ import {BeatLoader} from "react-spinners";
 
 const NewCreation = () => {
     const [name, setName] = useState('')
+    const [user, setUser] = useState('')
     const [loading, setLoading] = useState(true)
     const [dropdownData, setDropdownData] = useState([])
-    const user=JSON.parse(localStorage.user)
-    const id=user.ID
 
     useEffect(() => {
         let data=new FormData
-        data.append('userID',id)
-        Api().post('/getFormDropdown',data).then(res=>{
-            setDropdownData(res.data)
-            setLoading(false)
-        })
-    }, []);
+        data.append('userID',user.ID)
+        if(user){
+            Api().post('/getFormDropdown',data).then(res=>{
+                setDropdownData(res.data)
+                setLoading(false)
+            })
+        }
+    }, [user]);
 
     useEffect(() => {
         try {
-            const ls = localStorage.user
-            setName(JSON.parse(ls).fullname)
-        } catch (e) {window.location.reload()}
+            setUser(JSON.parse(localStorage.user))
+        } catch (e) {
+            window.location.replace('/anmeldung')
+        }
     }, []);
 
 

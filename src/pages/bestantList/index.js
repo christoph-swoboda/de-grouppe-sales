@@ -10,6 +10,11 @@ import BestandListDataSection from "../../components/bestandListDataSection";
 import {BestandView2Headers} from "../../dummyData/bestandView2Headers";
 
 const BestantList = () => {
+    try {
+        let user=JSON.parse(localStorage.user)
+    } catch (e) {
+        window.location.replace('/anmeldung')
+    }
     const [printing, setPrinting] = useState(false)
     const [loading, setLoading] = useState(true);
     const [loadingViews, setLoadingViews] = useState(false);
