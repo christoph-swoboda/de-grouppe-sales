@@ -103,7 +103,7 @@ const BestantList = () => {
                 <div className='bg-white'>
                     <div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>
                         <ExcelExport all title={'Excel Export'} loading={loading} len={users?.length}/>
-                        <ExcelExport all title={'Excel Export Gesamt'} loading={loading} len={users?.length}/>
+                        <ExcelExport Gesamt title={'Excel Export Gesamt'} loading={loading} len={users?.length}/>
                         <div
                             className={`${loading ? 'opacity-50' : ''} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}
                             onClick={setPrintState}>

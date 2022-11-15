@@ -7,7 +7,7 @@ import CompanyData from "./partial/companyData";
 import Status from "./partial/status";
 import Api from "../../Api/api";
 import MilestoneTabs from "../../card/milestoneTabs";
-import {BeatLoader, ClipLoader, ScaleLoader} from "react-spinners";
+import {ClipLoader} from "react-spinners";
 import SubSteps from "./partial/subSteps";
 import {useParams} from "react-router";
 
