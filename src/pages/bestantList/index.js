@@ -60,7 +60,7 @@ const BestantList = () => {
             data.append('page', pageBestand)
             data.append('sortColumn', sortColumn)
             data.append('sortMethod', sortMethod)
-            data.append('filterID', filterID)
+            data.append('filterID', JSON.stringify(filterID))
             data.append('filter', JSON.stringify(filter))
 
             Api().post(url, data).then(res => {
@@ -83,8 +83,8 @@ const BestantList = () => {
     }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName])
 
     useEffect(() => {
-        dispatch({type: "SET_SORTBESTANDFILTER", item: ''})
-        dispatch({type: "SET_SORTBESTANDFILTERID", item: 0})
+        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: '', b: '', c: '', d: '', e: '', f: ''}})
+        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: '', b: '', c: '', d: '', e: '', f: ''}})
     }, [viewName]);
 
     function setPageStates(e) {

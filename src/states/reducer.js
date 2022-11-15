@@ -20,7 +20,7 @@ export const initialState = {
     noteSent: true,
     sortColumn: 7,
     sortMethod: 'asc',
-    filterID: 0,
+    filterID: {a: '', b: '', c: '', d: '', e: '', f: ''},
     filter: {a: '', b: '', c: '', d: '', e: '', f: ''},
 };
 const reducer = (state, action) => {

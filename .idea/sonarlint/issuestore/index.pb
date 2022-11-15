@@ -49,8 +49,6 @@ E
 J
 src/helper/mailToButton.js,6\e\6ec4f7ac7267f92e9c1498f7fd5f2576b3cdd0b7
 E
-src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
-E
 src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
 X
 (src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
@@ -60,8 +58,6 @@ T
 $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
 c
 3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
-X
-(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
 [

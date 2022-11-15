@@ -36,24 +36,29 @@ const BestandListDataSection = ({
     }
 
     function enableFilter(id, val) {
-        dispatch({type: "SET_SORTBESTANDFILTERID", item: id})
         if (id === 1) {
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, a: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, a: 1}})
         }
         if (id === 2) {
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, b: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, b: 2}})
         }
         if (id === 3) {
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, c: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, c: 3}})
         }
         if (id === 4) {
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, d: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, d: 4}})
         }
         if (id === 5) {
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, e: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, e: 5}})
         }
         if (id === 7) {
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, f: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, f: 7}})
         }
     }
 
