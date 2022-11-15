@@ -11,7 +11,7 @@ import {BestandView2Headers} from "../../dummyData/bestandView2Headers";
 
 const BestantList = () => {
     try {
-        let user=JSON.parse(localStorage.user)
+        let user = JSON.parse(localStorage.user)
     } catch (e) {
         window.location.replace('/anmeldung')
     }
@@ -52,8 +52,8 @@ const BestantList = () => {
         if (viewName === 'Projekt-Tafel') {
             url = 'getBestands2'
         }
+        setLoading(true)
         const delayQuery = setTimeout(async () => {
-            setLoading(true)
             let data = new FormData()
             data.append('userID', userID)
             data.append('rows', rows)
@@ -68,7 +68,7 @@ const BestantList = () => {
                 // console.log('bestands', res.data.bestands)
                 setTotal(Number(res.data?.bestands[0]?.totalCustomers))
                 setLoading(false)
-                if (printing && users?.length > 0 && rows==='10000') {
+                if (printing && users?.length > 0 && rows === '10000') {
                     setTimeout(() => handlePrint(), 1);
                     setTimeout(() => setPrinting(false), 1);
                     setRows('10')
@@ -83,8 +83,8 @@ const BestantList = () => {
     }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, filterID])
 
     useEffect(() => {
-        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b:null, c: null, d: null, e: null, f: null}})
-        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b:null, c: null, d: null, e: null, f: null}})
+        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null}})
+        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b: null, c: null, d: null, e: null, f: null}})
     }, [viewName]);
 
     function setPageStates(e) {
