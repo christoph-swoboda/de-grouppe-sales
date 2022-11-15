@@ -20,8 +20,8 @@ export const initialState = {
     noteSent: true,
     sortColumn: 7,
     sortMethod: 'asc',
-    filterID: {a: '', b: '', c: '', d: '', e: '', f: ''},
-    filter: {a: '', b: '', c: '', d: '', e: '', f: ''},
+    filterID: {a: null, b:null, c: null, d: null, e: null, f: null},
+    filter: {a: null, b: null, c: null, d: null, e: null, f: null},
 };
 const reducer = (state, action) => {
     switch (action.type) {

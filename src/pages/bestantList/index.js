@@ -80,11 +80,11 @@ const BestantList = () => {
         }, filter ? 400 : 0)
 
         return () => clearTimeout(delayQuery)
-    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName])
+    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, filterID])
 
     useEffect(() => {
-        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: '', b: '', c: '', d: '', e: '', f: ''}})
-        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: '', b: '', c: '', d: '', e: '', f: ''}})
+        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b:null, c: null, d: null, e: null, f: null}})
+        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b:null, c: null, d: null, e: null, f: null}})
     }, [viewName]);
 
     function setPageStates(e) {
