@@ -31,7 +31,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
     useEffect(() => {
         if (data.length > 0) {
             data?.map(async (d, index) => {
-                if (grid[Number(d.substepID) - 1]?.fieldValue && !next) {
+                // console.log('value all',grid[Number(d.substepID) - 1]?.fieldValue)
+
+                if (grid[Number(d.substepID) - 1]?.fieldValue) {
                     if (d.fieldType === 'date') {
                         let newDate = moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
                         const dateFormat = 'DD-MM-YYYY';
@@ -44,6 +46,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                         }
                     }
                     if (d.fieldType === 'option') {
+                        // console.log('ty',d)
+
                         if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
                             let filter = options.map(o => o.filter(oo => Number(oo.substepID) === Number(d.substepID)))
                             let filteredOption = filter.filter(f => f.length > 0)[0]
@@ -59,11 +63,11 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                         }
                     }
                     if (d.fieldType === 'text') {
-                        setValue(`${d.stepName}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
+                        // console.log('type under text',d)
+                        if(grid[Number(d.substepID) - 1]?.fieldType==='text'){
+                            setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
+                        }
                     }
-                    // if (d.fieldType === 'header') {
-                    //     setValue(`${d.substepID}`, `${grid[Number(d.substepID) ]?.fieldValue}`)
-                    // }
                 }
             })
         }
@@ -215,7 +219,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                                            disabled={role === 'Supervisor'}
                                                            className={`subStepInput w-full p-2 md:w-full
                                                        ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
-                                                           {...register(`${val.stepName}`)}
+                                                           {...register(`${val.substepID}`)}
                                                            type="text"
                                                            style={{border: errors.email && '1px solid red'}}
                                                     />
