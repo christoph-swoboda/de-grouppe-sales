@@ -65,7 +65,6 @@ const BestantList = () => {
 
             Api().post(url, data).then(res => {
                 setUsers(res.data.bestands)
-                // console.log('bestands', res.data.bestands)
                 setTotal(Number(res.data?.bestands[0]?.totalCustomers))
                 setLoading(false)
                 if (printing && users?.length > 0 && rows === '10000') {

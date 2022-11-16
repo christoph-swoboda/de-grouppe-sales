@@ -31,8 +31,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
     useEffect(() => {
         if (data.length > 0) {
             data?.map(async (d, index) => {
-                // console.log('value all',grid[Number(d.substepID) - 1]?.fieldValue)
-
                 if (grid[Number(d.substepID) - 1]?.fieldValue) {
                     if (d.fieldType === 'date') {
                         let newDate = moment(grid[Number(d.substepID) - 1]?.fieldValue).toDate()
@@ -46,8 +44,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                         }
                     }
                     if (d.fieldType === 'option') {
-                        // console.log('ty',d)
-
                         if (grid[Number(d.substepID) - 1]?.fieldValue !== null) {
                             let filter = options.map(o => o.filter(oo => Number(oo.substepID) === Number(d.substepID)))
                             let filteredOption = filter.filter(f => f.length > 0)[0]
@@ -85,16 +81,11 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
     }
 
     const onSubmit = async (Data) => {
-        // console.log('clicked', Data)
-        // console.log('grid', grid, (grid[(Number(1)) + 1]?.fieldValue))
-        // console.log('ssteps', data)
         const key = 'id';
         const unique = [...new Map(update.map(item => [item[key], item])).values()]
-        console.log('unique', unique)
         if (unique.length > 0) {
             setLoading(true)
             Api().post('/saveSteps', unique).then(res => {
-                console.log('res', res.data)
                 toast.success('Data saved Successfully')
                 dispatch({type: "SET_SUBSTEPSAVED", item: !subStepSaved})
                 setLoading(false)
