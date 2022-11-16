@@ -35,10 +35,8 @@ const BestantList = () => {
     }, [viewName]);
 
     useEffect(() => {
-        let data = new FormData()
-        data.append('role', role)
         setLoadingViews(true)
-        Api().post('/getRoleViews', data).then(res => {
+        Api().get(`/getRoleViews/${role}`).then(res => {
             setViews(Object.values(res.data.views))
             setLoadingViews(false)
         }).catch(e => {

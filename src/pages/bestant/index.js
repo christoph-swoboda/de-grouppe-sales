@@ -45,11 +45,7 @@ const Bestant = () => {
     }, [milestoneTabs]);
 
     useEffect(() => {
-        let data = new FormData()
-        data.append('firma', param.id.replaceAll('_', ' '))
-        data.append('rows', noteRows)
-
-        Api().post('/milestones', data).then(res => {
+        Api().get(`/milestones/${param.id.replaceAll('_', ' ')}`).then(res => {
                 setMilestoneTabs(res.data.tabs)
                 setLastDoneIndex(res.data.done)
                 dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
@@ -60,20 +56,15 @@ const Bestant = () => {
 
     useEffect(() => {
         setStepsLoading(true)
-        let Data = new FormData()
-        Data.append('name', param.id.replaceAll('_', ' '))
-        Api().post('/customerDetails', Data).then(res => {
+        Api().get(`/customerDetails/${param.id.replaceAll('_', ' ')}`).then(res => {
             setInfo(res.data[0])
         })
     }, []);
 
     useEffect(() => {
         setStepsLoading(true)
-        let Data = new FormData()
-        Data.append('index', currentMilestone)
-        Data.append('name', param.id.replaceAll('_', ' '))
         if (lastDoneIndex >= 0 && currentMilestone) {
-            Api().post('/sub-steps', Data).then(res => {
+            Api().get(`/sub-steps/${currentMilestone}/${param.id.replaceAll('_', ' ')}`).then(res => {
                 setSubSteps(res.data.subSteps)
                 let filter = res.data.subSteps.filter(d => d.fieldType === 'option')
                 setFiltered(filter)
@@ -87,24 +78,8 @@ const Bestant = () => {
     }, [lastDoneIndex, currentMilestone, param.id, subStepSaved]);
 
     useEffect(() => {
-        setLoadingNotes(true)
-        let data = new FormData()
-        data.append('firma', param.id.replaceAll('_', ' '))
-        data.append('rows', noteRows)
-        Api().post('/getNotes', data).then(res => {
-                setNotes(res.data)
-                setNotesCount(res.data[0]?.total)
-                setLoadingNotes(false)
-            }
-        )
-    }, [noteRows, noteSent]);
-
-    useEffect(() => {
         if (filtered.length > 0) {
-            let Data = new FormData()
-            Data.append('milestoneID', currentMilestone)
-            Data.append('subStepID', JSON.stringify(filtered))
-            Api().post('/options', Data).then(res => {
+            Api().get(`/options/${currentMilestone}/${JSON.stringify(filtered)}`).then(res => {
                 setOptions(res.data)
                 setStepsLoading(false)
             }).catch(e => {
@@ -112,6 +87,16 @@ const Bestant = () => {
             })
         }
     }, [currentMilestone, filtered]);
+
+    useEffect(() => {
+        setLoadingNotes(true)
+        Api().get(`/getNotes/${param.id.replaceAll('_', ' ')}/${noteRows}`).then(res => {
+                setNotes(res.data)
+                setNotesCount(res.data[0]?.total)
+                setLoadingNotes(false)
+            }
+        )
+    }, [noteRows, noteSent]);
 
     useEffect(() => {
         let arr = []

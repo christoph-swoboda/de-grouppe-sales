@@ -50,8 +50,6 @@ J
 src/helper/mailToButton.js,6\e\6ec4f7ac7267f92e9c1498f7fd5f2576b3cdd0b7
 E
 src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
-X
-(src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
 b
 2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
 T
@@ -66,8 +64,6 @@ X
 (src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
 S
 #src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
-Q
-!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
 I
 src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
 P
@@ -91,7 +87,5 @@ L
 src/dummyData/bestantInfo.js,6\2\62db3afec19d67d869ac3bbdc2ae55301533f7df
 T
 $src/dummyData/bestantTableHeaders.js,1\4\144b0de3ff6a830550eca01ce4399488c0f19831
-J
-src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525

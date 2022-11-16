@@ -34,9 +34,7 @@ const CompanyInfoPopUp = ({company, Info}) => {
     useEffect(() => {
         dispatch({type:'SET_SENDMAIL', item:false})
         setStepsLoading(true)
-        let Data = new FormData()
-        Data.append('name',company)
-        Api().post('/customerDetailsAll', Data).then(res => {
+        Api().get(`/customerDetailsAll/${company}`).then(res => {
             setInfo(res.data[0])
             setStepsLoading(false)
         })
