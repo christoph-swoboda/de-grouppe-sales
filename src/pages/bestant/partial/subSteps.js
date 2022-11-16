@@ -63,10 +63,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                         }
                     }
                     if (d.fieldType === 'text') {
-                        // console.log('type under text',d)
-                        if(grid[Number(d.substepID) - 1]?.fieldType==='text'){
-                            setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
-                        }
+                        setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
                     }
                 }
             })
