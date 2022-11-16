@@ -50,8 +50,8 @@ const BestantList = () => {
         if (viewName === 'Projekt-Tafel') {
             url = 'getBestands2'
         }
-        setLoading(true)
         const delayQuery = setTimeout(async () => {
+            setLoading(true)
             let data = new FormData()
             data.append('userID', userID)
             data.append('rows', rows)
@@ -74,12 +74,13 @@ const BestantList = () => {
                 setLoading(false)
                 toast.error('Etwas ist schief gelaufen!!')
             })
-        }, filter ? 400 : 0)
+        }, filter ? 800 : 0)
 
         return () => clearTimeout(delayQuery)
-    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, filterID])
+    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName])
 
     useEffect(() => {
+        setLoading(true)
         dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null}})
         dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b: null, c: null, d: null, e: null, f: null}})
     }, [viewName]);
