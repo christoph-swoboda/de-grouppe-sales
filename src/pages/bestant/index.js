@@ -82,7 +82,7 @@ const Bestant = () => {
             let data=new FormData()
             data.append('milestoneID', currentMilestone)
             data.append('subSteps', JSON.stringify(filtered))
-            Api().post(`/options/`,data).then(res => {
+            Api().post('/options',data).then(res => {
                 setOptions(res.data)
                 setStepsLoading(false)
             }).catch(e => {
