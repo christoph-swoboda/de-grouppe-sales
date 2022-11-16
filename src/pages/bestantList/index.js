@@ -118,7 +118,7 @@ const BestantList = () => {
                                     className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
                                 {
                                     views.map((v, i) => (
-                                        <option key={i} disabled={v.viewName === 'leerer Test'} value={v.viewName}>
+                                        <option key={i} disabled={i>1} value={v.viewName}>
                                             {v.viewName}
                                         </option>
                                     ))

@@ -103,6 +103,7 @@ const UserManagement = () => {
             setLoading(false)
         }).catch(e => {
             setLoading(false)
+            toast.error('etwas ist schief gelaufen!')
         })
     }
 

@@ -74,8 +74,6 @@ Y
 )src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
 L
 src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
-U
-%src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
 :
 
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714

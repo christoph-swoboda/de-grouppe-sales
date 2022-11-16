@@ -10,6 +10,7 @@ import MilestoneTabs from "../../card/milestoneTabs";
 import {ClipLoader} from "react-spinners";
 import SubSteps from "./partial/subSteps";
 import {useParams} from "react-router";
+import {toast} from "react-toastify";
 
 const Bestant = () => {
     const [{companyInfoModal, currentMilestone, noteSent, noteRows, subStepSaved}, dispatch] = useStateValue();
@@ -46,18 +47,22 @@ const Bestant = () => {
 
     useEffect(() => {
         Api().get(`/milestones/${param.id.replaceAll('_', ' ')}`).then(res => {
-                setMilestoneTabs(res.data.tabs)
-                setLastDoneIndex(res.data.done)
-                dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
-                setLoading(false)
-            }
-        )
+            setMilestoneTabs(res.data.tabs)
+            setLastDoneIndex(res.data.done)
+            dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
+            setLoading(false)
+        }).catch(e => {
+            setLoading(false)
+            toast.error('Meilensteinschritte konnten nicht geladen werden!')
+        })
     }, [dispatch, param.id, subStepSaved]);
 
     useEffect(() => {
         setStepsLoading(true)
         Api().get(`/customerDetails/${param.id.replaceAll('_', ' ')}`).then(res => {
             setInfo(res.data[0])
+        }).catch(e => {
+            toast.error('Firmendetails konnten nicht geladen werden!')
         })
     }, []);
 
@@ -73,19 +78,23 @@ const Bestant = () => {
                 }
                 setGrid(res.data.grid)
                 // setNextStep(res.data.next)
+            }).catch(e => {
+                setStepsLoading(false)
+                toast.error('Unterschritte konnten nicht geladen werden!')
             })
         }
     }, [lastDoneIndex, currentMilestone, param.id, subStepSaved]);
 
     useEffect(() => {
         if (filtered.length > 0) {
-            let data=new FormData()
+            let data = new FormData()
             data.append('milestoneID', currentMilestone)
             data.append('subSteps', JSON.stringify(filtered))
-            Api().post('/options',data).then(res => {
+            Api().post('/options', data).then(res => {
                 setOptions(res.data)
                 setStepsLoading(false)
             }).catch(e => {
+                toast.error('Einige gespeicherte Werte konnten nicht geladen werden!')
                 setStepsLoading(false)
             })
         }
@@ -94,11 +103,13 @@ const Bestant = () => {
     useEffect(() => {
         setLoadingNotes(true)
         Api().get(`/getNotes/${param.id.replaceAll('_', ' ')}/${noteRows}`).then(res => {
-                setNotes(res.data)
-                setNotesCount(res.data[0]?.total)
-                setLoadingNotes(false)
-            }
-        )
+            setNotes(res.data)
+            setNotesCount(res.data[0]?.total)
+            setLoadingNotes(false)
+        }).catch(e => {
+            setLoadingNotes(false)
+            toast.error('Notizen konnten nicht geladen werden!')
+        })
     }, [noteRows, noteSent]);
 
     useEffect(() => {
@@ -118,7 +129,6 @@ const Bestant = () => {
             setSubString(2)
         }
     }, [currentMilestone, lastIndex, subString]);
-
 
     return (
         <div className='dashboardContainer'>

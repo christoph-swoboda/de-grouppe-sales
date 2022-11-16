@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Form from "./partial/form";
 import Api from "../../Api/api";
 import {BeatLoader} from "react-spinners";
+import {toast} from "react-toastify";
 
 const NewCreation = () => {
     const [name, setName] = useState('')
@@ -14,6 +15,8 @@ const NewCreation = () => {
             Api().get(`/getFormDropdown/${user.ID}`).then(res=>{
                 setDropdownData(res.data)
                 setLoading(false)
+            }).catch(e=>{
+                toast.error('Bankinformationen konnten nicht geladen werden!')
             })
         }
     }, [user]);
