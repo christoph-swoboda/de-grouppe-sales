@@ -79,7 +79,10 @@ const Bestant = () => {
 
     useEffect(() => {
         if (filtered.length > 0) {
-            Api().get(`/options/${currentMilestone}/${JSON.stringify(filtered)}`).then(res => {
+            let data=new FormData()
+            data.append('milestoneID', currentMilestone)
+            data.append('subSteps', JSON.stringify(filtered))
+            Api().post(`/options/`,data).then(res => {
                 setOptions(res.data)
                 setStepsLoading(false)
             }).catch(e => {
