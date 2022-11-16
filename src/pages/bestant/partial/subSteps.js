@@ -204,12 +204,12 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                                 :
                                                 <section
                                                     onChange={() =>
-                                                        getValues(val.stepName) &&
+                                                        getValues(val.substepID) &&
                                                         addObjectToArray({
                                                             firma: firma,
                                                             id: val.substepID,
                                                             milestone: currentMilestone,
-                                                            value: getValues(val.stepName),
+                                                            value: getValues(val.substepID),
                                                         })
                                                     }
                                                     key={index} className='tooltip flex'
