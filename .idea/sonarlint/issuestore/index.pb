@@ -72,8 +72,6 @@ N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 Y
 )src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
-N
-src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
 L
 src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 U

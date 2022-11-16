@@ -10,10 +10,8 @@ const NewCreation = () => {
     const [dropdownData, setDropdownData] = useState([])
 
     useEffect(() => {
-        let data=new FormData
-        data.append('userID',user.ID)
         if(user){
-            Api().post('/getFormDropdown',data).then(res=>{
+            Api().get(`/getFormDropdown/${user.ID}`).then(res=>{
                 setDropdownData(res.data)
                 setLoading(false)
             })
@@ -38,7 +36,7 @@ const NewCreation = () => {
             }
             {
                 loading &&
-                <div className='h-96 bg-white'>
+                <div className='h-full bg-white'>
                     <div className='centerItemsAbsolute'>
                         <BeatLoader size={10} color={'black'}/>
                     </div>
