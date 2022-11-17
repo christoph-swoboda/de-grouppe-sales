@@ -50,8 +50,6 @@ J
 src/helper/mailToButton.js,6\e\6ec4f7ac7267f92e9c1498f7fd5f2576b3cdd0b7
 E
 src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
-b
-2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
 T
 $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
 c
@@ -85,3 +83,15 @@ T
 $src/dummyData/bestantTableHeaders.js,1\4\144b0de3ff6a830550eca01ce4399488c0f19831
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
+E
+src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
+[
++src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
+U
+%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
+X
+(src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
+N
+src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
+Q
+!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23

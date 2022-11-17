@@ -140,7 +140,7 @@ const BestandListDataSection = ({
                                             MA={u.MA}
                                             PStatus={u.PStatus}
                                             Note={u.Note}
-                                            date={u.Datum}
+                                            date={formatDate(u.Datum, false)}
                                             printing={printing}
                                         />
                                     ))
@@ -165,7 +165,6 @@ const BestandListDataSection = ({
                                             MAV_an_FKB={u.MAV_an_FKB}
                                             MAB_fertig={u.MAB_fertig}
                                             Note={u.Note}
-                                            date={formatDate(u.Datum,false)}
                                             printing={printing}
                                         />
                                     ))

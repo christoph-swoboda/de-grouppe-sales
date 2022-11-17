@@ -22,7 +22,6 @@ const ProjectTafelView = ({
                               ProjStart,
                               MAV_an_FKB,
                               MAB_fertig,
-                              date
                           }) => {
 
     String.prototype.allReplace = function (obj) {
