@@ -173,7 +173,7 @@ const BestandListDataSection = ({
                             </tbody>
                         </table>
                             <div className={`${!printing && 'hideDiv'} text-center mt-6`}>
-                                <p className='font-bold text-mainBlue'>{total} rows  printed</p>
+                                <p className='font-bold text-mainBlue'>{total} Zeilen gedruckt</p>
                                 <p className='text-mainBlue'>{'Firmenprojekte -' + formatDate(new Date(), true)}</p>
                             </div>
                         </div>
