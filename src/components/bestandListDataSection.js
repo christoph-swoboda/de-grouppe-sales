@@ -74,7 +74,8 @@ const BestandListDataSection = ({
                                     gefunden</h2>
                             </div>
                         }
-                        <table className='min-w-full text-left bg-white' ref={printPDFRef} id="table-to-xls">
+                        <div ref={printPDFRef}>
+                        <table className='min-w-full text-left bg-white' id="table-to-xls">
                             <thead className="whitespace-nowrap border-y border-silver border-x-0">
                             <tr>
                                 {
@@ -171,6 +172,11 @@ const BestandListDataSection = ({
                             }
                             </tbody>
                         </table>
+                            <div className={`${!printing && 'hideDiv'} text-center mt-6`}>
+                                <p className='font-bold text-mainBlue'>{total} rows  printed</p>
+                                <p className='text-mainBlue'>{'Firmenprojekte -' + formatDate(new Date(), true)}</p>
+                            </div>
+                        </div>
                         <div className={`centerItemsRelative mt-3 mb-2 ${loading && 'opacity-0'}`}>
                             {
                                 users.length > 0 &&

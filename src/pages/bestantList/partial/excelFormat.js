@@ -111,7 +111,8 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
                     key: v[0],
                     // width: (v[1] && v[1].toString().length > 10 && (v[1] && v[1].toString().length < 30)) ? 40 : (v[1] && v[1].toString().length > 30) ? 70 : !v[1] ? 15 : 30
                     // width:v[1] && v[1].toString().length<20?30:v[1]?60:20
-                    width: hl > 20 ? 40 : hl > 30 ? 50 : 10
+                    // width: hl > 20 ? 40 : hl > 30 ? 50 : 10
+                    width: all && 30
                 })
             })
 
