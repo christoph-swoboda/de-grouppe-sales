@@ -19,7 +19,7 @@ const Login = () => {
         Api().post('/login', data).then(res => {
             if (res.status === 200) {
                 localStorage.user = JSON.stringify(res.data[0])
-                window.location.replace('/')
+                window.location.replace('/#/firmenprojekte-liste')
                 setLoading(false)
             }
         }).catch(e => {

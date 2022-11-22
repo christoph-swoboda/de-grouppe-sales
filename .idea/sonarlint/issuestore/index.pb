@@ -20,8 +20,6 @@ L
 src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-H
-src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
 F
 src/styles/_mixin.scss,f\c\fcaf532d2ce47ef240bc6887160a81465e09748d
 I
