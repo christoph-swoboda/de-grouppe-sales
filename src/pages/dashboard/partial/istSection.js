@@ -1,22 +1,32 @@
-import React from "react";
-import {Milestones} from "../../../dummyData/milestones";
+import React, {useEffect, useState} from "react";
 import BarChartComponent from "../../../components/barChart";
 
-const ISTSection = ({project}) => {
+const ISTSection = ({project, data, loading}) => {
+
+    const [values, setValues] = useState([])
+
+    useEffect(() => {
+        let arr = []
+        data?.map(d => {
+            arr.push(Number(d.summe))
+        })
+        setValues(arr)
+    }, [data]);
+
     return (
         <div className='flex justify-start flex-wrap'>
             <div className='mt-2 lg:w-3/12 md:w-screen '>
                 {
-                    Milestones.map((m, i) => (
+                    data?.map((m, i) => (
                         <p className='lg:border-hidden md:border-b md:border-offWhite milestonesBesideChart'
-                           key={m.id}>
-                            {i + 1} <span className='ml-1.5'>{m.title}</span>
+                           key={i}>
+                            <span className='ml-2'>{m.milestone}</span>
                         </p>
                     ))
                 }
             </div>
-            <div className='w-9/12 text-left'>
-                <BarChartComponent project={project}/>
+            <div className='w-8/12 text-left'>
+                <BarChartComponent loading={loading} values={values} project={project}/>
             </div>
         </div>
     )

@@ -46,8 +46,6 @@ T
 $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
-J
-src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
 X
 (src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
 S
@@ -77,8 +75,6 @@ U
 %src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
 X
 (src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
-N
-src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
 Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
 J

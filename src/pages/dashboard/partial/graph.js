@@ -1,11 +1,32 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import IstSection from "./istSection";
 import SummerySection from "./summerySection";
+import Api from "../../../Api/api";
+import {toast} from "react-toastify";
 
-export const Graph = ({header, IST}) => {
+export const Graph = ({header, IST, User}) => {
 
     const [project, setProject] = useState(true)
     const [user, setUser] = useState(false)
+    const [milestones, setMilestones] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        let url = 'getMilestoneDashboard'
+        if (user) {
+            url = 'getMilestoneUsersDashboard'
+        }
+        if (User?.ID) {
+            setLoading(true)
+            Api().get(`/${url}/${User?.ID}`).then(res => {
+                setMilestones(res.data)
+                setLoading(false)
+            }).catch(e => {
+                toast.error('etwas ist schief gelaufen!')
+            })
+        }
+    }, [user, project, User]);
+
 
     function projectClicked() {
         setProject(true)
@@ -36,9 +57,9 @@ export const Graph = ({header, IST}) => {
             </div>
             {
                 IST ?
-                    <IstSection project={project}/>
+                    <IstSection loading={loading} data={milestones} project={project}/>
                     :
-                    <SummerySection project={project}/>
+                    <SummerySection data={milestones} project={project}/>
             }
         </div>
     )

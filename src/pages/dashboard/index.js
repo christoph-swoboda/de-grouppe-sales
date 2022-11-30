@@ -1,16 +1,20 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import '../../styles/dashboard.scss'
 import Banner from "./partial/banner";
 import NotificationTable from "./partial/notificationTable";
 import {Graph} from "./partial/graph";
+import Api from "../../Api/api";
 
 const Dashboard = () => {
+    const [user, setUser] = useState([])
 
-    try {
-        let user=JSON.parse(localStorage.user)
-    } catch (e) {
-        window.location.replace('/anmeldung')
-    }
+    useEffect(() => {
+        try {
+            setUser(JSON.parse(localStorage.user))
+        } catch (e) {
+            window.location.replace('/anmeldung')
+        }
+    }, []);
 
     return (
         <div className='dashboardContainer'>
@@ -22,7 +26,7 @@ const Dashboard = () => {
             {/*    <NotificationTable header={'Upcoming Dates'} status={1}/>*/}
             {/*</div>*/}
             <div className='bg-white my-4 rounded-xl text-left p-8'>
-                <Graph IST header={'IST-Potenzial im jeweiligen Schritt'}/>
+                <Graph User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>
             </div>
             <div className='bg-white my-4 rounded-xl text-left p-8'>
                 <Graph header={'Projekt-Schritte im Vergleich'}/>

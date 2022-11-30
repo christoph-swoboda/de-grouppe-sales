@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from 'chart.js';
 import {Bar} from 'react-chartjs-2';
+import {BarLoader, FadeLoader, SkewLoader} from "react-spinners";
 
 ChartJS.register(
     CategoryScale,
@@ -35,29 +36,8 @@ export const options = {
     },
 };
 
-const BarChartComponent = ({project}) => {
-
-    const Labels = [
-        'Vorbereitung / Potenzial  11',
-        'Uberleitung an R+V  8',
-        'Ersttermin  4',
-        'Analysebogen vollstandig  1',
-        'SK-Termin  15',
-        'Aktuellster Termin/Kontakt  9',
-        'iForm an DGAPI  6',
-        'DL+GA-Paket von Kunde zuruck  2',
-        'DL-Paket unterzeichnet an Kunde  5',
-        'AnrAuskunft FA hin  3',
-        'AnrAuskunft zuruck  7',
-        'MA-Vortrag Termin  10',
-        'Projekt-Zusammenfassung  14',
-        'Projekt Abschluss Umsetzung  12',
-        'ProjektStart Umsetzung  11',
-        'Projekt-Absage  12'
-    ];
-
-    const labels = project ? [11, 8, 4, 1, 15, 9, 6, 2, 5, 3, 7, 10, 14, 12, 11, 12] : [2, 4, 4, 21, 6, 19, 6, 12, 5, 3, 7, 1, 4, 12, 1, 12]
-
+const BarChartComponent = ({project, values, loading}) => {
+    const labels =  Object.values([values][0])
     const array = {
         labels,
         datasets: [
@@ -65,7 +45,7 @@ const BarChartComponent = ({project}) => {
                 id: 1,
                 fill: false,
                 label: 'Existing Users',
-                data: project ? [11, 8, 4, 1, 15, 9, 6, 2, 5, 3, 7, 10, 14, 12, 11, 12] : [2, 4, 4, 21, 6, 19, 6, 12, 5, 3, 7, 1, 4, 12, 1, 12],
+                data: Object.values([values][0]),
                 backgroundColor: project ? '#6AD2FF' : '#FF9315',
                 tension: 0.1,
                 borderColor: project ? '#6AD2FF' : '#FF9315',
@@ -75,7 +55,8 @@ const BarChartComponent = ({project}) => {
 
     return (
         <div id="canvas-container">
-            <Bar options={options} data={array} redraw/>
+            {loading && <SkewLoader color={project?'#6AD2FF':'#FF9315'}/>}
+            {!loading && <Bar options={options} data={array} redraw/>}
         </div>
     )
 }
