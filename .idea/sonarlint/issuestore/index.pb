@@ -28,12 +28,6 @@ E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 ]
 -src/pages/dashboard/partial/summerySection.js,7\6\76a10dbf8533089c763ec7c045359ac273f9b3be
-Y
-)src/pages/dashboard/partial/istSection.js,7\5\759eb2ff432b14d57fc4c1b399e3f8c4faf571a8
-T
-$src/pages/dashboard/partial/graph.js,7\3\7392f2a0ad32f84494ec2261ace956f01c94369a
-J
-src/components/barChart.js,6\b\6bf3702dbb7129b977af217f074af48792261860
 C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 J
@@ -66,8 +60,6 @@ N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 Y
 )src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
-L
-src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 :
 
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
@@ -89,3 +81,5 @@ N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
 Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
+J
+src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746

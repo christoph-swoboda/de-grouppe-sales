@@ -14,13 +14,13 @@ const Dashboard = () => {
 
     return (
         <div className='dashboardContainer'>
-            <Banner/>
-            <div className='lg:flex justify-start gap-3'>
-                <div>
-                    <NotificationTable header={'Overdue Dates'} status={2}/>
-                </div>
-                <NotificationTable header={'Upcoming Dates'} status={1}/>
-            </div>
+            {/*<Banner/>*/}
+            {/*<div className='lg:flex justify-start gap-3'>*/}
+            {/*    <div>*/}
+            {/*        <NotificationTable header={'Overdue Dates'} status={2}/>*/}
+            {/*    </div>*/}
+            {/*    <NotificationTable header={'Upcoming Dates'} status={1}/>*/}
+            {/*</div>*/}
             <div className='bg-white my-4 rounded-xl text-left p-8'>
                 <Graph IST header={'IST-Potenzial im jeweiligen Schritt'}/>
             </div>
