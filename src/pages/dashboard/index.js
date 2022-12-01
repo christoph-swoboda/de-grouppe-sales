@@ -29,7 +29,7 @@ const Dashboard = () => {
                 <Graph User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>
             </div>
             <div className='bg-white my-4 rounded-xl text-left p-8'>
-                <Graph header={'Projekt-Schritte im Vergleich'}/>
+                <Graph User={user} header={'Projekt-Schritte im Vergleich'}/>
             </div>
         </div>
     )

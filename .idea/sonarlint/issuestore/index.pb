@@ -26,8 +26,6 @@ I
 src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
 E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
-]
--src/pages/dashboard/partial/summerySection.js,7\6\76a10dbf8533089c763ec7c045359ac273f9b3be
 C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 J

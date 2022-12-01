@@ -9,6 +9,7 @@ export const Graph = ({header, IST, User}) => {
     const [project, setProject] = useState(true)
     const [user, setUser] = useState(false)
     const [milestones, setMilestones] = useState([])
+    const [funnel, setFunnel] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -16,10 +17,26 @@ export const Graph = ({header, IST, User}) => {
         if (user) {
             url = 'getMilestoneUsersDashboard'
         }
-        if (User?.ID) {
+        if (User?.ID && IST) {
             setLoading(true)
             Api().get(`/${url}/${User?.ID}`).then(res => {
                 setMilestones(res.data)
+                setLoading(false)
+            }).catch(e => {
+                toast.error('etwas ist schief gelaufen!')
+            })
+        }
+    }, [user, project, User]);
+
+    useEffect(() => {
+        let url = 'getFunnel'
+        if (user) {
+            url = 'getFunnelEmp'
+        }
+        if (User?.ID && !IST) {
+            setLoading(true)
+            Api().get(`/${url}/${User?.ID}`).then(res => {
+                setFunnel(res.data)
                 setLoading(false)
             }).catch(e => {
                 toast.error('etwas ist schief gelaufen!')
@@ -59,7 +76,7 @@ export const Graph = ({header, IST, User}) => {
                 IST ?
                     <IstSection loading={loading} data={milestones} project={project}/>
                     :
-                    <SummerySection data={milestones} project={project}/>
+                    <SummerySection loading={loading} data={funnel} project={project}/>
             }
         </div>
     )

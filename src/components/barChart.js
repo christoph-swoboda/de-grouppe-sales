@@ -44,7 +44,7 @@ const BarChartComponent = ({project, values, loading}) => {
             {
                 id: 1,
                 fill: false,
-                label: 'Existing Users',
+                label: '',
                 data: Object.values([values][0]),
                 backgroundColor: project ? '#6AD2FF' : '#FF9315',
                 tension: 0.1,
