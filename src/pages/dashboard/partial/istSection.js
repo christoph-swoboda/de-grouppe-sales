@@ -1,20 +1,26 @@
 import React, {useEffect, useState} from "react";
 import BarChartComponent from "../../../components/barChart";
 
-const ISTSection = ({project, data, loading}) => {
+const ISTSection = ({project, data, loading, dataEmp}) => {
 
     const [values, setValues] = useState([])
+    const [valuesEmp, setValuesEmp] = useState([])
 
     useEffect(() => {
         let arr = []
+        let arr2 = []
         data?.map(d => {
             arr.push(Number(d.summe))
         })
+        dataEmp?.map(d => {
+            arr2.push(Number(d.summe))
+        })
         setValues(arr)
-    }, [data]);
+        setValuesEmp(arr2)
+    }, [data,dataEmp]);
 
     return (
-        <div className='flex justify-start flex-wrap'>
+        <div className='flex justify-start '>
             <div className='mt-2 lg:w-3/12 md:w-screen '>
                 {
                     data?.map((m, i) => (
@@ -25,8 +31,9 @@ const ISTSection = ({project, data, loading}) => {
                     ))
                 }
             </div>
-            <div className='w-8/12 text-left'>
+            <div className='flex  text-left'>
                 <BarChartComponent loading={loading} values={values} project={project}/>
+                <BarChartComponent loading={loading} values={valuesEmp} project={project}/>
             </div>
         </div>
     )

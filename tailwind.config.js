@@ -19,6 +19,7 @@ module.exports = {
       'tahiti': '#3ab7bf',
       'complete': '#E2EFDA',
       'pending': '#FEDC81',
+      'orange': '#FF9315',
       'cancel': '#F8696B',
       'silver': '#ecebff',
       'grey': '#646464',

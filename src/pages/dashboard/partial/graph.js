@@ -9,40 +9,33 @@ export const Graph = ({header, IST, User}) => {
     const [project, setProject] = useState(true)
     const [user, setUser] = useState(false)
     const [milestones, setMilestones] = useState([])
+    const [milestonesEmp, setMilestonesEmp] = useState([])
     const [funnel, setFunnel] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        let url = 'getMilestoneDashboard'
+        let url1 = 'getFunnel'
+        let url2 = 'getMilestoneDashboard'
         if (user) {
-            url = 'getMilestoneUsersDashboard'
+            url1 = 'getFunnelEmp'
+            url2 = 'getMilestoneUsersDashboard'
         }
         if (User?.ID && IST) {
             setLoading(true)
-            Api().get(`/${url}/${User?.ID}`).then(res => {
+            Api().get(`/${url1}/${User?.ID}`).then(res => {
                 setMilestones(res.data)
-                setLoading(false)
             }).catch(e => {
                 toast.error('etwas ist schief gelaufen!')
             })
-        }
-    }, [user, project, User]);
 
-    useEffect(() => {
-        let url = 'getFunnel'
-        if (user) {
-            url = 'getFunnelEmp'
-        }
-        if (User?.ID && !IST) {
-            setLoading(true)
-            Api().get(`/${url}/${User?.ID}`).then(res => {
-                setFunnel(res.data)
+            Api().get(`/${url2}/${User?.ID}`).then(res => {
+                setMilestonesEmp(res.data)
                 setLoading(false)
             }).catch(e => {
                 toast.error('etwas ist schief gelaufen!')
             })
         }
-    }, [user, project, User]);
+    }, [project, User]);
 
 
     function projectClicked() {
@@ -57,27 +50,25 @@ export const Graph = ({header, IST, User}) => {
 
     return (
         <div>
-            <h2 className='text-xl font-bold'>{header}</h2>
-            <div className='bg-offWhite my-3 text-sm font-bold border border-offWhite w-fit h-10 rounded-3xl'>
-                <button
-                    className={`uppercase h-10 rounded-3xl py-2 px-3 ${project ? 'bg-mainBlue text-white' : 'bg-transparent'}`}
-                    onClick={projectClicked}
-                >
-                    firmenprojekte
-                </button>
-                <button
-                    className={`h-10 uppercase rounded-3xl py-2 px-3 ${user ? 'bg-mainBlue text-white' : 'bg-transparent'}`}
-                    onClick={userClicked}
-                >
-                    mitarbeiter
-                </button>
+            {/*<h2 className='text-xl font-bold'>{header}</h2>*/}
+            <div className='flex justify-start'>
+                <div className='bg-offWhite my-3 text-sm font-bold border border-offWhite w-fit h-10 rounded-l-3xl'>
+                    <button
+                        className={`capitalize h-10 hover:bg-mainBlue hover:text-white rounded-3xl py-2 px-3 ${project ? 'bg-mainBlue text-white' : 'bg-transparent'}`}
+                        onClick={projectClicked}
+                    >
+                        IST-Analyse
+                    </button>
+                    <button
+                        className={`h-10 capitalize hover:bg-orange hover:text-white rounded-l-3xl py-2 px-3 ${user ? 'bg-orange text-white' : 'bg-transparent'}`}
+                        onClick={userClicked}
+                    >
+                        Gesamtfortschritt
+                    </button>
+                </div>
+                <span className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10 '>der Firmenprojekte</span>
             </div>
-            {
-                IST ?
-                    <IstSection loading={loading} data={milestones} project={project}/>
-                    :
-                    <SummerySection loading={loading} data={funnel} project={project}/>
-            }
+            <IstSection loading={loading} data={milestones} dataEmp={milestonesEmp} project={project}/>
         </div>
     )
 }

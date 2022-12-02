@@ -28,9 +28,9 @@ const Dashboard = () => {
             <div className='bg-white my-4 rounded-xl text-left p-8'>
                 <Graph User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>
             </div>
-            <div className='bg-white my-4 rounded-xl text-left p-8'>
-                <Graph User={user} header={'Projekt-Schritte im Vergleich'}/>
-            </div>
+            {/*<div className='bg-white my-4 rounded-xl text-left p-8'>*/}
+            {/*    <Graph User={user} header={'Projekt-Schritte im Vergleich'}/>*/}
+            {/*</div>*/}
         </div>
     )
 }
