@@ -23,7 +23,7 @@ const BestandListDataSection = ({
                                 }) => {
     const [{pageBestand}, dispatch] = useStateValue();
     const searChableFields = [1, 2, 3, 4, 5, 7]
-    const sortableFields = [1, 2, 3, 4, 5, 6, 7, 17, 9, 10, 11, 12, 13, 14, 15, 16]
+    const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
     function ascSort(id) {
         dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
@@ -75,16 +75,16 @@ const BestandListDataSection = ({
                             </div>
                         }
                         <div ref={printPDFRef}>
-                        <table className='min-w-full text-left bg-white' id="table-to-xls">
-                            <thead className="whitespace-nowrap border-y border-silver border-x-0">
-                            <tr>
-                                {
-                                    !loading &&
-                                    headers.map(header => (
-                                        <th key={header.id} scope="col"
-                                            className="text-sm text-grey pl-1.5"
-                                            style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
-                                        >
+                            <table className='min-w-full text-left bg-white' id="table-to-xls">
+                                <thead className="whitespace-nowrap border-y border-silver border-x-0">
+                                <tr>
+                                    {
+                                        !loading &&
+                                        headers.map(header => (
+                                            <th key={header.id} scope="col"
+                                                className="text-sm text-grey pl-1.5"
+                                                style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
+                                            >
                                                     <span className='flex justify-left'>
                                                           <span
                                                               className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
@@ -105,8 +105,8 @@ const BestandListDataSection = ({
                                                             </p>
                                                         </span>
                                                     </span>
-                                            <span
-                                                className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
+                                                <span
+                                                    className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                maxLength="50"
@@ -115,63 +115,63 @@ const BestandListDataSection = ({
                                                                placeholder='Suche...'
                                                         />
                                             </span>
-                                        </th>
-                                    ))
-                                }
-                                {/*<th scope="col" className="text-sm w-1/12 text-grey px-2"/>*/}
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                loading &&
-                                <tr className='centerItemsAbsolute'>
-                                    <td><ScaleLoader size={110}/></td>
+                                            </th>
+                                        ))
+                                    }
+                                    {/*<th scope="col" className="text-sm w-1/12 text-grey px-2"/>*/}
                                 </tr>
-                            }
-                            {
-                                (!loading && view === 'Firmenprojekte') ?
-                                    users?.map((u, index) => (
-                                        <FirmenprojekteView
-                                            key={index}
-                                            FirmaKurz={u.FirmaKurz}
-                                            FBKBank={u.FBKBank}
-                                            ZustBerater={u.ZustBerater}
-                                            Bank={u.Bank}
-                                            RegioBereich={u.RegioBereich}
-                                            MA={u.MA}
-                                            PStatus={u.PStatus}
-                                            Note={u.Note}
-                                            date={formatDate(u.Datum, false)}
-                                            printing={printing}
-                                        />
-                                    ))
-                                    : (!loading && view === 'Projekt-Tafel') &&
-                                    users?.map((u, index) => (
-                                        <ProjectTafelView
-                                            key={index}
-                                            FirmaKurz={u.FirmaKurz}
-                                            Firmenname={u.Firmenname}
-                                            ZustandigerFKB={u.ZuständigerFKB}
-                                            BD={u.BD}
-                                            FD={u.FD}
-                                            DGAPIKAM={u.DGAPIKAM}
-                                            MA={u.MA}
-                                            DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                            Projtd_vollst={u.Projtd_vollst}
-                                            Projtd_abge={u.Projtd_abge}
-                                            AA_FA_hin={u.AA_FA_hin}
-                                            StSvGA_erst={u.StSvGA_erst}
-                                            ArTfGA_erst={u.ArTfGA_erst}
-                                            ProjStart={u.ProjStart}
-                                            MAV_an_FKB={u.MAV_an_FKB}
-                                            MAB_fertig={u.MAB_fertig}
-                                            Note={u.Note}
-                                            printing={printing}
-                                        />
-                                    ))
-                            }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                {
+                                    loading &&
+                                    <tr className='centerItemsAbsolute'>
+                                        <td><ScaleLoader size={110}/></td>
+                                    </tr>
+                                }
+                                {
+                                    (!loading && view === 'Firmenprojekte') ?
+                                        users?.map((u, index) => (
+                                            <FirmenprojekteView
+                                                key={index}
+                                                FirmaKurz={u.FirmaKurz}
+                                                FBKBank={u.FBKBank}
+                                                ZustBerater={u.ZustBerater}
+                                                Bank={u.Bank}
+                                                RegioBereich={u.RegioBereich}
+                                                MA={u.MA}
+                                                PStatus={u.PStatus}
+                                                Note={u.Note}
+                                                date={formatDate(u.Datum, false)}
+                                                printing={printing}
+                                            />
+                                        ))
+                                        : (!loading && view === 'Projekt-Tafel') &&
+                                        users?.map((u, index) => (
+                                            <ProjectTafelView
+                                                key={index}
+                                                FirmaKurz={u.FirmaKurz}
+                                                Firmenname={u.Firmenname}
+                                                ZustandigerFKB={u.ZuständigerFKB}
+                                                BD={u.BD}
+                                                FD={u.FD}
+                                                DGAPIKAM={u.DGAPIKAM}
+                                                MA={u.MA}
+                                                DL_Kzl_vollst={u.DL_Kzl_vollst}
+                                                Projtd_vollst={u.Projtd_vollst}
+                                                Projtd_abge={u.Projtd_abge}
+                                                AA_FA_hin={u.AA_FA_hin}
+                                                StSvGA_erst={u.StSvGA_erst}
+                                                ArTfGA_erst={u.ArTfGA_erst}
+                                                ProjStart={u.ProjStart}
+                                                MAV_an_FKB={u.MAV_an_FKB}
+                                                MAB_fertig={u.MAB_fertig}
+                                                Note={u.Note}
+                                                printing={printing}
+                                            />
+                                        ))
+                                }
+                                </tbody>
+                            </table>
                             <div className={`${!printing && 'hideDiv'} text-center mt-6`}>
                                 <p className='font-bold text-mainBlue'>{total} Zeilen gedruckt</p>
                                 <p className='text-mainBlue'>{'Firmenprojekte -' + formatDate(new Date(), true)}</p>

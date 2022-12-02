@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import * as excelJS from "exceljs";
 import {saveAs} from "file-saver";
 import {RiFileExcel2Fill} from "react-icons/ri";
@@ -15,8 +15,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
     const [loadingAll, setLoadingAll] = useState(false);
-    const [usersAll, setUsers] = useState([]);
-    const fileName = 'Firmenprojekte-' + formatDate(new Date()) + '.xlsx';
+    const fileName = Gesamt ? 'Firmenprojekte-Gesamt-' + formatDate(new Date()) + '.xlsx' : 'Firmenprojekte-' + formatDate(new Date()) + '.xlsx'
 
     function padTo2Digits(num) {
         return num.toString().padStart(2, '0');
@@ -37,23 +36,6 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
         );
     }
 
-    function longest_str_in_array(arra) {
-        let max_str = 1;
-        let ans = Object.values(arra[0])[0].length;
-        for (let i = 1; i < Object.values(arra[0]).length; i++) {
-            let maxi = 1
-            if (Object.values(arra[0])[i]) {
-                maxi = Object.values(arra[0])[i].toString().length;
-                if (maxi > max_str) {
-                    ans = maxi;
-                    max_str = maxi;
-                }
-            }
-        }
-
-        return ans;
-    }
-
     async function printXl() {
         let data = new FormData()
         data.append('userID', userID)
@@ -66,9 +48,9 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
         Data.append('userID', userID)
 
         if (all) {
-            await prepareData('Firmenprojeckte excel daten', '/getBestands', data)
+            await prepareData('Firmenprojekte excel daten', '/getBestands', data)
         } else {
-            await prepareData('Excel Gesamt', '/allExcel', Data)
+            await prepareData('Firmenprojekte Gesamt daten', '/allExcel', Data)
         }
     }
 
@@ -106,12 +88,8 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
 
             let keys = []
             Object.entries(res.data.bestands[0]).map(v => {
-                let hl = longest_str_in_array([res.data.bestands[0]])
                 keys.push({
                     key: v[0],
-                    // width: (v[1] && v[1].toString().length > 10 && (v[1] && v[1].toString().length < 30)) ? 40 : (v[1] && v[1].toString().length > 30) ? 70 : !v[1] ? 15 : 30
-                    // width:v[1] && v[1].toString().length<20?30:v[1]?60:20
-                    // width: hl > 20 ? 40 : hl > 30 ? 50 : 10
                     width: all && 30
                 })
             })

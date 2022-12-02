@@ -28,7 +28,7 @@ export const BestandView2Headers = [
         title: 'DGAPI KAM'
     },
     {
-        id: 17,
+        id: 8,
         title: 'DL+Kzl vollst'
     },
     {

@@ -153,7 +153,7 @@ const AddUsers = () => {
                             value="1"
                             id="field-role"
                         />
-                        <span className='mr-3 ml-1'>Innendienst</span>
+                        <span className='mr-8 ml-1'>Innendienst</span>
                     </label>
                     <label htmlFor="field-role">
                         <input
@@ -163,7 +163,7 @@ const AddUsers = () => {
                             value="2"
                             id="field-role"
                         />
-                        <span className='mr-3'> R+V Mitarbeiter</span>
+                        <span className='mr-8'> FKB</span>
                     </label>
                     <label htmlFor="field-role">
                         <input
@@ -172,7 +172,7 @@ const AddUsers = () => {
                             value="3"
                             id="field-role"
                         />
-                        <span className='mr-1'> Vorgesetzter</span>
+                        <span className='mr-1'> Vorstand </span>
                     </label>
                 </section>
 
