@@ -4,7 +4,7 @@ import {FaToggleOn} from "react-icons/fa";
 import Api from "../Api/api";
 import {useStateValue} from "../states/StateProvider";
 import {toast} from "react-toastify";
-import {BeatLoader} from "react-spinners";
+import {ClipLoader} from "react-spinners";
 
 const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created}) => {
     const [edit, setEdit] = useState(false)
@@ -87,7 +87,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                     </button>
                 </div>
                 <div className='mx-auto'>
-                    {deleting && <BeatLoader size={10} color='#3A46A9'/>}
+                    {deleting && <ClipLoader size={10} color='#3A46A9'/>}
                 </div>
             </div>
 

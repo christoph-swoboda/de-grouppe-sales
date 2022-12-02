@@ -22,7 +22,7 @@ const CollapseExpand = ({show, id}) => {
     }
 
     return (
-        <div className='px-5 pb-5 cursor-pointer md:mt-5 xl:mt-0'
+        <div className='px-5 pb-5 cursor-pointer sm:mt-5 lg:mt-0'
            onClick={toggle}
         >
             {

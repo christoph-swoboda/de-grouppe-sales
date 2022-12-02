@@ -13,7 +13,7 @@ import {toast} from "react-toastify";
 
 registerLocale("de", de);
 
-const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) => {
+const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, title}) => {
 
     const [Loading, setLoading] = useState(false)
     const initialState = [];
@@ -84,9 +84,10 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
         const key = 'id';
         const unique = [...new Map(update.map(item => [item[key], item])).values()]
         if (unique.length > 0) {
+            console.log('saving', unique)
             setLoading(true)
             Api().post('/saveSteps', unique).then(res => {
-                toast.success('Data saved Successfully')
+                toast.success('Daten erfolgreich gespeichert')
                 dispatch({type: "SET_SUBSTEPSAVED", item: !subStepSaved})
                 setLoading(false)
             }).catch(e => {
@@ -112,13 +113,15 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                     </div>
                     :
                     <div hidden={loading}>
-                        <button
-                            onClick={() => ref.current.click()}
-                            className={`${role === 'Supervisor' && 'opacity-0'} bg-mainBlue text-white cursor-pointer px-4 text-sm py-2 saveMS rounded-3xl`}
-                            disabled={!isValid}>
-                            {Loading ? 'Sparen...' : 'Speichern'}
-                        </button>
-
+                        <div className='flex justify-between flex-wrap'>
+                            <h2 className='text-xl mb-2 text-center font-bold'>{title}</h2>
+                            <button
+                                onClick={() => ref.current.click()}
+                                className={`${role === 'Supervisor' && 'opacity-0'} hover:bg-complete hover:text-text ml-auto  bg-mainBlue text-white cursor-pointer px-4 text-sm py-2  rounded-3xl`}
+                                disabled={!isValid}>
+                                {Loading ? 'Sparen...' : 'Speichern'}
+                            </button>
+                        </div>
                         <form onSubmit={handleSubmit(onSubmit)}
                               className='grid grid-cols-1 gap-1 mt-6 rounded-lg'>
                             {
@@ -127,13 +130,19 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                         <section
                                             key={index} className='tooltip flex'
                                             onChange={() =>
-                                                getValues(val.stepName) &&
-                                                addObjectToArray({
-                                                    firma: firma,
-                                                    id: val.substepID,
-                                                    milestone: currentMilestone,
-                                                    value: getValues(val.stepName),
-                                                })
+                                                getValues(val.stepName) ?
+                                                    addObjectToArray({
+                                                        firma: firma,
+                                                        id: val.substepID,
+                                                        milestone: currentMilestone,
+                                                        value: getValues(val.stepName),
+                                                    }) :
+                                                    addObjectToArray({
+                                                        firma: firma,
+                                                        id: val.substepID,
+                                                        milestone: currentMilestone,
+                                                        value: null,
+                                                    })
                                             }>
                                             <Options
                                                 role={role}
@@ -150,13 +159,19 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                         : val.fieldType === 'date' ?
                                             <section
                                                 onClick={() =>
-                                                    getValues(val.stepName) &&
-                                                    addObjectToArray({
-                                                        firma: firma,
-                                                        id: val.substepID,
-                                                        milestone: currentMilestone,
-                                                        value: getValues(val.stepName),
-                                                    })
+                                                    getValues(val.stepName) ?
+                                                        addObjectToArray({
+                                                            firma: firma,
+                                                            id: val.substepID,
+                                                            milestone: currentMilestone,
+                                                            value: getValues(val.stepName),
+                                                        }) :
+                                                        addObjectToArray({
+                                                            firma: firma,
+                                                            id: val.substepID,
+                                                            milestone: currentMilestone,
+                                                            value: null,
+                                                        })
                                                 }
                                                 key={index} className='tooltip flex'>
                                                 <label className='text-sm text-grey label'>{val.stepName}</label>
@@ -171,15 +186,16 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                                             onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
                                                             selected={field.value}
                                                             cssClass={'datePicker'}
+                                                            isClearable
                                                             readOnly={role === 'Supervisor'}
-                                                            customInput={<CustomInput next={next} last={lastDoneIndex}
+                                                            customInput={<CustomInput next={next} val={getValues(val.stepName)} last={lastDoneIndex}
                                                                                       current={currentMilestone}/>}
                                                         />
                                                     )}
                                                 />
                                                 {/*<DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>*/}
                                                 {/*<p className={getValues(val.stepName) ? 'hidden' : 'tooltiptextclose'}>{val.mouseoverText}</p>*/}
-                                                <p className='tooltiptextclose'>{val.mouseoverText}</p>
+                                                <p className={`${val.mouseoverText && 'tooltiptextclose'} `}>{val.mouseoverText}</p>
                                             </section>
                                             : val.fieldType === 'header' ?
                                                 // <p>{val.stepName}</p>
@@ -192,13 +208,19 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                                 :
                                                 <section
                                                     onChange={() =>
-                                                        getValues(val.substepID) &&
-                                                        addObjectToArray({
-                                                            firma: firma,
-                                                            id: val.substepID,
-                                                            milestone: currentMilestone,
-                                                            value: getValues(val.substepID),
-                                                        })
+                                                        getValues(val.substepID) ?
+                                                            addObjectToArray({
+                                                                firma: firma,
+                                                                id: val.substepID,
+                                                                milestone: currentMilestone,
+                                                                value: getValues(val.substepID),
+                                                            }) :
+                                                            addObjectToArray({
+                                                                firma: firma,
+                                                                id: val.substepID,
+                                                                milestone: currentMilestone,
+                                                                value: null,
+                                                            })
                                                     }
                                                     key={index} className='tooltip flex'
                                                 >
@@ -212,7 +234,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma}) =>
                                                            style={{border: errors.email && '1px solid red'}}
                                                     />
                                                     {errors.email && touchedFields && <p>{errors.email.message}</p>}
-                                                    <p className='tooltiptextclose'>{val.mouseoverText}</p>
+                                                    <p className={`${val.mouseoverText && 'tooltiptextclose'} `}>{val.mouseoverText}</p>
                                                 </section>
                                 ))
                             }

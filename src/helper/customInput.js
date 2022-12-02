@@ -10,7 +10,7 @@ const CustomInput = React.forwardRef((props, ref) => {
             <label onClick={props.onClick} ref={ref}>
                 {props.value || props.placeholder}
             </label>
-            <div className='float-right'>
+            <div className={`${props.val && 'mr-5 mt-1'} float-right`}>
                 {/*<p className='text-grey text-xs opacity-0'>Select Date</p>*/}
                 <GoCalendar color={'#3A46A9'}/>
             </div>

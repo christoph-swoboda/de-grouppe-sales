@@ -184,7 +184,7 @@ form {
 
 .completed {
   background-color: #f2fff9;
-  cursor: none;
+  //cursor: none;
 }
 
 .saveMS {
@@ -222,21 +222,22 @@ input[type=number] {
   padding-top: .3vh;
   padding-bottom: .3vh;
   //padding-bottom: .1px;
+  border-bottom: 1px solid white;
 
   @media screen and (min-width: 1920px) {
     padding-top: 1.1vh;
     font-size: 1vh;
-    padding-bottom: 1.25vh;
+    padding-bottom: 1.14vh;
   }
   @media screen and (max-width: 1920px) and (min-width: 1440px) {
-    padding-top: .65vh;
-    font-size: 1.55vh;
-    padding-bottom: .65vh;
+    padding-top: .60vh;
+    font-size: 1.53vh;
+    padding-bottom: .60vh;
   }
   @media only screen and (max-width: 1440px) and (min-width: 768px) {
-    font-size: 1.9vh;
-    padding-top: .3vh;
-    padding-bottom: .3vh;
+    font-size: 1.85vh;
+    padding-top: .25vh;
+    padding-bottom: .25vh;
   }
 }
 
@@ -262,4 +263,32 @@ input[type=number] {
   background-color: rgba(0, 0, 0, 0.9);
   overflow-x: hidden;
   transition: 0.5s;
+}
+
+.react-datepicker__close-icon::after {
+  cursor: pointer;
+  background-color: #5961a4;
+  color: #fff;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  padding: 2px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  content: "×";
+}
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range {
+  background-color: #3A46A9;
 }

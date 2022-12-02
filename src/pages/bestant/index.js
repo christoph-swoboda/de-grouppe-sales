@@ -166,13 +166,13 @@ const Bestant = () => {
 
                             <div className='2xl:w-2/4 lg:ml-0 lg:w-5/12 h-fit text-left'>
                                 <div className='bg-white p-5 my-1 mx-2 pb-10  rounded-lg'>
-                                    <h2 className='text-xl absolute text-center font-bold mb-2'>{milestoneTabs[Number(currentMilestone) - 1]?.milestoneLabel.substring(subString)}</h2>
                                     <SubSteps
                                         data={subSteps}
                                         loading={stepsLoading}
                                         lastDoneIndex={lastDoneIndex}
                                         options={options}
                                         grid={grid}
+                                        title={milestoneTabs[Number(currentMilestone) - 1]?.milestoneLabel.substring(subString)}
                                         firma={param.id.replaceAll('_', ' ')}
                                     />
                                 </div>
@@ -193,7 +193,7 @@ const Bestant = () => {
                                 {/*    />*/}
                                 {/*</div>*/}
                             </div>
-                            <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 lg:w-5/12 xl:ml-0 rounded-lg min-h-full'>
+                            <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 lg:w-4/12 xl:ml-0 rounded-lg min-h-full'>
                                 <Status company={param.id.replaceAll('_', ' ')} notes={notes}
                                         role={role}
                                         loadingNotes={loadingNotes} count={notesCount}

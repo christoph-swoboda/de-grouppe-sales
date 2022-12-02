@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
+import React, {useState} from "react";
 import BestantStatus from "../../../components/bestantStatus";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../../states/StateProvider";
 import CollapseExpand from "../../../components/collapseExpandSection";
-import {BarLoader, BeatLoader, ClipLoader} from "react-spinners";
+import {BeatLoader, ClipLoader} from "react-spinners";
 import {Link} from "react-router-dom";
 
 const Status = ({notes, company, loadingNotes, count, role}) => {
@@ -37,7 +36,7 @@ const Status = ({notes, company, loadingNotes, count, role}) => {
         })
     }
 
-    String.prototype.allReplace = function(obj) {
+    String.prototype.allReplace = function (obj) {
         let retStr = this;
         for (const x in obj) {
             retStr = retStr.replace(new RegExp(x, 'g'), obj[x]);
@@ -48,10 +47,10 @@ const Status = ({notes, company, loadingNotes, count, role}) => {
     return (
         <>
             <div className='flex justify-between bg-white mt-5'>
-                <div className='bg-white text-left md:mt-5 xl:mt-0'>
-                    <button className='px-3 py-2 mx-2 mb-2 rounded-3xl bg-mainBlue text-white text-sm'
+                <div className='text-left sm:mt-5 lg:mt-0'>
+                    <button className='px-3 py-2 mx-2 mb-2 hover:shadow hover:shadow-md hover:shadow-mainBlue rounded-3xl bg-mainBlue text-white text-sm'
                             onClick={() => setToggle(!toggle)}
-                            hidden={role==='Supervisor'}
+                            hidden={role === 'Supervisor'}
                     >
                         {!toggle ? 'Neue Bemerkung' : 'Abbrechen'}
                     </button>
@@ -61,7 +60,7 @@ const Status = ({notes, company, loadingNotes, count, role}) => {
                               onChange={(e) => setNote(e.target.value)}
                     />
                     <button
-                        className={`${!note || !note.replace(/\s/g, '').length ? 'bg-whiteDark cursor-no-drop' : 'bg-mainBlue text-white'} px-3 py-2 m-2 rounded-3xl text-sm`}
+                        className={`${!note || !note.replace(/\s/g, '').length ? 'bg-whiteDark cursor-no-drop' : 'bg-mainBlue text-white hover:bg-complete hover:text-text'} px-3 py-2 m-2 rounded-3xl text-sm`}
                         onClick={save}
                         hidden={!toggle}
                         disabled={!note || !note.replace(/\s/g, '').length}

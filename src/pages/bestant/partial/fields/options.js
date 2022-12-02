@@ -11,7 +11,11 @@ const Options = ({val, role, currentMilestone, lastDoneIndex, grid, getValues, o
                     ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
             >
                 <option value={getValues(val.stepName) === 'autoFill'} hidden>
+                    {/*{getValues(val.stepName)===null?'Wähle eine Option':'Nothing Selected'}*/}
                     Wähle eine Option
+                </option>
+                <option value='' hidden={getValues(val.stepName)==='Ja' || getValues(val.stepName)==='Nein'}>
+                    zurücksetzen
                 </option>
                 {
                     option?.map(o => (
@@ -21,14 +25,12 @@ const Options = ({val, role, currentMilestone, lastDoneIndex, grid, getValues, o
                                     {op?.optionValue}
                                 </option>
                                 :
-                                <option key={i} hidden>
-
-                                </option>
+                                <option key={i} hidden/>
                         ))
                     ))
                 }
             </select>
-            <p className='tooltiptextclose'>{val.mouseoverText}</p>
+            <p className={`${val.mouseoverText && 'tooltiptextclose'} `}>{val.mouseoverText}</p>
         </>
     )
 }
