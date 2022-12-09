@@ -15,6 +15,7 @@ const Form = ({name, dropdown}) => {
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
+        // console.log('data', data)
         setLoading(true)
         Api().post('/saveNeu', data).then(res => {
             toast.success('Erfolgreich gespeichert!')
@@ -195,7 +196,7 @@ const Form = ({name, dropdown}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Internetadresse * </label>
                         <input placeholder='Internetadresse...'
-                               {...register('internetadresse', {required: false})}
+                               {...register('internetadresse', {required: true})}
                                style={{border: errors.internetadresse && '1px solid red'}}
                         />
                         {errors.internetadresse && touchedFields && <p>Internetadresse Feld ist erforderlich</p>}
@@ -332,8 +333,9 @@ const Form = ({name, dropdown}) => {
 
                 <p className='text-sm text-grey text-left font-extralight mb-6 mt-5'>* Pflichtfeld</p>
                 <input
-                    className={(isValid) ? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' : 'disabled'}
-                    disabled={!isValid} type="submit"
+                    className={isValid? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' :'disabled'}
+                    disabled={!isValid}
+                    type="submit"
                     value={(!loading) ? 'Anlegen' : 'sparen...'}
                 />
             </form>

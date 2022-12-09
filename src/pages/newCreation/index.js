@@ -24,6 +24,7 @@ const NewCreation = () => {
     useEffect(() => {
         try {
             setUser(JSON.parse(localStorage.user))
+            setName(JSON.parse(localStorage.user).fullname)
         } catch (e) {
             window.location.replace('/anmeldung')
         }
