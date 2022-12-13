@@ -5,7 +5,7 @@ import {Link, useLocation} from "react-router-dom";
 import {BeatLoader} from "react-spinners";
 import {GrUserAdmin} from "react-icons/gr";
 import {MdSupervisorAccount} from "react-icons/md";
-import {FaUserAlt, FaUserSecret, FaUserTie} from "react-icons/fa";
+import {FaUser, FaUserAlt, FaUserCog, FaUserSecret, FaUserTie} from "react-icons/fa";
 
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -87,13 +87,13 @@ const Navbar = () => {
                                 {/*<img src={image} alt='image'/>*/}
                                 {
                                     user?.role === 'Internal' && user?.isUserAdmin==='1' ?
-                                        <GrUserAdmin size={'30px'} color={'#565c8c'}/>
+                                        <FaUserCog size={'30px'} color={'#565c8c'}/>
                                         : user?.role === 'Supervisor' ?
                                             <MdSupervisorAccount size={'35px'} color={'#3A46A9'}/>
                                             : user?.role === 'External' ?
-                                                <FaUserAlt size={'30px'} color={'#565c8c'}/>
+                                                <FaUser size={'30px'} color={'#565c8c'}/>
                                                 : user?.role === 'Internal' && user?.isUserAdmin==='0' ?
-                                                    <FaUserTie size={'30px'} color={'#565c8c'}/>
+                                                    <GrUserAdmin size={'30px'} color={'#565c8c'}/>
                                                     : user && <FaUserSecret size={'30px'} color={'#565c8c'}/>
 
                                 }
