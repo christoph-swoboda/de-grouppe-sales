@@ -1,14 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
 import '../styles/navbar.css'
 import {AiOutlineDown, AiOutlineMenu} from "react-icons/ai";
-import image from '../assets/pp.jpg'
 import {Link, useLocation} from "react-router-dom";
 import {BeatLoader} from "react-spinners";
+import {GrUserAdmin} from "react-icons/gr";
+import {MdSupervisorAccount} from "react-icons/md";
+import {FaUserAlt, FaUserSecret, FaUserTie} from "react-icons/fa";
 
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
     const [loading, setLoading] = useState(false)
-    // const [user, setUser] = useState('')
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path = useLocation()
@@ -20,16 +21,6 @@ const Navbar = () => {
     const location = useLocation()
     const UserInfo = localStorage.user
     let user = JSON.parse(UserInfo ? UserInfo : false)
-
-    // useEffect(() => {
-    //     try {
-    //         const UserInfo=localStorage.user
-    //         setUser(JSON.parse(UserInfo?UserInfo:false))
-    //     } catch (e) {
-    //         window.location.reload()
-    //     }
-    // }, []);
-
 
     useEffect(() => {
         const changeWidth = () => {
@@ -93,10 +84,22 @@ const Navbar = () => {
                             }
 
                             <li className='userInfo cursor-pointer'>
-                                <img src={image} alt='image'/>
+                                {/*<img src={image} alt='image'/>*/}
+                                {
+                                    user?.role === 'Internal' && user?.isUserAdmin==='1' ?
+                                        <GrUserAdmin size={'30px'} color={'#565c8c'}/>
+                                        : user?.role === 'Supervisor' ?
+                                            <MdSupervisorAccount size={'35px'} color={'#3A46A9'}/>
+                                            : user?.role === 'External' ?
+                                                <FaUserAlt size={'30px'} color={'#565c8c'}/>
+                                                : user?.role === 'Internal' && user?.isUserAdmin==='0' ?
+                                                    <FaUserTie size={'30px'} color={'#565c8c'}/>
+                                                    : user && <FaUserSecret size={'30px'} color={'#565c8c'}/>
+
+                                }
                                 <div>
-                                    <p onClick={() => setModal(!modal)}>{user?.fullname}</p>
-                                    <p onClick={() => setModal(!modal)} className='text-xs'>{user?.email}</p>
+                                    <p className='pl-1' onClick={() => setModal(!modal)}>{user?.fullname}</p>
+                                    <p onClick={() => setModal(!modal)} className='text-xs pl-1'>{user?.email}</p>
                                 </div>
                                 <p className='cursor-pointer m-1'><AiOutlineDown onClick={() => setModal(!modal)}/></p>
                             </li>
