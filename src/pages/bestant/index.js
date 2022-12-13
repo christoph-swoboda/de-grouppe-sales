@@ -172,6 +172,7 @@ const Bestant = () => {
                                         lastDoneIndex={lastDoneIndex}
                                         options={options}
                                         grid={grid}
+                                        lastIndex={lastIndex}
                                         title={milestoneTabs[Number(currentMilestone) - 1]?.milestoneLabel.substring(subString)}
                                         firma={param.id.replaceAll('_', ' ')}
                                     />

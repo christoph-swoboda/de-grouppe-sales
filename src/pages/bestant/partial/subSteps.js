@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {RiseLoader} from "react-spinners";
 import {Controller, useForm} from "react-hook-form"
 import {useStateValue} from "../../../states/StateProvider"
@@ -13,7 +13,7 @@ import {toast} from "react-toastify";
 
 registerLocale("de", de);
 
-const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, title}) => {
+const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, title, lastIndex}) => {
 
     const [Loading, setLoading] = useState(false)
     const initialState = [];
@@ -174,7 +174,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                         })
                                                 }
                                                 key={index} className='tooltip flex'>
-                                                <label className='text-sm text-grey label'>{val.stepName}</label>
+                                                <label
+                                                    className={`text-sm ${lastIndex===Number(currentMilestone) && 'text-red'} text-grey label`}>{val.stepName} {lastIndex===Number(currentMilestone) && '(Pflichtfeld)'}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
@@ -188,13 +189,13 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                             cssClass={'datePicker'}
                                                             isClearable
                                                             readOnly={role === 'Supervisor'}
-                                                            customInput={<CustomInput next={next} val={getValues(val.stepName)} last={lastDoneIndex}
+                                                            customInput={<CustomInput next={next}
+                                                                                      val={getValues(val.stepName)}
+                                                                                      last={lastDoneIndex}
                                                                                       current={currentMilestone}/>}
                                                         />
                                                     )}
                                                 />
-                                                {/*<DatePicker selected={startDate} onChange={(date) => setStartDate(date)}/>*/}
-                                                {/*<p className={getValues(val.stepName) ? 'hidden' : 'tooltiptextclose'}>{val.mouseoverText}</p>*/}
                                                 <p className={`${val.mouseoverText && 'tooltiptextclose'} `}>{val.mouseoverText}</p>
                                             </section>
                                             : val.fieldType === 'header' ?

@@ -17,6 +17,7 @@ const BestantList = () => {
     }
     const [printing, setPrinting] = useState(false)
     const [loading, setLoading] = useState(true);
+    const [hasFilter, setHasFilter] = useState(false);
     const [loadingViews, setLoadingViews] = useState(false);
     const [rows, setRows] = useState('10');
     const [viewName, setViewName] = useState('Firmenprojekte');
@@ -81,9 +82,31 @@ const BestantList = () => {
 
     useEffect(() => {
         setLoading(true)
+        clearFilters()
+    }, [viewName]);
+
+    useEffect(() => {
+        const isNullUndefEmptyStr = Object.values(filter).every(value => {
+            if (value === null || value === undefined || value === '') {
+                return true;
+            }
+            return false;
+        });
+
+        if (isNullUndefEmptyStr) {
+            setHasFilter(true)
+        }
+        else{
+            setHasFilter(false)
+        }
+
+    }, [filter]);
+
+
+    function clearFilters() {
         dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null}})
         dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b: null, c: null, d: null, e: null, f: null}})
-    }, [viewName]);
+    }
 
     function setPageStates(e) {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -119,13 +142,18 @@ const BestantList = () => {
                                     className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
                                 {
                                     views.map((v, i) => (
-                                        <option key={i} disabled={i>1} value={v.viewName}>
+                                        <option key={i} disabled={i > 1} value={v.viewName}>
                                             {v.viewName}
                                         </option>
                                     ))
                                 }
 
                             </select>
+                            <button disabled={hasFilter} onClick={clearFilters}
+                                    className={`${hasFilter && 'opacity-0'} px-3 py-2 border border-offWhite text-cancel rounded-lg text-sm ml-3`}
+                            >
+                                Alle Filter löschen
+                            </button>
                         </div>
 
                         <p className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey ml-auto mt-2`}>
