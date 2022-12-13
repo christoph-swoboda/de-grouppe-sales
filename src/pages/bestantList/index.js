@@ -92,16 +92,12 @@ const BestantList = () => {
             }
             return false;
         });
-
         if (isNullUndefEmptyStr) {
             setHasFilter(true)
-        }
-        else{
+        } else {
             setHasFilter(false)
         }
-
     }, [filter]);
-
 
     function clearFilters() {
         dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null}})

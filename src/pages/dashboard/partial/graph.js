@@ -10,14 +10,13 @@ export const Graph = ({header, IST, User}) => {
     const [user, setUser] = useState(false)
     const [milestones, setMilestones] = useState([])
     const [milestonesEmp, setMilestonesEmp] = useState([])
-    const [funnel, setFunnel] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         let url1 = 'getFunnel'
-        let url2 = 'getMilestoneDashboard'
+        let url2 = 'getFunnelEmp'
         if (user) {
-            url1 = 'getFunnelEmp'
+            url1 = 'getMilestoneDashboard'
             url2 = 'getMilestoneUsersDashboard'
         }
         if (User?.ID && IST) {
