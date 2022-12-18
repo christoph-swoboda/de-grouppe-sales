@@ -27,6 +27,11 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const {isValid} = formState;
     const user = JSON.parse(localStorage.user)
     const role = user.role
+    useEffect(() => {
+
+       console.log('len', data.length)
+    }, [data]);
+
 
     useEffect(() => {
         if (data.length > 0) {
@@ -175,7 +180,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                 }
                                                 key={index} className='tooltip flex'>
                                                 <label
-                                                    className={`text-sm ${lastIndex===Number(currentMilestone) && 'text-red'} text-grey label`}>{val.stepName} {lastIndex===Number(currentMilestone) && '(Pflichtfeld)'}</label>
+                                                    className={`text-sm ${Number(val.substepID)===data?.length && 'text-red'} text-grey label`}>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
