@@ -1,12 +1,13 @@
-import React, {useState} from "react";
-import {GrCheckbox} from "react-icons/gr";
-import {FaToggleOn} from "react-icons/fa";
+import React, {useEffect, useState} from "react";
+import {GrCheckbox, GrUserAdmin} from "react-icons/gr";
+import {FaToggleOn, FaUser, FaUserCog, FaUserSecret} from "react-icons/fa";
 import Api from "../Api/api";
 import {useStateValue} from "../states/StateProvider";
 import {toast} from "react-toastify";
 import {ClipLoader} from "react-spinners";
+import {MdSupervisorAccount} from "react-icons/md";
 
-const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created}) => {
+const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created, role, isAdmin}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loadingName, setLoadingName] = useState(false)
@@ -19,6 +20,12 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     const [{userValidated}, dispatch] = useStateValue();
     const user = JSON.parse(localStorage.user)
     const admin = user.isUserAdmin
+
+    useEffect(() => {
+        console.log(role)
+    }, [role]);
+
+
 
     function save() {
         setLoading(true)
@@ -74,27 +81,38 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
 
     return (
         <>
-            <div className={`${(deleteClicked) && 'overlay'}`}/>
-            <div
+            <tbody>
+            <tr className={`${(deleteClicked) && 'overlay'}`}/>
+            <tr
                 className={`${(!edit || !deleteClicked) && 'hideDiv'} shadow shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
-                <a href={'#'}>Wollen Sie den Benutzer ({firstName + ' ' + lastName}) wirklich löschen?</a>
-                <div className={`${deleting && 'hideDiv'} flex justify-start px-24 pt-5 text-sm text-md font-bold`}>
+                <td>Wollen Sie den Benutzer ({firstName + ' ' + lastName}) wirklich löschen?</td>
+                <td className={`${deleting && 'hideDiv'} flex justify-start px-24 pt-5 text-sm text-md font-bold`}>
                     <button onClick={() => removeUser(userID)}
                             className='bg-green mr-3 text-white px-5 hover:bg-white hover:text-green py-2 rounded-xl'>Ja
                     </button>
                     <button onClick={() => setDeleteClicked(false)}
                             className='bg-cancel hover:bg-white hover:text-cancel text-white px-5 py-2 rounded-xl'>Nein
                     </button>
-                </div>
-                <div className='mx-auto'>
+                </td>
+                <td className='mx-auto'>
                     {deleting && <ClipLoader size={10} color='#3A46A9'/>}
-                </div>
-            </div>
-
-            <tbody>
+                </td>
+            </tr>
             <tr className={`${edit && 'bg-yellowLight'} border-y border-silver border-x-0`}>
-                <td hidden={edit}
-                    className={`px-6 py-2 whitespace-nowrap text-sm text-gray-900`}>{name ? name : 'N/A'}</td>
+                <td hidden={edit} className={`px-6 py-2 whitespace-nowrap text-sm text-gray-900`}>
+                    <span className='flex justify-start'>
+                             {
+                                 role === 'Internal' ?
+                                     <GrUserAdmin size={'20px'} color={'#565c8c'}/>
+                                     : role === 'Supervisor' ?
+                                         <MdSupervisorAccount size={'20px'} color={'#3A46A9'}/>
+                                         : role === 'External' ?
+                                             <FaUser size={'20px'} color={'#565c8c'}/>
+                                             : role && <FaUserSecret size={'20px'} color={'#565c8c'}/>
+                             }
+                        <span className='ml-2'>{name ? name : 'N/A'}</span>
+                    </span>
+                </td>
                 <td hidden={!edit}>
                     <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap mt-1"
                            type='text'

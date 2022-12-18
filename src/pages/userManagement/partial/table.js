@@ -31,7 +31,7 @@ const UserManagementTable = ({users, pageSize, loading, total}) => {
                             <thead className="border-y border-silver border-x-0">
                             <tr>
                                 {
-                                    !loading &&
+
                                     UserManagementHeaders.map(header => (
                                         <th key={header.id} scope="col"
                                             className="text-sm font-medium text-grey px-6 py-2"
@@ -80,6 +80,8 @@ const UserManagementTable = ({users, pageSize, loading, total}) => {
                                             index={index}
                                             name={u.fullname}
                                             userID={u.ID}
+                                            role={u.role}
+                                            isAdmin={u.isUserAdmin}
                                             email={u.email}
                                             lastLogin={formatDate(u.dateLastLogin, true)}
                                             created={formatDate(u.dateCreate, true)}

@@ -86,16 +86,13 @@ const Navbar = () => {
                             <li className='userInfo cursor-pointer'>
                                 {/*<img src={image} alt='image'/>*/}
                                 {
-                                    user?.role === 'Internal' && user?.isUserAdmin==='1' ?
-                                        <FaUserCog size={'30px'} color={'#565c8c'}/>
+                                    user?.role === 'Internal' ?
+                                        <GrUserAdmin size={'30px'} color={'#565c8c'}/>
                                         : user?.role === 'Supervisor' ?
                                             <MdSupervisorAccount size={'35px'} color={'#3A46A9'}/>
                                             : user?.role === 'External' ?
                                                 <FaUser size={'30px'} color={'#565c8c'}/>
-                                                : user?.role === 'Internal' && user?.isUserAdmin==='0' ?
-                                                    <GrUserAdmin size={'30px'} color={'#565c8c'}/>
-                                                    : user && <FaUserSecret size={'30px'} color={'#565c8c'}/>
-
+                                                : user && <FaUserSecret size={'30px'} color={'#565c8c'}/>
                                 }
                                 <div>
                                     <p className='pl-1' onClick={() => setModal(!modal)}>{user?.fullname}</p>
