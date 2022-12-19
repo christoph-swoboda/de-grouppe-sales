@@ -180,7 +180,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                 }
                                                 key={index} className='tooltip flex'>
                                                 <label
-                                                    className={`text-sm ${Number(val.substepID)===data?.length && 'text-red'} text-grey label`}>{val.stepName}</label>
+                                                    className={` text-grey text-sm ${Number(val.substepID)===data?.length && 'text-red2'} label`}>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}

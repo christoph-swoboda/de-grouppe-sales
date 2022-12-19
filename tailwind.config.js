@@ -26,6 +26,7 @@ module.exports = {
       'lightgrey': '#f5f5f5',
       'errorBg': '#ffeeee',
       'red': '#E03C08',
+      'red2': '#3A46A9',
       'green': '#20A100',
       'bubble-gum': '#ff77e9',
       'bermuda': '#78dcca',
