@@ -98,7 +98,6 @@ const UserManagement = () => {
 
         Api().post('/getUsers', data).then(res => {
             setUsers(res.data)
-            console.log('users', res.data)
             setTotal(Number(res.data[0].totalUsers))
             setLoading(false)
         }).catch(e => {

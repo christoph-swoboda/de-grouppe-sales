@@ -21,12 +21,6 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     const user = JSON.parse(localStorage.user)
     const admin = user.isUserAdmin
 
-    useEffect(() => {
-        console.log(role)
-    }, [role]);
-
-
-
     function save() {
         setLoading(true)
         let data = new FormData()

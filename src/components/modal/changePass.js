@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 const ChangePass = () => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
-    const user=JSON.parse(localStorage.user)
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const {
         register, handleSubmit, watch, formState, formState: {errors, touchedFields},
@@ -22,11 +22,15 @@ const ChangePass = () => {
             //     toast.success('Das Passwort wurde erfolgreich geändert.')
             //     setLoading(false)
             //     setShowModal(false)
+            //        localStorage.removeItem('user')
+            //        window.location.replace('/anmeldung')
             // }
             // else {
             //     toast.error('Das eingegebene Passwort stimmt nicht mit dem gespeicherten Passwort überein.')
             // }
             toast.success('Das Passwort wurde erfolgreich geändert.')
+            // localStorage.removeItem('user')
+            // window.location.replace('/anmeldung')
         }).catch(e => {
             setLoading(false)
             toast.error('Etwas ist schief gelaufen!!')
@@ -66,7 +70,7 @@ const ChangePass = () => {
                                           className='px-8 pt-2 pb-10 bg-white rounded-lg'
                                     >
                                         <h2 className='text-2xl mb-3'>Passwort ändern</h2>
-                                        <input value={user.ID} {...register('userID')} hidden/>
+                                        <input value={user?.ID} {...register('userID')} hidden/>
                                         <section className='flex flex-col text-left text-grey text-sm'>
                                             <label className='py-2'>Gespeicherten Passwort *</label>
                                             <input placeholder='Gespeicherten Passwort'
