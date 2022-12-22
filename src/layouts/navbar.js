@@ -6,6 +6,7 @@ import {BeatLoader} from "react-spinners";
 import {GrUserAdmin} from "react-icons/gr";
 import {MdSupervisorAccount} from "react-icons/md";
 import {FaUser, FaUserAlt, FaUserCog, FaUserSecret, FaUserTie} from "react-icons/fa";
+import ChangePass from "../components/modal/changePass";
 
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -105,9 +106,10 @@ const Navbar = () => {
                 }
             </ul>
             <div className={modal ? 'modal-logout' : 'hidden'}>
-                {/*<button onClick={() => setModal(!modal)} className='text-left p-1'> Einstellungen</button>*/}
+                <ChangePass/>
                 <button onClick={logout} className='text-left p-1 hover:text-red'> {!loading ? 'Ausloggen' :
-                    <BeatLoader size={10} color={'#000000'}/>}</button>
+                    <BeatLoader size={10} color={'#000000'}/>}
+                </button>
             </div>
             <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
         </nav>

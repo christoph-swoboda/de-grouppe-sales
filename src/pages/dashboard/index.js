@@ -21,7 +21,6 @@ const Dashboard = () => {
                 setTotal(res.data.slice(0,2))
                 setDone(res.data.slice(2,4))
                 setCanceled(res.data.slice(4,6))
-                console.log('res', res.data.slice(4,6))
             })
         } catch (e) {
             window.location.replace('/anmeldung')
