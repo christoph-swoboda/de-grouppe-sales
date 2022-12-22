@@ -11,32 +11,34 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-export const options = {
-    indexAxis: 'y',
-    elements: {
-        bar: {
-            borderWidth: 1,
-            height: 3
-        },
-    },
-    maintainAspectRatio: false,
-    // responsive: true,
-    plugins: {
-        legend: {
-            position: 'bottom',
-            labels: {
-                usePointStyle: true,
-                pointStyle: 'circle'
-            }
-        },
-        title: {
-            display: false,
-            text: 'Chart.js Horizontal Bar Chart',
-        },
-    },
-};
 
-const BarChartComponent = ({project, values, loading}) => {
+const BarChartComponent = ({project, values, loading, left}) => {
+
+     const options = {
+        indexAxis: 'y',
+        elements: {
+            bar: {
+                borderWidth: 1,
+                height: 3
+            },
+        },
+        maintainAspectRatio: false,
+        // responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: 'circle'
+                }
+            },
+            title: {
+                display: false,
+                text: 'Chart.js Horizontal Bar Chart',
+            },
+        },
+    };
+
     const labels =  Object.values([values][0])
     const array = {
         labels,
@@ -46,16 +48,16 @@ const BarChartComponent = ({project, values, loading}) => {
                 fill: false,
                 label: '',
                 data: Object.values([values][0]),
-                backgroundColor: project ? '#6AD2FF' : '#FF9315',
+                backgroundColor: project && !left ? '#515fce' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430' ,
                 tension: 0.1,
-                borderColor: project ? '#6AD2FF' : '#FF9315',
+                borderColor: project && !left ? '#515fce' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430',
             },
         ],
     };
 
     return (
-        <div id="canvas-container">
-            {loading && <SkewLoader color={project?'#6AD2FF':'#FF9315'}/>}
+        <div id={`${left?'canvas-container' :'canvas-container2'}`}>
+            {loading && <SkewLoader color={project && !left ? '#515fce' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430'}/>}
             {!loading && <Bar options={options} data={array} redraw/>}
         </div>
     )

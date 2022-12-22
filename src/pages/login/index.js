@@ -8,10 +8,7 @@ import {BeatLoader} from "react-spinners";
 const Login = () => {
 
     const [loading, setLoading] = useState(false)
-    const {
-        register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
-        control
-    } = useForm({mode: "onChange"});
+    const {register, handleSubmit, formState, formState: {errors, touchedFields}} = useForm({mode: "onChange"});
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
@@ -19,7 +16,7 @@ const Login = () => {
         Api().post('/login', data).then(res => {
             if (res.status === 200) {
                 localStorage.user = JSON.stringify(res.data[0])
-                window.location.replace('/#/firmenprojekte-liste')
+                window.location.replace('/firmenprojekte-liste')
                 setLoading(false)
             }
         }).catch(e => {

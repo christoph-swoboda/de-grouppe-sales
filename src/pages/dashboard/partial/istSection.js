@@ -32,7 +32,7 @@ const ISTSection = ({project, data, loading, dataEmp}) => {
                 }
             </div>
             <div className='flex  text-left'>
-                <BarChartComponent loading={loading} values={values} project={project}/>
+                <BarChartComponent left loading={loading} values={values} project={project}/>
                 <BarChartComponent loading={loading} values={valuesEmp} project={project}/>
             </div>
         </div>

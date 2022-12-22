@@ -53,7 +53,7 @@ export const Graph = ({header, IST, User}) => {
             <div className='flex justify-start'>
                 <div className='bg-offWhite my-3 text-sm font-bold border border-offWhite w-fit h-10 rounded-l-3xl'>
                     <button
-                        className={`capitalize h-10 hover:bg-mainBlue hover:text-white rounded-3xl py-2 px-3 ${project ? 'bg-mainBlue text-white' : 'bg-transparent'}`}
+                        className={`capitalize h-10 hover:bg-lightBlue hover:text-white rounded-3xl py-2 px-3 ${project ? 'bg-lightBlue text-white' : 'bg-transparent'}`}
                         onClick={projectClicked}
                     >
                         IST-Analyse

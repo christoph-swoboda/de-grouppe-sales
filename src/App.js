@@ -15,7 +15,7 @@ function App() {
 
     return (
         <div className="App">
-            <HashRouter>
+            <Router>
                 <Navbar/>
                 <Routes>
                     <Route path='*' exact element={<Navigate to="/"/>}/>
@@ -29,7 +29,7 @@ function App() {
                     <Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>
                 </Routes>
                 <Footer/>
-            </HashRouter>
+            </Router>
             <ToastContainer/>
         </div>
     );

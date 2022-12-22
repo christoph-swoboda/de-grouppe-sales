@@ -3,6 +3,7 @@ $mainBlue: #3A46A9;
 $bg: #EBEAE9;
 $white: #D9D9D9;
 $text: #1c1c1c;
+$graph: #595959;
 $borderColor: rgb(22, 40, 70);
 $darkTheme: #5b3836;
 $bp-tablet: 768px;
@@ -243,6 +244,11 @@ input[type=number] {
 
 #canvas-container {
   height: 60vh;
+  width: 35vw;
+  position: relative;
+}
+#canvas-container2 {
+  height: 62.2vh;
   width: 35vw;
   position: relative;
 }
