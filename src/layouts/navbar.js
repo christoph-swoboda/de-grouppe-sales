@@ -63,9 +63,13 @@ const Navbar = () => {
                             <Link to={'/'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname === '/' && 'text-mainBlue'}  hover:text-mainBlue`}>Dashboard</li>
                             </Link>
-                            <Link to={'/neu'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'} hover:text-mainBlue`}>Neu</li>
-                            </Link>
+                            {
+                                user?.role !== 'Supervisor' &&
+                                <Link to={'/neu'} onClick={toggleNav}>
+                                    <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'} hover:text-mainBlue`}>Neu</li>
+                                </Link>
+                            }
+
                             <Link to={'/firmenprojekte-liste'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname.includes('/firmenprojekte') && 'text-mainBlue'} hover:text-mainBlue`}>Firmenprojekte</li>
                             </Link>
