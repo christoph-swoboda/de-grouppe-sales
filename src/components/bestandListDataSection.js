@@ -1,6 +1,6 @@
 import React from "react";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
-import {ScaleLoader} from "react-spinners";
+import {ClipLoader} from "react-spinners";
 import FirmenprojekteView from "../pages/bestantList/partial/firmenprojekteView";
 import Pagination from "./pagination";
 import {useStateValue} from "../states/StateProvider";
@@ -125,7 +125,7 @@ const BestandListDataSection = ({
                                 {
                                     loading &&
                                     <tr className='centerItemsAbsolute'>
-                                        <td><ScaleLoader size={110}/></td>
+                                        <td><ClipLoader size={50} color={'#b4b4b4'}/></td>
                                     </tr>
                                 }
                                 {
