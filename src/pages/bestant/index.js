@@ -177,22 +177,6 @@ const Bestant = () => {
                                         firma={param.id.replaceAll('_', ' ')}
                                     />
                                 </div>
-
-                                {/*<div*/}
-                                {/*    hidden={stepsLoading || Number(currentMilestone) < Number(lastDoneIndex) + 1 || nextStep.length === 0}*/}
-                                {/*    className='my-4 bg-white p-5 m-2 pb-10'*/}
-                                {/*>*/}
-                                {/*    <h2 className='text-2xl'>{milestoneTabs[Number(currentMilestone) + 1]?.milestoneLabel.substring(subString)}(Bevorstehende)</h2>*/}
-                                {/*    <SubSteps*/}
-                                {/*        data={nextStep}*/}
-                                {/*        loading={stepsLoading}*/}
-                                {/*        lastDoneIndex={lastDoneIndex}*/}
-                                {/*        currentSubStep={currentSubStep}*/}
-                                {/*        next*/}
-                                {/*        options={options}*/}
-                                {/*        grid={grid}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
                             </div>
                             <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 lg:w-4/12 xl:ml-0 rounded-lg min-h-full'>
                                 <Status company={param.id.replaceAll('_', ' ')} notes={notes}
