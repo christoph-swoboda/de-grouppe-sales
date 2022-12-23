@@ -3,8 +3,6 @@ N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
 U
 %src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
-X
-(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
 c
 3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
 Y
