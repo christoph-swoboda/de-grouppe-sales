@@ -21,6 +21,7 @@ const ChangePass = () => {
                 toast.success('Das Passwort wurde erfolgreich geändert.')
                 setLoading(false)
                 setShowModal(false)
+                window.alert('Bitte melden Sie sich erneut an')
                 localStorage.removeItem('user')
                 window.location.replace('/anmeldung')
             } else {
