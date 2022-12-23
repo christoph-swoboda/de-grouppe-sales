@@ -2,7 +2,7 @@ import React from "react"
 import UserManagementCard from "../../../card/userManagementCard";
 import Pagination from "../../../components/pagination";
 import {useStateValue} from "../../../states/StateProvider";
-import {HashLoader} from "react-spinners";
+import {ClipLoader, HashLoader} from "react-spinners";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {UserManagementHeaders} from "../../../dummyData/userManagementHeaders";
 import {formatDate} from "../../../helper/formatDate";
@@ -64,8 +64,8 @@ const UserManagementTable = ({users, pageSize, loading, total}) => {
                             {
                                 loading ?
                                     <thead>
-                                    <tr className='mt-24 mb-24 flex justify-center m-auto'>
-                                        <td style={{marginLeft: '40vw'}}><HashLoader/></td>
+                                    <tr className='mt-24 mb-24 absolute flex justify-center m-auto'>
+                                        <td style={{marginLeft: '45vw'}}><ClipLoader color={'#afafaf'}/></td>
                                     </tr>
                                     </thead>
                                     :
