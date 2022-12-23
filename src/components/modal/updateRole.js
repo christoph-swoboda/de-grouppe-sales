@@ -59,7 +59,7 @@ const UpdateRole = ({userID, role}) => {
                                     <form onSubmit={handleSubmit(onSubmit)}
                                           className='px-8 pt-2 pb-10 bg-white rounded-lg'
                                     >
-                                        <h2 className='text-2xl mb-3'>Passwort ändern</h2>
+                                        <h2 className='text-2xl mb-3'>Rolle ändern</h2>
                                         <input value={userID} {...register('userID')} hidden/>
                                         <section className='flex flex-col text-left text-grey text-sm'>
                                             <label className='py-2'>Rolle auswählen *</label>
@@ -68,6 +68,7 @@ const UpdateRole = ({userID, role}) => {
                                                    })}
                                                    required
                                                    style={{border: errors.role && '1px solid red'}}
+                                                    className='px-4 py-2 rounded-md bg-offWhite cursor-pointer mb-7'
                                             >
                                                 <option value='Internal'>Innendienst </option>
                                                 <option value='Supervisor'>FKB  </option>
@@ -87,7 +88,7 @@ const UpdateRole = ({userID, role}) => {
                                             type="button"
                                             onClick={() => setShowModal(false)}
                                         >
-                                            Close
+                                            Abbrechen
                                         </button>
                                     </form>
                                 </div>
