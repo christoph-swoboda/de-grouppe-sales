@@ -126,7 +126,7 @@ const ChangePass = () => {
                                             type="button"
                                             onClick={() => setShowModal(false)}
                                         >
-                                            Close
+                                            Abbrechen
                                         </button>
                                     </form>
                                 </div>
