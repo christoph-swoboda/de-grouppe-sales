@@ -48,16 +48,16 @@ const BarChartComponent = ({project, values, loading, left}) => {
                 fill: false,
                 label: '',
                 data: Object.values([values][0]),
-                backgroundColor: project && !left ? '#515fce' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430' ,
+                backgroundColor: project && !left ? '#7480e1' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430' ,
                 tension: 0.1,
-                borderColor: project && !left ? '#515fce' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430',
+                borderColor: project && !left ? '#7480e1' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430',
             },
         ],
     };
 
     return (
         <div id={`${left?'canvas-container' :'canvas-container2'}`}>
-            {loading && <SkewLoader color={project && !left ? '#515fce' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430'}/>}
+            {loading && <SkewLoader color={project && !left ? '#7480e1' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430'}/>}
             {!loading && <Bar options={options} data={array} redraw/>}
         </div>
     )
