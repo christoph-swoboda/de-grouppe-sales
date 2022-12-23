@@ -6,6 +6,7 @@ import {useStateValue} from "../states/StateProvider";
 import {toast} from "react-toastify";
 import {ClipLoader} from "react-spinners";
 import {MdSupervisorAccount} from "react-icons/md";
+import UpdateRole from "../components/modal/updateRole";
 
 const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created, role, isAdmin}) => {
     const [edit, setEdit] = useState(false)
@@ -66,7 +67,6 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
         data.append('userID', Number(id))
         setLoadingName(true)
         Api().post('/getName', data).then(res => {
-            console.log('name', res.data[0]?.firstname)
             setFirstName(res.data[0]?.firstname)
             setLastName(res.data[0]?.lastname)
             setLoadingName(false)
@@ -153,13 +153,12 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                     </button>
                 </td>
                 <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{created}</td>
-                <td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"></td>
+                {/*<td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"/>*/}
                 <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{lastLogin}</td>
                 {/*<td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"></td>*/}
-                {/*<td hidden={!edit}*/}
-                {/*    className="text-sm text-gray-900 font-light text-right whitespace-nowrap">*/}
-
-                {/*</td>*/}
+                <td hidden={!edit} className="text-sm text-gray-900 font-light text-right whitespace-nowrap">
+                    <UpdateRole userID={userID} role={role}/>
+                </td>
                 <td hidden={!edit}
                     className="text-sm text-gray-900 font-light text-right whitespace-nowrap">
                     <button onClick={() => setDeleteClicked(true)}

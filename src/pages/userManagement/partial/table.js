@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 import UserManagementCard from "../../../card/userManagementCard";
 import Pagination from "../../../components/pagination";
 import {useStateValue} from "../../../states/StateProvider";
@@ -55,11 +55,6 @@ const UserManagementTable = ({users, pageSize, loading, total}) => {
                                                             </p>
                                                         </span>
                                                     </span>
-                                            {/*<span className={`${(header.title === 'MA' || header.title === 'Daten') && 'opacity-0'}`}>*/}
-                                            {/*            <input className='w-full h-2 px-2 py-3 search mb-4' type='text'*/}
-                                            {/*                   placeholder='Suche...'*/}
-                                            {/*            />*/}
-                                            {/*</span>*/}
                                         </th>
                                     ))
                                 }
