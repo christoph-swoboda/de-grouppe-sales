@@ -17,20 +17,15 @@ const ChangePass = () => {
     const onSubmit = async (data) => {
         setLoading(true)
         Api().post('/changePass', data).then(res => {
-            console.log('res',res.data)
-            // if(res.data.success){
-            //     toast.success('Das Passwort wurde erfolgreich geändert.')
-            //     setLoading(false)
-            //     setShowModal(false)
-            //        localStorage.removeItem('user')
-            //        window.location.replace('/anmeldung')
-            // }
-            // else {
-            //     toast.error('Das eingegebene Passwort stimmt nicht mit dem gespeicherten Passwort überein.')
-            // }
-            toast.success('Das Passwort wurde erfolgreich geändert.')
-            // localStorage.removeItem('user')
-            // window.location.replace('/anmeldung')
+            if (res.data.success) {
+                toast.success('Das Passwort wurde erfolgreich geändert.')
+                setLoading(false)
+                setShowModal(false)
+                localStorage.removeItem('user')
+                window.location.replace('/anmeldung')
+            } else {
+                toast.error('Das eingegebene Passwort stimmt nicht mit dem gespeicherten Passwort überein.')
+            }
         }).catch(e => {
             setLoading(false)
             toast.error('Etwas ist schief gelaufen!!')
@@ -81,7 +76,8 @@ const ChangePass = () => {
                                                    required
                                                    style={{border: errors.old_password && '1px solid red'}}
                                             />
-                                            {errors.old_password && touchedFields && <p>{errors.old_password.message}</p>}
+                                            {errors.old_password && touchedFields &&
+                                                <p>{errors.old_password.message}</p>}
                                         </section>
 
                                         <section className='flex flex-col text-left text-grey text-sm'>
