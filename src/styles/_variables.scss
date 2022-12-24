@@ -248,9 +248,12 @@ input[type=number] {
   position: relative;
 }
 #canvas-container2 {
-  height: 62.2vh;
+  height: 60vh;
   width: 35vw;
   position: relative;
+  @media only screen and (max-width: 1440px) and (min-width: 1290px) {
+    height: 62.2vh;
+  }
 }
 
 .hideDiv {
