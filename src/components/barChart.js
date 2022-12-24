@@ -57,7 +57,7 @@ const BarChartComponent = ({project, values, loading, left}) => {
 
     return (
         <div id={`${left?'canvas-container' :'canvas-container2'}`}>
-            {loading && <SkewLoader color={project && !left ? '#7480e1' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430'}/>}
+            {loading && <SkewLoader size='10px' color={project && !left ? '#7480e1' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430'}/>}
             {!loading && <Bar options={options} data={array} redraw/>}
         </div>
     )

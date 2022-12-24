@@ -8,14 +8,6 @@ K
 :
 
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
-J
-src/components/barChart.js,6\b\6bf3702dbb7129b977af217f074af48792261860
-Y
-)src/pages/dashboard/partial/istSection.js,7\5\759eb2ff432b14d57fc4c1b399e3f8c4faf571a8
-T
-$src/pages/dashboard/partial/graph.js,7\3\7392f2a0ad32f84494ec2261ace956f01c94369a
-L
-src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 U
 %src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
 H
