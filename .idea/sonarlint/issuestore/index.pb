@@ -20,8 +20,6 @@ R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
 R
 "src/components/modal/changePass.js,b\8\b87762c22d8ba08904d3c0c7fe709d7b4573c75b
-T
-$src/pages/dashboard/partial/boxes.js,0\e\0e842c8910571ae4f4b3f5ed43831dcf66507003
 N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
 X
@@ -32,3 +30,7 @@ L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
 Y
 )src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
+N
+src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
+Q
+!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23

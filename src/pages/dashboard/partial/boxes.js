@@ -1,13 +1,14 @@
 import React from "react";
 import {ClipLoader, SkewLoader} from "react-spinners";
 
-const Boxes = ({icon, data, col}) => {
+const Boxes = ({icon, data, col, title}) => {
     return (
         <div className=' rounded-md shadow-lg px-6 py-8 bg-white'>
             <div className='flex justify-between'>
                 <div
-                    className='px-4 py-2 absolute h-20 w-20 -mt-12 float-right centerItemsRelative rounded-md bg-mainBlue shadow-lg shadow-grey'>
-                    {icon}
+                    className='px-3 absolute h-16 -mt-6 float-right centerItemsRelative rounded-md bg-mainBlue shadow-lg shadow-grey'>
+                   <p>{icon}</p> <p className='text-white text-sm ml-1'>{title}</p>
+
                 </div>
                 <p className='opacity-0'>gap</p>
                 {
@@ -17,7 +18,7 @@ const Boxes = ({icon, data, col}) => {
                         <p className='mt-2 text-sm'>{data[0]?.Label}
                             <span className='tracking-wider bg-silver text-lg px-2 py-1 ml-2 rounded-full'
                                   style={{color: col}}>
-                        {data[0]?.FP}
+                        {Number(data[0]?.FP)}
                     </span>
                         </p>
                 }
@@ -30,7 +31,7 @@ const Boxes = ({icon, data, col}) => {
                     <p className='float-right text-sm'>{data[1]?.Label}
                         <span className='tracking-wider text-lg bg-silver px-2 py-1 rounded-full ml-2'
                               style={{color: col}}>
-                    {data[1]?.FP}
+                    {Number(data[1]?.FP)}
                 </span>
                     </p>
             }

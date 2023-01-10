@@ -46,7 +46,7 @@ const BarChartComponent = ({project, values, loading, left}) => {
             {
                 id: 1,
                 fill: false,
-                label: '',
+                label: left?'Firmenprojekte': 'Mitarbeiter',
                 data: Object.values([values][0]),
                 backgroundColor: project && !left ? '#7480e1' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430' ,
                 tension: 0.1,

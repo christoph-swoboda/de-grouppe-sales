@@ -32,9 +32,9 @@ const Dashboard = () => {
             <div className='bg-white rounded-xl text-left p-8'>
                 <div
                     className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 items-center content-center mb-10'>
-                    <Boxes col={'#2f2f2f'} data={total} icon={<SiVirustotal color={'#ffffff'} size='30px'/>}/>
-                    <Boxes col={'#2f2f2f'} data={done} icon={<MdDone color={'#ffffff'} size='30px'/>}/>
-                    <Boxes col={'#2f2f2f'} data={canceled} icon={<AiOutlineClose  color={'#ffffff'} size='30px'/>}/>
+                    <Boxes col={'#2f2f2f'} data={total} icon={<SiVirustotal color={'#ffffff'} size='27px'/>} title={'Aktive Projekte'}/>
+                    <Boxes col={'#2f2f2f'} data={done} icon={<MdDone color={'#ffffff'} size='30px'/>} title={'Abgeschlossen'}/>
+                    <Boxes col={'#2f2f2f'} data={canceled} icon={<AiOutlineClose  color={'#ffffff'} size='30px'/>} title={'Abgesagt'}/>
                 </div>
                 <Graph User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>
             </div>
