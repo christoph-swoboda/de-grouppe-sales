@@ -68,8 +68,8 @@ const ChangePass = () => {
                                         <h2 className='text-2xl mb-3'>Passwort ändern</h2>
                                         <input value={user?.ID} {...register('userID')} hidden/>
                                         <section className='flex flex-col text-left text-grey text-sm'>
-                                            <label className='py-2'>Gespeicherten Passwort *</label>
-                                            <input placeholder='Gespeicherten Passwort'
+                                            <label className='py-2'>Altes Passwort *</label>
+                                            <input placeholder='Altes Passwort'
                                                    type='password'
                                                    {...register('old_password', {
                                                        required: 'Ihr Passwort ist erforderlich',
@@ -82,8 +82,8 @@ const ChangePass = () => {
                                         </section>
 
                                         <section className='flex flex-col text-left text-grey text-sm'>
-                                            <label className='py-2'>Neues passwort *</label>
-                                            <input placeholder='Neues passwort'
+                                            <label className='py-2'>Neues Passwort *</label>
+                                            <input placeholder='Neues Passwort'
                                                    type='password'
                                                    {...register('password', {
                                                        required: 'Ihr Passwort ist erforderlich',
@@ -99,8 +99,8 @@ const ChangePass = () => {
                                         </section>
 
                                         <section className='flex flex-col text-left text-grey text-sm mb-6'>
-                                            <label className='py-2'>Bestätigen neues passwort *</label>
-                                            <input placeholder='Bestätige neues passwort'
+                                            <label className='py-2'> Neues Passwort bestätigen*</label>
+                                            <input placeholder='Neues Passwort bestätigen'
                                                    type='password'
                                                    {...register("confirm_password", {
                                                        required: 'Ihr Passwort ist erforderlich',

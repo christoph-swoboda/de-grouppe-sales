@@ -18,8 +18,6 @@ E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
-R
-"src/components/modal/changePass.js,b\8\b87762c22d8ba08904d3c0c7fe709d7b4573c75b
 N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
 X
