@@ -7,7 +7,7 @@ const Boxes = ({icon, data, col, title}) => {
             <div className='flex justify-between'>
                 <div
                     className='px-3 absolute h-16 -mt-6 float-right centerItemsRelative rounded-md bg-mainBlue shadow-lg shadow-grey'>
-                   <p>{icon}</p> <p className={`text-white text-sm ${title==='Aktive Projekte' ? 'ml-3' :'ml-1'}`}>{title}</p>
+                   <p>{icon}</p> <p className={`text-white text-sm ${title==='Alle Projekte' ? 'ml-3' :'ml-1'}`}>{title}</p>
 
                 </div>
                 <p className='opacity-0'>gap</p>

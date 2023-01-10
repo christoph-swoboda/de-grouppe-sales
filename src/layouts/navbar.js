@@ -7,6 +7,7 @@ import {GrUserAdmin} from "react-icons/gr";
 import {MdSupervisorAccount} from "react-icons/md";
 import {FaUser, FaUserAlt, FaUserCog, FaUserSecret, FaUserTie} from "react-icons/fa";
 import ChangePass from "../components/modal/changePass";
+import Api from "../Api/api";
 
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -18,10 +19,17 @@ const Navbar = () => {
         setToggleMenu(!toggleMenu)
     }
     const [modal, setModal] = useState(false)
+    const [version, setVersion] = useState('')
     const modalRef = useRef()
     const location = useLocation()
     const UserInfo = localStorage.user
     let user = JSON.parse(UserInfo ? UserInfo : false)
+
+    useEffect(() => {
+        Api().get('/version').then(res=>{
+            setVersion(Object.values(res.data[0])[0])
+        })
+    }, []);
 
     useEffect(() => {
         const changeWidth = () => {
@@ -55,7 +63,7 @@ const Navbar = () => {
              hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren')}>
             <ul className="list">
                 <li className='logo'>#DG-Projektportal</li>
-                <li className='text-red mr-8'> 2.0 Beta</li>
+                <li className='text-red mr-8'> {version}</li>
                 <li className='time'/>
                 {
                     (toggleMenu || screenWidth > 1200) && (

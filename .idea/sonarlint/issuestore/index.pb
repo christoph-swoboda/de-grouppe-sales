@@ -14,8 +14,6 @@ H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 c
 3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
-E
-src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
 N
