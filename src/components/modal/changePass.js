@@ -24,9 +24,9 @@ const ChangePass = () => {
                 toast.success(res.data[0].success)
                 setLoading(false)
                 setShowModal(false)
-                // window.alert('Bitte melden Sie sich erneut an')
-                // localStorage.removeItem('user')
-                // window.location.replace('/anmeldung')
+                window.alert('Bitte melden Sie sich erneut an')
+                localStorage.removeItem('user')
+                window.location.replace('/anmeldung')
             }
         }).catch(e => {
             if(e.response.status===520){

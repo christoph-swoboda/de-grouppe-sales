@@ -20,8 +20,13 @@ const Login = () => {
                 setLoading(false)
             }
         }).catch(e => {
+            if(e.response.status===520){
+                toast.error(e.response.data)
+            }
+            else{
+                toast.error('Etwas ist schief gelaufen!!')
+            }
             setLoading(false)
-            toast.error('Etwas ist schief gelaufen!!')
         })
     };
 
