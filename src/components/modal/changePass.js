@@ -17,19 +17,25 @@ const ChangePass = () => {
     const onSubmit = async (data) => {
         setLoading(true)
         Api().post('/changePass', data).then(res => {
-            if (res.data.success) {
-                toast.success('Das Passwort wurde erfolgreich geändert.')
+            if (res.data[0].error) {
+                toast.error(res.data[0].error)
+                setLoading(false)
+            } else {
+                toast.success(res.data[0].success)
                 setLoading(false)
                 setShowModal(false)
-                window.alert('Bitte melden Sie sich erneut an')
-                localStorage.removeItem('user')
-                window.location.replace('/anmeldung')
-            } else {
-                toast.error('Das eingegebene Passwort stimmt nicht mit dem gespeicherten Passwort überein.')
+                // window.alert('Bitte melden Sie sich erneut an')
+                // localStorage.removeItem('user')
+                // window.location.replace('/anmeldung')
             }
         }).catch(e => {
+            if(e.response.status===520){
+                toast.error(e.response.data)
+            }
+            else{
+                toast.error('Etwas ist schief gelaufen!!')
+            }
             setLoading(false)
-            toast.error('Etwas ist schief gelaufen!!')
         })
     };
 
@@ -67,6 +73,7 @@ const ChangePass = () => {
                                     >
                                         <h2 className='text-2xl mb-3'>Passwort ändern</h2>
                                         <input value={user?.ID} {...register('userID')} hidden/>
+                                        <input value={user?.email} {...register('email')} hidden/>
                                         <section className='flex flex-col text-left text-grey text-sm'>
                                             <label className='py-2'>Altes Passwort *</label>
                                             <input placeholder='Altes Passwort'
