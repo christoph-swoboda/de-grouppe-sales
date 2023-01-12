@@ -62,8 +62,8 @@ const Navbar = () => {
         <nav className='shadow shadow-lg shadow-whiteDark' style={{zIndex: '1'}} ref={modalRef}
              hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren')}>
             <ul className="list">
-                <li className='logo'>#DG-Projektportal</li>
-                <li className='text-red mr-8'> {version}</li>
+                <li className='logo'>DG-Projektportal</li>
+                <li className='text-red mr-8 border border-y-0 border-l-0 pr-3 border-r-1 border-r-graph'> {version}</li>
                 <li className='time'/>
                 {
                     (toggleMenu || screenWidth > 1200) && (

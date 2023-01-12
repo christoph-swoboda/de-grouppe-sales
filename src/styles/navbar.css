@@ -29,10 +29,8 @@ nav {
 }
 
 .logo {
-    margin: 0 1rem 0 5rem;
+    margin: 0 .7rem 0 5rem;
     font-size: 1.3rem;
-    padding-right: 20px;
-    border-right: 1px solid grey;
 }
 
 .time {
