@@ -2,9 +2,10 @@ import axios from "axios";
 
 const api = process.env.REACT_APP_API_URL;
 const apiKey = process.env.REACT_APP_API_KEY;
+const location=window.location
 
 const customHeaderValue = base64encode(
-    JSON.stringify({url:location.href, key:apiKey})
+    JSON.stringify({url:location.origin, key:apiKey})
 )
 
 let BaseApi = axios.create({
