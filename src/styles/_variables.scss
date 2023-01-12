@@ -1,0 +1,303 @@
+// Body
+$mainBlue: #3A46A9;
+$bg: #EBEAE9;
+$white: #D9D9D9;
+$text: #1c1c1c;
+$graph: #595959;
+$borderColor: rgb(22, 40, 70);
+$darkTheme: #5b3836;
+$bp-tablet: 768px;
+$bp-mobile: 425px;
+$bp-md: 1020px;
+$bp-laptop: 1310px;
+$bp-mediumDesktop: 1921px;
+$bp-largeDesktop: 3841px;
+
+td {
+  text-transform: capitalize;
+  padding: 10px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid $white;
+  border-radius: 5px;
+
+  &:focus {
+    //border: 1px solid green;
+    outline: none;
+  }
+}
+
+form {
+  p {
+    color: red;
+    font-size: 12px;
+  }
+}
+
+.search {
+  @media screen and (max-width: $bp-laptop) {
+    width: 100%;
+    margin: 10px;
+  }
+  border: 1px solid $white;
+}
+
+.customContainer {
+  @media screen and (max-width: $bp-laptop) {
+    width: 100vw;
+  }
+
+  span {
+    width: 20vw;
+    @media screen and (max-width: $bp-laptop) {
+      width: 40vw;
+    }
+  }
+}
+
+.tooltip {
+  position: relative;
+  //display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  min-width: 100px;
+  max-width: 650px;
+  height: fit-content;
+  padding: 20px;
+  background-color: #FFF4C7;
+  color: black;
+  font-size: 12px;
+  border-radius: 6px;
+  position: absolute;
+  top: -25px;
+  left: -625px;
+  /* Position the tooltip text - see examples below! */
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  transition-delay: .5s;
+  visibility: visible;
+  text-align: left;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptextclose {
+  visibility: hidden;
+  max-width: 320px;
+  max-height: 80px;
+  overflow-y: scroll;
+  background-color: #f3f3f3;
+  border: 1px solid #b0b0b0;
+  color: #000000;
+  font-size: 12px;
+  text-align: left;
+  padding: 10px;
+  border-radius: 6px;
+  position: absolute;
+  left: -5px;
+  margin-top: -60px;
+  /* Position the tooltip text - see examples below! */
+  z-index: 1;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptextInstant {
+  visibility: hidden;
+  max-width: 320px;
+  color: #000000;
+  font-size: 12px;
+  text-align: left;
+  padding: 10px;
+  border-radius: 6px;
+  position: absolute;
+  left: -45px;
+  margin-top: -50px;
+  /* Position the tooltip text - see examples below! */
+  z-index: 1;
+}
+
+.tooltiptextclose::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.tooltiptextclose {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptextclose {
+  transition-delay: 3s;
+  visibility: visible;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptextInstant {
+  transition-delay: 1s;
+  visibility: visible;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+  color: #676767;
+  width: 100%;
+
+  @media screen and (max-width: $bp-laptop) {
+    width: 100%;
+  }
+  //@media screen and (max-width: $bp-mobile) {
+  //  width: 70vw;
+  //}
+  @media screen and (max-width: $bp-md) {
+    width: 100%;
+  }
+}
+
+.subStepInput, .subStepSelect {
+  color: #676767;
+  width: 100%;
+  //@media screen and (max-width: $bp-laptop) {
+  //  width: 11vw;
+  //}
+}
+
+.label {
+  min-width: 50%;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.disabled {
+  background-color: #e8e8e8;
+  opacity: .8;
+  cursor: no-drop;
+}
+
+.completed {
+  background-color: #f2fff9;
+  //cursor: none;
+}
+
+.saveMS {
+  margin-left: 94%;
+  @media screen and (max-width: 1920px) {
+    margin-left: 86%;
+  }
+  @media screen and (max-width: 1280px) {
+    margin-left: 80%;
+  }
+  @media screen and (max-width: 1440px) {
+    margin-left: 80%;
+  }
+  @media screen and (max-width: 810px) {
+    margin-left: 86%;
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: 70%;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.milestonesBesideChart {
+  min-width: 30vw;
+  padding-top: .3vh;
+  padding-bottom: .3vh;
+  //padding-bottom: .1px;
+  border-bottom: 1px solid white;
+
+  @media screen and (min-width: 1920px) {
+    padding-top: 1.1vh;
+    font-size: 1vh;
+    padding-bottom: 1.14vh;
+  }
+  @media screen and (max-width: 1920px) and (min-width: 1440px) {
+    padding-top: .59vh;
+    font-size: 1.53vh;
+    padding-bottom: .60vh;
+  }
+  @media only screen and (max-width: 1440px) and (min-width: 768px) {
+    font-size: 1.85vh;
+    padding-top: .25vh;
+    padding-bottom: .25vh;
+  }
+}
+
+#canvas-container {
+  height: 60vh;
+  width: 35vw;
+  position: relative;
+}
+#canvas-container2 {
+  height: 60vh;
+  width: 35vw;
+  position: relative;
+  @media only screen and (max-width: 1440px) and (min-width: 1290px) {
+    height: 62.2vh;
+  }
+}
+
+.hideDiv {
+  display: none;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.react-datepicker__close-icon::after {
+  cursor: pointer;
+  background-color: #5961a4;
+  color: #fff;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  padding: 2px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  content: "×";
+}
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range {
+  background-color: #3A46A9;
+}

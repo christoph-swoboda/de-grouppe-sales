@@ -1,0 +1,30 @@
+@import "../src/styles/mixin";
+@import "../src/styles/variables";
+
+.App {
+  text-align: center;
+  font-family: "Trebuchet MS";
+  color: #1c1c1c;
+  min-height: 100vh;
+  background-color: #E1E4E9 !important;
+}
+
+.container{
+  min-height: 92vh;
+  padding: 2rem;
+}
+
+.centerItemsAbsolute{
+  @include centerItemsAbsolute;
+}
+.centerItemsRelative{
+  @include flexEvenlyCentered;
+}
+hr{
+  height: 1px;
+  border: .1px solid #eaeaea;
+}
+
+textarea:focus{
+  outline: none;
+}

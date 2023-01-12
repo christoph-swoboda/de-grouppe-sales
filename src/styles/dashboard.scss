@@ -1,0 +1,13 @@
+@import "mixin";
+@import "variables";
+
+.dashboardContainer{
+  min-height: 92vh;
+  background-color: $bg;
+  padding: 5rem 1rem 1rem 1rem;
+  overflow-x: hidden;
+  @media screen and (max-width: $bp-tablet) {
+    padding: 5rem 1rem 1rem 1rem;
+    overflow-x: unset;
+  }
+}
