@@ -5,9 +5,6 @@ U
 %src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
 K
 src/pages/register/index.js,e\5\e50e8f9e7c242e53f54739a2bf9ac8140953fc88
-:
-
-src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 U
 %src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
 H
