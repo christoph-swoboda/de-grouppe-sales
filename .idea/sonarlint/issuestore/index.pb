@@ -17,8 +17,6 @@ N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
 X
 (src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
-J
-src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
 Y
