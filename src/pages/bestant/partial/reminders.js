@@ -154,12 +154,12 @@ const Reminders = ({id, userID}) => {
                                     {
                                         author[0].autor === user.fullname &&
                                         <div className='flex justify-between flex-wrap'>
-                                            <div onClick={setEditStates} className='cursor-pointer'>
+                                            <a title='bearbeiten' onClick={setEditStates} className='cursor-pointer'>
                                                 <AiOutlineEdit color={'#1c3aa1'} size={'19px'}/>
-                                            </div>
-                                            <div onClick={deleteReminder} className='cursor-pointer'>
+                                            </a>
+                                            <a title='löschen' onClick={deleteReminder} className='cursor-pointer'>
                                                 <AiOutlineDelete color={'#987474'} size={'19px'}/>
-                                            </div>
+                                            </a>
                                         </div>
                                     }
 
