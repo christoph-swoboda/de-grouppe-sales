@@ -22,7 +22,7 @@ const Bestant = () => {
     const [notes, setNotes] = useState([])
     const [subSteps, setSubSteps] = useState([])
     const [filtered, setFiltered] = useState([])
-    const [nextStep, setNextStep] = useState([])
+    const [companyName, setCompanyName] = useState('')
     const [grid, setGrid] = useState([])
     const [milestoneTabs, setMilestoneTabs] = useState([])
     const [lastIndex, setLastIndex] = useState(null)
@@ -46,9 +46,10 @@ const Bestant = () => {
     }, [milestoneTabs]);
 
     useEffect(() => {
-        Api().get(`/milestones/${param.id.replaceAll('_', ' ')}`).then(res => {
+        Api().get(`/milestones/${param.id}`).then(res => {
             setMilestoneTabs(res.data.tabs)
             setLastDoneIndex(res.data.done)
+            setCompanyName(res.data.companyName)
             dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
             setLoading(false)
         }).catch(e => {
@@ -59,7 +60,7 @@ const Bestant = () => {
 
     useEffect(() => {
         setStepsLoading(true)
-        Api().get(`/customerDetails/${param.id.replaceAll('_', ' ')}`).then(res => {
+        Api().get(`/customerDetails/${param.id}`).then(res => {
             setInfo(res.data[0])
         }).catch(e => {
             toast.error('Firmendetails konnten nicht geladen werden!')
@@ -69,7 +70,7 @@ const Bestant = () => {
     useEffect(() => {
         setStepsLoading(true)
         if (lastDoneIndex >= 0 && currentMilestone) {
-            Api().get(`/sub-steps/${currentMilestone}/${param.id.replaceAll('_', ' ')}`).then(res => {
+            Api().get(`/sub-steps/${currentMilestone}/${param.id}`).then(res => {
                 setSubSteps(res.data.subSteps)
                 let filter = res.data.subSteps.filter(d => d.fieldType === 'option')
                 setFiltered(filter)
@@ -102,7 +103,7 @@ const Bestant = () => {
 
     useEffect(() => {
         setLoadingNotes(true)
-        Api().get(`/getNotes/${param.id.replaceAll('_', ' ')}/${noteRows}`).then(res => {
+        Api().get(`/getNotes/${param.id}/${noteRows}`).then(res => {
             setNotes(res.data)
             setNotesCount(res.data[0]?.total)
             setLoadingNotes(false)
@@ -133,7 +134,7 @@ const Bestant = () => {
     return (
         <div className='dashboardContainer'>
             <CompanyData info={info}
-                         company={param.id.replaceAll('_', ' ')}
+                         company={companyName}
                          toggle={toggleCompanyInfoModal}
             />
 
@@ -174,13 +175,13 @@ const Bestant = () => {
                                         grid={grid}
                                         lastIndex={lastIndex}
                                         title={milestoneTabs[Number(currentMilestone) - 1]?.milestoneLabel.substring(subString)}
-                                        firma={param.id.replaceAll('_', ' ')}
+                                        firma={param.id}
                                     />
                                 </div>
                             </div>
                             <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 lg:w-4/12 xl:ml-0 rounded-lg min-h-full'>
-                                <Status company={param.id.replaceAll('_', ' ')} notes={notes}
-                                        role={role}
+                                <Status company={companyName} notes={notes}
+                                        role={role} id={param.id}
                                         loadingNotes={loadingNotes} count={notesCount}
                                 />
                             </div>
@@ -190,7 +191,7 @@ const Bestant = () => {
 
             <Modal toggle={toggleCompanyInfoModal}
                    visible={companyInfoModal}
-                   component={<CompanyInfoPopUp Info={info} company={param.id.replaceAll('_', ' ')}/>}
+                   component={<CompanyInfoPopUp Info={info} company={companyName}/>}
             />
         </div>
     )

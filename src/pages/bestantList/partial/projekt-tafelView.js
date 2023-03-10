@@ -5,6 +5,7 @@ import {formatDate} from "../../../helper/formatDate";
 
 const ProjectTafelView = ({
                               FirmaKurz,
+                              FirmaID,
                               Firmenname,
                               MA,
                               Note,
@@ -35,7 +36,8 @@ const ProjectTafelView = ({
     return (
         <tr className="border-y border-silver border-x-0 text-sm">
             <td className="w-40 text-sm text-mainBlue underline font-light px-6">
-                <Link to={`/firmenprojekte/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`} target="_blank">
+                {/*add firmaID here*/}
+                <Link to={`/firmenprojekte/${FirmaID}`} target="_blank">
                     {FirmaKurz}
                 </Link>
             </td>
