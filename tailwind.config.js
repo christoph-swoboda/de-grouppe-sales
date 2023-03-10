@@ -13,7 +13,7 @@ module.exports = {
       'yellowLight': '#FFF4C7',
       'mainBlue': '#3A46A9',
       'lightBlueDark': '#2e728f',
-      'lightBlue': '#3A46A9',
+      'lightBlue': '#4e57a6',
       'disableBlue': '#7d83b2',
       'midnight': '#121063',
       'text': '#282828',

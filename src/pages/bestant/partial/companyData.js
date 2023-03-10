@@ -4,6 +4,7 @@ import CollapseExpand from "../../../components/collapseExpandSection";
 import {useStateValue} from "../../../states/StateProvider";
 import ButtonMailto from "../../../helper/mailToButton";
 import {SkewLoader} from "react-spinners";
+import {Link} from "react-router-dom";
 
 const CompanyData = ({toggle, company, info}) => {
 
@@ -53,7 +54,13 @@ const CompanyData = ({toggle, company, info}) => {
                     <ButtonMailto label={`Email: ${email}`} mailto={`mailto:${email}`}/>
                 </div>
             </div>
-            <button onClick={toggle} className='py-2 text-mainBlue mt-2 px-5 underline text-xs'>Firmendetails</button>
+            <div className='flex justify-between'>
+                <button onClick={toggle} className='py-2 text-mainBlue mt-2 px-5 underline text-xs'>Firmendetails
+                </button>
+                <Link to={'/dokumente'}>
+                    <h2 className='py-2 text-mainBlue mt-2 px-5 underline text-xs'>Dokumente</h2>
+                </Link>
+            </div>
         </div>
     )
 }

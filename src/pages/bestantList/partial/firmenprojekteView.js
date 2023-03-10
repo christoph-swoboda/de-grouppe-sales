@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {BsChatLeftText} from "react-icons/bs";
 
-const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PStatus,Note, printing, date}) => {
+const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PStatus,Note, printing, date, FirmaID}) => {
 
     String.prototype.allReplace = function(obj) {
         let retStr = this;
@@ -15,7 +15,8 @@ const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,
     return (
         <tr className="border-y border-silver border-x-0 text-sm">
             <td className="w-40 text-sm text-mainBlue underline font-light pr-3">
-                <Link to={`/firmenprojekte/${FirmaKurz.allReplace({'/': '%2F', ' ': '_'})}`} target="_blank">
+                {/*add firmaID here*/}
+                <Link to={`/firmenprojekte/${FirmaID}`} target="_blank">
                     {FirmaKurz}
                 </Link>
             </td>

@@ -55,7 +55,7 @@ const Navbar = () => {
         localStorage.removeItem('user')
         localStorage.removeItem('admin')
         setLoading(false)
-        window.location.replace('/anmeldung')
+        window.location.reload()
     }
 
     return (

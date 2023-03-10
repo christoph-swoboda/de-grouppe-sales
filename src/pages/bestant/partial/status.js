@@ -6,8 +6,9 @@ import {useStateValue} from "../../../states/StateProvider";
 import CollapseExpand from "../../../components/collapseExpandSection";
 import {BeatLoader, ClipLoader} from "react-spinners";
 import {Link} from "react-router-dom";
+import Reminders from "./reminders";
 
-const Status = ({notes, company, loadingNotes, count, role}) => {
+const Status = ({notes, company, loadingNotes, count, role, id}) => {
     const [toggle, setToggle] = useState(false)
     const [loading, setLoading] = useState(false)
     const [note, setNote] = useState('')
@@ -46,11 +47,13 @@ const Status = ({notes, company, loadingNotes, count, role}) => {
 
     return (
         <>
+            <Reminders id={id} userID={userID}/>
             <div className='flex justify-between bg-white mt-5'>
                 <div className='text-left sm:mt-5 lg:mt-0'>
-                    <button className='px-3 py-2 mx-2 mb-2 hover:shadow hover:shadow-md hover:shadow-mainBlue rounded-3xl bg-mainBlue text-white text-sm'
-                            onClick={() => setToggle(!toggle)}
-                            hidden={role === 'Supervisor'}
+                    <button
+                        className='px-3 py-2 mx-2 mb-2 hover:bg-lightBlue rounded-3xl bg-mainBlue text-white text-sm'
+                        onClick={() => setToggle(!toggle)}
+                        hidden={role === 'Supervisor'}
                     >
                         {!toggle ? 'Neue Bemerkung' : 'Abbrechen'}
                     </button>
@@ -70,7 +73,9 @@ const Status = ({notes, company, loadingNotes, count, role}) => {
                 </div>
 
                 {/*<div onClick={()=>dispatch({type: "SET_NOTEROWS", item: 10})}>*/}
-                <CollapseExpand show={collapse2} id={2}/>
+                {
+                    count>8 && <CollapseExpand show={collapse2} id={2}/>
+                }
                 {/*</div>*/}
             </div>
             <div>

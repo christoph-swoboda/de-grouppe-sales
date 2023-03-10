@@ -4,6 +4,7 @@ import BestantList from "../pages/bestantList";
 import Bestant from "../pages/bestant";
 import Dashboard from "../pages/dashboard";
 import AllNotes from "../components/allNotes";
+import Documents from "../pages/documents";
 
 
 export const RouteData = [
@@ -50,7 +51,14 @@ export const RouteData = [
         redirection: '/anmeldung'
     },
     {
-        id: 4,
+        id: 5,
+        path: '/dokumente',
+        name: 'dokumente',
+        component: <Documents/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 6,
         path: 'alle-notizen/:company',
         name: 'allNotes',
         component: <AllNotes/>,

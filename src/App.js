@@ -26,7 +26,7 @@ function App() {
                         ))
                     }
                     <Route path="/anmeldung" element={!user ? <Login/> : <Navigate to="/"/>}/>
-                    <Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>
+                    {/*<Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>*/}
                 </Routes>
                 <Footer/>
             </HashRouter>

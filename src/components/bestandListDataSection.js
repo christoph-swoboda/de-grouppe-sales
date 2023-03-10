@@ -134,6 +134,7 @@ const BestandListDataSection = ({
                                             <FirmenprojekteView
                                                 key={index}
                                                 FirmaKurz={u.FirmaKurz}
+                                                FirmaID={u.FP_ID}
                                                 FBKBank={u.FBKBank}
                                                 ZustBerater={u.ZustBerater}
                                                 Bank={u.Bank}
@@ -149,6 +150,7 @@ const BestandListDataSection = ({
                                         users?.map((u, index) => (
                                             <ProjectTafelView
                                                 key={index}
+                                                FirmaID={u.FP_ID}
                                                 FirmaKurz={u.FirmaKurz}
                                                 Firmenname={u.Firmenname}
                                                 ZustandigerFKB={u.ZuständigerFKB}
