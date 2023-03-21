@@ -11,6 +11,7 @@ import Modal from "../../../hooks/modal";
 import useModal from "../../../hooks/useModal";
 import {useStateValue} from "../../../states/StateProvider";
 import { AiFillCloseCircle } from 'react-icons/ai';
+import ModalSmall from "../../../hooks/modalSmall";
 
 const Reminders = ({id, userID}) => {
 
@@ -133,14 +134,14 @@ const Reminders = ({id, userID}) => {
                         }
                     </div>
             }
-            <Modal toggle={toggleRemindersModal}
+            <ModalSmall toggle={toggleRemindersModal}
                    visible={remindersModal}
                    component={
                        <div>
                            <p style={{float:'right', cursor:'pointer'}} onClick={() => dispatch({type: "SET_REMINDERS_MODAL", item: !remindersModal})}>
                                <AiFillCloseCircle size='35px' color={'#232323'}/>
                            </p>
-                           <form onSubmit={handleSubmit(onSubmit)} className='centerItemsAbsolute grid grid-cols-2 gap-2 p-5'>
+                           <form onSubmit={handleSubmit(onSubmit)} style={{marginTop:'-4vh'}} className='centerItemsAbsolute grid grid-cols-2 gap-2'>
                                <section className='col-span-2'>
                                    <select {...register('message')}
                                            className={`w-full p-3 md:w-full cursor-pointer bg-white border border-whiteDark rounded-md subStepSelect bg-white`}
@@ -155,7 +156,7 @@ const Reminders = ({id, userID}) => {
                                        }
                                    </select>
                                </section>
-                               <section>
+                               <section className='col-span-2'>
                                    <input hidden {...register('uID')} value={userID}/>
                                    <input hidden {...register('fpID')} value={id}/>
                                    <Controller
@@ -177,7 +178,7 @@ const Reminders = ({id, userID}) => {
                                    />
                                </section>
                                <input
-                                   className={`bg-mainBlue rounded-2xl px-3 py-2 mt-2 text-white cursor-pointer text-sm ${(!watch('date')) || watch('message') === 'Wähle eine Option' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
+                                   className={`bg-mainBlue rounded-2xl col-span-2 px-3 py-2 mt-2 text-white cursor-pointer text-sm ${(!watch('date')) || watch('message') === 'Wähle eine Option' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
                                    type="submit"
                                    disabled={(!watch('date')) || watch('message') === 'Wähle eine Option'}
                                    value={`${!loading ? 'Speichern' : 'sparen...'}`}

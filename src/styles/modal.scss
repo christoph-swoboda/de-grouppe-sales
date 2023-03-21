@@ -14,11 +14,26 @@
   background-color: white;
   border-radius: 10px;
   width: 600px;
-  margin: 4vh auto;
   height: 90vh;
+  margin: 4vh auto;
   overflow-y: scroll;
   scrollbar-width: none;
   padding: 1rem;
+  @media screen and (max-width: $bp-mobile) {
+    width: 100vw;
+  }
+}
+
+.modal-content-small {
+  background-color: #fafafa;
+  border-radius: 10px;
+  width: 600px;
+  margin: 0 auto;
+  height: 60vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  padding: 1rem;
+  transform: translate(0%, 20%);
   @media screen and (max-width: $bp-mobile) {
     width: 100vw;
   }
