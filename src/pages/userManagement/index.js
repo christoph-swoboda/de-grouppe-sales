@@ -9,6 +9,9 @@ import useModal from "../../hooks/useModal";
 import AddUsers from "../../components/modal/addUsers";
 import {toast} from "react-toastify";
 import {BeatLoader} from "react-spinners";
+import {GrUserAdmin} from "react-icons/gr";
+import {MdSupervisorAccount} from "react-icons/md";
+import {FaUser} from "react-icons/fa";
 
 const UserManagement = () => {
     const [search, setSearch] = useState('')
@@ -145,6 +148,17 @@ const UserManagement = () => {
                         />
                         <input type="submit" value="Submit" hidden/>
                     </form>
+                    <div className='flex justify-between sm:mb-6 lg:ml-28 mt-2 text-grey'>
+                        <div className='flex justify-between'>
+                            <GrUserAdmin size={'20px'} color={'#565c8c'}/> <span className='ml-1 mr-6'>Innendienst</span>
+                        </div>
+                        <div className='flex justify-between'>
+                            <MdSupervisorAccount size={'20px'} color={'#3A46A9'}/><span className='ml-1 mr-6'>FKB </span>
+                        </div>
+                        <div className='flex justify-between'>
+                            <FaUser size={'20px'} color={'#565c8c'}/> <span className='ml-1'>Vorstand</span>
+                        </div>
+                    </div>
                     <p className='text-sm text-grey ml-auto mt-2'>
                         {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Einträge
                     </p>
