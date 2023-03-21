@@ -2,6 +2,7 @@ export const initialState = {
     user: {},
     newCreation: {},
     companyInfoModal: false,
+    remindersModal: false,
     addUsersModal: false,
     currentMilestone: null,
     userValidated: false,
@@ -20,7 +21,7 @@ export const initialState = {
     noteSent: true,
     sortColumn: 7,
     sortMethod: 'asc',
-    filterID: {a: null, b:null, c: null, d: null, e: null, f: null},
+    filterID: {a: null, b: null, c: null, d: null, e: null, f: null},
     filter: {a: null, b: null, c: null, d: null, e: null, f: null},
 };
 const reducer = (state, action) => {
@@ -34,6 +35,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 companyInfoModal: action.item
+            }
+        case "SET_REMINDERS_MODAL":
+            return {
+                ...state,
+                remindersModal: action.item
             }
         case "SET_ADDUSERS_MODAL":
             return {
@@ -125,12 +131,12 @@ const reducer = (state, action) => {
                 ...state,
                 filterID: action.item
             }
-            case "SET_SENDMAIL":
+        case "SET_SENDMAIL":
             return {
                 ...state,
                 sendMail: action.item
             }
-            case "SET_SUBSTEPSAVED":
+        case "SET_SUBSTEPSAVED":
             return {
                 ...state,
                 subStepSaved: action.item
