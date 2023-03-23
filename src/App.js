@@ -1,6 +1,6 @@
 import './App.scss';
 import React from "react";
-import {HashRouter, Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Navbar from "./layouts/navbar";
 import Footer from "./layouts/footer";
 import Login from "./pages/login";
@@ -14,7 +14,7 @@ function App() {
 
     return (
         <div className="App">
-            <HashRouter>
+            <BrowserRouter>
                 <Navbar/>
                 <Routes>
                     <Route path='*' exact element={<Navigate to="/"/>}/>
@@ -28,7 +28,7 @@ function App() {
                     {/*<Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>*/}
                 </Routes>
                 <Footer/>
-            </HashRouter>
+            </BrowserRouter>
             <ToastContainer/>
         </div>
     );
