@@ -7,8 +7,6 @@ H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 c
 3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
-R
-"src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
 L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
 <
@@ -55,3 +53,13 @@ E
 src/styles/modal.scss,5\7\5717eb6756a2d1efc602719efb956068cbe2dc7b
 G
 src/hooks/modalSmall.js,b\e\be182c0baf9998f1e037a5a8a8d3fb25e701bab2
+V
+&src/pages/bestant/partial/reminders.js,d\8\d83fd1d010971b26eeb5b62081f1cc7b8a1eeca4
+X
+(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
+Q
+!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+<
+src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d

@@ -121,12 +121,10 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                            onChange={(e) => setFirstName(e.target.value)}
                     />
                 </td>
-                <td hidden={edit} className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
+                <td className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
                     {email}
                 </td>
-                <td hidden={!edit} className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
 
-                </td>
                 <td hidden={edit}
                     className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                     {prtnrNo}
