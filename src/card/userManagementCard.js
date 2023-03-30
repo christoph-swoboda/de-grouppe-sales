@@ -170,15 +170,14 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                         Abbrechen
                     </button>
                 </td>
-
-                <td hidden={edit || admin !== '1'}
-                    className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
-                    <button onClick={() => setEditStates(userID)}
-                            className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'
-                    >
-                        Bearbeiten
-                    </button>
-                </td>
+                    <td hidden={edit || admin !== '1' || user.role === 'Controller'}
+                        className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+                        <button onClick={() => setEditStates(userID)}
+                                className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'
+                        >
+                            Bearbeiten
+                        </button>
+                    </td>
                 <td hidden={!edit}
                     className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                     <button onClick={save}

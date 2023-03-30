@@ -134,7 +134,7 @@ const BestantList = () => {
                         </div>
                         <div className={`flex m-auto justify-center m-1`}>
                             <select disabled={loading} onChange={(e) => setViewName(e.target.value)}
-                                    className={`${user?.role !== 'Internal' && 'hideDiv'} w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm`}>
+                                    className={`${(user?.role !== 'Internal' && user?.role !== 'Controller') && 'hideDiv'} w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm`}>
                                 {
                                     views.map((v, i) => (
                                         <option key={i} disabled={i > 1} value={v.viewName}>

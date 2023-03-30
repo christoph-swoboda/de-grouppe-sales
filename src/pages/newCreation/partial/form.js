@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form"
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
-const Form = ({name, dropdown}) => {
+const Form = ({name, dropdown, role}) => {
 
     const [loading, setLoading] = useState(false)
     const [bank, setBank] = useState(dropdown[0]?.Bank)
@@ -332,12 +332,15 @@ const Form = ({name, dropdown}) => {
                 {/*third 10 section*/}
 
                 <p className='text-sm text-grey text-left font-extralight mb-6 mt-5'>* Pflichtfeld</p>
-                <input
-                    className={isValid? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' :'disabled'}
-                    disabled={!isValid}
-                    type="submit"
-                    value={(!loading) ? 'Anlegen' : 'sparen...'}
-                />
+                {
+                    role!=='Controller' &&
+                    <input
+                        className={isValid? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' :'disabled'}
+                        disabled={!isValid}
+                        type="submit"
+                        value={(!loading) ? 'Anlegen' : 'sparen...'}
+                    />
+                }
             </form>
         </div>
     )

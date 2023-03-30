@@ -82,7 +82,7 @@ const Navbar = () => {
                                 <li className={`items ${path.pathname.includes('/firmenprojekte') && 'text-mainBlue'} hover:text-mainBlue`}>Firmenprojekte</li>
                             </Link>
                             {
-                                user?.role === 'Internal' ?
+                                user?.role === 'Internal' || user?.role === 'Controller' ?
                                     <Link to={'/benutzerverwaltung'}>
                                         <li className={`items ${path.pathname.includes('/benutzerverwaltung') && ' text-mainBlue'} hover:text-mainBlue`}>
                                             Benutzerverwaltung

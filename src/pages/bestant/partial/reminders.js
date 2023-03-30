@@ -13,7 +13,7 @@ import {useStateValue} from "../../../states/StateProvider";
 import { AiFillCloseCircle } from 'react-icons/ai';
 import ModalSmall from "../../../hooks/modalSmall";
 
-const Reminders = ({id, userID}) => {
+const Reminders = ({id, userID, role}) => {
 
     const [loading, setLoading] = useState(false)
     const [loadingData, setLoadingData] = useState(false)
@@ -103,7 +103,7 @@ const Reminders = ({id, userID}) => {
                         {
                             exists === '0' ?
                                 <button
-                                    className='px-3 py-2 my-4 hover:bg-lightBlue rounded-3xl bg-mainBlue text-white text-sm'
+                                    className={`${role==='Controller' && 'hidden'} px-3 py-2 my-4 hover:bg-lightBlue rounded-3xl bg-mainBlue text-white text-sm`}
                                     onClick={toggleRemindersModal}
                                 >
                                     Neue Wiedervorlage
