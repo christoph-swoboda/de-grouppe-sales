@@ -62,7 +62,7 @@ const Navbar = () => {
         <nav className='shadow shadow-lg shadow-whiteDark' style={{zIndex: '1'}} ref={modalRef}
              hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren')}>
             <ul className="list">
-                <li className='logo'>DG-Projektportal</li>
+                <li className='logo'>Projektportal</li>
                 <li className='text-red mr-8 border border-y-0 border-l-0 pr-3 border-r-1 border-r-graph'> {version}</li>
                 <li className='time'/>
                 {
@@ -82,7 +82,7 @@ const Navbar = () => {
                                 <li className={`items ${path.pathname.includes('/firmenprojekte') && 'text-mainBlue'} hover:text-mainBlue`}>Firmenprojekte</li>
                             </Link>
                             {
-                                user?.role === 'Internal' ?
+                                user?.role === 'Internal' || user?.role === 'Controller' ?
                                     <Link to={'/benutzerverwaltung'}>
                                         <li className={`items ${path.pathname.includes('/benutzerverwaltung') && ' text-mainBlue'} hover:text-mainBlue`}>
                                             Benutzerverwaltung

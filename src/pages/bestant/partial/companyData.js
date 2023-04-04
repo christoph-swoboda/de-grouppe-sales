@@ -57,9 +57,9 @@ const CompanyData = ({toggle, company, info}) => {
             <div className='flex justify-between'>
                 <button onClick={toggle} className='py-2 text-mainBlue mt-2 px-5 underline text-xs'>Firmendetails
                 </button>
-                <Link to={'/dokumente'}>
+                {/*<Link to={'/dokumente'}>*/}
                     <h2 className='py-2 text-mainBlue mt-2 px-5 underline text-xs'>Dokumente</h2>
-                </Link>
+                {/*</Link>*/}
             </div>
         </div>
     )

@@ -122,7 +122,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                             <h2 className='text-xl mb-2 text-center font-bold'>{title}</h2>
                             <button
                                 onClick={() => ref.current.click()}
-                                className={`${role === 'Supervisor' && 'opacity-0'} hover:bg-lightBlue ml-auto  bg-mainBlue text-white cursor-pointer px-4 text-sm py-2  rounded-3xl`}
+                                className={`${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto  bg-mainBlue text-white cursor-pointer px-4 text-sm py-2  rounded-3xl`}
                                 disabled={!isValid}>
                                 {Loading ? 'Sparen...' : 'Speichern'}
                             </button>

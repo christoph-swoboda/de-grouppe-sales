@@ -1,10 +1,9 @@
 import './App.scss';
-import React, {useEffect} from "react";
-import {BrowserRouter as Router, Navigate, Route, Routes, HashRouter} from 'react-router-dom';
+import React from "react";
+import {BrowserRouter, HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Navbar from "./layouts/navbar";
 import Footer from "./layouts/footer";
 import Login from "./pages/login";
-import Register from "./pages/register";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {RouteData} from "./router/index";
@@ -15,7 +14,7 @@ function App() {
 
     return (
         <div className="App">
-            <HashRouter>
+            <BrowserRouter>
                 <Navbar/>
                 <Routes>
                     <Route path='*' exact element={<Navigate to="/"/>}/>
@@ -29,7 +28,7 @@ function App() {
                     {/*<Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>*/}
                 </Routes>
                 <Footer/>
-            </HashRouter>
+            </BrowserRouter>
             <ToastContainer/>
         </div>
     );

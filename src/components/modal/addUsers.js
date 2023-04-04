@@ -18,16 +18,20 @@ const AddUsers = () => {
     const onSubmit = async (data) => {
         setLoading(true)
         Api().post('/registerByAdmin', data).then(res => {
-            if (res.status === 200) {
+            if (res.status === 201) {
                 setLoading(false)
                 dispatch({type: "SET_ADDUSERS_MODAL", item: !addUsersModal})
                 dispatch({type: "SET_ADDUSERS_DONE", item: !addUsersDone})
-                toast.success('Benutzer erfolgreich hinzugefügt!!')
+                toast.success('Benutzer erfolgreich hinzugefügt und E-Mail gesendet')
             }
         }).catch(e => {
             setLoading(false)
-            // dispatch({type: "SET_ADDUSERS_MODAL", item: !addUsersModal})
-            toast.error('Etwas ist schief gelaufen!!')
+            console.log('err', e.response.status)
+            if (e.response.status === 503) {
+                toast.error('Benutzer existiert bereits mit dieser E-Mail.')
+            } else {
+                toast.error('Etwas ist schief gelaufen!')
+            }
         })
     };
 
@@ -176,7 +180,7 @@ const AddUsers = () => {
                     </label>
                 </section>
 
-                <label htmlFor="field-aktiv" className='mt-5' hidden={watch('role')!=='1'}>
+                <label htmlFor="field-aktiv" className='mt-5' hidden={watch('role') !== '1'}>
                     <input
                         className='mx-1'
                         {...register("admin")}

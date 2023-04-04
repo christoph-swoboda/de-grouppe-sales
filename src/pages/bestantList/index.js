@@ -132,10 +132,9 @@ const BestantList = () => {
                             <AiTwotonePrinter className='mr-1' size='25px' color={'#DB2955'}/>
                             <span className='mr-1 mb-2 text-grey text-sm'>Drucken</span>
                         </div>
-
-                        <div className={`flex m-auto justify-center m-1 ${user?.role !== 'Internal' && 'hideDiv'}`}>
+                        <div className={`flex m-auto justify-center m-1`}>
                             <select disabled={loading} onChange={(e) => setViewName(e.target.value)}
-                                    className='w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm'>
+                                    className={`${(user?.role !== 'Internal' && user?.role !== 'Controller') && 'hideDiv'} w-44 bg-transparent capitalize border border-offWhite px-3 py-1.5 rounded-lg text-sm`}>
                                 {
                                     views.map((v, i) => (
                                         <option key={i} disabled={i > 1} value={v.viewName}>

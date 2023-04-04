@@ -3,24 +3,33 @@ import {AiOutlineClose} from "react-icons/ai";
 import {useForm} from "react-hook-form";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
+import {useStateValue} from "../../states/StateProvider";
 
 const UpdateRole = ({userID, role}) => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [{userValidated}, dispatch] = useStateValue();
     const {
         register, handleSubmit, watch, setValue, formState, formState: {errors, touchedFields},
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
 
     useEffect(() => {
-        setValue('role', role)
-    }, [role,userID]);
+        setValue('role', role[0].toLowerCase())
+    }, [role, userID]);
 
     const onSubmit = async (data) => {
-        console.log('data', data)
         setLoading(true)
         Api().post('/changeRole', data).then(res => {
-            console.log('changeRole', res.data)
+            if (res.data[0].success) {
+                toast.success(res.data[0].success)
+                setShowModal(false)
+                dispatch({type: "SET_USER_VALIDATED", item: !userValidated})
+            }
+            if (res.data[0].error) {
+                toast.error(res.data[0].error)
+            }
+            setLoading(false)
         }).catch(e => {
             setLoading(false)
             toast.error('Etwas ist schief gelaufen!!')
@@ -61,18 +70,20 @@ const UpdateRole = ({userID, role}) => {
                                     >
                                         <h2 className='text-2xl mb-3'>Rolle ändern</h2>
                                         <input value={userID} {...register('userID')} hidden/>
+                                        <input value={role[0].toLowerCase()} {...register('oldRole')} hidden/>
                                         <section className='flex flex-col text-left text-grey text-sm'>
                                             <label className='py-2'>Rolle auswählen *</label>
                                             <select {...register('role', {
-                                                       required: 'Ihr Rolle ist erforderlich',
-                                                   })}
-                                                   required
-                                                   style={{border: errors.role && '1px solid red'}}
+                                                required: 'Ihr Rolle ist erforderlich',
+                                            })}
+                                                    required
+                                                    style={{border: errors.role && '1px solid red'}}
                                                     className='px-4 py-2 rounded-md bg-offWhite cursor-pointer mb-7'
                                             >
-                                                <option value='Internal'>Innendienst </option>
-                                                <option value='Supervisor'>FKB  </option>
-                                                <option value='External'>Vorstand  </option>
+                                                <option value='i'>Innendienst</option>
+                                                <option value='s'>FKB</option>
+                                                <option value='e'>Vorstand</option>
+                                                <option value='c'>Controlling</option>
                                             </select>
                                             {errors.role && touchedFields &&
                                                 <p>{errors.role.message}</p>}
