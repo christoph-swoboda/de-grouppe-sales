@@ -191,7 +191,7 @@ const Bestant = () => {
 
             <Modal toggle={toggleCompanyInfoModal}
                    visible={companyInfoModal}
-                   component={<CompanyInfoPopUp Info={info} company={companyName}/>}
+                   component={<CompanyInfoPopUp Info={info} company={param.id}/>}
             />
         </div>
     )
