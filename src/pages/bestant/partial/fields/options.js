@@ -14,7 +14,7 @@ const Options = ({val, role, currentMilestone, lastDoneIndex, grid, getValues, o
                     {/*{getValues(val.stepName)===null?'Wähle eine Option':'Nothing Selected'}*/}
                     Wähle eine Option
                 </option>
-                <option value='' hidden={getValues(val.stepName)==='Ja' || getValues(val.stepName)==='Nein'}>
+                <option value=''>
                     zurücksetzen
                 </option>
                 {

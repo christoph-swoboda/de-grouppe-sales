@@ -29,7 +29,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const role = user.role
     useEffect(() => {
 
-       console.log('len', data.length)
+        console.log('len', data.length)
     }, [data]);
 
 
@@ -56,7 +56,11 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                 if ((grid[Number(d.substepID) - 1]?.fieldValue).length > 1) {
                                     await setValue(`${d.stepName}`, grid[Number(d.substepID) - 1]?.fieldValue)
                                 } else {
-                                    await setValue(`${d.stepName}`, filteredOption[grid[Number(d.substepID) - 1]?.fieldValue]?.optionValue)
+                                    if (grid[Number(d.substepID) - 1]?.fieldValue === '0') {
+                                        await setValue(`${d.stepName}`, 'Nein')
+                                    } else {
+                                        await setValue(`${d.stepName}`, 'Ja')
+                                    }
                                 }
                             }
                         } else {
@@ -180,7 +184,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                 }
                                                 key={index} className='tooltip flex'>
                                                 <label
-                                                    className={` text-grey text-sm ${Number(val.substepID)===data?.length && 'text-red2'} label`}>{val.stepName}</label>
+                                                    className={` text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
