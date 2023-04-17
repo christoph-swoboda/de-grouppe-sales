@@ -15,8 +15,6 @@ C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 L
 src/pages/documents/index.js,1\f\1f0a693506d88278f4a7f5f0a3dd234a6d083b40
-[
-+src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
 b
@@ -63,18 +61,3 @@ J
 src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
->
-src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
-X
-(src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
-S
-#src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
-V
-&src/pages/bestant/partial/reminders.js,d\8\d83fd1d010971b26eeb5b62081f1cc7b8a1eeca4
-U
-%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
-N
-src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
-:
-
-src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
