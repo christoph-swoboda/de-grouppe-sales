@@ -27,10 +27,10 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const {isValid} = formState;
     const user = JSON.parse(localStorage.user)
     const role = user.role
-    useEffect(() => {
-
-        console.log('len', data.length)
-    }, [data]);
+    // useEffect(() => {
+    //
+    //     console.log('len', data.length)
+    // }, [data]);
 
 
     useEffect(() => {
@@ -58,7 +58,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                 } else {
                                     if (grid[Number(d.substepID) - 1]?.fieldValue === '0') {
                                         await setValue(`${d.stepName}`, 'Nein')
-                                    } else {
+                                    } else if (grid[Number(d.substepID) - 1]?.fieldValue === '1') {
                                         await setValue(`${d.stepName}`, 'Ja')
                                     }
                                 }
