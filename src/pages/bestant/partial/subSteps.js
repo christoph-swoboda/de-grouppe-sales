@@ -61,6 +61,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                     } else if (grid[Number(d.substepID) - 1]?.fieldValue === '1') {
                                         await setValue(`${d.stepName}`, 'Ja')
                                     }
+                                    else{
+                                        await setValue(`${d.stepName}`, null)
+                                    }
                                 }
                             }
                         } else {

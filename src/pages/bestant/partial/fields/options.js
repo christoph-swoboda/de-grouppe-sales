@@ -17,11 +17,11 @@ const Options = ({val, role, currentMilestone, lastDoneIndex, grid, getValues, o
                     className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect
                     ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
             >
-                <option hidden={value} selected={!value} value={null}>
+                <option hidden={value || value!=='zurücksetzen'} selected={!value || value==='zurücksetzen'} value=''>
                     {/*{getValues(val.stepName)===null?'Wähle eine Option':'Nothing Selected'}*/}
                     Bitte wählen Sie eine Option
                 </option>
-                <option value={null}>
+                <option value=''>
                     zurücksetzen
                 </option>
                 {
