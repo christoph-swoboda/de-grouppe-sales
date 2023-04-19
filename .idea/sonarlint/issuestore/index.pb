@@ -47,8 +47,6 @@ E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
-H
-src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
 O
 src/components/bestantStatus.js,5\c\5ca8ca76a5fdebd573b7bbb085fd2e7c3c5f505d
 Q
