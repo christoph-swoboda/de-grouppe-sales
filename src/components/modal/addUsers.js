@@ -178,6 +178,15 @@ const AddUsers = () => {
                         />
                         <span className='mr-1'> Vorstand </span>
                     </label>
+                    <label htmlFor="field-role">
+                        <input
+                            {...register("role")}
+                            type="radio"
+                            value="4"
+                            id="field-role"
+                        />
+                        <span className='mr-1'> Controlling </span>
+                    </label>
                 </section>
 
                 <label htmlFor="field-aktiv" className='mt-5' hidden={watch('role') !== '1'}>

@@ -23,8 +23,6 @@ I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
 B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
-P
- src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
 c
@@ -59,3 +57,8 @@ U
 %src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
 N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
+:
+
+src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
+J
+src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
