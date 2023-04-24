@@ -176,7 +176,7 @@ const AddUsers = () => {
                             value="3"
                             id="field-role"
                         />
-                        <span className='mr-1'> Vorstand </span>
+                        <span className='mr-8'> Vorstand </span>
                     </label>
                     <label htmlFor="field-role">
                         <input
