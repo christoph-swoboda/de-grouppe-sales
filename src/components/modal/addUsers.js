@@ -28,7 +28,7 @@ const AddUsers = () => {
             setLoading(false)
             console.log('err', e.response.status)
             if (e.response.status === 503) {
-                toast.error('Benutzer existiert bereits mit dieser E-Mail.')
+                toast.error('Die Email-Adresse alexis2@gmail.com existiert bereits in der Datenbank und kann nicht erneut verwendet werden.')
             } else {
                 toast.error('Etwas ist schief gelaufen!')
             }
@@ -176,7 +176,16 @@ const AddUsers = () => {
                             value="3"
                             id="field-role"
                         />
-                        <span className='mr-1'> Vorstand </span>
+                        <span className='mr-8'> Vorstand </span>
+                    </label>
+                    <label htmlFor="field-role">
+                        <input
+                            {...register("role")}
+                            type="radio"
+                            value="4"
+                            id="field-role"
+                        />
+                        <span className='mr-1'> Controlling </span>
                     </label>
                 </section>
 

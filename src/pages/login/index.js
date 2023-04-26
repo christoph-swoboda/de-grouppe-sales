@@ -78,10 +78,10 @@ const Login = () => {
                                 />
                         }
                     </section>
-                    <br/>
-                    <Link className='text-sm' to={'/registrieren'}>Sie haben kein Konto?
-                        <span className='ml-1 underline text-mainBlue'> Hier registrieren</span>
-                    </Link>
+                    {/*<br/>*/}
+                    {/*<Link className='text-sm' to={'/registrieren'}>Sie haben kein Konto?*/}
+                    {/*    <span className='ml-1 underline text-mainBlue'> Hier registrieren</span>*/}
+                    {/*</Link>*/}
                 </form>
             </div>
     )
