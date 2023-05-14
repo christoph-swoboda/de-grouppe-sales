@@ -79,7 +79,7 @@ const Login = () => {
                         }
                     </section>
                     <br/>
-                    <Link className='text-sm' to={'/reset-password'}>Haben Sie Ihr Passwort vergessen?
+                    <Link className='text-sm' to={'/reset-password'}>Haben Sie Ihr?
                         <span className='ml-1 underline text-mainBlue'> Passwort vergessen</span>
                     </Link>
                 </form>
