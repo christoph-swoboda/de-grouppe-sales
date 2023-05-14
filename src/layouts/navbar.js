@@ -60,7 +60,7 @@ const Navbar = () => {
 
     return (
         <nav className='shadow shadow-lg shadow-whiteDark' style={{zIndex: '1'}} ref={modalRef}
-             hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren')}>
+             hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren')|| location.pathname.includes('reset-password')}>
             <ul className="list">
                 <li className='logo'>Projektportal</li>
                 <li className='text-red mr-8 border border-y-0 border-l-0 pr-3 border-r-1 border-r-graph'> {version}</li>

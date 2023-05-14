@@ -5,18 +5,19 @@ import Bestant from "../pages/bestant";
 import Dashboard from "../pages/dashboard";
 import AllNotes from "../components/allNotes";
 import Documents from "../pages/documents";
+import ResetPassword from "../pages/resetPassword";
 
 
 export const RouteData = [
     {
-        id: 5,
+        id: 0,
         path: '/',
         name: 'dashboard',
         component: <Dashboard/>,
         redirection: '/anmeldung'
     },
     {
-        id: 0,
+        id: 1,
         path: '/neu',
         name: 'new',
         component: <NewCreation/>,
@@ -30,39 +31,46 @@ export const RouteData = [
         redirection: '/anmeldung'
     },
     {
-        id: 1,
+        id: 3,
         path: "/bank-Kooperationspartner",
         name: 'Bank-Kooperationspartner',
         component: <UserManagement/>,
         redirection: '/anmeldung'
     },
     {
-        id: 3,
+        id: 4,
         path: '/firmenprojekte-liste',
         name: 'bestand-list',
         component: <BestantList/>,
         redirection: '/anmeldung'
     },
     {
-        id: 4,
+        id: 5,
         path: 'firmenprojekte/:id',
         name: 'bestand',
         component: <Bestant/>,
         redirection: '/anmeldung'
     },
     {
-        id: 5,
+        id: 6,
         path: '/dokumente',
         name: 'dokumente',
         component: <Documents/>,
         redirection: '/anmeldung'
     },
     {
-        id: 6,
+        id: 7,
         path: 'alle-notizen/:company',
         name: 'allNotes',
         component: <AllNotes/>,
         redirection: '/anmeldung'
     },
+    // {
+    //     id: 8,
+    //     path: 'reset-password/{id}',
+    //     name: 'allNotes',
+    //     component: <ResetPassword/>,
+    //     redirection: '/anmeldung'
+    // },
 
 ]
