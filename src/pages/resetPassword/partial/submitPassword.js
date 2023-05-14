@@ -36,7 +36,7 @@ const SubmitPassword = () => {
             <form onSubmit={handleSubmit(onSubmit)}
                   className='mb-10 p-10 w-full md:w-6/12 lg:w-4/12 centerItemsAbsolute bg-white border border-whiteDark rounded-lg'
             >
-                <h2 className='text-2xl mb-3'>#DG-Projektportal</h2>
+                <h2 className='text-2xl mb-3'> DG Projektportal</h2>
                 <h2 className='text-xl '>Neues Passwort speichern</h2>
 
                 <input type={'hidden'}  {...register('token')} value={atob(token)}/>
