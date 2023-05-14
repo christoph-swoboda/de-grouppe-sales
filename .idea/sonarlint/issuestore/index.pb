@@ -70,8 +70,6 @@ N
 N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
 E
-src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
-E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
