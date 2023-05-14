@@ -34,7 +34,7 @@ const Login = () => {
             <div className='rounded-lg bg-white'>
                 <form onSubmit={handleSubmit(onSubmit)}
                       className='mb-10 p-10 w-full md:w-6/12 lg:w-4/12 centerItemsAbsolute bg-white border border-whiteDark rounded-lg'>
-                    <h2 className='text-2xl mb-3'> DG Projektportal</h2>
+                    <h2 className='text-2xl mb-3'> DG ProjektPortal</h2>
                     <h2 className='text-xl '>Anmeldung</h2>
                     <section className='flex flex-col text-left text-grey text-sm'>
                         <label className='py-2'>E-mail *</label>
@@ -79,8 +79,8 @@ const Login = () => {
                         }
                     </section>
                     <br/>
-                    <Link className='text-sm' to={'/reset-password'}>Haben Sie Ihr?
-                        <span className='ml-1 underline text-mainBlue'> Passwort vergessen</span>
+                    <Link className='text-sm' to={'/reset-password'}>Haben Sie Ihr
+                        <span className='ml-1 underline text-mainBlue'> Passwort vergessen ?</span>
                     </Link>
                 </form>
             </div>
