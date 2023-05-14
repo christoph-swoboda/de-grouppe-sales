@@ -27,8 +27,8 @@ function App() {
                         ))
                     }
                     <Route path="/anmeldung" element={!user ? <Login/> : <Navigate to="/"/>}/>
-                    <Route path="/reset-password" element={<ResetPassword/>}/>
-                    <Route path="/reset-password/:email/:token" element={<SubmitPassword/>}/>
+                    <Route path="/reset-password" element={!user ?<ResetPassword/>:<Navigate to="/"/>}/>
+                    <Route path="/reset-password/:email/:token" element={!user ?<SubmitPassword/>:<Navigate to="/"/>}/>
                     {/*<Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>*/}
                 </Routes>
                 <Footer/>
