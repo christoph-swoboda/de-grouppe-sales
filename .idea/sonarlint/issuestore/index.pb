@@ -1,6 +1,4 @@
 
-K
-src/pages/register/index.js,e\5\e50e8f9e7c242e53f54739a2bf9ac8140953fc88
 H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 c
@@ -11,8 +9,6 @@ L
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 E
 src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
-C
-src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 L
 src/pages/documents/index.js,1\f\1f0a693506d88278f4a7f5f0a3dd234a6d083b40
 W
@@ -43,8 +39,6 @@ X
 src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
 R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
-E
-src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 O
@@ -53,12 +47,29 @@ Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
 U
 %src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
-N
-src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
-:
-
-src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 J
 src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
+S
+#src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
+V
+&src/pages/bestant/partial/reminders.js,d\8\d83fd1d010971b26eeb5b62081f1cc7b8a1eeca4
+U
+%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
+[
++src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
+X
+(src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
+P
+ src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
+N
+src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
+\
+,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
+N
+src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
+E
+src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
+C
+src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c

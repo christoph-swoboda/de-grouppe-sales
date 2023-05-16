@@ -7,6 +7,8 @@ import Login from "./pages/login";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {RouteData} from "./router/index";
+import ResetPassword from "./pages/resetPassword";
+import SubmitPassword from "./pages/resetPassword/partial/submitPassword";
 
 function App() {
 
@@ -25,6 +27,8 @@ function App() {
                         ))
                     }
                     <Route path="/anmeldung" element={!user ? <Login/> : <Navigate to="/"/>}/>
+                    <Route path="/reset-password" element={!user ?<ResetPassword/>:<Navigate to="/"/>}/>
+                    <Route path="/reset-password/:email/:token" element={!user ?<SubmitPassword/>:<Navigate to="/"/>}/>
                     {/*<Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>*/}
                 </Routes>
                 <Footer/>
