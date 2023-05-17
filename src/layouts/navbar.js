@@ -95,15 +95,15 @@ const Navbar = () => {
                                         </li>
                                     </Link>
                             }
-                            {/*{*/}
-                            {/*    user?.role === 'Internal' || user?.role === 'Controller' ?*/}
-                            {/*        <Link to={'/info-crawler'}>*/}
-                            {/*            <li className={`items ${path.pathname.includes('/info-crawler') && ' text-mainBlue'} hover:text-mainBlue`}>*/}
-                            {/*                InfoCrawler*/}
-                            {/*            </li>*/}
-                            {/*        </Link>*/}
-                            {/*        :''*/}
-                            {/*}*/}
+                            {
+                                user?.role === 'Internal' || user?.role === 'Controller' ?
+                                    <Link to={'/info-crawler'}>
+                                        <li className={`items ${path.pathname.includes('/info-crawler') && ' text-mainBlue'} hover:text-mainBlue`}>
+                                            InfoCrawler
+                                        </li>
+                                    </Link>
+                                    :''
+                            }
                             <li className='userInfo cursor-pointer'>
                                 {/*<img src={image} alt='image'/>*/}
                                 {
