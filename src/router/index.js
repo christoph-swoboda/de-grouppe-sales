@@ -6,6 +6,7 @@ import Dashboard from "../pages/dashboard";
 import AllNotes from "../components/allNotes";
 import Documents from "../pages/documents";
 import ResetPassword from "../pages/resetPassword";
+import InfoCrawler from "../pages/infoCrawler";
 
 
 export const RouteData = [
@@ -65,12 +66,12 @@ export const RouteData = [
         component: <AllNotes/>,
         redirection: '/anmeldung'
     },
-    // {
-    //     id: 8,
-    //     path: 'reset-password/{id}',
-    //     name: 'allNotes',
-    //     component: <ResetPassword/>,
-    //     redirection: '/anmeldung'
-    // },
+    {
+        id: 8,
+        path: 'info-crawler',
+        name: 'infoCrawler',
+        component: <InfoCrawler/>,
+        redirection: '/anmeldung'
+    },
 
 ]

@@ -69,7 +69,3 @@ N
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
 N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
-E
-src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
-C
-src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
