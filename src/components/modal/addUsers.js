@@ -26,9 +26,8 @@ const AddUsers = () => {
             }
         }).catch(e => {
             setLoading(false)
-            console.log('err', e.response.status)
             if (e.response.status === 503) {
-                toast.error('Die Email-Adresse alexis2@gmail.com existiert bereits in der Datenbank und kann nicht erneut verwendet werden.')
+                toast.error(e.response.data)
             } else {
                 toast.error('Etwas ist schief gelaufen!')
             }

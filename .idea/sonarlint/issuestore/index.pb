@@ -17,8 +17,6 @@ b
 2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
-B
-tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
 c
@@ -43,12 +41,8 @@ N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 O
 src/components/bestantStatus.js,5\c\5ca8ca76a5fdebd573b7bbb085fd2e7c3c5f505d
-Q
-!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
 U
 %src/pages/newCreation/partial/form.js,a\6\a65dad2f54ebe808a5ed5bd2b35d3993767e9829
-J
-src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
 S
@@ -61,8 +55,6 @@ U
 +src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
 X
 (src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
-P
- src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
 \
