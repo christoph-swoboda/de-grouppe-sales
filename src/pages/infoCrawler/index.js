@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Api from "../../Api/api";
 import {ClipLoader, SkewLoader} from "react-spinners";
-import {useLocation} from "react-router-dom";
 import {useForm} from "react-hook-form";
-import {toast} from "react-toastify";
 
 const InfoCrawler = () => {
 
@@ -12,6 +10,7 @@ const InfoCrawler = () => {
     const [subSteps, setSubSteps] = useState([])
     const [loading, setLoading] = useState(true)
     const [loadingGrid, setLoadingGrid] = useState(false)
+    const [loadingSave, setLoadingSave] = useState(false)
     const [milestoneSelected, seMilestoneSelected] = useState()
     const UserInfo = localStorage.user
     let user = JSON.parse(UserInfo ? UserInfo : false)
@@ -65,7 +64,9 @@ const InfoCrawler = () => {
     }
 
     const onSubmit = async (data) => {
+        setLoadingSave(true)
         console.log(data)
+        setLoadingSave(false)
     };
 
     return (
@@ -123,7 +124,6 @@ const InfoCrawler = () => {
                                                 className='w-10 py-2 bg-white border border-offWhite rounded-sm text-mainBlue'
                                                 placeholder='5'
                                                 {...register('remind1days')}
-                                                required
                                                 style={{border: errors.remind1days && '1px solid red'}}
                                             />
                                             </span>
@@ -203,7 +203,6 @@ const InfoCrawler = () => {
                                                     className='w-10 py-2 bg-white border border-offWhite rounded-sm text-mainBlue'
                                                     placeholder='5'
                                                     {...register('remind2days')}
-                                                    required
                                                     style={{border: errors.remind2days && '1px solid red'}}
                                                 />
                                             </span>
@@ -283,7 +282,6 @@ const InfoCrawler = () => {
                                                     className='w-10 py-2 bg-white border border-offWhite rounded-sm text-mainBlue'
                                                     placeholder='5'
                                                     {...register('remind3days')}
-                                                    required
                                                     style={{border: errors.remind3ays && '1px solid red'}}
                                                 />
                                             </span>
@@ -356,10 +354,10 @@ const InfoCrawler = () => {
                                             />
                                         </div>
                                         <input
-                                            className={`float-right mt-24 text-white text-center ${!isValid ? 'bg-grey cursor-no-drop' : 'bg-mainBlue cursor-pointer'}  px-6 py-2 rounded-md`}
+                                            className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${!isValid ? 'bg-grey cursor-no-drop' : 'bg-mainBlue cursor-pointer'}  px-6 py-2 rounded-md`}
                                             type="submit"
                                             disabled={!isValid}
-                                            value='speichern'
+                                            value={`${loadingSave?'Sparen...':'Speichern'}`}
                                         />
                                     </form>
                                     <div className='md:w-3/5 my-8 mb-28'>
