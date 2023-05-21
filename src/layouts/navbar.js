@@ -12,6 +12,7 @@ import Api from "../Api/api";
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [isICAdmin, setIsICAdmin] = useState()
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path = useLocation()
@@ -28,6 +29,9 @@ const Navbar = () => {
     useEffect(() => {
         Api().get('/version').then(res=>{
             setVersion(Object.values(res.data[0])[0])
+        })
+        Api().get(`/icAdminCheck/${user.ID}`).then(res=>{
+            setIsICAdmin(res.data)
         })
     }, []);
 
@@ -96,8 +100,11 @@ const Navbar = () => {
                                     </Link>
                             }
                             {
-                                user?.role === 'Internal' || user?.role === 'Controller' ?
-                                    <Link to={'/info-crawler'}>
+                                isICAdmin===1 ?
+                                    <Link to={{
+                                        pathname: '/info-crawler',
+                                        state: { data: isICAdmin }
+                                    }}>
                                         <li className={`items ${path.pathname.includes('/info-crawler') && ' text-mainBlue'} hover:text-mainBlue`}>
                                             InfoCrawler
                                         </li>
