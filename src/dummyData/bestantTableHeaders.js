@@ -5,7 +5,7 @@ export const BestantTableHeaders=[
     },
     {
         id:2,
-        title:'Zust. Berater'
+        title:'Zust. FKB'
     },
     {
         id:3,
