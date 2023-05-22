@@ -23,8 +23,6 @@ c
 3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
 E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
-A
-public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
 E
 src/styles/modal.scss,5\7\5717eb6756a2d1efc602719efb956068cbe2dc7b
 G
@@ -49,8 +47,6 @@ S
 #src/pages/bestant/partial/status.js,5\f\5fe4fe2aeabf93625028d021af1fae93f35193fe
 V
 &src/pages/bestant/partial/reminders.js,d\8\d83fd1d010971b26eeb5b62081f1cc7b8a1eeca4
-U
-%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
 [
 +src/pages/bestant/partial/fields/options.js,d\5\d539ac5a0de6c387219de6480124150ba30c0a53
 X
@@ -61,3 +57,26 @@ N
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
 N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
+J
+src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
+Q
+!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
+:
+
+src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
+C
+src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
+L
+src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
+U
+%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
+K
+src/pages/register/index.js,e\5\e50e8f9e7c242e53f54739a2bf9ac8140953fc88
+P
+ src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
+E
+src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
+B
+tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
+H
+src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
