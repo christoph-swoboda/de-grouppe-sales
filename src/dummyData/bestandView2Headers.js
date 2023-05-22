@@ -8,19 +8,19 @@ export const BestandView2Headers = [
         title: 'Firma'
     },
     {
-        id: 6,
+        id: 3,
         title: 'MA'
     },
     {
-        id: 3,
-        title: 'Zust. FBK'
-    },
-    {
         id: 4,
-        title: 'BD'
+        title: 'Zust. FKB'
     },
     {
         id: 5,
+        title: 'BD'
+    },
+    {
+        id: 6,
         title: 'FD'
     },
     {

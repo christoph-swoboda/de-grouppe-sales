@@ -63,3 +63,10 @@ J
 src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
+:
+
+src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
+C
+src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
+L
+src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
