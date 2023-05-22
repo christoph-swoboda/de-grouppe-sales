@@ -75,8 +75,6 @@ K
 P
  src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 E
-src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
-E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
