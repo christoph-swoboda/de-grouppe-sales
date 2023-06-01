@@ -68,7 +68,7 @@ const InfoCrawler = () => {
     }
 
     const triggerSubStepSelected = (e) => {
-       setTriggerSubStepSelected(e.target.value)
+        setTriggerSubStepSelected(e.target.value)
     }
 
     const getGrid = (milestone, subStep, isLoading) => {
@@ -87,13 +87,19 @@ const InfoCrawler = () => {
 
     const onSubmit = async (data) => {
         setLoadingSave(true)
-        const modifiedData = { ...data, milestoneID: milestoneSelected, subStepID: SubStepSelected, trMilestoneID: TriggerMilestoneSelected, trSubStepID: TriggerSubStepSelected,};
-        Api().post('/sp_putIC', modifiedData).then(res=>{
-            if(res.status===201){
+        const modifiedData = {
+            ...data,
+            milestoneID: milestoneSelected,
+            subStepID: SubStepSelected,
+            trMilestoneID: TriggerMilestoneSelected,
+            trSubStepID: TriggerSubStepSelected,
+        };
+        Api().post('/sp_putIC', modifiedData).then(res => {
+            if (res.status === 201) {
                 toast.success('Erfolgreich gespeichert')
             }
             setLoadingSave(false)
-        }).catch(e=>{
+        }).catch(e => {
             setLoadingSave(false)
             toast.error('Etwas ist schief gelaufen!')
         })
@@ -109,7 +115,7 @@ const InfoCrawler = () => {
                     <div className='bg-white rounded-xl text-left px-14 py-8'>
                         <div className='lg:w-fit'>
                             <div className='lg:flex justify-start flex-wrap items-center my-2'>
-                                <p className='w-fit'>Einstellungen Fur: </p>
+                                <p className='w-fit'>Einstellungen für: </p>
                                 <select onChange={milestoneChanged}
                                         className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
                                     <option hidden={milestones.length > 0} value={null}>Wählen Sie einen Meilenstein
@@ -117,7 +123,8 @@ const InfoCrawler = () => {
                                     </option>
                                     {
                                         milestones.map((m, i) => (
-                                            <option className={m.hasIC==='1'?'bg-lightBlue my-2 text-white':''} value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
+                                            <option className={m.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
+                                                    value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
                                         ))
                                     }
                                 </select>
@@ -132,7 +139,8 @@ const InfoCrawler = () => {
                                                         Meilenstein aus
                                                     </option> :
                                                     subSteps.map((s, i) => (
-                                                        <option className={s.hasIC==='1'?' my-2 text-white':''} value={s.substepID} key={i}>{s.stepName}</option>
+                                                        <option className={s.hasIC === '1' ? ' my-2 text-white' : ''}
+                                                                value={s.substepID} key={i}>{s.stepName}</option>
                                                     ))
                                             }
                                         </select>
@@ -149,7 +157,7 @@ const InfoCrawler = () => {
                                 <div>
                                     <form onSubmit={handleSubmit(onSubmit)} className='mt-6 rounded-lg'>
                                         <div className='my-4'>
-                                            <h5 className='text-text'>Versand Der Ernsten Erinnerung nach
+                                            <h5 className='text-text'>Versand der ersten Erinnerung nach
                                                 <span className='mx-2'>
                                             <input
                                                 className='w-10 py-2 bg-white border border-offWhite rounded-sm text-mainBlue'
@@ -209,14 +217,23 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betref</h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff: </h5>
                                             <input type='text' className='py-2 w-screen text-grey'
                                                    {...register('remind1subject')}
                                                    style={{border: errors.remind1subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Mail text: </h5>
+                                            <div className='flex flex-wrap gap-10'>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
+                                                <span>
+                                                Platzhalter:
+                                                   <span className='px-2'>{'{'} Meilenstein {'}'}</span>
+                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
+                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
+                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                            </span>
+                                            </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
                                                       {...register('remind1mail')}
@@ -228,7 +245,7 @@ const InfoCrawler = () => {
                                         </div>
 
                                         <div className='my-4'>
-                                            <h5 className='text-text'>Versand Der Ernsten Erinnerung nach
+                                            <h5 className='text-text'>Versand der ersten Erinnerung nach
                                                 <span className='mx-2'>
                                                 <input
                                                     className='w-10 py-2 bg-white border border-offWhite rounded-sm text-mainBlue'
@@ -288,14 +305,23 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betref</h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff</h5>
                                             <input type='text' className='py-2 w-screen text-grey'
                                                    {...register('remind2subject')}
                                                    style={{border: errors.remind2subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Mail text: </h5>
+                                            <div className='flex flex-wrap gap-10'>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
+                                                <span>
+                                                Platzhalter:
+                                                         <span className='px-2'>{'{'} Meilenstein {'}'}</span>
+                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
+                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
+                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                            </span>
+                                            </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
                                                       {...register('remind2mail')}
@@ -307,7 +333,7 @@ const InfoCrawler = () => {
                                         </div>
 
                                         <div className='my-4'>
-                                            <h5 className='text-text'>Versand Der Ernsten Erinnerung nach
+                                            <h5 className='text-text'>Versand der ersten Erinnerung nach
                                                 <span className='mx-2'>
                                                 <input
                                                     className='w-10 py-2 bg-white border border-offWhite rounded-sm text-mainBlue'
@@ -367,14 +393,23 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betref</h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff</h5>
                                             <input type='text' className='py-2 w-screen text-grey'
                                                    {...register('remind3subject')}
                                                    style={{border: errors.remind3subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Mail text: </h5>
+                                            <div className='flex flex-wrap gap-10'>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
+                                                <span>
+                                                Platzhalter:
+                                                       <span className='px-2'>{'{'} Meilenstein {'}'}</span>
+                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
+                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
+                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                            </span>
+                                            </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
                                                       {...register('remind3mail')}
@@ -388,20 +423,22 @@ const InfoCrawler = () => {
                                             className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${!isValid ? 'bg-grey cursor-no-drop' : 'bg-mainBlue cursor-pointer'}  px-6 py-2 rounded-md`}
                                             type="submit"
                                             disabled={!isValid}
-                                            value={`${loadingSave?'Sparen...':'Speichern'}`}
+                                            value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
                                         />
                                     </form>
                                     <div className='lg:w-fit my-14'>
                                         <div className='lg:flex justify-start flex-wrap items-center my-2'>
-                                            <p className='w-fit'>Der nachfolgende schritt ist:</p>
+                                            <p className='w-fit'>Basierend auf vorherigem Termin:</p>
                                             <select onChange={triggerMilestoneSelected}
-                                                className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
-                                                <option hidden={milestones.length > 0} value={null}>Wählen Sie einen Meilenstein
+                                                    className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
+                                                <option hidden={milestones.length > 0} value={null}>Wählen Sie einen
+                                                    Meilenstein
                                                     aus
                                                 </option>
                                                 {
                                                     milestones.map((m, i) => (
-                                                        <option value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
+                                                        <option value={m.milestoneID}
+                                                                key={i}>{m.milestoneLabel}</option>
                                                     ))
                                                 }
                                             </select>
@@ -416,9 +453,11 @@ const InfoCrawler = () => {
                                                                     Meilenstein aus
                                                                 </option> :
                                                                 triggerSubSteps.map((s, i) => (
-                                                                    Number(TriggerMilestoneSelected)===Number(milestoneSelected) ? Number(s.substepID) <Number(SubStepSelected) &&
-                                                                    <option value={s.substepID} key={i}>{s.stepName}</option>:
-                                                                        <option value={s.substepID} key={i}>{s.stepName}</option>
+                                                                    Number(TriggerMilestoneSelected) === Number(milestoneSelected) ? Number(s.substepID) < Number(SubStepSelected) &&
+                                                                        <option value={s.substepID}
+                                                                                key={i}>{s.stepName}</option> :
+                                                                        <option value={s.substepID}
+                                                                                key={i}>{s.stepName}</option>
                                                                 ))
                                                         }
                                                     </select>
