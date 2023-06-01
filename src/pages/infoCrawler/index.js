@@ -117,7 +117,7 @@ const InfoCrawler = () => {
                                     </option>
                                     {
                                         milestones.map((m, i) => (
-                                            <option className={m.hasIC==='1'?'text-mainBlue':''} value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
+                                            <option className={m.hasIC==='1'?'bg-lightBlue my-2 text-white':''} value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
                                         ))
                                     }
                                 </select>
@@ -132,7 +132,7 @@ const InfoCrawler = () => {
                                                         Meilenstein aus
                                                     </option> :
                                                     subSteps.map((s, i) => (
-                                                        <option className={s.hasIC==='1'?'text-mainBlue':''} value={s.substepID} key={i}>{s.stepName}</option>
+                                                        <option className={s.hasIC==='1'?' my-2 text-white':''} value={s.substepID} key={i}>{s.stepName}</option>
                                                     ))
                                             }
                                         </select>
