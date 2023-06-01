@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Api from "../../Api/api";
 import {ClipLoader, SkewLoader} from "react-spinners";
 import {useForm} from "react-hook-form";
+import {toast} from "react-toastify";
 
 const InfoCrawler = () => {
 
@@ -87,11 +88,16 @@ const InfoCrawler = () => {
     const onSubmit = async (data) => {
         setLoadingSave(true)
         const modifiedData = { ...data, milestoneID: milestoneSelected, subStepID: SubStepSelected, trMilestoneID: TriggerMilestoneSelected, trSubStepID: TriggerSubStepSelected,};
-        console.log('to save', modifiedData)
-        Api().post('/sp_putIC', data).then(res=>{
-            console.log(res.data)
+        Api().post('/sp_putIC', modifiedData).then(res=>{
+            if(res.status===201){
+                toast.success('Erfolgreich gespeichert')
+            }
+            setLoadingSave(false)
+        }).catch(e=>{
+            setLoadingSave(false)
+            toast.error('Etwas ist schief gelaufen!')
         })
-        setLoadingSave(false)
+
     };
 
     return (
@@ -111,7 +117,7 @@ const InfoCrawler = () => {
                                     </option>
                                     {
                                         milestones.map((m, i) => (
-                                            <option value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
+                                            <option className={m.hasIC==='1'?'text-mainBlue':''} value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
                                         ))
                                     }
                                 </select>
@@ -126,7 +132,7 @@ const InfoCrawler = () => {
                                                         Meilenstein aus
                                                     </option> :
                                                     subSteps.map((s, i) => (
-                                                        <option value={s.substepID} key={i}>{s.stepName}</option>
+                                                        <option className={s.hasIC==='1'?'text-mainBlue':''} value={s.substepID} key={i}>{s.stepName}</option>
                                                     ))
                                             }
                                         </select>
