@@ -72,8 +72,6 @@ U
 %src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
 K
 src/pages/register/index.js,e\5\e50e8f9e7c242e53f54739a2bf9ac8140953fc88
-P
- src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 B

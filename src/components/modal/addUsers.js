@@ -188,15 +188,26 @@ const AddUsers = () => {
                     </label>
                 </section>
 
-                <label htmlFor="field-aktiv" className='mt-5' hidden={watch('role') !== '1'}>
-                    <input
-                        className='mx-1'
-                        {...register("admin")}
-                        type="checkbox"
-                        id="field-aktiv"
-                    />
-                    <span className='mx-1 text-sm text-grey'> Darf Benutzer verwalten</span>
-                </label>
+                {/*<section className='flex flex-col text-left text-grey text-sm'>*/}
+                    <label htmlFor="field-aktiv" className='mt-0' hidden={watch('role') !== '1'}>
+                        <input
+                            className='mr-1'
+                            {...register("admin")}
+                            type="checkbox"
+                            id="field-aktiv"
+                        />
+                        <span className='mx-1 text-sm text-grey'> Darf Benutzer verwalten</span>
+                    </label>
+                    <label htmlFor="field-aktiv" className='mt-1' hidden={watch('role') !== '1'}>
+                        <input
+                            className='ml-10'
+                            {...register("icAdmin")}
+                            type="checkbox"
+                            id="field-aktiv"
+                        />
+                        <span className='mx-1 text-sm text-grey'> Darf InfoCrowler verwalten</span>
+                    </label>
+                {/*</section>*/}
 
                 <section className='flex flex-col text-left text-grey text-sm'>
                     <label className='opacity-0'>*</label>
