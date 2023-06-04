@@ -45,6 +45,8 @@ const InfoCrawler = () => {
         setSubSteps([])
         Api().get(`getSubStepsCrawler/${e.target.value}`).then(res => {
             setSubSteps(res.data)
+            setSubStepSelected(res.data[0]?.substepID)
+            console.log(res.data[0])
             setSubStepsLoading(false)
             getGrid(e.target.value, res.data[0].substepID, true)
         })
@@ -56,6 +58,7 @@ const InfoCrawler = () => {
         setTriggerSubSteps([])
         Api().get(`getSubStepsCrawler/${e.target.value}`).then(res => {
             setTriggerSubSteps(res.data)
+            setTriggerSubStepSelected(res.data[0]?.substepID)
             setTriggerSubStepsLoading(false)
             getGrid(e.target.value, res.data[0].substepID, false)
         })
@@ -94,15 +97,16 @@ const InfoCrawler = () => {
             trMilestoneID: TriggerMilestoneSelected,
             trSubStepID: TriggerSubStepSelected,
         };
-        Api().post('/sp_putIC', modifiedData).then(res => {
-            if (res.status === 201) {
-                toast.success('Erfolgreich gespeichert')
-            }
-            setLoadingSave(false)
-        }).catch(e => {
-            setLoadingSave(false)
-            toast.error('Etwas ist schief gelaufen!')
-        })
+        console.log('modifiedData', modifiedData)
+        // Api().post('/sp_putIC', modifiedData).then(res => {
+        //     if (res.status === 201) {
+        //         toast.success('Erfolgreich gespeichert')
+        //     }
+        //     setLoadingSave(false)
+        // }).catch(e => {
+        //     setLoadingSave(false)
+        //     toast.error('Etwas ist schief gelaufen!')
+        // })
 
     };
 
