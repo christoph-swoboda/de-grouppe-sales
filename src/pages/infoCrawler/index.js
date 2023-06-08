@@ -97,16 +97,36 @@ const InfoCrawler = () => {
             trMilestoneID: TriggerMilestoneSelected,
             trSubStepID: TriggerSubStepSelected,
         };
-        console.log('modifiedData', modifiedData)
-        // Api().post('/sp_putIC', modifiedData).then(res => {
-        //     if (res.status === 201) {
-        //         toast.success('Erfolgreich gespeichert')
-        //     }
-        //     setLoadingSave(false)
-        // }).catch(e => {
-        //     setLoadingSave(false)
-        //     toast.error('Etwas ist schief gelaufen!')
-        // })
+        // console.log('modifiedData', modifiedData)
+        Api().post('/sp_putIC1', modifiedData).then(res => {
+            if (res.status === 201) {
+                toast.success('Abschnitt 1 Daten gespeichert')
+            }
+            setLoadingSave(false)
+        }).catch(e => {
+            setLoadingSave(false)
+            toast.error('Beim Speichern von Abschnitt 1 ist ein Fehler aufgetreten!')
+        })
+
+        Api().post('/sp_putIC2', modifiedData).then(res => {
+            if (res.status === 201) {
+                toast.success('Abschnitt 2 Daten gespeichert')
+            }
+            setLoadingSave(false)
+        }).catch(e => {
+            setLoadingSave(false)
+            toast.error('Beim Speichern von Abschnitt 2 ist ein Fehler aufgetreten!')
+        })
+
+        Api().post('/sp_putIC3', modifiedData).then(res => {
+            if (res.status === 201) {
+                toast.success('Abschnitt 3 Daten gespeichert')
+            }
+            setLoadingSave(false)
+        }).catch(e => {
+            setLoadingSave(false)
+            toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
+        })
 
     };
 
@@ -423,12 +443,20 @@ const InfoCrawler = () => {
                                                       }}
                                             />
                                         </div>
-                                        <input
-                                            className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${!isValid ? 'bg-grey cursor-no-drop' : 'bg-mainBlue cursor-pointer'}  px-6 py-2 rounded-md`}
-                                            type="submit"
-                                            disabled={!isValid}
-                                            value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
-                                        />
+                                        {
+                                            isValid && TriggerMilestoneSelected && TriggerSubStepSelected?
+                                                <input
+                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
+                                                    type="submit"
+                                                    value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
+                                                />:
+                                                <input
+                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
+                                                    disabled
+                                                    value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
+                                                />
+                                        }
+
                                     </form>
                                     <div className='lg:w-fit my-14'>
                                         <div className='lg:flex justify-start flex-wrap items-center my-2'>
