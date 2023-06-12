@@ -19,19 +19,14 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const initialState = [];
     const [update, setUpdated] = useState(initialState)
     const ref = useRef()
-    const [{currentMilestone, milestone3HasDate, subStepSaved}, dispatch] = useStateValue();
+    const [{currentMilestone, subStepSaved}, dispatch] = useStateValue();
     const {
-        register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
+        register, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
     const user = JSON.parse(localStorage.user)
     const role = user.role
-    // useEffect(() => {
-    //
-    //     console.log('len', data.length)
-    // }, [data]);
-
 
     useEffect(() => {
         if (data.length > 0) {
