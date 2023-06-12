@@ -53,8 +53,6 @@ N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
-N
-src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
 Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
 :
@@ -74,8 +72,6 @@ P
  src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 K
 src/pages/register/index.js,e\5\e50e8f9e7c242e53f54739a2bf9ac8140953fc88
-J
-src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 K
 src/states/StateProvider.js,c\a\ca2b8db9b50a6d317ad5ea40979a36494a172b8c
 U
