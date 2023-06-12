@@ -76,8 +76,6 @@ K
 src/states/StateProvider.js,c\a\ca2b8db9b50a6d317ad5ea40979a36494a172b8c
 U
 %src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
-E
-src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 A
 public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
 E
