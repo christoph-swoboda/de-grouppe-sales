@@ -82,6 +82,7 @@ const InfoCrawler = () => {
                     setValue(key, r[key]);
                 });
             })
+            console.log('grid', res.data)
             setLoadingGrid(false)
         }).catch(e => {
             setLoadingGrid(false)
@@ -241,26 +242,32 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff: </h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff: *</h5>
                                             <input type='text' className='py-2 w-screen text-grey'
-                                                   {...register('remind1subject')}
+                                                   {...register('remind1subject', {
+                                                       required: 'Betreff ist erforderlich',
+                                                   })}
+                                                   required
                                                    style={{border: errors.remind1subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: *</h5>
                                                 <span>
                                                 Platzhalter:
-                                                   <span className='px-2'>{'{'} Meilenstein {'}'}</span>
-                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
-                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
-                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                                   <span className='px-2'>{'{'}Meilenstein{'}'}</span>
+                                                   <span className='px-2'>{'{'}Schritt{'}'}</span>
+                                                   <span className='px-2'>{'{'}Tage{'}'}</span>
+                                                   <span className='px-2'>{'{'}Firmenprojekt{'}'}</span>
                                             </span>
                                             </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
-                                                      {...register('remind1mail')}
+                                                      {...register('remind1mail', {
+                                                          required: 'Betreff ist erforderlich',
+                                                      })}
+                                                      required
                                                       style={{
                                                           border: errors.remind1mail && '1px solid red',
                                                           padding: '15px 40px'
@@ -329,26 +336,32 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff</h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff: *</h5>
                                             <input type='text' className='py-2 w-screen text-grey'
-                                                   {...register('remind2subject')}
+                                                   {...register('remind2subject', {
+                                                       required: 'Betreff ist erforderlich',
+                                                   })}
+                                                   required
                                                    style={{border: errors.remind2subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: *</h5>
                                                 <span>
                                                 Platzhalter:
-                                                         <span className='px-2'>{'{'} Meilenstein {'}'}</span>
-                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
-                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
-                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                                    <span className='px-2'>{'{'}Meilenstein{'}'}</span>
+                                                   <span className='px-2'>{'{'}Schritt{'}'}</span>
+                                                   <span className='px-2'>{'{'}Tage{'}'}</span>
+                                                   <span className='px-2'>{'{'}Firmenprojekt{'}'}</span>
                                             </span>
                                             </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
-                                                      {...register('remind2mail')}
+                                                      {...register('remind2mail', {
+                                                          required: 'Betreff ist erforderlich',
+                                                      })}
+                                                      required
                                                       style={{
                                                           border: errors.remind2mail && '1px solid red',
                                                           padding: '15px 40px'
@@ -417,26 +430,32 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff</h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff: *</h5>
                                             <input type='text' className='py-2 w-screen text-grey'
-                                                   {...register('remind3subject')}
+                                                   {...register('remind3subject', {
+                                                       required: 'Betreff ist erforderlich',
+                                                   })}
+                                                   required
                                                    style={{border: errors.remind3subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: *</h5>
                                                 <span>
                                                 Platzhalter:
-                                                       <span className='px-2'>{'{'} Meilenstein {'}'}</span>
-                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
-                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
-                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                                       <span className='px-2'>{'{'}Meilenstein{'}'}</span>
+                                                   <span className='px-2'>{'{'}Schritt{'}'}</span>
+                                                   <span className='px-2'>{'{'}Tage{'}'}</span>
+                                                   <span className='px-2'>{'{'}Firmenprojekt{'}'}</span>
                                             </span>
                                             </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
-                                                      {...register('remind3mail')}
+                                                      {...register('remind3mail', {
+                                                          required: 'Betreff ist erforderlich',
+                                                      })}
+                                                      required
                                                       style={{
                                                           border: errors.remind3mail && '1px solid red',
                                                           padding: '15px 40px'
@@ -444,19 +463,18 @@ const InfoCrawler = () => {
                                             />
                                         </div>
                                         {
-                                            isValid && TriggerMilestoneSelected && TriggerSubStepSelected?
+                                            isValid && TriggerMilestoneSelected && TriggerSubStepSelected ?
                                                 <input
-                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
+                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid &&  TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
                                                     type="submit"
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
-                                                />:
+                                                /> :
                                                 <input
-                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
+                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid &&  TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
                                                     disabled
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
                                                 />
                                         }
-
                                     </form>
                                     <div className='lg:w-fit my-14'>
                                         <div className='lg:flex justify-start flex-wrap items-center my-2'>
@@ -495,6 +513,7 @@ const InfoCrawler = () => {
                                                     </select>
                                             }
                                         </div>
+                                        <p className='text-xs text-cancel'>* Pflichtfeld</p>
                                     </div>
                                 </div>
                         }
