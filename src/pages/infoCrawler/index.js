@@ -82,6 +82,7 @@ const InfoCrawler = () => {
                     setValue(key, r[key]);
                 });
             })
+            console.log('grid', res.data)
             setLoadingGrid(false)
         }).catch(e => {
             setLoadingGrid(false)
@@ -252,10 +253,10 @@ const InfoCrawler = () => {
                                                 <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
                                                 <span>
                                                 Platzhalter:
-                                                   <span className='px-2'>{'{'} Meilenstein {'}'}</span>
-                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
-                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
-                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                                   <span className='px-2'>{'{'}Meilenstein{'}'}</span>
+                                                   <span className='px-2'>{'{'}Schritt{'}'}</span>
+                                                   <span className='px-2'>{'{'}Tage{'}'}</span>
+                                                   <span className='px-2'>{'{'}Firmenprojekt{'}'}</span>
                                             </span>
                                             </div>
                                             <textarea rows='8'
@@ -340,10 +341,10 @@ const InfoCrawler = () => {
                                                 <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
                                                 <span>
                                                 Platzhalter:
-                                                         <span className='px-2'>{'{'} Meilenstein {'}'}</span>
-                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
-                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
-                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                                    <span className='px-2'>{'{'}Meilenstein{'}'}</span>
+                                                   <span className='px-2'>{'{'}Schritt{'}'}</span>
+                                                   <span className='px-2'>{'{'}Tage{'}'}</span>
+                                                   <span className='px-2'>{'{'}Firmenprojekt{'}'}</span>
                                             </span>
                                             </div>
                                             <textarea rows='8'
@@ -428,10 +429,10 @@ const InfoCrawler = () => {
                                                 <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
                                                 <span>
                                                 Platzhalter:
-                                                       <span className='px-2'>{'{'} Meilenstein {'}'}</span>
-                                                   <span className='px-2'>{'{'} Schritt {'}'}</span>
-                                                   <span className='px-2'>{'{'} Tage {'}'}</span>
-                                                   <span className='px-2'>{'{'} Firmenprojekt {'}'}</span>
+                                                       <span className='px-2'>{'{'}Meilenstein{'}'}</span>
+                                                   <span className='px-2'>{'{'}Schritt{'}'}</span>
+                                                   <span className='px-2'>{'{'}Tage{'}'}</span>
+                                                   <span className='px-2'>{'{'}Firmenprojekt{'}'}</span>
                                             </span>
                                             </div>
                                             <textarea rows='8'
@@ -444,12 +445,12 @@ const InfoCrawler = () => {
                                             />
                                         </div>
                                         {
-                                            isValid && TriggerMilestoneSelected && TriggerSubStepSelected?
+                                            isValid && TriggerMilestoneSelected && TriggerSubStepSelected ?
                                                 <input
                                                     className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
                                                     type="submit"
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
-                                                />:
+                                                /> :
                                                 <input
                                                     className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
                                                     disabled
