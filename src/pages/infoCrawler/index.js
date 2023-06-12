@@ -79,6 +79,13 @@ const InfoCrawler = () => {
         Api().get(`sp_getDataIC/${milestone}/${subStep}`).then(res => {
             res.data.map(r => {
                 Object.keys(r).forEach((key) => {
+                    if (key.includes('FKB') || key.includes('DGAPI') || key.includes('BD') || key.includes('VBLF') || key.includes('cc')) {
+                        if (r[key] === '0') {
+                            r[key] = false
+                        } else if (r[key] === '1') {
+                            r[key] = true
+                        }
+                    }
                     setValue(key, r[key]);
                 });
             })
@@ -98,44 +105,63 @@ const InfoCrawler = () => {
             trSubStepID: TriggerSubStepSelected,
         };
 
-        if (getValues().remind1subject && getValues().remind1mail) {
-            Api().post('/sp_putIC1', modifiedData).then(res => {
-                if (res.status === 201) {
-                    toast.success('Abschnitt 1 Daten gespeichert')
-                }
-                setLoadingSave(false)
-            }).catch(e => {
-                setLoadingSave(false)
-                toast.error('Beim Speichern von Abschnitt 1 ist ein Fehler aufgetreten!')
-            })
-        }
+        Api().post('/sp_putIC1', modifiedData).then(res => {
+            if (res.status === 201) {
+                toast.success('Abschnitt 1 Daten gespeichert')
+            }
+            setLoadingSave(false)
+        }).catch(e => {
+            setLoadingSave(false)
+            toast.error('Beim Speichern von Abschnitt 1 ist ein Fehler aufgetreten!')
+        })
 
-        if (getValues().remind2subject && getValues().remind2mail) {
-            Api().post('/sp_putIC2', modifiedData).then(res => {
-                if (res.status === 201) {
-                    toast.success('Abschnitt 2 Daten gespeichert')
-                }
-                setLoadingSave(false)
-            }).catch(e => {
-                setLoadingSave(false)
-                toast.error('Beim Speichern von Abschnitt 2 ist ein Fehler aufgetreten!')
-            })
-        }
+        Api().post('/sp_putIC2', modifiedData).then(res => {
+            if (res.status === 201) {
+                toast.success('Abschnitt 2 Daten gespeichert')
+            }
+            setLoadingSave(false)
+        }).catch(e => {
+            setLoadingSave(false)
+            toast.error('Beim Speichern von Abschnitt 2 ist ein Fehler aufgetreten!')
+        })
 
-        if (getValues().remind3subject && getValues().remind3mail) {
-            Api().post('/sp_putIC3', modifiedData).then(res => {
-                if (res.status === 201) {
-                    toast.success('Abschnitt 3 Daten gespeichert')
-                }
-                dispatch({type: "SET_ICSAVED", item: !ICSaved})
-                setLoadingSave(false)
-            }).catch(e => {
-                setLoadingSave(false)
-                toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
-            })
-        }
+        Api().post('/sp_putIC3', modifiedData).then(res => {
+            if (res.status === 201) {
+                toast.success('Abschnitt 3 Daten gespeichert')
+            }
+            dispatch({type: "SET_ICSAVED", item: !ICSaved})
+            setLoadingSave(false)
+        }).catch(e => {
+            setLoadingSave(false)
+            toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
+        })
 
         getGrid(milestoneSelected, SubStepSelected, true)
+    };
+
+    const deleteIC = () => {
+        Api().post(`sp_deleteIC/${milestoneSelected}/${SubStepSelected}`).then(res => {
+            if(res.data===1){
+                toast.success('Erfolgreich gelöscht')
+            }
+            else{
+                toast.error('etwas ist schief gelaufen!')
+            }
+        }).catch(e => {
+            toast.error('etwas ist schief gelaufen!')
+        })
+        getGrid(milestoneSelected, SubStepSelected, true)
+        handleReset()
+    }
+
+    const handleReset = () => {
+        const values = getValues();
+        const updatedValues = {};
+        Object.keys(values).forEach((key) => {
+            updatedValues[key] = null;
+        });
+
+        reset(updatedValues);
     };
 
     return (
@@ -246,10 +272,12 @@ const InfoCrawler = () => {
                                                 cc ebenfalls an
                                             </label>
                                             <input type='text' placeholder='info@anymail.com'
+                                                   {...register('remind1ccText')}
+                                                   style={{border: errors.remind1ccText && '1px solid red'}}
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff:  </h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff: </h5>
                                             <input type='text' className='py-2 w-screen text-grey'
                                                    {...register('remind1subject')}
                                                    style={{border: errors.remind1subject && '1px solid red'}}
@@ -257,7 +285,7 @@ const InfoCrawler = () => {
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text:  </h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
                                                 <span>
                                                 Platzhalter:
                                                    <span className='px-2'>{'{'}Meilenstein{'}'}</span>
@@ -334,10 +362,12 @@ const InfoCrawler = () => {
                                                 cc ebenfalls an
                                             </label>
                                             <input type='text' placeholder='info@anymail.com'
+                                                   {...register('remind2ccText')}
+                                                   style={{border: errors.remind2ccText && '1px solid red'}}
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff:  </h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff: </h5>
                                             <input type='text' className='py-2 w-screen text-grey'
                                                    {...register('remind2subject')}
                                                    style={{border: errors.remind2subject && '1px solid red'}}
@@ -345,7 +375,7 @@ const InfoCrawler = () => {
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text:  </h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
                                                 <span>
                                                 Platzhalter:
                                                     <span className='px-2'>{'{'}Meilenstein{'}'}</span>
@@ -422,10 +452,12 @@ const InfoCrawler = () => {
                                                 cc ebenfalls an
                                             </label>
                                             <input type='text' placeholder='info@anymail.com'
+                                                   {...register('remind3ccText')}
+                                                   style={{border: errors.remind3ccText && '1px solid red'}}
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff:  </h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff: </h5>
                                             <input type='text' className='py-2 w-screen text-grey'
                                                    {...register('remind3subject')}
                                                    style={{border: errors.remind3subject && '1px solid red'}}
@@ -433,7 +465,7 @@ const InfoCrawler = () => {
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text:  </h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text: </h5>
                                                 <span>
                                                 Platzhalter:
                                                        <span className='px-2'>{'{'}Meilenstein{'}'}</span>
@@ -447,32 +479,40 @@ const InfoCrawler = () => {
                                                       {...register('remind3mail')}
                                                       style={{
                                                           border: errors.remind3mail && '1px solid red',
-                                                          padding: '15px 40px'
+                                                          padding: '15px 40px', marginBottom: '5vh'
                                                       }}
                                             />
                                         </div>
                                         {
                                             isValid && TriggerMilestoneSelected && TriggerSubStepSelected ?
                                                 <input
-                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
+                                                    className={`${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
                                                     type="submit"
+                                                    onChange={() => console.log('saving')}
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
                                                 /> :
                                                 <input
-                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
+                                                    className={`${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
                                                     disabled
+                                                    onChange={() => console.log('saving')}
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
                                                 />
                                         }
                                     </form>
-                                    <div className='lg:w-fit my-14'>
+                                    <input
+                                        className={`${milestoneSelected && SubStepSelected ? 'bg-cancel cursor-pointer' : 'bg-grey cursor-no-drop '} float-right mt-4 text-white w-44 hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md mr-1`}
+                                        onClick={deleteIC}
+                                        onChange={() => console.log('deleting')}
+                                        value='Delete'
+                                    />
+
+                                    <div className='lg:w-fit my-14 w-screen' style={{marginTop: '-5vh'}}>
                                         <div className='lg:flex justify-start flex-wrap items-center my-2'>
                                             <p className='w-fit'>Basierend auf vorherigem Termin:</p>
                                             <select onChange={triggerMilestoneSelected}
                                                     className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
                                                 <option hidden={milestones.length > 0} value={null}>Wählen Sie einen
-                                                    Meilenstein
-                                                    aus
+                                                    Meilenstein aus
                                                 </option>
                                                 {
                                                     milestones.map((m, i) => (

@@ -70,3 +70,13 @@ B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
 H
 src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
+P
+ src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
+K
+src/pages/register/index.js,e\5\e50e8f9e7c242e53f54739a2bf9ac8140953fc88
+J
+src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
+K
+src/states/StateProvider.js,c\a\ca2b8db9b50a6d317ad5ea40979a36494a172b8c
+U
+%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
