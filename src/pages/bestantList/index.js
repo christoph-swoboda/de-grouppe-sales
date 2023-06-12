@@ -27,7 +27,7 @@ const BestantList = () => {
     const [users, setUsers] = useState([]);
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
-    const role = user.role === 'Internal' ? 'i' : user.role === 'External' ? 'e' : user.role === 'Controller' ? 'i' : 's'
+    const role = user.role === 'Internal' ? 'i' : user.role === 'External' ? 'e' : user.role === 'Controller' ? 'c' : 's'
     const [total, setTotal] = useState(0);
     const componentRef = useRef();
 
