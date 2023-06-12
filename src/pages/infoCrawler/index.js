@@ -3,9 +3,11 @@ import Api from "../../Api/api";
 import {ClipLoader, SkewLoader} from "react-spinners";
 import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
+import {useStateValue} from "../../states/StateProvider";
 
 const InfoCrawler = () => {
 
+    const [{ICSaved}, dispatch] = useStateValue();
     const [milestones, setMilestones] = useState([])
     const [subStepsLoading, setSubStepsLoading] = useState(false)
     const [triggerSubStepsLoading, setTriggerSubStepsLoading] = useState(false)
@@ -23,7 +25,6 @@ const InfoCrawler = () => {
     const [isICAdmin, setIsICAdmin] = useState()
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
-        control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
 
@@ -35,7 +36,7 @@ const InfoCrawler = () => {
         Api().get(`/icAdminCheck/${user.ID}`).then(res => {
             setIsICAdmin(res.data)
         })
-    }, []);
+    }, [ICSaved]);
 
 
     const milestoneChanged = (e) => {
@@ -46,7 +47,6 @@ const InfoCrawler = () => {
         Api().get(`getSubStepsCrawler/${e.target.value}`).then(res => {
             setSubSteps(res.data)
             setSubStepSelected(res.data[0]?.substepID)
-            console.log(res.data[0])
             setSubStepsLoading(false)
             getGrid(e.target.value, res.data[0].substepID, true)
         })
@@ -60,7 +60,7 @@ const InfoCrawler = () => {
             setTriggerSubSteps(res.data)
             setTriggerSubStepSelected(res.data[0]?.substepID)
             setTriggerSubStepsLoading(false)
-            getGrid(e.target.value, res.data[0].substepID, false)
+            // getGrid(e.target.value, res.data[0].substepID, false)
         })
     }
 
@@ -82,7 +82,6 @@ const InfoCrawler = () => {
                     setValue(key, r[key]);
                 });
             })
-            console.log('grid', res.data)
             setLoadingGrid(false)
         }).catch(e => {
             setLoadingGrid(false)
@@ -98,37 +97,45 @@ const InfoCrawler = () => {
             trMilestoneID: TriggerMilestoneSelected,
             trSubStepID: TriggerSubStepSelected,
         };
-        // console.log('modifiedData', modifiedData)
-        Api().post('/sp_putIC1', modifiedData).then(res => {
-            if (res.status === 201) {
-                toast.success('Abschnitt 1 Daten gespeichert')
-            }
-            setLoadingSave(false)
-        }).catch(e => {
-            setLoadingSave(false)
-            toast.error('Beim Speichern von Abschnitt 1 ist ein Fehler aufgetreten!')
-        })
 
-        Api().post('/sp_putIC2', modifiedData).then(res => {
-            if (res.status === 201) {
-                toast.success('Abschnitt 2 Daten gespeichert')
-            }
-            setLoadingSave(false)
-        }).catch(e => {
-            setLoadingSave(false)
-            toast.error('Beim Speichern von Abschnitt 2 ist ein Fehler aufgetreten!')
-        })
+        if (getValues().remind1subject && getValues().remind1mail) {
+            Api().post('/sp_putIC1', modifiedData).then(res => {
+                if (res.status === 201) {
+                    toast.success('Abschnitt 1 Daten gespeichert')
+                }
+                setLoadingSave(false)
+            }).catch(e => {
+                setLoadingSave(false)
+                toast.error('Beim Speichern von Abschnitt 1 ist ein Fehler aufgetreten!')
+            })
+        }
 
-        Api().post('/sp_putIC3', modifiedData).then(res => {
-            if (res.status === 201) {
-                toast.success('Abschnitt 3 Daten gespeichert')
-            }
-            setLoadingSave(false)
-        }).catch(e => {
-            setLoadingSave(false)
-            toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
-        })
+        if (getValues().remind2subject && getValues().remind2mail) {
+            Api().post('/sp_putIC2', modifiedData).then(res => {
+                if (res.status === 201) {
+                    toast.success('Abschnitt 2 Daten gespeichert')
+                }
+                setLoadingSave(false)
+            }).catch(e => {
+                setLoadingSave(false)
+                toast.error('Beim Speichern von Abschnitt 2 ist ein Fehler aufgetreten!')
+            })
+        }
 
+        if (getValues().remind3subject && getValues().remind3mail) {
+            Api().post('/sp_putIC3', modifiedData).then(res => {
+                if (res.status === 201) {
+                    toast.success('Abschnitt 3 Daten gespeichert')
+                }
+                dispatch({type: "SET_ICSAVED", item: !ICSaved})
+                setLoadingSave(false)
+            }).catch(e => {
+                setLoadingSave(false)
+                toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
+            })
+        }
+
+        getGrid(milestoneSelected, SubStepSelected, true)
     };
 
     return (
@@ -242,18 +249,15 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff: *</h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff:  </h5>
                                             <input type='text' className='py-2 w-screen text-grey'
-                                                   {...register('remind1subject', {
-                                                       required: 'Betreff ist erforderlich',
-                                                   })}
-                                                   required
+                                                   {...register('remind1subject')}
                                                    style={{border: errors.remind1subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text: *</h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text:  </h5>
                                                 <span>
                                                 Platzhalter:
                                                    <span className='px-2'>{'{'}Meilenstein{'}'}</span>
@@ -264,10 +268,7 @@ const InfoCrawler = () => {
                                             </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
-                                                      {...register('remind1mail', {
-                                                          required: 'Betreff ist erforderlich',
-                                                      })}
-                                                      required
+                                                      {...register('remind1mail')}
                                                       style={{
                                                           border: errors.remind1mail && '1px solid red',
                                                           padding: '15px 40px'
@@ -336,18 +337,15 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff: *</h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff:  </h5>
                                             <input type='text' className='py-2 w-screen text-grey'
-                                                   {...register('remind2subject', {
-                                                       required: 'Betreff ist erforderlich',
-                                                   })}
-                                                   required
+                                                   {...register('remind2subject')}
                                                    style={{border: errors.remind2subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text: *</h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text:  </h5>
                                                 <span>
                                                 Platzhalter:
                                                     <span className='px-2'>{'{'}Meilenstein{'}'}</span>
@@ -358,10 +356,7 @@ const InfoCrawler = () => {
                                             </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
-                                                      {...register('remind2mail', {
-                                                          required: 'Betreff ist erforderlich',
-                                                      })}
-                                                      required
+                                                      {...register('remind2mail')}
                                                       style={{
                                                           border: errors.remind2mail && '1px solid red',
                                                           padding: '15px 40px'
@@ -430,18 +425,15 @@ const InfoCrawler = () => {
                                                    className='py-2 w-full text-grey'/>
                                         </div>
                                         <div className='flex justify-start gap-4 my-2 mt-8'>
-                                            <h5 className='w-2/12 -mr-3'>Betreff: *</h5>
+                                            <h5 className='w-2/12 -mr-3'>Betreff:  </h5>
                                             <input type='text' className='py-2 w-screen text-grey'
-                                                   {...register('remind3subject', {
-                                                       required: 'Betreff ist erforderlich',
-                                                   })}
-                                                   required
+                                                   {...register('remind3subject')}
                                                    style={{border: errors.remind3subject && '1px solid red'}}
                                             />
                                         </div>
                                         <div className=' gap-4 my-2 mt-8'>
                                             <div className='flex flex-wrap gap-10'>
-                                                <h5 className='w-2/12 -mr-3'>Mail-Text: *</h5>
+                                                <h5 className='w-2/12 -mr-3'>Mail-Text:  </h5>
                                                 <span>
                                                 Platzhalter:
                                                        <span className='px-2'>{'{'}Meilenstein{'}'}</span>
@@ -452,10 +444,7 @@ const InfoCrawler = () => {
                                             </div>
                                             <textarea rows='8'
                                                       className='border border-whiteDark rounded-sm w-full text-grey'
-                                                      {...register('remind3mail', {
-                                                          required: 'Betreff ist erforderlich',
-                                                      })}
-                                                      required
+                                                      {...register('remind3mail')}
                                                       style={{
                                                           border: errors.remind3mail && '1px solid red',
                                                           padding: '15px 40px'
@@ -465,12 +454,12 @@ const InfoCrawler = () => {
                                         {
                                             isValid && TriggerMilestoneSelected && TriggerSubStepSelected ?
                                                 <input
-                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid &&  TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
+                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
                                                     type="submit"
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
                                                 /> :
                                                 <input
-                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid &&  TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
+                                                    className={`float-right mt-24 text-white hover:bg-offWhite hover:text-mainBlue text-center ${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '}  px-6 py-2 rounded-md`}
                                                     disabled
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
                                                 />
@@ -513,7 +502,7 @@ const InfoCrawler = () => {
                                                     </select>
                                             }
                                         </div>
-                                        <p className='text-xs text-cancel'>* Pflichtfeld</p>
+                                        {/*<p className='text-xs text-cancel'>  Pflichtfeld</p>*/}
                                     </div>
                                 </div>
                         }
