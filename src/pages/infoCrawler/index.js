@@ -15,6 +15,8 @@ const InfoCrawler = () => {
     const [triggerSubSteps, setTriggerSubSteps] = useState([])
     const [loading, setLoading] = useState(true)
     const [loadingGrid, setLoadingGrid] = useState(false)
+    const [deleteClicked, setDeleteClicked] = useState(false)
+    const [deleting, setDeleting] = useState(false)
     const [loadingSave, setLoadingSave] = useState(false)
     const [milestoneSelected, seMilestoneSelected] = useState()
     const [TriggerMilestoneSelected, setTriggerMilestoneSelected] = useState()
@@ -143,6 +145,7 @@ const InfoCrawler = () => {
         Api().post(`sp_deleteIC/${milestoneSelected}/${SubStepSelected}`).then(res => {
             if(res.data===1){
                 toast.success('Erfolgreich gelöscht')
+                setDeleteClicked(false)
             }
             else{
                 toast.error('etwas ist schief gelaufen!')
@@ -165,12 +168,27 @@ const InfoCrawler = () => {
     };
 
     return (
-        <div className='dashboardContainer'>
+        <div className={`dashboardContainer`}>
             {
                 loading ?
                     <SkewLoader size='10px'/>
                     : isICAdmin === 1 &&
-                    <div className='bg-white rounded-xl text-left px-14 py-8'>
+                    <div className={`bg-white rounded-xl text-left px-14 py-8 `}>
+                        <div
+                            className={`${(!deleteClicked) && 'hideDiv'} shadow shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
+                            <p>Bist du sicher mit dem Löschen?</p>
+                            <p className={`${loadingGrid && 'hideDiv'} flex justify-start px-24 pt-5 text-sm text-md font-bold`}>
+                                <button onClick={deleteIC}
+                                        className='bg-green mr-3 text-white px-5 hover:bg-white hover:text-green py-2 rounded-xl'>Ja
+                                </button>
+                                <button onClick={() => setDeleteClicked(false)}
+                                        className='bg-cancel hover:bg-white hover:text-cancel text-white px-5 py-2 rounded-xl'>Nein
+                                </button>
+                            </p>
+                            <p className='mx-auto'>
+                                {loadingGrid && <ClipLoader size={10} color='#3A46A9'/>}
+                            </p>
+                        </div>
                         <div className='lg:w-fit'>
                             <div className='lg:flex justify-start flex-wrap items-center my-2'>
                                 <p className='w-fit'>Einstellungen für: </p>
@@ -197,7 +215,7 @@ const InfoCrawler = () => {
                                                         Meilenstein aus
                                                     </option> :
                                                     subSteps.map((s, i) => (
-                                                        <option className={s.hasIC === '1' ? ' my-2 text-white' : ''}
+                                                        <option className={s.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
                                                                 value={s.substepID} key={i}>{s.stepName}</option>
                                                     ))
                                             }
@@ -501,9 +519,9 @@ const InfoCrawler = () => {
                                     </form>
                                     <input
                                         className={`${milestoneSelected && SubStepSelected ? 'bg-cancel cursor-pointer' : 'bg-grey cursor-no-drop '} float-right mt-4 text-white w-44 hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md mr-1`}
-                                        onClick={deleteIC}
+                                        onClick={() => setDeleteClicked(true)}
                                         onChange={() => console.log('deleting')}
-                                        value='Delete'
+                                        value='Löschen'
                                     />
 
                                     <div className='lg:w-fit my-14 w-screen' style={{marginTop: '-5vh'}}>

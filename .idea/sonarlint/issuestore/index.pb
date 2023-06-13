@@ -33,8 +33,6 @@ X
 src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
 R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
-N
-src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 O
 src/components/bestantStatus.js,5\c\5ca8ca76a5fdebd573b7bbb085fd2e7c3c5f505d
 U
@@ -53,8 +51,6 @@ N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
-Q
-!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
 :
 
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
