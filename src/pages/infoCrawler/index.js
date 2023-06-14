@@ -188,7 +188,7 @@ const InfoCrawler = () => {
                     <div className={`bg-white rounded-xl text-left px-14 py-8 `}>
                         <div
                             className={`${(!deleteClicked) && 'hideDiv'} shadow shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
-                            <p>Bist du sicher mit dem Löschen?</p>
+                            <p>Wollen Sie den Datensatz wirklich löschen?</p>
                             <p className={`${loadingGrid && 'hideDiv'} flex justify-start px-24 pt-5 text-sm text-md font-bold`}>
                                 <button onClick={deleteIC}
                                         className='bg-green mr-3 text-white px-5 hover:bg-white hover:text-green py-2 rounded-xl'>Ja
