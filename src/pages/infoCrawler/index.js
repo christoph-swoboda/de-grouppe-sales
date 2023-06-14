@@ -89,6 +89,18 @@ const InfoCrawler = () => {
                         }
                     }
                     setValue(key, r[key]);
+                    if (key === 'remind1cc' && r[key]) {
+                        setValue('remind1cc', 1)
+                        setValue('remind1ccText', r[key])
+                    }
+                    if (key === 'remind2cc' && r[key]) {
+                        setValue('remind2cc', 1)
+                        setValue('remind2ccText', r[key])
+                    }
+                    if (key === 'remind3cc' && r[key]) {
+                        setValue('remind3cc', 1)
+                        setValue('remind3ccText', r[key])
+                    }
                 });
             })
             setLoadingGrid(false)
@@ -138,16 +150,16 @@ const InfoCrawler = () => {
             toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
         })
 
+        reset()
         getGrid(milestoneSelected, SubStepSelected, true)
     };
 
     const deleteIC = () => {
         Api().post(`sp_deleteIC/${milestoneSelected}/${SubStepSelected}`).then(res => {
-            if(res.data===1){
+            if (res.data === 1) {
                 toast.success('Erfolgreich gelöscht')
                 setDeleteClicked(false)
-            }
-            else{
+            } else {
                 toast.error('etwas ist schief gelaufen!')
             }
         }).catch(e => {
@@ -215,8 +227,9 @@ const InfoCrawler = () => {
                                                         Meilenstein aus
                                                     </option> :
                                                     subSteps.map((s, i) => (
-                                                        <option className={s.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
-                                                                value={s.substepID} key={i}>{s.stepName}</option>
+                                                        <option
+                                                            className={s.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
+                                                            value={s.substepID} key={i}>{s.stepName}</option>
                                                     ))
                                             }
                                         </select>
