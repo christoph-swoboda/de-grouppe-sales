@@ -148,10 +148,12 @@ const InfoCrawler = () => {
         }).catch(e => {
             setLoadingSave(false)
             toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
+        }).finally(e=>{
+            reset()
+            getGrid(milestoneSelected, SubStepSelected, true)
         })
 
-        reset()
-        getGrid(milestoneSelected, SubStepSelected, true)
+
     };
 
     const deleteIC = () => {
