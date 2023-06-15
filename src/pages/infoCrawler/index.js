@@ -89,6 +89,18 @@ const InfoCrawler = () => {
                         }
                     }
                     setValue(key, r[key]);
+                    if (key === 'remind1cc' && r[key]) {
+                        setValue('remind1cc', 1)
+                        setValue('remind1ccText', r[key])
+                    }
+                    if (key === 'remind2cc' && r[key]) {
+                        setValue('remind2cc', 1)
+                        setValue('remind2ccText', r[key])
+                    }
+                    if (key === 'remind3cc' && r[key]) {
+                        setValue('remind3cc', 1)
+                        setValue('remind3ccText', r[key])
+                    }
                 });
             })
             setLoadingGrid(false)
@@ -136,18 +148,20 @@ const InfoCrawler = () => {
         }).catch(e => {
             setLoadingSave(false)
             toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
+        }).finally(e=>{
+            reset()
+            getGrid(milestoneSelected, SubStepSelected, true)
         })
 
-        getGrid(milestoneSelected, SubStepSelected, true)
+
     };
 
     const deleteIC = () => {
         Api().post(`sp_deleteIC/${milestoneSelected}/${SubStepSelected}`).then(res => {
-            if(res.data===1){
+            if (res.data === 1) {
                 toast.success('Erfolgreich gelöscht')
                 setDeleteClicked(false)
-            }
-            else{
+            } else {
                 toast.error('etwas ist schief gelaufen!')
             }
         }).catch(e => {
@@ -176,7 +190,7 @@ const InfoCrawler = () => {
                     <div className={`bg-white rounded-xl text-left px-14 py-8 `}>
                         <div
                             className={`${(!deleteClicked) && 'hideDiv'} shadow shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
-                            <p>Bist du sicher mit dem Löschen?</p>
+                            <p>Wollen Sie den Datensatz wirklich löschen?</p>
                             <p className={`${loadingGrid && 'hideDiv'} flex justify-start px-24 pt-5 text-sm text-md font-bold`}>
                                 <button onClick={deleteIC}
                                         className='bg-green mr-3 text-white px-5 hover:bg-white hover:text-green py-2 rounded-xl'>Ja
@@ -215,8 +229,9 @@ const InfoCrawler = () => {
                                                         Meilenstein aus
                                                     </option> :
                                                     subSteps.map((s, i) => (
-                                                        <option className={s.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
-                                                                value={s.substepID} key={i}>{s.stepName}</option>
+                                                        <option
+                                                            className={s.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
+                                                            value={s.substepID} key={i}>{s.stepName}</option>
                                                     ))
                                             }
                                         </select>

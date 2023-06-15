@@ -142,7 +142,7 @@ const BestandListDataSection = ({
                                                 MA={u.MA}
                                                 PStatus={u.PStatus}
                                                 Note={u.Note}
-                                                date={formatDate(u.Datum, false)}
+                                                date={u.Datum}
                                                 printing={printing}
                                             />
                                         ))

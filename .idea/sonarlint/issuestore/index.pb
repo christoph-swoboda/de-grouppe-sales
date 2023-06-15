@@ -1,6 +1,4 @@
 
-H
-src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 c
 3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
 L
@@ -13,20 +11,14 @@ L
 src/pages/documents/index.js,1\f\1f0a693506d88278f4a7f5f0a3dd234a6d083b40
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
-b
-2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
-c
-3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
 E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 E
 src/styles/modal.scss,5\7\5717eb6756a2d1efc602719efb956068cbe2dc7b
 G
 src/hooks/modalSmall.js,b\e\be182c0baf9998f1e037a5a8a8d3fb25e701bab2
-X
-(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 <
@@ -49,8 +41,6 @@ X
 (src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
 N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
-\
-,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
 :
 
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
@@ -76,3 +66,13 @@ A
 public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
+J
+src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
+Y
+)src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
+Q
+!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
+I
+src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
+N
+src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89

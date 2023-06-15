@@ -15,7 +15,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
     const user = JSON.parse(localStorage.getItem('user'))
     const userID = user.ID
     const [loadingAll, setLoadingAll] = useState(false);
-    const fileName = Gesamt ? 'Firmenprojekte-Gesamt-' + formatDate(new Date()) + '.xlsx' : 'Firmenprojekte-' + formatDate(new Date()) + '.xlsx'
+    const fileName = Gesamt ? 'Firmenprojekte-Gesamt-' + formatDate(new Date()) + '.csv' : 'Firmenprojekte-' + formatDate(new Date()) + '.csv'
 
     function padTo2Digits(num) {
         return num.toString().padStart(2, '0');
@@ -113,8 +113,8 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
         })
             .finally(e => {
                 if (!loadingAll) {
-                    workbook.xlsx.writeBuffer().then(function (buffer) {
-                        const blob = new Blob([buffer], {type: "applicationi/xlsx"});
+                    workbook.csv.writeBuffer().then(function (buffer) {
+                        const blob = new Blob([buffer], {type: "applicationi/csv"});
                         saveAs(blob, fileName);
                     });
                 }
