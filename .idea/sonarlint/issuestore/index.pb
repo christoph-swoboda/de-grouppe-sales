@@ -76,3 +76,7 @@ I
 src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
 N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
+J
+src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
+c
+3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
