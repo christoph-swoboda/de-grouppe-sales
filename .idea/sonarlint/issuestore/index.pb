@@ -78,5 +78,13 @@ N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 J
 src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
-c
-3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
+N
+src/pages/infoCrawler/index.js,6\5\65b36b16aecd92c8cf064b585e75cc8ea053db43
+H
+src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
+b
+2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
+Z
+*src/pages/bestantList/partial/csvFormat.js,2\b\2bc4f03b010fe88055a696c7e1d0d72d60f6242c
+\
+,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
