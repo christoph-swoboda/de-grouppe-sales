@@ -16,11 +16,9 @@ const InfoCrawler = () => {
     const [loading, setLoading] = useState(true)
     const [loadingGrid, setLoadingGrid] = useState(false)
     const [deleteClicked, setDeleteClicked] = useState(false)
-    const [deleting, setDeleting] = useState(false)
     const [loadingSave, setLoadingSave] = useState(false)
     const [milestoneSelected, seMilestoneSelected] = useState()
     const [TriggerMilestoneSelected, setTriggerMilestoneSelected] = useState()
-    const [TriggerSubStepSelected, setTriggerSubStepSelected] = useState()
     const [SubStepSelected, setSubStepSelected] = useState()
     const UserInfo = localStorage.user
     let user = JSON.parse(UserInfo ? UserInfo : false)
@@ -40,6 +38,18 @@ const InfoCrawler = () => {
         })
     }, [ICSaved]);
 
+    useEffect(() => {
+        const triggerMilestoneID = getValues('triggerMilestoneID');
+        if (triggerMilestoneID && triggerMilestoneID !== 'Wählen Sie einen Meilenstein aus') {
+            setTriggerSubSteps([]);
+            setTriggerSubStepsLoading(true);
+            Api().get(`getSubStepsCrawler/${triggerMilestoneID}`)
+                .then(res => {
+                    setTriggerSubSteps(res.data);
+                    setTriggerSubStepsLoading(false);
+                });
+        }
+    }, [getValues('triggerMilestoneID')]);
 
     const milestoneChanged = (e) => {
         reset()
@@ -55,25 +65,22 @@ const InfoCrawler = () => {
     }
 
     const triggerMilestoneSelected = (e) => {
-        setTriggerMilestoneSelected(e.target.value)
-        setTriggerSubStepsLoading(true)
-        setTriggerSubSteps([])
+        setTriggerMilestoneSelected(e.target.value);
+        setTriggerSubStepsLoading(true);
+        setTriggerSubSteps([]);
+        setValue('triggerMilestoneID', e.target.value)
+        setValue('triggerSubstepID', '1');
         Api().get(`getSubStepsCrawler/${e.target.value}`).then(res => {
-            setTriggerSubSteps(res.data)
-            setTriggerSubStepSelected(res.data[0]?.substepID)
-            setTriggerSubStepsLoading(false)
-            // getGrid(e.target.value, res.data[0].substepID, false)
-        })
-    }
+            setTriggerSubSteps(res.data);
+            setValue('triggerSubstepID', '1');
+            setTriggerSubStepsLoading(false);
+        });
+    };
 
     const subStepSelected = (e) => {
         reset()
         setSubStepSelected(e.target.value)
         getGrid(milestoneSelected, e.target.value, true)
-    }
-
-    const triggerSubStepSelected = (e) => {
-        setTriggerSubStepSelected(e.target.value)
     }
 
     const getGrid = (milestone, subStep, isLoading) => {
@@ -115,9 +122,8 @@ const InfoCrawler = () => {
             ...data,
             milestoneID: milestoneSelected,
             subStepID: SubStepSelected,
-            trMilestoneID: TriggerMilestoneSelected,
-            trSubStepID: TriggerSubStepSelected,
         };
+        // console.log(modifiedData)
 
         Api().post('/sp_putIC1', modifiedData).then(res => {
             if (res.status === 201) {
@@ -152,8 +158,6 @@ const InfoCrawler = () => {
             reset()
             getGrid(milestoneSelected, SubStepSelected, true)
         })
-
-
     };
 
     const deleteIC = () => {
@@ -517,15 +521,16 @@ const InfoCrawler = () => {
                                             />
                                         </div>
                                         {
-                                            isValid && TriggerMilestoneSelected && TriggerSubStepSelected ?
+                                            (getValues('triggerMilestoneID') && getValues('triggerMilestoneID')!=='Wählen Sie einen Meilenstein aus') ?
                                                 <input
-                                                    className={`${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
+                                                    // className={`${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
+                                                    className={`${(getValues('triggerMilestoneID') || getValues('triggerMilestoneID')!=='Wählen Sie einen Meilenstein aus') ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
                                                     type="submit"
                                                     onChange={() => console.log('saving')}
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
                                                 /> :
                                                 <input
-                                                    className={`${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
+                                                    className={`bg-grey cursor-no-drop w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
                                                     disabled
                                                     onChange={() => console.log('saving')}
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
@@ -542,10 +547,12 @@ const InfoCrawler = () => {
                                     <div className='lg:w-fit my-14 w-screen' style={{marginTop: '-5vh'}}>
                                         <div className='lg:flex justify-start flex-wrap items-center my-2'>
                                             <p className='w-fit'>Basierend auf vorherigem Termin:</p>
-                                            <select onChange={triggerMilestoneSelected}
-                                                    className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
-                                                <option hidden={milestones.length > 0} value={null}>Wählen Sie einen
-                                                    Meilenstein aus
+                                            <select
+                                                {...register('triggerMilestoneID')}
+                                                onChange={triggerMilestoneSelected}
+                                                className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
+                                                <option hidden={milestones.length > 0} value={null}>
+                                                    Wählen Sie einen Meilenstein aus
                                                 </option>
                                                 {
                                                     milestones.map((m, i) => (
@@ -557,15 +564,16 @@ const InfoCrawler = () => {
                                             {
                                                 triggerSubStepsLoading ? <SkewLoader size='10px' color={'#3A46A9'}/>
                                                     :
-                                                    <select onChange={triggerSubStepSelected}
-                                                            className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'>
+                                                    <select
+                                                        {...register('triggerSubstepID')}
+                                                        className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'>
                                                         {
-                                                            triggerSubSteps.length === 0 && !subStepsLoading ?
-                                                                <option value={null}>Bitte wählen Sie erst einen
-                                                                    Meilenstein aus
+                                                            (!getValues('triggerMilestoneID') || getValues('triggerMilestoneID')==='Wählen Sie einen Meilenstein aus') && !subStepsLoading ?
+                                                                <option value={null}>
+                                                                    Bitte wählen Sie erst einen Meilenstein aus
                                                                 </option> :
                                                                 triggerSubSteps.map((s, i) => (
-                                                                    Number(TriggerMilestoneSelected) === Number(milestoneSelected) ? Number(s.substepID) < Number(SubStepSelected) &&
+                                                                    Number(getValues('triggerMilestoneID')) === Number(milestoneSelected) ? Number(s.substepID) < Number(SubStepSelected) &&
                                                                         <option value={s.substepID}
                                                                                 key={i}>{s.stepName}</option> :
                                                                         <option value={s.substepID}
