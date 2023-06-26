@@ -106,7 +106,7 @@ const Navbar = () => {
                                         state: { data: isICAdmin }
                                     }}>
                                         <li className={`items ${path.pathname.includes('/info-crawler') && ' text-mainBlue'} hover:text-mainBlue`}>
-                                            InfoCrawler
+                                            InfoCrowler
                                         </li>
                                     </Link>
                                     :''

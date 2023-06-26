@@ -48,8 +48,6 @@ C
 src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 L
 src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
-E
-src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
 H
@@ -78,8 +76,6 @@ N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 J
 src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
-N
-src/pages/infoCrawler/index.js,6\5\65b36b16aecd92c8cf064b585e75cc8ea053db43
 H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 b
