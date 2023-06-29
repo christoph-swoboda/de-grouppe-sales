@@ -22,8 +22,8 @@ export const initialState = {
     sortColumn: 7,
     sortMethod: 'asc',
     ICSaved: false,
-    filterID: {a: null, b: null, c: null, d: null, e: null, f: null},
-    filter: {a: null, b: null, c: null, d: null, e: null, f: null},
+    filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null},
+    filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null},
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -137,7 +137,7 @@ const reducer = (state, action) => {
                 ...state,
                 sendMail: action.item
             }
-            case "SET_ICSAVED":
+        case "SET_ICSAVED":
             return {
                 ...state,
                 ICSaved: action.item
