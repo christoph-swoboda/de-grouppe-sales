@@ -22,7 +22,7 @@ const BestandListDataSection = ({
                                     view
                                 }) => {
     const [{pageBestand}, dispatch] = useStateValue();
-    const searChableFields = [1, 2, 3, 4, 5, 7]
+    const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
     const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
     function ascSort(id) {
@@ -56,9 +56,13 @@ const BestandListDataSection = ({
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, e: val}})
             dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, e: 5}})
         }
-        if (id === 7) {
+        if (id === 6) {
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, f: val}})
-            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, f: 7}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, f: 6}})
+        }
+        if (id === 7) {
+            dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, g: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, g: 7}})
         }
     }
 
@@ -110,7 +114,7 @@ const BestandListDataSection = ({
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                maxLength="50"
-                                                               value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : filter.f}
+                                                               value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e :header.id === 6 ? filter.f : filter.g}
                                                                onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />

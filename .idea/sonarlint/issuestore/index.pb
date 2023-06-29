@@ -62,8 +62,6 @@ U
 %src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
 A
 public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
-E
-src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
 J
 src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 Y
@@ -78,9 +76,9 @@ J
 src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
 H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
-b
-2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
 Z
 *src/pages/bestantList/partial/csvFormat.js,2\b\2bc4f03b010fe88055a696c7e1d0d72d60f6242c
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
+c
+3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
