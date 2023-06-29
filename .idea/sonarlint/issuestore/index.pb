@@ -60,8 +60,6 @@ K
 src/states/StateProvider.js,c\a\ca2b8db9b50a6d317ad5ea40979a36494a172b8c
 U
 %src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
-A
-public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
 J
 src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
 Y
