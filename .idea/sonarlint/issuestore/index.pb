@@ -78,8 +78,6 @@ Z
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
 c
 3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
-E
-src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 N
 src/pages/infoCrawler/index.js,6\5\65b36b16aecd92c8cf064b585e75cc8ea053db43
 E
