@@ -125,15 +125,17 @@ const AddUsers = () => {
                 </section>
 
                 <section className='flex flex-col text-left text-grey text-sm py-2'>
-                    <label className='pb-2'>VP-Nummer </label>
+                    <label className='pb-2'>VP-Nummer * </label>
                     <input placeholder='VP-Nummer'
                            type='text'
                            {...register('partnernr', {
+                               required: 'Ihr VP-Nummer ist erforderlich',
                                pattern: {
                                    value: /^.{1,20}$/,
                                    message: 'maximal 20 Zeichen erlaubt',
                                },
                            })}
+                           required
                            style={{border: errors.partnernr && '1px solid red'}}
                     />
                     {errors.partnernr && touchedFields && <p>{errors.partnernr.message}</p>}
@@ -189,24 +191,24 @@ const AddUsers = () => {
                 </section>
 
                 {/*<section className='flex flex-col text-left text-grey text-sm'>*/}
-                    <label htmlFor="field-aktiv" className='mt-0' hidden={watch('role') !== '1'}>
-                        <input
-                            className='mr-1'
-                            {...register("admin")}
-                            type="checkbox"
-                            id="field-aktiv"
-                        />
-                        <span className='mx-1 text-sm text-grey'> Darf Benutzer verwalten</span>
-                    </label>
-                    <label htmlFor="field-aktiv" className='mt-1' hidden={watch('role') !== '1'}>
-                        <input
-                            className='ml-10'
-                            {...register("icAdmin")}
-                            type="checkbox"
-                            id="field-aktiv"
-                        />
-                        <span className='mx-1 text-sm text-grey'> Darf InfoCrowler verwalten</span>
-                    </label>
+                <label htmlFor="field-aktiv" className='mt-0' hidden={watch('role') !== '1'}>
+                    <input
+                        className='mr-1'
+                        {...register("admin")}
+                        type="checkbox"
+                        id="field-aktiv"
+                    />
+                    <span className='mx-1 text-sm text-grey'> Darf Benutzer verwalten</span>
+                </label>
+                <label htmlFor="field-aktiv" className='mt-1' hidden={watch('role') !== '1'}>
+                    <input
+                        className='ml-10'
+                        {...register("icAdmin")}
+                        type="checkbox"
+                        id="field-aktiv"
+                    />
+                    <span className='mx-1 text-sm text-grey'> Darf InfoCrowler verwalten</span>
+                </label>
                 {/*</section>*/}
 
                 <section className='flex flex-col text-left text-grey text-sm'>
