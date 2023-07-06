@@ -85,11 +85,12 @@ const BestandListDataSection = ({
                                     {
                                         !loading &&
                                         headers.map(header => (
+
                                             <th key={header.id} scope="col"
-                                                className="text-sm text-grey pl-1.5"
+                                                className="text-sm text-grey pl-1.5 tooltip"
                                                 style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
                                             >
-                                                    <span className='flex justify-left'>
+                                                <span className='flex justify-left'>
                                                           <span
                                                               className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
                                                           >
@@ -119,6 +120,7 @@ const BestandListDataSection = ({
                                                                placeholder='Suche...'
                                                         />
                                             </span>
+                                                <p className='tooltiptextInstant'>{header.mouseOver}</p>
                                             </th>
                                         ))
                                     }

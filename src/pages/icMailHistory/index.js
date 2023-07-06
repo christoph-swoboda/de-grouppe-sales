@@ -27,7 +27,7 @@ const MailHistory = () => {
             <h2 className='text-center text-3xl mt-3 font-bold border border-b-0 border-x-0 border-t-0 border-white'>Mail
                 Verlauf</h2>
             <div className='float-right'>
-                <a onClick={()=>navigate(-1)} className='cursor-pointer'>
+                <a title='vorherige Seite' onClick={()=>navigate(-1)} className='cursor-pointer'>
                     <IoArrowBackSharp size={'30px'}/>
                 </a>
             </div>
