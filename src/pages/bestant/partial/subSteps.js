@@ -21,12 +21,17 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const ref = useRef()
     const [{currentMilestone, subStepSaved}, dispatch] = useStateValue();
     const {
-        register, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
+        register, reset, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
     const user = JSON.parse(localStorage.user)
     const role = user.role
+
+    useEffect(() => {
+          reset()
+    }, [currentMilestone]);
+
 
     useEffect(() => {
         if (data.length > 0) {
@@ -66,6 +71,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                         }
                     }
                     if (d.fieldType === 'text') {
+                        console.log('d.substepID',d.substepID, 'grid[Number(d.substepID) - 1]?.fieldValue', grid[Number(d.substepID) - 1])
                         setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
                     }
                 }
