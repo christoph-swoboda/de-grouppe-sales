@@ -7,6 +7,7 @@ import AllNotes from "../components/allNotes";
 import Documents from "../pages/documents";
 import ResetPassword from "../pages/resetPassword";
 import InfoCrawler from "../pages/infoCrawler";
+import MailHistory from "../pages/icMailHistory";
 
 
 export const RouteData = [
@@ -71,6 +72,13 @@ export const RouteData = [
         path: 'info-crawler',
         name: 'infoCrawler',
         component: <InfoCrawler/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 9,
+        path: 'mail-verlauf',
+        name: 'mailVerlauf',
+        component: <MailHistory/>,
         redirection: '/anmeldung'
     },
 
