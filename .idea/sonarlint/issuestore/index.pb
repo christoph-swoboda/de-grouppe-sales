@@ -47,8 +47,6 @@ B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
 H
 src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
-P
- src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 K
 src/pages/register/index.js,e\5\e50e8f9e7c242e53f54739a2bf9ac8140953fc88
 K
