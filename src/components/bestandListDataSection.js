@@ -70,7 +70,7 @@ const BestandListDataSection = ({
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={{minHeight: '50vh'}}>
-                    <div className="overflow-hidden">
+                    <div className="overflow-hidden pt-3">
                         {
                             (users?.length === 0 && !loading) &&
                             <div className='centerItemsAbsolute'>
@@ -120,7 +120,7 @@ const BestandListDataSection = ({
                                                                placeholder='Suche...'
                                                         />
                                             </span>
-                                                <p className='tooltiptextInstant'>{header.mouseOver}</p>
+                                                <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
                                             </th>
                                         ))
                                     }
