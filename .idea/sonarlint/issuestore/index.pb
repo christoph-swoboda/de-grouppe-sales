@@ -61,8 +61,6 @@ Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
 N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
-J
-src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
 H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 Z
@@ -75,12 +73,6 @@ A
 public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
-b
-2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
-N
-src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
-T
-$src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302

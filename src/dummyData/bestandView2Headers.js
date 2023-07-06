@@ -1,66 +1,82 @@
 export const BestandView2Headers = [
     {
         id: 1,
-        title: 'Firma Kurz'
+        title: 'Firma Kurz',
+        mouseOver: '',
     },
     {
         id: 2,
-        title: 'Firma'
+        title: 'Firma',
+        mouseOver: '',
     },
     {
         id: 3,
-        title: 'MA'
+        title: 'MA',
+        mouseOver: '',
     },
     {
         id: 4,
-        title: 'Zust. FKB'
+        title: 'Zust. FKB',
+        mouseOver: '',
     },
     {
         id: 5,
-        title: 'BD'
+        title: 'BD',
+        mouseOver: '',
     },
     {
         id: 6,
-        title: 'FD'
+        title: 'FD',
+        mouseOver: '',
     },
     {
         id: 7,
-        title: 'DGAPI KAM'
+        title: 'DGAPI KAM',
+        mouseOver: '',
     },
     {
         id: 8,
-        title: 'DL+Kzl vollst'
+        title: 'DL+Kzl vollst',
+        mouseOver: 'DL+Kanzleiauftrag Prüfung vollständig',
     },
     {
         id: 9,
-        title: 'Projtd vollst'
+        title: 'Projtd vollst',
+        mouseOver: 'Projektdefintion vollständig',
     },
     {
         id: 10,
-        title: 'Projtd abge'
+        title: 'Projtd abge',
+        mouseOver: 'Projektdefinition abgefragt',
     },
     {
         id: 11,
-        title: 'AA FA hin'
+        title: 'AA FA hin',
+        mouseOver: 'AnrAuskunft FA hin',
     },
     {
         id: 12,
-        title: 'StSvGA erst.'
+        title: 'StSvGA erst.',
+        mouseOver: 'st- sv-Gutachten erstellt',
     },
     {
         id: 13,
-        title: 'ArTfGA erst.'
+        title: 'ArTfGA erst.',
+        mouseOver: 'arb- tarif-Gutachten erstellt',
     },
     {
         id: 14,
-        title: 'ProjStart'
+        title: 'ProjStart',
+        mouseOver: 'ProjektStart (MA-Vortrag)',
     },
     {
         id: 15,
-        title: 'MAV an FKB'
+        title: 'MAV an FKB',
+        mouseOver: 'MA-Vortrag an FKB',
     },
     {
         id: 16,
-        title: 'MAB fertig'
+        title: 'MAB fertig',
+        mouseOver: 'MAB Druckauftrag',
     },
 ]
