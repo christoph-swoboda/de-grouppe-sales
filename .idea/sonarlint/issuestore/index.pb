@@ -41,11 +41,6 @@ X
 (src/pages/bestant/partial/companyData.js,8\c\8c365bbaf8a1eec2ea05be9a6f5fd6a8daac77b2
 N
 src/pages/newCreation/index.js,9\5\955ce32d82db159be5bc6900b78f07be01101dcf
-:
-
-src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
-C
-src/router/index.js,0\5\05dc69393f11c15b01b3283d5d501694c999875c
 L
 src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 B
@@ -64,8 +59,6 @@ Y
 )src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
 Q
 !src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
-I
-src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
 N
 src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 J
@@ -76,10 +69,6 @@ Z
 *src/pages/bestantList/partial/csvFormat.js,2\b\2bc4f03b010fe88055a696c7e1d0d72d60f6242c
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
-c
-3src/pages/bestantList/partial/firmenprojekteView.js,8\b\8bf6431d371cd73a93b7ba346bed1c6f3db8e065
-N
-src/pages/infoCrawler/index.js,6\5\65b36b16aecd92c8cf064b585e75cc8ea053db43
 E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 A
@@ -90,8 +79,6 @@ b
 2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
 N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
-X
-(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
 T
 $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
 :

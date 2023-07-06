@@ -4,6 +4,7 @@ import {ClipLoader, SkewLoader} from "react-spinners";
 import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
+import {Link} from "react-router-dom";
 
 const InfoCrawler = () => {
 
@@ -191,7 +192,7 @@ const InfoCrawler = () => {
                 loading ?
                     <SkewLoader size='10px'/>
                     : isICAdmin === 1 &&
-                    <div className={`bg-white rounded-xl text-left px-14 py-8 `}>
+                    <div className={`bg-white rounded-xl text-left px-14 py-8`}>
                         <div
                             className={`${(!deleteClicked) && 'hideDiv'} shadow shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
                             <p>Wollen Sie den Datensatz wirklich löschen?</p>
@@ -207,41 +208,47 @@ const InfoCrawler = () => {
                                 {loadingGrid && <ClipLoader size={10} color='#3A46A9'/>}
                             </p>
                         </div>
-                        <div className='lg:w-fit'>
-                            <div className='lg:flex justify-start flex-wrap items-center my-2'>
-                                <p className='w-fit'>Einstellungen für: </p>
-                                <select onChange={milestoneChanged}
-                                        className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
-                                    <option hidden={milestones.length > 0} value={null}>Wählen Sie einen Meilenstein
-                                        aus
-                                    </option>
+                        <div className='centerItemsRelative flex-wrap'>
+                            <div className='lg:w-fit'>
+                                <div className='lg:grid grid-cols-6 items-center my-2'>
+                                    <p className='w-fit col-span-1'>Einstellungen für: </p>
+                                    <select onChange={milestoneChanged}
+                                            className='pl-3 col-span-2 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
+                                        <option hidden={milestones.length > 0} value={null}>Wählen Sie einen Meilenstein
+                                            aus
+                                        </option>
+                                        {
+                                            milestones.map((m, i) => (
+                                                <option className={m.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
+                                                        value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
+                                            ))
+                                        }
+                                    </select>
                                     {
-                                        milestones.map((m, i) => (
-                                            <option className={m.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
-                                                    value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
-                                        ))
+                                        subStepsLoading ? <SkewLoader size='10px' color={'#3A46A9'}/>
+                                            :
+                                            <select onChange={subStepSelected}
+                                                    className='col-span-2 pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'>
+                                                {
+                                                    subSteps.length === 0 && !subStepsLoading ?
+                                                        <option value={null}>Bitte wählen Sie erst einen
+                                                            Meilenstein aus
+                                                        </option> :
+                                                        subSteps.map((s, i) => (
+                                                            <option
+                                                                className={s.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
+                                                                value={s.substepID} key={i}>{s.stepName}</option>
+                                                        ))
+                                                }
+                                            </select>
                                     }
-                                </select>
-                                {
-                                    subStepsLoading ? <SkewLoader size='10px' color={'#3A46A9'}/>
-                                        :
-                                        <select onChange={subStepSelected}
-                                                className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'>
-                                            {
-                                                subSteps.length === 0 && !subStepsLoading ?
-                                                    <option value={null}>Bitte wählen Sie erst einen
-                                                        Meilenstein aus
-                                                    </option> :
-                                                    subSteps.map((s, i) => (
-                                                        <option
-                                                            className={s.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
-                                                            value={s.substepID} key={i}>{s.stepName}</option>
-                                                    ))
-                                            }
-                                        </select>
-                                }
+                                </div>
                             </div>
+                            <Link to={'/mail-verlauf'} className='px-6 w-fit h-fit float-right py-2 bg-mainBlue hover:bg-offWhite text-white hover:text-text rounded-md '>
+                                Mail Verlauf
+                            </Link>
                         </div>
+
 
                         {
                             loadingGrid ?
