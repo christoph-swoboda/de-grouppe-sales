@@ -53,20 +53,12 @@ K
 src/states/StateProvider.js,c\a\ca2b8db9b50a6d317ad5ea40979a36494a172b8c
 J
 src/pages/bestant/index.js,f\9\f9e3e88b7503d7e977700ea8c5b29e8d2b190746
-Y
-)src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
-Q
-!src/pages/userManagement/index.js,7\3\73ea7b78997c014106dd899dd2e30008e623db23
-N
-src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
 H
 src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
 Z
 *src/pages/bestantList/partial/csvFormat.js,2\b\2bc4f03b010fe88055a696c7e1d0d72d60f6242c
 \
 ,src/pages/bestantList/partial/excelFormat.js,9\1\91ec4936da2ed155a321501c4aca2ff4a41bc525
-E
-src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 A
 public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
 E
@@ -76,3 +68,13 @@ E
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 T
 $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
+U
+%src/pages/bestant/partial/subSteps.js,3\f\3f605feee56d4d2ca33515b51c13c9056d2e0d45
+X
+(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
+N
+src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
+b
+2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
+P
+ src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
