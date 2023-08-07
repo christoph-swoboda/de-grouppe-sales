@@ -99,9 +99,9 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                                  role === 'Internal' ?
                                      <GrUserAdmin size={'20px'} color={'#565c8c'}/>
                                      : role === 'Supervisor' ?
-                                         <MdSupervisorAccount size={'20px'} color={'#3A46A9'}/>
+                                         <FaUser size={'20px'} color={'#3A46A9'}/>
                                          : role === 'External' ?
-                                             <FaUser size={'20px'} color={'#565c8c'}/>
+                                             <MdSupervisorAccount size={'20px'} color={'#565c8c'}/>
                                              : role && <FaUserSecret size={'20px'} color={'#565c8c'}/>
                              }
                         <span className='ml-2'>{name ? name : 'N/A'}</span>
