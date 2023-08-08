@@ -23,8 +23,6 @@ G
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 <
 src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
-R
-"src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
 O
 src/components/bestantStatus.js,5\c\5ca8ca76a5fdebd573b7bbb085fd2e7c3c5f505d
 U
@@ -76,5 +74,5 @@ N
 src/pages/bestantList/index.js,2\e\2eb0bf4958f42274adb0a863d31ae4f8ecc976f7
 b
 2src/pages/bestantList/partial/projekt-tafelView.js,a\b\ab25fe2b278ac3109dbd17a05a018f76850c085d
-P
- src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
+E
+src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
