@@ -81,8 +81,8 @@ const UpdateRole = ({userID, role}) => {
                                                     className='px-4 py-2 rounded-md bg-offWhite cursor-pointer mb-7'
                                             >
                                                 <option value='i'>Innendienst</option>
-                                                <option value='s'>FKB</option>
-                                                <option value='e'>Vorstand</option>
+                                                <option value='e'>FKB</option>
+                                                <option value='s'>Vorstand</option>
                                                 <option value='c'>Controlling</option>
                                             </select>
                                             {errors.role && touchedFields &&
