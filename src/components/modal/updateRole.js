@@ -82,7 +82,7 @@ const UpdateRole = ({userID, role}) => {
                                             >
                                                 <option value='i'>Innendienst</option>
                                                 <option value='e'>FKB</option>
-                                                <option value='s'>Vorstand</option>
+                                                <option value='s'>Management</option>
                                                 <option value='c'>Controlling</option>
                                             </select>
                                             {errors.role && touchedFields &&
