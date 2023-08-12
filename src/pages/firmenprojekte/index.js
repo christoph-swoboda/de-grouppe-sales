@@ -276,20 +276,22 @@ const BestantList = () => {
                         filter={filter}
                         view={viewName}
                     />
-                    <div className={`${loading?'hideDiv':''} flex justify-center -mt-12 pb-4 mx-64`}>
-                        <h2 className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey ml-6 mt-2 ml-10`}>
-                            Einträge anzeigen:
-                            <span>
+                    <div className={`${loading?'hideDiv':''} absolute ${viewName==='Firmenprojekte'? 'left-14': 'left-0'}  ${viewName==='Firmenprojekte'? '-mt-16': '-mt-18'} -mt-14 pb-9 mx-10`}>
+                        <div className='flex justify-center'>
+                            <p className={`${(users?.length === 0) && 'hideDiv'} mr-2 text-sm text-grey mt-2`}>
+                                {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users?.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Einträge
+                            </p>
+                            <h2 className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey ml-6 mt-2 ml-10`}>
+                                Einträge anzeigen:
+                                <span>
                                 <select onChange={setPageStates} className={` bg-transparent text-mainBlue`}>
                                     <option value={'10'}>{10}</option>
                                     <option value={'25'}>{25}</option>
                                     <option value={'10000'}>Alle</option>
                                 </select>
                             </span>
-                        </h2>
-                        <p className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey ml-auto mt-2`}>
-                            {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users?.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Einträge
-                        </p>
+                            </h2>
+                        </div>
                     </div>
                 </div>
             </div>
