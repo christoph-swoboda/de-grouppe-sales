@@ -1,10 +1,12 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import Api from "../../../Api/api";
+import {toast} from "react-toastify";
 
-const Form = () => {
+const Form = ({name, dropdown, role}) => {
 
     const [loading, setLoading] = useState(false)
+    const [bank, setBank] = useState(dropdown[0]?.Bank)
 
     const {
         register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
@@ -13,278 +15,332 @@ const Form = () => {
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
-        Api().post('/test', data).then(res => {
-            console.log('res', res.data)
+        // console.log('data', data)
+        setLoading(true)
+        Api().post('/saveNeu', data).then(res => {
+            toast.success('Erfolgreich gespeichert!')
+            setLoading(false)
+        }).catch(e => {
+            toast.error('Etwas ist schief gelaufen!!')
+            setLoading(false)
+            // alert(e.response.data.message)
         })
-        console.log('data', data)
     };
 
+    useEffect(() => {
+        setValue('berater', name)
+        setValue('blz', dropdown?.filter(d => d.Bank === bank)[0]?.BLZ)
+    }, [bank, dropdown, name]);
+
+    useEffect(() => {
+        setValue('bank', dropdown[0]?.Bank)
+    }, [dropdown]);
+
+    function setBankValue(e) {
+        setBank(e)
+        setValue('bank', e)
+        setValue('blz', dropdown?.filter(d => d.Bank === bank)[0]?.BLZ)
+    }
 
     return (
         <div className='bg-white rounded-lg'>
-            <form onSubmit={handleSubmit(onSubmit)}
-                  className='lg:grid lg:grid-cols-5 gap-6 sm:grid-cols-1 gap-6 mb-10 p-10'
-            >
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Accountant *</label>
-                    <input placeholder='Project...'
-                           {...register('FP_FBK', {required: true})}
-                           style={{border: errors.FP_FBK && '1px solid red'}}
-                    />
-                    {errors.FP_FBK && touchedFields && <p>zust. Berater is required</p>}
-                </section>
+            <form onSubmit={handleSubmit(onSubmit)} className='mb-10 p-10'>
+                {/*// className='lg:grid lg:grid-cols-5 gap-6 sm:grid-cols-1 gap-6 mb-10 p-10'*/}
+                <h2 className='text-lg text-mainBlue text-left mb-6'><span className='text-grey'>Berater:</span> {name}
+                </h2>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Bank *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('FP_Bank', {required: true})}
-                           style={{border: errors.FP_Bank && '1px solid red'}}
-                    />
-                    {errors.FP_Bank && touchedFields &&
-                        <p>Bank Field is required</p>}
-                </section>
+                {/*first 6 section*/}
+                {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start gap-3 flex-wrap'>*/}
+                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0'>
+                    <section className='hidden'>
+                        <input{...register('berater', {required: false})} value={name}/>
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>BLZ(German No) *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Bank_BLZ', {required: true})}
-                           style={{border: errors.Bank_BLZ && '1px solid red'}}
-                    />
-                    {errors.Bank_BLZ && touchedFields &&
-                        <p>BLZ Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:-ml-2 lg:-ml-0'>
+                        <label>Bank *</label>
+                        <select onClick={(e) => setBankValue(e.target.value)}
+                                className='p-3 bg-transparent border border-whiteDark rounded-lg'
+                                {...register('bank', {required: false})}
+                                style={{border: errors.bank && '1px solid red'}}
+                        >
+                            {
+                                dropdown?.map((d, i) => (
+                                    <option key={i} value={d.Bank}> {d.Bank}</option>
+                                ))
+                            }
+                        </select>
+                        {errors.bank && touchedFields && <p>Bank Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Region *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('FP_Regio_Bereich', {required: true})}
-                           style={{border: errors.FP_Regio_Bereich && '1px solid red'}}
-                    />
-                    {errors.FP_Regio_Bereich && touchedFields && <p>Regio-Bereich Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:mr-14 lg:mr-0'>
+                        <label>BLZ</label>
+                        <input placeholder='BLZ...'
+                               value={dropdown?.filter(d => d.Bank === bank)[0]?.BLZ}
+                               {...register('blz', {required: false})}
+                               style={{border: errors.blz && '1px solid red'}}
+                        />
+                        {errors.blz && touchedFields && <p>BLZ Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>FKB Bank *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('FP_FKB_Bank', {required: true})}
-                           style={{border: errors.FP_FKB_Bank && '1px solid red'}}
-                    />
-                    {errors.FP_FKB_Bank && touchedFields && <p>FKB Bank Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-14 lg:mr-0 lg:-ml-0'>
+                        <label>Region </label>
+                        <input placeholder='Region...'
+                               {...register('region', {required: false})}
+                               style={{border: errors.region && '1px solid red'}}
+                        />
+                        {errors.region && touchedFields && <p>Region Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>blank *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('blank', {required: true})}
-                           style={{border: errors.blank && '1px solid red'}}
-                    />
-                    {errors.blank && touchedFields && <p>blank Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
+                        <label>FKB Bank *</label>
+                        <input placeholder='FKB Bank...'
+                               {...register('fkb_bank', {required: true})}
+                               style={{border: errors.fkb_bank && '1px solid red'}}
+                        />
+                        {errors.fkb_bank && touchedFields && <p>FKB Bank Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Company short *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Firma_Kurz', {required: true})}
-                           style={{border: errors.Firma_Kurz && '1px solid red'}}
-                    />
-                    {errors.Firma_Kurz && touchedFields && <p>Firma Kurzname Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
+                        <label>DGAPI KAM *</label>
+                        <input placeholder='DGAPI KAM...'
+                               {...register('dgapi', {required: true})}
+                               style={{border: errors.dgapi && '1px solid red'}}
+                        />
+                        {errors.dgapi && touchedFields && <p>DGAPI KAM Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Firma Company*</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Firma1', {required: true})}
-                           style={{border: errors.Firma1 && '1px solid red'}}
-                    />
-                    {errors.Firma1 && touchedFields && <p>Firma Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
+                        <label>Bestands/Neukunde*</label>
+                        <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
+                                {...register('bestands', {required: true})}
+                                style={{border: errors.bestands && '1px solid red'}}
+                        >
+                            <option defaultValue value={'Neukunde'}>Neukunde</option>
+                            <option value={'Bestandskunde'}> Bestandskunde</option>
+                        </select>
+                        {errors.bestands && touchedFields && <p>Bestands/Neukunde Feld ist erforderlich</p>}
+                    </section>
+                </div>
+                {/*first 6 section*/}
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Street *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Strasse', {required: true})}
-                           style={{border: errors.Strasse && '1px solid red'}}
-                    />
-                    {errors.Strasse && touchedFields &&
-                        <p>Straße Field is required</p>}
-                </section>
+                {/*second 9 section*/}
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Citycode *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('PLZ', {required: true})}
-                           style={{border: errors.PLZ && '1px solid red'}}
-                    />
-                    {errors.PLZ && touchedFields && <p>PLZ Field is required</p>}
-                </section>
+                {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start md:gap-3 2xl:gap-4 lg:gap-1 flex-wrap'>*/}
+                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-12'>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:col-span-4 lg:col-span-5 md:col-span-2'>
+                        <label>Firma *</label>
+                        <input placeholder='Firma...'
+                               {...register('firma', {required: true})}
+                               style={{border: errors.firma && '1px solid red'}}
+                        />
+                        {errors.firma && touchedFields && <p>Firma Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>City *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('ORT', {required: true})}
-                           style={{border: errors.ORT && '1px solid red'}}
-                    />
-                    {errors.ORT && touchedFields && <p>ORT Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                        <label>Straße *</label>
+                        <input placeholder='Straße...'
+                               {...register('strabe', {required: true})}
+                               style={{border: errors.strabe && '1px solid red'}}
+                        />
+                        {errors.strabe && touchedFields && <p>Straße Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Telefon *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Telefon', {required: true})}
-                           style={{border: errors.Telefon && '1px solid red'}}
-                    />
-                    {errors.Telefon && touchedFields && <p>Telefon Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2'>
+                        <label>PLZ *</label>
+                        <input placeholder='PLZ...'
+                               {...register('plz', {required: true})}
+                               style={{border: errors.plz && '1px solid red'}}
+                        />
+                        {errors.plz && touchedFields && <p>PLZ Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Tax-ID *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('USt_Id', {required: true})}
-                           style={{border: errors.USt_Id && '1px solid red'}}
-                    />
-                    {errors.USt_Id && touchedFields && <p>Umsatzsteuer-ID Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                        <label>Stadt *</label>
+                        <input placeholder='Stadt...'
+                               {...register('stadt', {required: true})}
+                               style={{border: errors.stadt && '1px solid red'}}
+                        />
+                        {errors.stadt && touchedFields && <p>Stadt Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Website *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Internetadresse', {required: true})}
-                           style={{border: errors.Internetadresse && '1px solid red'}}
-                    />
-                    {errors.Internetadresse && touchedFields && <p>Internetadresse Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm col-span-2 2xl:block md:hidden'>
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>No. of Employees *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('MItarbeiter1', {required: true})}
-                           style={{border: errors.MItarbeiter1 && '1px solid red'}}
-                    />
-                    {errors.MItarbeiter1 && touchedFields && <p>MA-Anzahl Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:col-span-2 lg:col-span-3'>
+                        <label>Firma Kurzname *</label>
+                        <input placeholder='Firma Kurzname...'
+                               {...register('firmaKruz', {required: true})}
+                               style={{border: errors.firmaKruz && '1px solid red'}}
+                        />
+                        {errors.firmaKruz && touchedFields && <p>Firma Kurzname Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label> Contact *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Ansprechpartner', {required: true})}
-                           style={{border: errors.Ansprechpartner && '1px solid red'}}
-                    />
-                    {errors.Ansprechpartner && touchedFields && <p>Ansprechpartner Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                        <label>Telefon zentrale *</label>
+                        <input placeholder='Telefon zentrale...'
+                               {...register('telefon', {required: true})}
+                               style={{border: errors.telefon && '1px solid red'}}
+                        />
+                        {errors.telefon && touchedFields && <p>Telefon zentrale Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label> Salutation *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('AnPerson', {required: true})}
-                           style={{border: errors.AnPerson && '1px solid red'}}
-                    />
-                    {errors.AnPerson && touchedFields && <p>AnPerson Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                        <label>Umsatzsteuer ID </label>
+                        <input placeholder='Umsatzsteuer ID...'
+                               {...register('umsatzsteuer', {required: false})}
+                               style={{border: errors.umsatzsteuer && '1px solid red'}}
+                        />
+                        {errors.umsatzsteuer && touchedFields && <p>Umsatzsteuer ID Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Title *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Titel', {required: true})}
-                           style={{border: errors.Titel && '1px solid red'}}
-                    />
-                    {errors.Titel && touchedFields && <p>Titel Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                        <label>Internetadresse * </label>
+                        <input placeholder='Internetadresse...'
+                               {...register('internetadresse', {required: true})}
+                               style={{border: errors.internetadresse && '1px solid red'}}
+                        />
+                        {errors.internetadresse && touchedFields && <p>Internetadresse Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Firstname *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Vorname', {required: true})}
-                           style={{border: errors.Vorname && '1px solid red'}}
-                    />
-                    {errors.Vorname && touchedFields && <p>Vorname Field is required</p>}
-                </section>
+                    <section className='flex flex-col mb-10 text-left text-grey text-sm mt-2'>
+                        <label>MA-Anzahl *</label>
+                        <input placeholder='MA-Anzahl...'
+                               type="number"
+                               {...register('ma', {
+                                   required: 'Feld ist erforderlich und muss aus Ziffern bestehen',
+                                   pattern: {
+                                       value: /^[0-9\/]*$/,
+                                       message: 'Wert muss aus Ziffern bestehen',
+                                   }
+                               })}
+                               required
+                               style={{border: errors.ma && '1px solid red'}}
+                        />
+                        {errors.ma && touchedFields && <p>{errors.ma.message}</p>}
+                    </section>
+                </div>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label> Surname *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Name', {required: true})}
-                           style={{border: errors.Name && '1px solid red'}}
-                    />
-                    {errors.Name && touchedFields && <p>Name Field is required</p>}
-                </section>
+                {/*second 9 section*/}
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label> Position *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Position', {required: true})}
-                           style={{border: errors.Position && '1px solid red'}}
-                    />
-                    {errors.Position && touchedFields && <p>Position Field is required</p>}
-                </section>
+                {/*third 10 section*/}
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Follow up date *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('WieVor_Datum', {required: true})}
-                           style={{border: errors.WieVor_Datum && '1px solid red'}}
-                    />
-                    {errors.WieVor_Datum && touchedFields && <p>Wiedervorlage Field is required</p>}
-                </section>
+                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-10'>
+                    <section className='flex flex-col text-left text-grey text-sm'>
+                        <label> Anrede *</label>
+                        <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
+                                {...register('anrede', {required: true})}
+                                style={{border: errors.bank && '1px solid red'}}
+                        >
+                            <option defaultValue value={'Frau'}> Frau</option>
+                            <option value={'Herr'}> Herr</option>
+                        </select>
+                        {errors.anrede && touchedFields && <p>Anrede Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Follow up note *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('WieVor_Text', {required: true})}
-                           style={{border: errors.WieVor_Text && '1px solid red'}}
-                    />
-                    {errors.WieVor_Text && touchedFields && <p>Wiedervor_Info Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm 2xl:col-span-1 lg:col-span-2'>
+                        <label> Titel</label>
+                        <input placeholder='Titel...'
+                               {...register('titel', {required: false})}
+                               style={{border: errors.titel && '1px solid red'}}
+                        />
+                        {errors.titel && touchedFields && <p>Titel Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Direkt *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Direkt', {required: true})}
-                           style={{border: errors.Direkt && '1px solid red'}}
-                    />
-                    {errors.Direkt && touchedFields && <p>Direkt Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm'>
+                        <label>Vorname *</label>
+                        <input placeholder='Vorname...'
+                               {...register('vorname', {required: true})}
+                               style={{border: errors.vorname && '1px solid red'}}
+                        />
+                        {errors.vorname && touchedFields && <p>Vorname Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label> Mobil *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Mobil', {required: true})}
-                           style={{border: errors.Mobil && '1px solid red'}}
-                    />
-                    {errors.Mobil && touchedFields && <p>Mobil Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm'>
+                        <label>Nachname *</label>
+                        <input placeholder='Nachname...'
+                               {...register('nachname', {required: true})}
+                               style={{border: errors.nachname && '1px solid red'}}
+                        />
+                        {errors.nachname && touchedFields && <p>Nachname Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label> Privat  *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Privat', {required: true})}
-                           style={{border: errors.Privat  && '1px solid red'}}
-                    />
-                    {errors.Privat  && touchedFields && <p>Privat  Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-2'>
+                        <label> Position *</label>
+                        <input placeholder='Position...'
+                               {...register('position', {required: true})}
+                               style={{border: errors.position && '1px solid red'}}
+                        />
+                        {errors.position && touchedFields && <p>Position Feld ist erforderlich</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>E-Mail *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('E-Mail', {required: true})}
-                           style={{border: errors.EMail  && '1px solid red'}}
-                    />
-                    {errors.EMail && touchedFields && <p>E-Mail Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-3'>
+                        <label>E-Mail</label>
+                        <input placeholder='E-Mail'
+                               {...register('email', {
+                                   required: false,
+                                   pattern: {
+                                       value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                       message: 'Bitte geben Sie eine gültige E-Mail ein',
+                                   },
+                               })}
+                               type="email"
+                               style={{border: errors.email && '1px solid red'}}
+                        />
+                        {errors.email && touchedFields && <p>{errors.email.message}</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label>Fax *</label>
-                    <input placeholder='placeholder ...'
-                           {...register('Fax', {required: true})}
-                           style={{border: errors.Fax && '1px solid red'}}
-                    />
-                    {errors.Fax && touchedFields && <p>Fax Field is required</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm col-span-2 2xl:block md:hidden'>
+                    </section>
 
-                <input
-                    className={(isValid) ? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' : 'disabled'}
-                    disabled={!isValid} type="submit"
-                    value={(!loading) ? 'Save On Computer' : 'saving...'}
-                />
+                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-2'>
+                        <label>Durchwahl </label>
+                        <input placeholder='Durchwahl...'
+                               {...register('durchwahl', {required: false})}
+                               style={{border: errors.durchwahl && '1px solid red'}}
+                        />
+                        {errors.durchwahl && touchedFields && <p>Durchwahl Feld ist erforderlich</p>}
+                    </section>
+
+                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-2'>
+                        <label> Mobil </label>
+                        <input placeholder='Mobil...'
+                               {...register('mobil', {required: false})}
+                               style={{border: errors.mobil && '1px solid red'}}
+                        />
+                        {errors.mobil && touchedFields && <p>Mobil Feld ist erforderlich</p>}
+                    </section>
+
+                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-2'>
+                        <label>Fax</label>
+                        <input placeholder='Fax...'
+                               {...register('fax', {required: false})}
+                               style={{border: errors.fax && '1px solid red'}}
+                        />
+                        {errors.fax && touchedFields && <p>Fax Feld ist erforderlich</p>}
+                    </section>
+
+                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-4 2xl:col-span-3'>
+                        <label> Privat</label>
+                        <input placeholder='Privat...'
+                               {...register('privat', {required: false})}
+                               style={{border: errors.privat && '1px solid red'}}
+                        />
+                        {errors.privat && touchedFields && <p>Privat Feld ist erforderlich</p>}
+                    </section>
+                </div>
+
+                {/*third 10 section*/}
+
+                <p className='text-sm text-grey text-left font-extralight mb-6 mt-5'>* Pflichtfeld</p>
+                {
+                    role!=='Controller' &&
+                    <input
+                        className={isValid? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' :'disabled'}
+                        disabled={!isValid}
+                        type="submit"
+                        value={(!loading) ? 'Anlegen' : 'sparen...'}
+                    />
+                }
             </form>
         </div>
     )

@@ -2,53 +2,88 @@ import React from "react"
 import UserManagementCard from "../../../card/userManagementCard";
 import Pagination from "../../../components/pagination";
 import {useStateValue} from "../../../states/StateProvider";
-import {HashLoader, PacmanLoader, ScaleLoader, SyncLoader} from "react-spinners";
+import {ClipLoader, HashLoader} from "react-spinners";
+import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
+import {UserManagementHeaders} from "../../../dummyData/userManagementHeaders";
+import {formatDate} from "../../../helper/formatDate";
 
-const UserManagementTable = ({role, users, pageSize, loading, total}) => {
+const UserManagementTable = ({users, pageSize, loading, total}) => {
 
     let PageSize = pageSize;
-    const [{page}, dispatch] = useStateValue();
+    const [{page, sortUserColum, sortUserMethod}, dispatch] = useStateValue();
+
+    function ascSort(id) {
+        dispatch({type: "SET_SORTUSERCOLUMN", item: id})
+        dispatch({type: "SET_SORTUSERMETHOD", item: 'asc'})
+    }
+
+    function descSort(id) {
+        dispatch({type: "SET_SORTUSERCOLUMN", item: id})
+        dispatch({type: "SET_SORTUSERMETHOD", item: 'desc'})
+    }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col ml-3">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
                         <table className="min-w-full text-left">
                             <thead className="border-y border-silver border-x-0">
                             <tr>
-                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2">
-                                    #
-                                </th>
-                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2 ">
-                                    eMail
-                                </th>
-                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2 ">
-                                    partnernummer
-                                </th>
-                                <th scope="col" className="text-sm w-3/12 font-medium text-grey px-6 py-2">
-                                    eMail bestätigt
-                                </th>
+                                {
+
+                                    UserManagementHeaders.map(header => (
+                                        <th key={header.id} scope="col"
+                                            className="text-sm font-medium text-grey px-6 py-2"
+                                        >
+                                                    <span className='flex justify-left'>
+                                                          <span
+                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortUserColum === header.id && 'text-mainBlue'}`}
+                                                          >
+                                                            {header.title}
+                                                          </span>
+                                                        <span>
+                                                            <p className={`cursor-pointer ${sortUserColum === header.id && sortUserMethod === 'asc' ? 'text-mainBlue' : ''}`}
+                                                               onClick={() => ascSort(header.id)}
+                                                            >
+                                                                <RiArrowUpSFill size='22px'/>
+                                                            </p>
+                                                            <p className={`-mt-3.5 cursor-pointer ${sortUserColum === header.id && sortUserMethod === 'desc' ? 'text-mainBlue' : ''}`}
+                                                               onClick={() => descSort(header.id)}
+                                                            >
+                                                                <RiArrowDownSFill size='22px'/>
+                                                            </p>
+                                                        </span>
+                                                    </span>
+                                        </th>
+                                    ))
+                                }
                                 <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2"/>
                             </tr>
                             </thead>
                             {
-                                loading?
+                                loading ?
                                     <thead>
-                                    <tr className='mt-24 mb-24 flex justify-center m-auto'>
-                                       <td style={{marginLeft:'40vw'}}> <HashLoader/></td>
+                                    <tr className='mt-24 mb-24 absolute flex justify-center m-auto'>
+                                        <td style={{marginLeft: '45vw'}}><ClipLoader color={'#afafaf'}/></td>
                                     </tr>
                                     </thead>
                                     :
-                                users.map((u,index) => (
-                                    <UserManagementCard
-                                        key={index}
-                                        userID={u.ID}
-                                        email={u.email}
-                                        prtnrNo={u.partnernr}
-                                        valid={u.isValid}
-                                    />
-                                ))
+                                    users?.map((u, index) => (
+                                        <UserManagementCard
+                                            key={index}
+                                            index={index}
+                                            name={u.fullname}
+                                            userID={u.ID}
+                                            role={u.role}
+                                            isAdmin={u.isUserAdmin}
+                                            email={u.email}
+                                            lastLogin={formatDate(u.dateLastLogin, true)}
+                                            created={formatDate(u.dateCreate, true)}
+                                            prtnrNo={u.partnernr}
+                                            valid={u.isActive}
+                                        />
+                                    ))
                             }
                         </table>
                         <div className='centerItemsRelative mt-3 mb-2'>

@@ -1,11 +1,11 @@
-import DateOnly from "../pages/bestant/partial/subSteps/dateOnly";
-
 export const Milestones = [
     {
         id: 0,
+        title: 'Vorbereitung / Potenzial',
+    },
+    {
+        id: 15,
         title: 'Uberleitung an R+V',
-        component:<DateOnly title={'Uberleitung an R+V'} index={1}/>,
-        nextComponent:<DateOnly title={'Ersttermin'} index={2}/>
     },
     {
         id: 1,
@@ -53,10 +53,14 @@ export const Milestones = [
     },
     {
         id: 12,
-        title: 'ProjektStart Umsetzung',
+        title: 'Projekt Abschluss Umsetzung',
     },
     {
         id: 13,
+        title: 'ProjektStart Umsetzung',
+    },
+    {
+        id: 14,
         title: 'Projekt-Absage',
     }
 ]

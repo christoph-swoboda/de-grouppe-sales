@@ -12,11 +12,17 @@ const CollapseExpand = ({show, id}) => {
         }
         else{
             dispatch({type: "SET_COLLAPSE2", item: !show})
+            if(!show){
+                dispatch({type: "SET_NOTEROWS", item: 8})
+            }
+            else{
+                dispatch({type: "SET_NOTEROWS", item: 3})
+            }
         }
     }
 
     return (
-        <p className='p-5 cursor-pointer'
+        <div className='px-5 pb-5 cursor-pointer sm:mt-5 lg:mt-0'
            onClick={toggle}
         >
             {
@@ -28,10 +34,10 @@ const CollapseExpand = ({show, id}) => {
                     :
                     <div className='tooltip'>
                         <IoIosArrowUp size='25px'/>
-                        <span className='tooltiptextInstant'>Zusammenbruch</span>
+                        <span className='tooltiptextInstant'>Einklappen</span>
                     </div>
             }
-        </p>
+        </div>
     )
 }
 

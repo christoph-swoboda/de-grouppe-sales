@@ -2,5 +2,23 @@
 @import "variables";
 
 .dashboardContainer{
-  @include container;
+  min-height: 92vh;
+  background-color: $bg;
+  padding: 5rem 1rem 1rem 1rem;
+  overflow-x: hidden;
+  @media screen and (max-width: $bp-tablet) {
+    padding: 5rem 1rem 1rem 1rem;
+    overflow-x: unset;
+  }
 }
+
+//.table-container {
+//  max-height: 400px; /* Set a maximum height for the container */
+//}
+//
+//#table-to-xls thead {
+//  position: sticky;
+//  top: 0;
+//  background-color: #fff; /* Set a background color for the sticky header */
+//  z-index: 1;
+//}

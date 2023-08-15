@@ -12,13 +12,28 @@
 
 .modal-content {
   background-color: white;
-  border-radius: 20px;
-  width: 55vw;
+  border-radius: 10px;
+  width: 600px;
+  height: 90vh;
   margin: 4vh auto;
-  height: 85vh;
   overflow-y: scroll;
   scrollbar-width: none;
-  padding: 2em;
+  padding: 1rem;
+  @media screen and (max-width: $bp-mobile) {
+    width: 100vw;
+  }
+}
+
+.modal-content-small {
+  background-color: #fafafa;
+  border-radius: 10px;
+  width: 700px;
+  margin: 0 auto;
+  height: 60vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  padding: 1rem;
+  transform: translate(0%, 20%);
   @media screen and (max-width: $bp-mobile) {
     width: 100vw;
   }

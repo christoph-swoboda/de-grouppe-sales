@@ -3,6 +3,7 @@ $mainBlue: #3A46A9;
 $bg: #EBEAE9;
 $white: #D9D9D9;
 $text: #1c1c1c;
+$graph: #595959;
 $borderColor: rgb(22, 40, 70);
 $darkTheme: #5b3836;
 $bp-tablet: 768px;
@@ -36,13 +37,11 @@ form {
 }
 
 .search {
-  padding: 7px 7px 7px 10px;
-  width: 30%;
   @media screen and (max-width: $bp-laptop) {
     width: 100%;
     margin: 10px;
   }
-  border: 1px solid silver;
+  border: 1px solid $white;
 }
 
 .customContainer {
@@ -60,23 +59,23 @@ form {
 
 .tooltip {
   position: relative;
-  display: inline-block;
+  //display: inline-block;
 }
 
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  max-width: 220px;
+  min-width: 100px;
+  max-width: 650px;
   height: fit-content;
   padding: 20px;
-  text-align: center;
   background-color: #FFF4C7;
   color: black;
   font-size: 12px;
   border-radius: 6px;
   position: absolute;
   top: -25px;
-  left: -195px;
+  left: -625px;
   /* Position the tooltip text - see examples below! */
   z-index: 1;
 }
@@ -85,6 +84,7 @@ form {
 .tooltip:hover .tooltiptext {
   transition-delay: .5s;
   visibility: visible;
+  text-align: left;
 }
 
 /* Tooltip text */
@@ -102,7 +102,7 @@ form {
   border-radius: 6px;
   position: absolute;
   left: -5px;
-  margin-top: -120px;
+  margin-top: -60px;
   /* Position the tooltip text - see examples below! */
   z-index: 1;
 }
@@ -119,17 +119,35 @@ form {
   position: absolute;
   left: -45px;
   margin-top: -50px;
+  background-color: rgb(255, 241, 190);
   /* Position the tooltip text - see examples below! */
   z-index: 1;
 }
+/* Tooltip text */
+.tooltip .tooltiptextInstantOver {
+  visibility: hidden;
+  max-width: 320px;
+  color: #000000;
+  font-size: 12px;
+  text-align: left;
+  padding: 10px 10px 4px 10px;
+  border-radius: 6px;
+  position: absolute;
+  left: -45px;
+  margin-top: -100px;
+  background-color: rgb(255, 241, 190);
+  /* Position the tooltip text - see examples below! */
+  z-index: 9999;
+}
+
 .tooltiptextclose::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .tooltiptextclose {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 
@@ -141,7 +159,12 @@ form {
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptextInstant {
-  transition-delay: 1s;
+  transition-delay: .3s;
+  visibility: visible;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptextInstantOver {
+  transition-delay: .3s;
   visibility: visible;
 }
 
@@ -162,27 +185,32 @@ form {
   }
 }
 
-.subStepInput, .subStepSelect{
+.subStepInput, .subStepSelect {
   color: #676767;
   width: 100%;
   //@media screen and (max-width: $bp-laptop) {
   //  width: 11vw;
   //}
 }
-.label{
-  line-break: strict;
+
+.label {
+  min-width: 50%;
+  margin-right: 10px;
+  margin-top: 5px;
 }
-.disabled{
+
+.disabled {
   background-color: #e8e8e8;
   opacity: .8;
   cursor: no-drop;
 }
-.completed{
+
+.completed {
   background-color: #f2fff9;
-  cursor: none;
+  //cursor: none;
 }
 
-.saveMS{
+.saveMS {
   margin-left: 94%;
   @media screen and (max-width: 1920px) {
     margin-left: 86%;
@@ -191,12 +219,106 @@ form {
     margin-left: 80%;
   }
   @media screen and (max-width: 1440px) {
-    margin-left: 83%;
+    margin-left: 80%;
   }
   @media screen and (max-width: 810px) {
-    margin-left: 85%;
+    margin-left: 86%;
   }
   @media screen and (max-width: 500px) {
     margin-left: 70%;
   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.milestonesBesideChart {
+  min-width: 30vw;
+  padding-top: .3vh;
+  padding-bottom: .3vh;
+  //padding-bottom: .1px;
+  border-bottom: 1px solid white;
+
+  @media screen and (min-width: 1920px) {
+    padding-top: 1.1vh;
+    font-size: 1vh;
+    padding-bottom: 1.14vh;
+  }
+  @media screen and (max-width: 1920px) and (min-width: 1440px) {
+    padding-top: .59vh;
+    font-size: 1.53vh;
+    padding-bottom: .60vh;
+  }
+  @media only screen and (max-width: 1440px) and (min-width: 768px) {
+    font-size: 1.85vh;
+    padding-top: .25vh;
+    padding-bottom: .25vh;
+  }
+}
+
+#canvas-container {
+  height: 60vh;
+  width: 35vw;
+  position: relative;
+}
+#canvas-container2 {
+  height: 60vh;
+  width: 35vw;
+  position: relative;
+  @media only screen and (max-width: 1440px) and (min-width: 1290px) {
+    height: 62.2vh;
+  }
+}
+
+.hideDiv {
+  display: none;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+.react-datepicker__close-icon::after {
+  cursor: pointer;
+  background-color: #5961a4;
+  color: #fff;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  padding: 2px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  content: "×";
+}
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range {
+  background-color: #3A46A9;
 }
