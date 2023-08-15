@@ -8,10 +8,7 @@ import {BeatLoader} from "react-spinners";
 const Login = () => {
 
     const [loading, setLoading] = useState(false)
-    const {
-        register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
-        control
-    } = useForm({mode: "onChange"});
+    const {register, handleSubmit, formState, formState: {errors, touchedFields}} = useForm({mode: "onChange"});
     const {isValid} = formState;
 
     const onSubmit = async (data) => {
@@ -19,13 +16,17 @@ const Login = () => {
         Api().post('/login', data).then(res => {
             if (res.status === 200) {
                 localStorage.user = JSON.stringify(res.data[0])
-                localStorage.role = JSON.stringify(res.data[0].role)
-                window.location.replace('/')
+                window.location.replace(`/firmenprojekte-liste`)
                 setLoading(false)
             }
         }).catch(e => {
+            if(e.response.status===520){
+                toast.error(e.response.data)
+            }
+            else{
+                toast.error('Etwas ist schief gelaufen!!')
+            }
             setLoading(false)
-            toast.error('Something Went Wrong!!')
         })
     };
 
@@ -33,7 +34,7 @@ const Login = () => {
             <div className='rounded-lg bg-white'>
                 <form onSubmit={handleSubmit(onSubmit)}
                       className='mb-10 p-10 w-full md:w-6/12 lg:w-4/12 centerItemsAbsolute bg-white border border-whiteDark rounded-lg'>
-                    <h2 className='text-2xl mb-3'>#DG-Projektportal</h2>
+                    <h2 className='text-2xl mb-3'> DG ProjektPortal</h2>
                     <h2 className='text-xl '>Anmeldung</h2>
                     <section className='flex flex-col text-left text-grey text-sm'>
                         <label className='py-2'>E-mail *</label>
@@ -78,8 +79,8 @@ const Login = () => {
                         }
                     </section>
                     <br/>
-                    <Link className='text-sm' to={'/registrieren'}>Sie haben kein Konto?
-                        <span className='ml-1 underline text-mainBlue'> Hier registrieren</span>
+                    <Link className='text-sm' to={'/reset-password'}>Haben Sie Ihr
+                        <span className='ml-1 underline text-mainBlue'> Passwort vergessen ?</span>
                     </Link>
                 </form>
             </div>

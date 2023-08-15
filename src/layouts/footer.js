@@ -5,12 +5,12 @@ const Footer = () => {
     const location=useLocation()
 
     return (
-        <div className='flex bg-white justify-between p-5' style={{display:location.pathname==='/login'|| location.pathname==='/register'?'none':''}}>
-            <p>@ {new Date().getFullYear()} DG-Gruppe AG</p>
+        <div className='flex bg-white justify-between p-5' style={{display:location.pathname.includes('anmeldung')|| location.pathname.includes('registrieren')|| location.pathname.includes('reset-password')?'none':''}}>
+            <h1>@{new Date().getFullYear()} DG-Gruppe AG
+                <p className='text-left text-xs'>FE V2.0.7a</p>
+            </h1>
             <div className='flex justify-end text-sm'>
-                <p className='pr-5 text-grey text-sm'>Privacy Policy</p>
-                <p className='pr-5 text-grey text-sm'>Terms & Conditions</p>
-                <p className='pr-5 text-grey text-sm'>User Documentation</p>
+                <a href='https://www.dg-gruppe.eu/public/download/pp/PP2-FP-Anleitung.pdf' target='_blank' className='pr-5 text-grey cursor-pointer text-sm'>Bedienungsanleitung</a>
             </div>
         </div>
     )

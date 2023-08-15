@@ -1,20 +1,22 @@
 import './App.scss';
 import React from "react";
-import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Navbar from "./layouts/navbar";
 import Footer from "./layouts/footer";
 import Login from "./pages/login";
-import Register from "./pages/register";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {RouteData} from "./router/index";
+import ResetPassword from "./pages/resetPassword";
+import SubmitPassword from "./pages/resetPassword/partial/submitPassword";
 
 function App() {
-    const user = JSON.parse(localStorage.getItem('user'));
+
+    const user = JSON.parse(localStorage.getItem('user'))
 
     return (
         <div className="App">
-            <Router>
+            <BrowserRouter>
                 <Navbar/>
                 <Routes>
                     <Route path='*' exact element={<Navigate to="/"/>}/>
@@ -25,10 +27,12 @@ function App() {
                         ))
                     }
                     <Route path="/anmeldung" element={!user ? <Login/> : <Navigate to="/"/>}/>
-                    <Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>
+                    <Route path="/reset-password" element={!user ?<ResetPassword/>:<Navigate to="/"/>}/>
+                    <Route path="/reset-password/:email/:token" element={!user ?<SubmitPassword/>:<Navigate to="/"/>}/>
+                    {/*<Route path="/registrieren" element={!user ? <Register/> : <Navigate to="/"/>}/>*/}
                 </Routes>
                 <Footer/>
-            </Router>
+            </BrowserRouter>
             <ToastContainer/>
         </div>
     );
