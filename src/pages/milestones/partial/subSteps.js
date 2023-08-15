@@ -191,21 +191,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                         </section>
                                         : val.fieldType === 'date' ?
                                             <section
-                                                onClick={() =>
-                                                    getValues(val.stepName) ?
-                                                        addObjectToArray({
-                                                            firma: firma,
-                                                            id: val.substepID,
-                                                            milestone: currentMilestone,
-                                                            value: getValues(val.stepName),
-                                                        }) :
-                                                        addObjectToArray({
-                                                            firma: firma,
-                                                            id: val.substepID,
-                                                            milestone: currentMilestone,
-                                                            value: null,
-                                                        })
-                                                }
                                                 key={index} className='tooltip flex'>
                                                 <label
                                                     className={` text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
@@ -221,7 +206,22 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                 showYearDropdown
                                                                 placeholderText={`Datum eingeben`}
                                                                 onBlur={() => setIsDatePickerOpen(false)}
-                                                                onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
+                                                                onChange={(date) =>{
+                                                                    field.onChange(convertLocalToUTCDate(date))
+                                                                    getValues(val.stepName) ?
+                                                                        addObjectToArray({
+                                                                            firma: firma,
+                                                                            id: val.substepID,
+                                                                            milestone: currentMilestone,
+                                                                            value: getValues(val.stepName),
+                                                                        }) :
+                                                                        addObjectToArray({
+                                                                            firma: firma,
+                                                                            id: val.substepID,
+                                                                            milestone: currentMilestone,
+                                                                            value: null,
+                                                                        })
+                                                                }}
                                                                 selected={field.value}
                                                                 isClearable
                                                                 className={'border-none'}
