@@ -31,4 +31,8 @@ export const BestantTableHeaders=[
         id:8,
         title:'P-Datum'
     },
+    {
+        id:17,
+        title:'Note'
+    },
 ]

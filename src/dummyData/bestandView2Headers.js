@@ -79,4 +79,8 @@ export const BestandView2Headers = [
         title: 'MAB fertig',
         mouseOver: 'MAB Druckauftrag',
     },
+    {
+        id: 17,
+        title: 'Note',
+    },
 ]

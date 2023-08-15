@@ -116,9 +116,9 @@ const Navbar = () => {
                                 {
                                     user?.role === 'Internal' ?
                                         <GrUserAdmin size={'30px'} color={'#565c8c'}/>
-                                        : user?.role === 'Supervisor' ?
+                                        : user?.role === 'External' ?
                                             <MdSupervisorAccount size={'35px'} color={'#3A46A9'}/>
-                                            : user?.role === 'External' ?
+                                            : user?.role === 'Supervisor' ?
                                                 <FaUser size={'30px'} color={'#565c8c'}/>
                                                 : user && <FaUserSecret size={'30px'} color={'#565c8c'}/>
                                 }

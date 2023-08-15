@@ -1,10 +1,10 @@
 import React from "react";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
-import FirmenprojekteView from "../pages/bestantList/partial/firmenprojekteView";
+import FirmenprojekteView from "../pages/firmenprojekte/partial/firmenprojekteView";
 import Pagination from "./pagination";
 import {useStateValue} from "../states/StateProvider";
-import ProjectTafelView from "../pages/bestantList/partial/projekt-tafelView";
+import ProjectTafelView from "../pages/firmenprojekte/partial/projekt-tafelView";
 import {formatDate} from "../helper/formatDate";
 
 const BestandListDataSection = ({
@@ -69,8 +69,8 @@ const BestandListDataSection = ({
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={{minHeight: '50vh'}}>
-                    <div className="overflow-hidden pt-3">
+                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={view==='Firmenprojekte'? {minHeight: '65vh'}: {minHeight: '60vh'}}>
+                    <div className="overflow-hidden pt-1">
                         {
                             (users?.length === 0 && !loading) &&
                             <div className='centerItemsAbsolute'>
@@ -78,9 +78,9 @@ const BestandListDataSection = ({
                                     gefunden</h2>
                             </div>
                         }
-                        <div ref={printPDFRef}>
+                        <div className='overflow-x-hidden table-wrp block' ref={printPDFRef} style={view==='Firmenprojekte'? {maxHeight: '65vh'}: {maxHeight: '60vh'}}>
                             <table className='min-w-full text-left bg-white' id="table-to-xls">
-                                <thead className="whitespace-nowrap border-y border-silver border-x-0">
+                                <thead className="whitespace-nowrap bg-white border-y border-silver border-x-0 sticky top-0" style={{zIndex:9999}}>
                                 <tr>
                                     {
                                         !loading &&
@@ -185,23 +185,23 @@ const BestandListDataSection = ({
                                 <p className='text-mainBlue'>{'Firmenprojekte -' + formatDate(new Date(), true)}</p>
                             </div>
                         </div>
-                        <div className={`centerItemsRelative mt-3 mb-2 ${loading && 'opacity-0'}`}>
-                            {
-                                users.length > 0 &&
-                                <Pagination
-                                    className="pagination-bar"
-                                    currentPage={pageBestand}
-                                    totalCount={total}
-                                    pageSize={PageSize}
-                                    onPageChange={pageNo => dispatch({
-                                        type: "SET_PAGE_BESTAND",
-                                        item: pageNo
-                                    })}
-                                />
-                            }
-                        </div>
                     </div>
                 </div>
+            </div>
+            <div className={`centerItemsRelative mt-5 mb-2 pb-2 ${loading && 'opacity-0'}`}>
+                {
+                    users.length > 0 &&
+                    <Pagination
+                        className="pagination-bar"
+                        currentPage={pageBestand}
+                        totalCount={total}
+                        pageSize={PageSize}
+                        onPageChange={pageNo => dispatch({
+                            type: "SET_PAGE_BESTAND",
+                            item: pageNo
+                        })}
+                    />
+                }
             </div>
         </div>
     )

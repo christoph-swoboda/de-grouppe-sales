@@ -7,7 +7,7 @@ import Api from "../../Api/api";
 import {Link} from "react-router-dom";
 import ButtonMailto from "../../helper/mailToButton";
 import {BeatLoader, HashLoader, ScaleLoader} from "react-spinners";
-import CompanyData from "../../pages/bestant/partial/companyData";
+import CompanyData from "../../pages/milestones/partial/companyData";
 
 const CompanyInfoPopUp = ({company, Info}) => {
     const [{companyInfoModal,sendMail}, dispatch] = useStateValue()

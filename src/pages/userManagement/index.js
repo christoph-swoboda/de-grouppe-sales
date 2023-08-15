@@ -159,7 +159,7 @@ const UserManagement = () => {
                             <MdSupervisorAccount size={'17px'} color={'#3A46A9'}/><span className='ml-1 mr-6 text-sm'>FKB </span>
                         </div>
                         <div className='flex justify-between'>
-                            <FaUser size={'17px'} color={'#565c8c'}/> <span className='ml-1 mr-6 text-sm'>Vorstand</span>
+                            <FaUser size={'17px'} color={'#565c8c'}/> <span className='ml-1 mr-6 text-sm'>Management</span>
                         </div>
                     </div>
                     <p className='text-sm text-grey ml-auto mt-2'>
