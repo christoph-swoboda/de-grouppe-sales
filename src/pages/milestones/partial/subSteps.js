@@ -10,6 +10,7 @@ import de from "date-fns/locale/de";
 import Api from "../../../Api/api";
 import Options from "./fields/options";
 import {toast} from "react-toastify";
+import {GoCalendar} from "react-icons/go";
 
 registerLocale("de", de);
 
@@ -19,6 +20,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const initialState = [];
     const [update, setUpdated] = useState(initialState)
     const ref = useRef()
+    const datePickerRef = useRef(null);
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const [{currentMilestone, subStepSaved}, dispatch] = useStateValue();
     const {
         register, reset, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
@@ -32,6 +35,23 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
           reset()
     }, [currentMilestone]);
 
+    useEffect(() => {
+        const handleDocumentClick = (event) => {
+            if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+                setIsDatePickerOpen(false);
+            }
+        };
+        const handleScroll = () => {
+            setIsDatePickerOpen(false); // Close date picker when scrolling starts
+        };
+        document.addEventListener('click', handleDocumentClick);
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            document.removeEventListener('click', handleDocumentClick);
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         if (data.length > 0) {
@@ -192,21 +212,26 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
-                                                    render={({field}) => (
-                                                        <DatePicker
-                                                            closeOnScroll={true}
-                                                            locale="de" dateFormat="P" showYearDropdown
-                                                            placeholderText={`Datum wählen`}
-                                                            onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
-                                                            selected={field.value}
-                                                            cssClass={'datePicker'}
-                                                            isClearable
-                                                            readOnly={role === 'Supervisor'}
-                                                            customInput={<CustomInput next={next}
-                                                                                      val={getValues(val.stepName)}
-                                                                                      last={lastDoneIndex}
-                                                                                      current={currentMilestone}/>}
-                                                        />
+                                                    render={({ field }) => (
+                                                        <div ref={datePickerRef} className="flex justify-between items-center border border-1 border-whiteDark">
+                                                            <DatePicker
+                                                                closeOnScroll={true}
+                                                                locale="de"
+                                                                dateFormat="P"
+                                                                showYearDropdown
+                                                                placeholderText={`Datum eingeben`}
+                                                                onBlur={() => setIsDatePickerOpen(false)}
+                                                                onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
+                                                                selected={field.value}
+                                                                isClearable
+                                                                className={'border-none'}
+                                                                open={isDatePickerOpen}
+                                                                readOnly={role === 'Supervisor'}
+                                                            />
+                                                            <div className="mx-1.5 cursor-pointer">
+                                                                <GoCalendar color={'#3A46A9'} size={'22px'} onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}/>
+                                                            </div>
+                                                        </div>
                                                     )}
                                                 />
                                                 <p className={`${val.mouseoverText && 'tooltiptextclose'} `}>{val.mouseoverText}</p>

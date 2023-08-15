@@ -16,20 +16,12 @@ K
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 U
 %src/pages/dashboard/partial/banner.js,8\a\8a11b5f3457b7a2ed8a2fedbc641e336c85f8e3a
-W
-'src/pages/dashboard/partial/pieChart.js,e\4\e40be764e1a2a76215055f7c5927133710e656ec
 L
 src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 `
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
-X
-(src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
 L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
-N
-src/components/authDirector.js,0\f\0f930eab094e16c7371f98ba1eac67cf228c3706
-I
-src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
 K
 src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
 c
@@ -42,9 +34,21 @@ L
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
 I
 src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
-G
-src/components/modal.js,f\f\ff0314594a6fd8966bdc4cc628de12ef8c7f037b
 E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
+Q
+!src/pages/firmenprojekte/index.js,c\6\c6adc604621f603ed3ae0e75e77a92ba6b64f4ea
+X
+(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
+P
+ src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
+X
+(src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
+R
+"src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
+T
+$src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
+T
+$src/dummyData/bestantTableHeaders.js,1\4\144b0de3ff6a830550eca01ce4399488c0f19831
