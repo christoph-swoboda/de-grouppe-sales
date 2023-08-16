@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Controller, useForm} from "react-hook-form";
 import DatePicker from "react-datepicker";
 import Api from "../../../Api/api";
@@ -10,8 +10,9 @@ import CustomInput from "../../../helper/customInput";
 import Modal from "../../../hooks/modal";
 import useModal from "../../../hooks/useModal";
 import {useStateValue} from "../../../states/StateProvider";
-import { AiFillCloseCircle } from 'react-icons/ai';
+import {AiFillCloseCircle} from 'react-icons/ai';
 import ModalSmall from "../../../hooks/modalSmall";
+import {GoCalendar} from "react-icons/go";
 
 const Reminders = ({id, userID, role}) => {
 
@@ -26,11 +27,13 @@ const Reminders = ({id, userID, role}) => {
     const [{remindersModal}, dispatch] = useStateValue();
     const UserInfo = localStorage.user
     let user = JSON.parse(UserInfo ? UserInfo : false)
-
+    const datePickerRef2 = useRef(null);
+    
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
+    
 
     function convertLocalToUTCDate(date) {
         if (!date) {
@@ -103,7 +106,7 @@ const Reminders = ({id, userID, role}) => {
                         {
                             exists === '0' ?
                                 <button
-                                    className={`${role==='Controller' && 'hidden'} px-3 py-2 my-4 hover:bg-lightBlue rounded-3xl bg-mainBlue text-white text-sm`}
+                                    className={`${role === 'Controller' && 'hidden'} px-3 py-2 my-4 hover:bg-lightBlue rounded-3xl bg-mainBlue text-white text-sm`}
                                     onClick={toggleRemindersModal}
                                 >
                                     Neue Wiedervorlage
@@ -135,62 +138,72 @@ const Reminders = ({id, userID, role}) => {
                     </div>
             }
             <ModalSmall toggle={toggleRemindersModal}
-                   visible={remindersModal}
-                   component={
-                       <div>
-                           <p style={{float:'right', cursor:'pointer'}} onClick={() => dispatch({type: "SET_REMINDERS_MODAL", item: !remindersModal})}>
-                               <AiFillCloseCircle size='35px' color={'#232323'}/>
-                           </p>
-                           <form onSubmit={handleSubmit(onSubmit)} style={{marginTop:'-4vh'}} className='centerItemsAbsolute grid grid-cols-2 gap-2'>
-                               <section className='col-span-2'>
-                                   <select {...register('message')}
-                                           className={`w-full p-3 md:w-full cursor-pointer bg-white border border-whiteDark rounded-md subStepSelect bg-white`}
-                                   >
-                                       <option hidden>
-                                           Wähle eine Option
-                                       </option>
-                                       {
-                                           options?.map((op, index) => (
-                                               <option key={index}>{op.optionText}</option>
-                                           ))
-                                       }
-                                   </select>
-                               </section>
-                               <section className='col-span-2'>
-                                   <input hidden {...register('uID')} value={userID}/>
-                                   <input hidden {...register('fpID')} value={id}/>
-                                   <Controller
-                                       control={control}
-                                       name='date'
-                                       render={({field}) => (
-                                           <DatePicker
-                                               closeOnScroll={true}
-                                               locale="de" dateFormat="P" showYearDropdown
-                                               placeholderText={`Datum wählen`}
-                                               onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
-                                               selected={field.value}
-                                               cssClass={'datePicker'}
-                                               isClearable
-                                               readOnly={false}
-                                               customInput={<CustomInput val={getValues('date')}/>}
-                                           />
-                                       )}
-                                   />
-                               </section>
-                               <input
-                                   className={`bg-mainBlue rounded-2xl col-span-2 px-3 py-2 mt-2 text-white cursor-pointer text-sm ${(!watch('date')) || watch('message') === 'Wähle eine Option' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
-                                   type="submit"
-                                   disabled={(!watch('date')) || watch('message') === 'Wähle eine Option'}
-                                   value={`${!loading ? 'Speichern' : 'sparen...'}`}
-                               />
-                               <input
-                                   className={`bg-grey hover:bg-cancel col-span-2 rounded-2xl px-3 py-2 mt-2 cursor-pointer text-white text-sm text-center`}
-                                   value={`abbrechen`}
-                                   onClick={cancelEditStates}
-                               />
-                           </form>
-                       </div>
-                   }
+                        visible={remindersModal}
+                        component={
+                            <div>
+                                <p style={{float: 'right', cursor: 'pointer'}}
+                                   onClick={() => dispatch({type: "SET_REMINDERS_MODAL", item: !remindersModal})}>
+                                    <AiFillCloseCircle size='35px' color={'#232323'}/>
+                                </p>
+                                <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: '-4vh'}}
+                                      className='centerItemsAbsolute grid grid-cols-2 gap-2'>
+                                    <section className='col-span-2'>
+                                        <select {...register('message')}
+                                                className={`w-full p-3 md:w-full cursor-pointer bg-white border border-whiteDark rounded-md subStepSelect bg-white`}
+                                        >
+                                            <option hidden>
+                                                Wähle eine Option
+                                            </option>
+                                            {
+                                                options?.map((op, index) => (
+                                                    <option key={index}>{op.optionText}</option>
+                                                ))
+                                            }
+                                        </select>
+                                    </section>
+                                    <section className='col-span-2'>
+                                        <input hidden {...register('uID')} value={userID}/>
+                                        <input hidden {...register('fpID')} value={id}/>
+                                        <Controller
+                                            control={control}
+                                            name='date'
+                                            render={({field}) => (
+                                                <div ref={datePickerRef2}
+                                                     className="flex justify-between items-center border border-1 border-whiteDark">
+                                                    <DatePicker
+                                                        closeOnScroll={true}
+                                                        locale="de" dateFormat="P" showYearDropdown
+                                                        placeholderText={`Datum wählen`}
+                                                        onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
+                                                        selected={field.value}
+                                                        cssClass={'datePicker'}
+                                                        isClearable
+                                                        className={'border-none'}
+                                                        readOnly={false}
+                                                        />
+                                                    <div
+                                                        className={`absolute ${getValues('date') && 'mr-6'} right-1.5`}
+                                                        style={{pointerEvents: 'none'}}>
+                                                        <GoCalendar color={'#4d57a8'} size={'18px'}/>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        />
+                                    </section>
+                                    <input
+                                        className={`bg-mainBlue rounded-2xl col-span-2 px-3 py-2 mt-2 text-white cursor-pointer text-sm ${(!watch('date')) || watch('message') === 'Wähle eine Option' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
+                                        type="submit"
+                                        disabled={(!watch('date')) || watch('message') === 'Wähle eine Option'}
+                                        value={`${!loading ? 'Speichern' : 'sparen...'}`}
+                                    />
+                                    <input
+                                        className={`bg-grey hover:bg-cancel col-span-2 rounded-2xl px-3 py-2 mt-2 cursor-pointer text-white text-sm text-center`}
+                                        value={`abbrechen`}
+                                        onClick={cancelEditStates}
+                                    />
+                                </form>
+                            </div>
+                        }
             />
         </div>
     )
