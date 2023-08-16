@@ -3,7 +3,6 @@ import {RiseLoader} from "react-spinners";
 import {Controller, useForm} from "react-hook-form"
 import {useStateValue} from "../../../states/StateProvider"
 import moment from 'moment';
-import CustomInput from '../../../helper/customInput'
 import DatePicker, {registerLocale} from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import de from "date-fns/locale/de";
@@ -209,7 +208,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                     onBlur={() => setIsDatePickerOpen(false)}
                                                                     onChange={(date) => {
                                                                         field.onChange(convertLocalToUTCDate(date))
-                                                                        getValues(val.stepName) ?
+                                                                        getValues(val.stepName)?
                                                                             addObjectToArray({
                                                                                 firma: firma,
                                                                                 id: val.substepID,
@@ -235,27 +234,27 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                 </div>
                                                             </div>
                                                             <div
-                                                                className={`${Number(currentMilestone) === lastIndex && !getValues(val.stepName)? 'cursor-pointer' : 'hideDiv'}`}>
+                                                                className={`${Number(currentMilestone) === lastIndex && !getValues(val.stepName) ? 'cursor-pointer' : 'hideDiv'}`}>
                                                                 <h3
-                                                                    onClick={()=>{
+                                                                    onClick={() => {
                                                                         console.log(getValues(val.stepName))
-                                                                            setValue(val.stepName, new Date('1900-01-01'))
-                                                                            addObjectToArray({
-                                                                                firma: firma,
-                                                                                id: val.substepID,
-                                                                                milestone: currentMilestone,
-                                                                                value: '01.01.1900',
-                                                                            })
-                                                                        const saveButton = document.getElementById('button');
-                                                                        if (saveButton) {
-                                                                            saveButton.click();
-                                                                        }
+                                                                        setValue(val.stepName, new Date('1900-01-01'))
+                                                                        addObjectToArray({
+                                                                            firma: firma,
+                                                                            id: val.substepID,
+                                                                            milestone: currentMilestone,
+                                                                            value: '1900-01-01',
+                                                                        })
+                                                                        // const saveButton = document.getElementById('button');
+                                                                        // if (saveButton) {
+                                                                        //     saveButton.click();
+                                                                        // }
                                                                     }}
                                                                     className='w-full text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
                                                                 >
                                                                     Skip the milestone
                                                                 </h3>
-                                                                <button id='button' type={'submit'} hidden >save</button>
+                                                                {/*<button id='button' type={'submit'} hidden>save</button>*/}
                                                             </div>
                                                         </div>
                                                     )}
