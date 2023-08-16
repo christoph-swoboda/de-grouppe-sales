@@ -32,7 +32,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const role = user.role
 
     useEffect(() => {
-          reset()
+        reset()
     }, [currentMilestone]);
 
     useEffect(() => {
@@ -80,8 +80,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                         await setValue(`${d.stepName}`, 'Nein')
                                     } else if (grid[Number(d.substepID) - 1]?.fieldValue === '1') {
                                         await setValue(`${d.stepName}`, 'Ja')
-                                    }
-                                    else{
+                                    } else {
                                         await setValue(`${d.stepName}`, null)
                                     }
                                 }
@@ -91,7 +90,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                         }
                     }
                     if (d.fieldType === 'text') {
-                        console.log('d.substepID',d.substepID, 'grid[Number(d.substepID) - 1]?.fieldValue', grid[Number(d.substepID) - 1])
+                        console.log('d.substepID', d.substepID, 'grid[Number(d.substepID) - 1]?.fieldValue', grid[Number(d.substepID) - 1])
                         setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
                     }
                 }
@@ -197,39 +196,66 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
-                                                    render={({ field }) => (
-                                                        <div ref={datePickerRef} className="flex justify-between items-center border border-1 border-whiteDark">
-                                                            <DatePicker
-                                                                closeOnScroll={true}
-                                                                locale="de"
-                                                                dateFormat="P"
-                                                                showYearDropdown
-                                                                placeholderText={`Datum eingeben`}
-                                                                onBlur={() => setIsDatePickerOpen(false)}
-                                                                onChange={(date) =>{
-                                                                    field.onChange(convertLocalToUTCDate(date))
-                                                                    getValues(val.stepName) ?
-                                                                        addObjectToArray({
-                                                                            firma: firma,
-                                                                            id: val.substepID,
-                                                                            milestone: currentMilestone,
-                                                                            value: getValues(val.stepName),
-                                                                        }) :
-                                                                        addObjectToArray({
-                                                                            firma: firma,
-                                                                            id: val.substepID,
-                                                                            milestone: currentMilestone,
-                                                                            value: null,
-                                                                        })
-                                                                }}
-                                                                selected={field.value}
-                                                                isClearable
-                                                                className={'border-none'}
-                                                                open={isDatePickerOpen}
-                                                                readOnly={role === 'Supervisor'}
-                                                            />
-                                                            <div className="mx-1.5 cursor-pointer">
-                                                                <GoCalendar color={'#3A46A9'} size={'22px'} onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}/>
+                                                    render={({field}) => (
+                                                        <div>
+                                                            <div ref={datePickerRef}
+                                                                 className="flex justify-between items-center border border-1 border-whiteDark">
+                                                                <DatePicker
+                                                                    closeOnScroll={true}
+                                                                    locale="de"
+                                                                    dateFormat="P"
+                                                                    showYearDropdown
+                                                                    placeholderText={`Datum eingeben`}
+                                                                    onBlur={() => setIsDatePickerOpen(false)}
+                                                                    onChange={(date) => {
+                                                                        field.onChange(convertLocalToUTCDate(date))
+                                                                        getValues(val.stepName) ?
+                                                                            addObjectToArray({
+                                                                                firma: firma,
+                                                                                id: val.substepID,
+                                                                                milestone: currentMilestone,
+                                                                                value: getValues(val.stepName),
+                                                                            }) :
+                                                                            addObjectToArray({
+                                                                                firma: firma,
+                                                                                id: val.substepID,
+                                                                                milestone: currentMilestone,
+                                                                                value: null,
+                                                                            })
+                                                                    }}
+                                                                    selected={field.value}
+                                                                    isClearable
+                                                                    className={'border-none'}
+                                                                    open={isDatePickerOpen}
+                                                                    readOnly={role === 'Supervisor'}
+                                                                />
+                                                                <div className="mx-1.5 cursor-pointer">
+                                                                    <GoCalendar color={'#3A46A9'} size={'22px'}
+                                                                                onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}/>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className={`${Number(currentMilestone) === lastIndex && !getValues(val.stepName)? 'cursor-pointer' : 'hideDiv'}`}>
+                                                                <h3
+                                                                    onClick={()=>{
+                                                                        console.log(getValues(val.stepName))
+                                                                            setValue(val.stepName, new Date('1900-01-01'))
+                                                                            addObjectToArray({
+                                                                                firma: firma,
+                                                                                id: val.substepID,
+                                                                                milestone: currentMilestone,
+                                                                                value: '01.01.1900',
+                                                                            })
+                                                                        const saveButton = document.getElementById('button');
+                                                                        if (saveButton) {
+                                                                            saveButton.click();
+                                                                        }
+                                                                    }}
+                                                                    className='w-full text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
+                                                                >
+                                                                    Skip the milestone
+                                                                </h3>
+                                                                <button id='button' type={'submit'} hidden >save</button>
                                                             </div>
                                                         </div>
                                                     )}

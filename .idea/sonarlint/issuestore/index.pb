@@ -32,8 +32,6 @@ L
 src/dummyData/bestantInfo.js,6\2\62db3afec19d67d869ac3bbdc2ae55301533f7df
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
-I
-src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
 E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 W
