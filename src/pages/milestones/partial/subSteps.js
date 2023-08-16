@@ -20,7 +20,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const [update, setUpdated] = useState(initialState)
     const ref = useRef()
     const datePickerRef = useRef(null);
-    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState({});
     const [{currentMilestone, subStepSaved}, dispatch] = useStateValue();
     const {
         register, reset, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
@@ -225,12 +225,18 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                     selected={field.value}
                                                                     isClearable
                                                                     className={'border-none'}
-                                                                    open={isDatePickerOpen}
+                                                                    open={isDatePickerOpen[index]}
                                                                     readOnly={role === 'Supervisor'}
                                                                 />
-                                                                <div className="mx-1.5 cursor-pointer">
-                                                                    <GoCalendar color={'#3A46A9'} size={'22px'}
-                                                                                onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}/>
+                                                                <div className={`absolute ${getValues(val.stepName) && 'mr-6'} right-5 cursor-pointer`}  style={{ pointerEvents: 'none' }}>
+                                                                    <GoCalendar color={'#4d57a8'} size={'18px'}
+                                                                                onClick={() =>
+                                                                                    setIsDatePickerOpen((prevState) => ({
+                                                                                        ...prevState,
+                                                                                        [index]: !prevState[index],
+                                                                                    }))
+                                                                                }
+                                                                                />
                                                                 </div>
                                                             </div>
                                                             <div
