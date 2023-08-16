@@ -256,9 +256,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                         //     saveButton.click();
                                                                         // }
                                                                     }}
-                                                                    className='w-full text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
+                                                                    className='w-full text-sm text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
                                                                 >
-                                                                    Skip the milestone
+                                                                    Überspringen Sie den Meilenstein
                                                                 </h3>
                                                                 {/*<button id='button' type={'submit'} hidden>save</button>*/}
                                                             </div>
