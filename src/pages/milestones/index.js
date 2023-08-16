@@ -50,7 +50,12 @@ const Bestant = () => {
             setMilestoneTabs(res.data.tabs)
             setLastDoneIndex(res.data.done)
             setCompanyName(res.data.companyName)
-            dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
+            if(Number(res.data.done)!==(Object.keys(res.data.tabs).length)-1){
+                dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
+            }
+            else{
+                dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done)})
+            }
             setLoading(false)
         }).catch(e => {
             setLoading(false)

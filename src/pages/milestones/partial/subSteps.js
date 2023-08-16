@@ -189,9 +189,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                         </section>
                                         : val.fieldType === 'date' ?
                                             <section
-                                                key={index} className='tooltip flex'>
+                                                key={index} className='tooltip flex justify-between'>
                                                 <label
-                                                    className={` text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
+                                                    className={`text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
@@ -228,7 +228,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                     open={isDatePickerOpen[index]}
                                                                     readOnly={role === 'Supervisor'}
                                                                 />
-                                                                <div className={`absolute ${getValues(val.stepName) && 'mr-6'} right-5 cursor-pointer`}  style={{ pointerEvents: 'none' }}>
+                                                                <div className={`absolute ${getValues(val.stepName) && 'mr-6'} right-1.5`}  style={{ pointerEvents: 'none' }}>
                                                                     <GoCalendar color={'#4d57a8'} size={'18px'}
                                                                                 onClick={() =>
                                                                                     setIsDatePickerOpen((prevState) => ({
