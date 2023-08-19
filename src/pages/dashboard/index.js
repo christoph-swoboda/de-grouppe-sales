@@ -6,16 +6,20 @@ import Boxes from "./partial/boxes";
 import {MdDone} from "react-icons/md";
 import {AiOutlineClose} from "react-icons/ai";
 import {SiVirustotal} from "react-icons/si";
+import {AES, enc} from "crypto-js";
+import {useStateValue} from "../../states/StateProvider";
 
 const Dashboard = () => {
     const [user, setUser] = useState([])
     const [total, setTotal] = useState([])
     const [done, setDone] = useState([])
     const [canceled, setCanceled] = useState([])
+    const [{secretKey}, dispatch] = useStateValue();
 
     useEffect(() => {
         try {
-            let User = JSON.parse(localStorage.user)
+            const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+            const User = JSON.parse(decryptedBytes.toString(enc.Utf8))
             setUser(User)
             Api().get(`/getDashboardCounts/${User.ID}`).then(res => {
                 setTotal(res.data.slice(0,2))

@@ -16,16 +16,12 @@ K
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 U
 %src/pages/dashboard/partial/banner.js,8\a\8a11b5f3457b7a2ed8a2fedbc641e336c85f8e3a
-L
-src/pages/dashboard/index.js,6\1\61a5b8d89ab43321e9e30b82930956868520e8ad
 `
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
 L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
 K
 src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
-c
-3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 L
@@ -36,8 +32,6 @@ E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
-Q
-!src/pages/firmenprojekte/index.js,c\6\c6adc604621f603ed3ae0e75e77a92ba6b64f4ea
 X
 (src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
 P

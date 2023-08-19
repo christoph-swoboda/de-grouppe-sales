@@ -4,18 +4,21 @@ import Api from "../../Api/api";
 import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
 import {BeatLoader} from "react-spinners";
+import { AES, enc } from 'crypto-js';
+import {useStateValue} from "../../states/StateProvider";
 
 const Login = () => {
 
     const [loading, setLoading] = useState(false)
     const {register, handleSubmit, formState, formState: {errors, touchedFields}} = useForm({mode: "onChange"});
     const {isValid} = formState;
+    const [{secretKey}, dispatch] = useStateValue();
 
     const onSubmit = async (data) => {
         setLoading(true)
         Api().post('/login', data).then(res => {
             if (res.status === 200) {
-                localStorage.user = JSON.stringify(res.data[0])
+                localStorage.setItem('user', AES.encrypt(JSON.stringify(res.data[0]), secretKey).toString());
                 window.location.replace(`/firmenprojekte-liste`)
                 setLoading(false)
             }

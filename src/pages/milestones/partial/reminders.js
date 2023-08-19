@@ -13,6 +13,7 @@ import {useStateValue} from "../../../states/StateProvider";
 import {AiFillCloseCircle} from 'react-icons/ai';
 import ModalSmall from "../../../hooks/modalSmall";
 import {GoCalendar} from "react-icons/go";
+import {AES, enc} from "crypto-js";
 
 const Reminders = ({id, userID, role}) => {
 
@@ -24,9 +25,9 @@ const Reminders = ({id, userID, role}) => {
     const [author, setAuthor] = useState([])
     const [exists, setExists] = useState('0')
     const {toggleRemindersModal} = useModal();
-    const [{remindersModal}, dispatch] = useStateValue();
-    const UserInfo = localStorage.user
-    let user = JSON.parse(UserInfo ? UserInfo : false)
+    const [{remindersModal, secretKey}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const datePickerRef2 = useRef(null);
     
     const {

@@ -12,13 +12,21 @@ import {BeatLoader} from "react-spinners";
 import {GrUserAdmin} from "react-icons/gr";
 import {MdSupervisorAccount} from "react-icons/md";
 import {FaUser, FaUserSecret} from "react-icons/fa";
+import {AES, enc} from "crypto-js";
 
 const UserManagement = () => {
     const [search, setSearch] = useState('')
     const [searchKey, setSearchKey] = useState('')
     const [users, setUsers] = useState([])
     const [searchResults, setSearchResults] = useState([])
-    const user = JSON.parse(localStorage.getItem('user'))
+    const [{secretKey, userValidated,
+        page,
+        addUsersModal,
+        sortUserColum,
+        sortUserMethod,
+        addUsersDone}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const admin = user.isUserAdmin
     const userID = user.ID
     const role = user.role
@@ -27,14 +35,6 @@ const UserManagement = () => {
     const [loading, setLoading] = useState(false);
     const [loadingKeys, setLoadingKeys] = useState(false);
     const [modal, setModal] = useState(false)
-    const [{
-        userValidated,
-        page,
-        addUsersModal,
-        sortUserColum,
-        sortUserMethod,
-        addUsersDone
-    }, dispatch] = useStateValue();
     const navigate = useNavigate()
     const {toggleAddUsersModal} = useModal();
     const modalRef = useRef()

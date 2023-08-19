@@ -1,5 +1,6 @@
 export const initialState = {
     user: {},
+    secretKey: 'yourSecretKey',
     newCreation: {},
     companyInfoModal: false,
     remindersModal: false,

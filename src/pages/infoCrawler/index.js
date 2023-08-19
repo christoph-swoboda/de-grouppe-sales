@@ -5,10 +5,11 @@ import {useForm} from "react-hook-form";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
 import {Link} from "react-router-dom";
+import {AES, enc} from "crypto-js";
 
 const InfoCrawler = () => {
 
-    const [{ICSaved}, dispatch] = useStateValue();
+    const [{ICSaved, secretKey}, dispatch] = useStateValue();
     const [milestones, setMilestones] = useState([])
     const [subStepsLoading, setSubStepsLoading] = useState(false)
     const [triggerSubStepsLoading, setTriggerSubStepsLoading] = useState(false)
@@ -22,7 +23,8 @@ const InfoCrawler = () => {
     const [TriggerMilestoneSelected, setTriggerMilestoneSelected] = useState()
     const [SubStepSelected, setSubStepSelected] = useState()
     const UserInfo = localStorage.user
-    let user = JSON.parse(UserInfo ? UserInfo : false)
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const [isICAdmin, setIsICAdmin] = useState()
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},

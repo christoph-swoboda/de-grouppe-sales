@@ -3,11 +3,15 @@ import {AiOutlineClose} from "react-icons/ai";
 import {useForm} from "react-hook-form";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
+import {AES, enc} from "crypto-js";
+import {useStateValue} from "../../states/StateProvider";
 
 const ChangePass = () => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
-    const user = JSON.parse(localStorage.getItem('user'))
+    const [{secretKey}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
 
     const {
         register, handleSubmit, watch, formState, formState: {errors, touchedFields},

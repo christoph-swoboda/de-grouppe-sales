@@ -8,12 +8,12 @@ import {useReactToPrint} from "react-to-print"
 import ExcelExport from "./partial/excelFormat";
 import BestandListDataSection from "../../components/bestandListDataSection";
 import {BestandView2Headers} from "../../dummyData/bestandView2Headers";
-import CsvExport from "./partial/csvFormat";
 import {IoMdArrowDropdown} from "react-icons/io";
+import {AES, enc} from "crypto-js";
 
 const BestantList = () => {
     try {
-        let user = JSON.parse(localStorage.user)
+        let user = localStorage.user
     } catch (e) {
         window.location.replace('/anmeldung')
     }
@@ -25,13 +25,15 @@ const BestantList = () => {
     const [viewName, setViewName] = useState('Firmenprojekte');
     const [views, setViews] = useState([]);
     let PageSize = rows;
-    const [{pageBestand, sortColumn, sortMethod, filterID, filter}, dispatch] = useStateValue();
+    const [{pageBestand, sortColumn, sortMethod, filterID, filter, secretKey}, dispatch] = useStateValue();
     const [users, setUsers] = useState([]);
-    const user = JSON.parse(localStorage.getItem('user'))
-    const userID = user.ID
-    const role = user.role === 'Internal' ? 'i' : user.role === 'External' ? 'e' : user.role === 'Controller' ? 'c' : 's'
     const [total, setTotal] = useState(0);
     const componentRef = useRef();
+
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
+    const userID = user.ID
+    const role = user.role === 'Internal' ? 'i' : user.role === 'External' ? 'e' : user.role === 'Controller' ? 'c' : 's'
 
     useEffect(() => {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -150,7 +152,7 @@ const BestantList = () => {
     };
 
     const handleCheckboxChange = (event) => {
-        const { name, checked } = event.target;
+        const {name, checked} = event.target;
         setCheckboxValues((prevState) => ({
             ...prevState,
             [name]: checked,
@@ -175,7 +177,7 @@ const BestantList = () => {
                         </div>
                         <div className={`flex m-auto justify-center ml-64`}>
                             <select disabled={loading} onChange={(e) => setViewName(e.target.value)}
-                                    className={`${(user?.role !== 'Internal' && user?.role !== 'Controller') && 'hideDiv'} ${loadingViews? 'hideDiv' : ''} justify-center w-fit rounded-md border border-offWhite shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
+                                    className={`${(user?.role !== 'Internal' && user?.role !== 'Controller') && 'hideDiv'} ${loadingViews ? 'hideDiv' : ''} justify-center w-fit rounded-md border border-offWhite shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
                                 {
                                     views.map((v, i) => (
                                         <option key={i} disabled={i > 1} value={v.viewName}>
@@ -186,11 +188,13 @@ const BestantList = () => {
 
                             </select>
                             <button disabled={hasFilter} onClick={clearFilters}
-                                    className={`${hasFilter && 'opacity-20 bg-white text-text'} ${loading? 'hideDiv' : ''} ml-1 justify-center w-full rounded-md border border-offWhite shadow-sm px-4 opacity-80 py-2 bg-cancel text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                                    className={`${hasFilter && 'opacity-20 bg-white text-text'} ${loading ? 'hideDiv' : ''} ml-1 justify-center w-full rounded-md border border-offWhite shadow-sm px-4 opacity-80 py-2 bg-cancel text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                             >
-                                { !hasFilter? 'Alle Filter löschen' : 'Kein Filter'}
+                                {!hasFilter ? 'Alle Filter löschen' : 'Kein Filter'}
                             </button>
-                            <div className={`float-right text-right ${loading && loadingViews? 'opacity-50 -mt-4' : ''} ${loading && !loadingViews? 'opacity-50' : ''}`} ref={dropdownRef}>
+                            <div
+                                className={`float-right text-right ${loading && loadingViews ? 'opacity-50 -mt-4' : ''} ${loading && !loadingViews ? 'opacity-50' : ''}`}
+                                ref={dropdownRef}>
                                 <div className='absolute right-16'>
                                     <button
                                         type="button"
@@ -204,8 +208,10 @@ const BestantList = () => {
                                 </div>
 
                                 {isOpen && (
-                                    <div style={{zIndex:99999}} className="mt-14 origin-top-right absolute right-4 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                                        <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                    <div style={{zIndex: 99999}}
+                                         className="mt-14 origin-top-right absolute right-4 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                                        <div className="py-1" role="menu" aria-orientation="vertical"
+                                             aria-labelledby="options-menu">
                                             <label className="flex items-center px-4 py-2 cursor-pointer">
                                                 <input
                                                     type="checkbox"
@@ -276,7 +282,8 @@ const BestantList = () => {
                         filter={filter}
                         view={viewName}
                     />
-                    <div className={`${loading?'hideDiv':''} absolute ${viewName==='Firmenprojekte'? 'right-0': 'right-0'}  ${viewName==='Firmenprojekte'? '-mt-16': '-mt-18'} -mt-14 pb-9 mx-10`}>
+                    <div
+                        className={`${loading ? 'hideDiv' : ''} absolute ${viewName === 'Firmenprojekte' ? 'right-0' : 'right-0'}  ${viewName === 'Firmenprojekte' ? '-mt-16' : '-mt-18'} -mt-14 pb-9 mx-10`}>
                         <div className='flex justify-center'>
                             <p className={`${(users?.length === 0) && 'hideDiv'} mr-2 text-sm text-grey mt-2`}>
                                 {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users?.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Einträge

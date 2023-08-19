@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import {ClipLoader} from "react-spinners";
 import {MdSupervisorAccount} from "react-icons/md";
 import UpdateRole from "../components/modal/updateRole";
+import {AES, enc} from "crypto-js";
 
 const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created, role, isAdmin}) => {
     const [edit, setEdit] = useState(false)
@@ -18,8 +19,9 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [verified, setVerified] = useState(valid)
-    const [{userValidated}, dispatch] = useStateValue();
-    const user = JSON.parse(localStorage.user)
+    const [{userValidated, secretKey}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const admin = user.isUserAdmin
 
     function save() {
