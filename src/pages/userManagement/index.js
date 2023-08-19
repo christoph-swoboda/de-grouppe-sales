@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
-import UserManagementTable from "./partial/table";
 import BankManagerView from "./partial/bankManagerView";
 import Api from "../../Api/api";
 import {useStateValue} from "../../states/StateProvider";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 import Modal from "../../hooks/modal";
 import useModal from "../../hooks/useModal";
 import AddUsers from "../../components/modal/addUsers";
@@ -13,6 +12,7 @@ import {GrUserAdmin} from "react-icons/gr";
 import {MdSupervisorAccount} from "react-icons/md";
 import {FaUser, FaUserSecret} from "react-icons/fa";
 import {AES, enc} from "crypto-js";
+import AdminView from "./partial/adminView";
 
 const UserManagement = () => {
     const [search, setSearch] = useState('')
@@ -199,10 +199,10 @@ const UserManagement = () => {
                 }
                 <div className={`${(users?.length === 0 && !loading) && 'hidden'}`}>
                     {
-                        role === 'Internal' || role === 'Controller' ?
-                            <UserManagementTable users={users} pageSize={rows} total={total} loading={loading}/>
-                            :
-                            <BankManagerView users={users} pageSize={rows} total={total} loading={loading}/>
+                        (role === 'Internal' || role === 'Controller') ?
+                            <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
+                            : role==='Supervisor' &&
+                            <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
                     }
                 </div>
             </div>

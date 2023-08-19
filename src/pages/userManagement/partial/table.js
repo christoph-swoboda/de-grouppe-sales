@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import UserManagementCard from "../../../card/userManagementCard";
 import Pagination from "../../../components/pagination";
 import {useStateValue} from "../../../states/StateProvider";
@@ -6,11 +6,19 @@ import {ClipLoader, HashLoader} from "react-spinners";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {UserManagementHeaders} from "../../../dummyData/userManagementHeaders";
 import {formatDate} from "../../../helper/formatDate";
+import {useNavigate} from "react-router";
 
-const UserManagementTable = ({users, pageSize, loading, total}) => {
+const UserManagementTable = ({users, pageSize, loading, total, role}) => {
 
     let PageSize = pageSize;
+    const navigate = useNavigate()
     const [{page, sortUserColum, sortUserMethod}, dispatch] = useStateValue();
+
+    useEffect(() => {
+        if (role === 'External') {
+            navigate('/')
+        }
+    }, []);
 
     function ascSort(id) {
         dispatch({type: "SET_SORTUSERCOLUMN", item: id})

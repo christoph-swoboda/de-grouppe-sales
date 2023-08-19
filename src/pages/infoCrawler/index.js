@@ -6,6 +6,7 @@ import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
 import {Link} from "react-router-dom";
 import {AES, enc} from "crypto-js";
+import {useNavigate} from "react-router";
 
 const InfoCrawler = () => {
 
@@ -22,23 +23,26 @@ const InfoCrawler = () => {
     const [milestoneSelected, seMilestoneSelected] = useState()
     const [TriggerMilestoneSelected, setTriggerMilestoneSelected] = useState()
     const [SubStepSelected, setSubStepSelected] = useState()
-    const UserInfo = localStorage.user
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
-    const [isICAdmin, setIsICAdmin] = useState()
+    const [isICAdmin, setIsICAdmin] = useState(0)
+    const navigate = useNavigate()
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
     } = useForm({mode: "onChange"});
-    const {isValid} = formState;
 
     useEffect(() => {
+        Api().get(`/icAdminCheck/${user.ID}`).then(res => {
+            if (res.data === 0) {
+                navigate('/')
+            }
+            setIsICAdmin(res.data)
+        })
         Api().get('getMilestoneCrawler').then(res => {
             setMilestones(res.data)
             setLoading(false)
         })
-        Api().get(`/icAdminCheck/${user.ID}`).then(res => {
-            setIsICAdmin(res.data)
-        })
+
     }, [ICSaved]);
 
     useEffect(() => {
@@ -157,7 +161,7 @@ const InfoCrawler = () => {
         }).catch(e => {
             setLoadingSave(false)
             toast.error('Beim Speichern von Abschnitt 3 ist ein Fehler aufgetreten!')
-        }).finally(e=>{
+        }).finally(e => {
             reset()
             getGrid(milestoneSelected, SubStepSelected, true)
         })
@@ -221,8 +225,9 @@ const InfoCrawler = () => {
                                         </option>
                                         {
                                             milestones.map((m, i) => (
-                                                <option className={m.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
-                                                        value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
+                                                <option
+                                                    className={m.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
+                                                    value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
                                             ))
                                         }
                                     </select>
@@ -246,7 +251,8 @@ const InfoCrawler = () => {
                                     }
                                 </div>
                             </div>
-                            <Link to={'/mail-verlauf'} className='px-6 w-fit h-fit float-right py-2 bg-mainBlue hover:bg-offWhite text-white hover:text-text rounded-md '>
+                            <Link to={'/mail-verlauf'}
+                                  className='px-6 w-fit h-fit float-right py-2 bg-mainBlue hover:bg-offWhite text-white hover:text-text rounded-md '>
                                 Mail Verlauf
                             </Link>
                         </div>
@@ -530,10 +536,10 @@ const InfoCrawler = () => {
                                             />
                                         </div>
                                         {
-                                            (getValues('triggerMilestoneID') && getValues('triggerMilestoneID')!=='Wählen Sie einen Meilenstein aus') ?
+                                            (getValues('triggerMilestoneID') && getValues('triggerMilestoneID') !== 'Wählen Sie einen Meilenstein aus') ?
                                                 <input
                                                     // className={`${isValid && TriggerMilestoneSelected && TriggerSubStepSelected ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
-                                                    className={`${(getValues('triggerMilestoneID') || getValues('triggerMilestoneID')!=='Wählen Sie einen Meilenstein aus') ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
+                                                    className={`${(getValues('triggerMilestoneID') || getValues('triggerMilestoneID') !== 'Wählen Sie einen Meilenstein aus') ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
                                                     type="submit"
                                                     onChange={() => console.log('saving')}
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
@@ -577,7 +583,7 @@ const InfoCrawler = () => {
                                                         {...register('triggerSubstepID')}
                                                         className='pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'>
                                                         {
-                                                            (!getValues('triggerMilestoneID') || getValues('triggerMilestoneID')==='Wählen Sie einen Meilenstein aus') && !subStepsLoading ?
+                                                            (!getValues('triggerMilestoneID') || getValues('triggerMilestoneID') === 'Wählen Sie einen Meilenstein aus') && !subStepsLoading ?
                                                                 <option value={null}>
                                                                     Bitte wählen Sie erst einen Meilenstein aus
                                                                 </option> :
