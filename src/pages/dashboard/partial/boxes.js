@@ -1,14 +1,20 @@
 import React from "react";
 import {ClipLoader, SkewLoader} from "react-spinners";
+import {FiRotateCcw, FiRotateCw} from "react-icons/fi";
 
-const Boxes = ({icon, data, col, title}) => {
+const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
+
+    const handleClick = () => {
+        toggleState(); // Call the function to update the state in the main component
+    };
+
     return (
-        <div className=' rounded-md shadow-lg px-6 py-8 bg-white'>
+        <div className={`rounded-md shadow-lg px-6 py-8 bg-white ${rotate && title!=='Alle Projekte' ? 'box rotate' : 'box2 rotate2'}`}>
             <div className='flex justify-between'>
                 <div
                     className='px-3 absolute h-16 -mt-6 float-right centerItemsRelative rounded-md bg-mainBlue shadow-lg shadow-grey'>
-                   <p>{icon}</p> <p className={`text-white text-sm ${title==='Alle Projekte' ? 'ml-3' :'ml-1'}`}>{title}</p>
-
+                    <p>{icon}</p> <p
+                    className={`text-white text-sm ${title === 'Alle Projekte' ? 'ml-3' : 'ml-1'}`}>{title}</p>
                 </div>
                 <p className='opacity-0'>gap</p>
                 {
@@ -28,12 +34,26 @@ const Boxes = ({icon, data, col, title}) => {
                 data.length === 0 ?
                     <SkewLoader size='5px' color={'#dcdcdc'}/>
                     :
-                    <p className='float-right text-sm'>{data[1]?.Label}
-                        <span className='tracking-wider text-lg bg-silver px-2 py-1 rounded-full ml-2'
-                              style={{color: col}}>
-                    {Number(data[1]?.FP)}
-                </span>
-                    </p>
+                    <div className='flex justify-between'>
+                        {
+                            title !== 'Alle Projekte' ?
+                                <a title={`${title==='Abgesagt'?'Ansicht abgeschlossen': 'Ansicht abgebrochen'}`} className={`cursor-pointer rounded-full p-1`} onClick={handleClick}>
+                                    {
+                                        title === 'Abgeschlossen' ?
+                                            <FiRotateCw color={'#595959'} size='30px'/>
+                                            :
+                                            <FiRotateCcw color={'#525252'} size='30px'/>
+                                    }
+                                </a>
+                                : <p/>
+                        }
+                        <p className='float-right text-sm'>{data[1]?.Label}
+                            <span className='tracking-wider text-lg bg-silver px-2 py-1 rounded-full ml-2'
+                                  style={{color: col}}>
+                            {Number(data[1]?.FP)}
+                        </span>
+                        </p>
+                    </div>
             }
         </div>
     )

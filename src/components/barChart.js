@@ -34,7 +34,7 @@ const BarChartComponent = ({project, values, loading, left}) => {
             },
             title: {
                 display: false,
-                text: 'Chart.js Horizontal Bar Chart',
+                text: '',
             },
         },
     };
@@ -58,7 +58,7 @@ const BarChartComponent = ({project, values, loading, left}) => {
     return (
         <div id={`${left?'canvas-container' :'canvas-container2'}`}>
             {loading && <SkewLoader size='10px' color={project && !left ? '#7480e1' :project && left ? '#3A46A9' :left && !project? '#e8891a': '#ad7430'}/>}
-            {!loading && <Bar options={options} data={array} redraw/>}
+            {!loading && <Bar options={options} data={array} redraw={false}/>}
         </div>
     )
 }
