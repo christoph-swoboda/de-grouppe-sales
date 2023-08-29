@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import {BeatLoader} from "react-spinners";
-import {Link} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";

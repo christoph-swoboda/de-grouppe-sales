@@ -3,13 +3,13 @@ import {RiseLoader} from "react-spinners";
 import {Controller, useForm} from "react-hook-form"
 import {useStateValue} from "../../../states/StateProvider"
 import moment from 'moment';
-import CustomInput from '../../../helper/customInput'
 import DatePicker, {registerLocale} from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import de from "date-fns/locale/de";
 import Api from "../../../Api/api";
 import Options from "./fields/options";
 import {toast} from "react-toastify";
+import {GoCalendar} from "react-icons/go";
 
 registerLocale("de", de);
 
@@ -19,6 +19,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const initialState = [];
     const [update, setUpdated] = useState(initialState)
     const ref = useRef()
+    const datePickerRef = useRef(null);
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState({});
     const [{currentMilestone, subStepSaved}, dispatch] = useStateValue();
     const {
         register, reset, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
@@ -29,9 +31,26 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const role = user.role
 
     useEffect(() => {
-          reset()
+        reset()
     }, [currentMilestone]);
 
+    useEffect(() => {
+        const handleDocumentClick = (event) => {
+            if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+                setIsDatePickerOpen(false);
+            }
+        };
+        const handleScroll = () => {
+            setIsDatePickerOpen(false); // Close date picker when scrolling starts
+        };
+        document.addEventListener('click', handleDocumentClick);
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            document.removeEventListener('click', handleDocumentClick);
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     useEffect(() => {
         if (data.length > 0) {
@@ -60,8 +79,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                         await setValue(`${d.stepName}`, 'Nein')
                                     } else if (grid[Number(d.substepID) - 1]?.fieldValue === '1') {
                                         await setValue(`${d.stepName}`, 'Ja')
-                                    }
-                                    else{
+                                    } else {
                                         await setValue(`${d.stepName}`, null)
                                     }
                                 }
@@ -71,7 +89,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                         }
                     }
                     if (d.fieldType === 'text') {
-                        console.log('d.substepID',d.substepID, 'grid[Number(d.substepID) - 1]?.fieldValue', grid[Number(d.substepID) - 1])
+                        console.log('d.substepID', d.substepID, 'grid[Number(d.substepID) - 1]?.fieldValue', grid[Number(d.substepID) - 1])
                         setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
                     }
                 }
@@ -171,42 +189,80 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                         </section>
                                         : val.fieldType === 'date' ?
                                             <section
-                                                onClick={() =>
-                                                    getValues(val.stepName) ?
-                                                        addObjectToArray({
-                                                            firma: firma,
-                                                            id: val.substepID,
-                                                            milestone: currentMilestone,
-                                                            value: getValues(val.stepName),
-                                                        }) :
-                                                        addObjectToArray({
-                                                            firma: firma,
-                                                            id: val.substepID,
-                                                            milestone: currentMilestone,
-                                                            value: null,
-                                                        })
-                                                }
-                                                key={index} className='tooltip flex'>
+                                                key={index} className='tooltip flex justify-between'>
                                                 <label
-                                                    className={` text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
+                                                    className={`text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
                                                     render={({field}) => (
-                                                        <DatePicker
-                                                            closeOnScroll={true}
-                                                            locale="de" dateFormat="P" showYearDropdown
-                                                            placeholderText={`Datum wählen`}
-                                                            onChange={(date) => field.onChange(convertLocalToUTCDate(date))}
-                                                            selected={field.value}
-                                                            cssClass={'datePicker'}
-                                                            isClearable
-                                                            readOnly={role === 'Supervisor'}
-                                                            customInput={<CustomInput next={next}
-                                                                                      val={getValues(val.stepName)}
-                                                                                      last={lastDoneIndex}
-                                                                                      current={currentMilestone}/>}
-                                                        />
+                                                        <div>
+                                                            <div ref={datePickerRef}
+                                                                 className="flex justify-between items-center border border-1 border-whiteDark">
+                                                                <DatePicker
+                                                                    closeOnScroll={true}
+                                                                    locale="de"
+                                                                    dateFormat="P"
+                                                                    showYearDropdown
+                                                                    placeholderText={`Datum eingeben`}
+                                                                    onBlur={() => setIsDatePickerOpen(false)}
+                                                                    onChange={(date) => {
+                                                                        field.onChange(convertLocalToUTCDate(date))
+                                                                        getValues(val.stepName)?
+                                                                            addObjectToArray({
+                                                                                firma: firma,
+                                                                                id: val.substepID,
+                                                                                milestone: currentMilestone,
+                                                                                value: getValues(val.stepName),
+                                                                            }) :
+                                                                            addObjectToArray({
+                                                                                firma: firma,
+                                                                                id: val.substepID,
+                                                                                milestone: currentMilestone,
+                                                                                value: null,
+                                                                            })
+                                                                    }}
+                                                                    selected={field.value}
+                                                                    isClearable
+                                                                    className={'border-none'}
+                                                                    open={isDatePickerOpen[index]}
+                                                                    readOnly={role === 'Supervisor'}
+                                                                />
+                                                                <div className={`absolute ${getValues(val.stepName) && 'mr-6'} right-1.5`}  style={{ pointerEvents: 'none' }}>
+                                                                    <GoCalendar color={'#4d57a8'} size={'18px'}
+                                                                                onClick={() =>
+                                                                                    setIsDatePickerOpen((prevState) => ({
+                                                                                        ...prevState,
+                                                                                        [index]: !prevState[index],
+                                                                                    }))
+                                                                                }
+                                                                                />
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                className={`${Number(currentMilestone) === lastIndex && !getValues(val.stepName) ? 'cursor-pointer' : 'hideDiv'}`}>
+                                                                <h3
+                                                                    onClick={() => {
+                                                                        console.log(getValues(val.stepName))
+                                                                        setValue(val.stepName, new Date('1900-01-01'))
+                                                                        addObjectToArray({
+                                                                            firma: firma,
+                                                                            id: val.substepID,
+                                                                            milestone: currentMilestone,
+                                                                            value: '1900-01-01',
+                                                                        })
+                                                                        // const saveButton = document.getElementById('button');
+                                                                        // if (saveButton) {
+                                                                        //     saveButton.click();
+                                                                        // }
+                                                                    }}
+                                                                    className='w-full text-sm text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
+                                                                >
+                                                                    Überspringen Sie den Meilenstein
+                                                                </h3>
+                                                                {/*<button id='button' type={'submit'} hidden>save</button>*/}
+                                                            </div>
+                                                        </div>
                                                     )}
                                                 />
                                                 <p className={`${val.mouseoverText && 'tooltiptextclose'} `}>{val.mouseoverText}</p>

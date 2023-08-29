@@ -129,6 +129,40 @@ nav {
     }
 }
 
+.box {
+    /* ... Other styling ... */
+    transition: transform 0.3s ease-in-out;
+}
+.box2 {
+    /* ... Other styling ... */
+    transition: transform 0.5s ease-in-out;
+}
+
+.rotate {
+    animation: rotateAnimation 0.5s ease-in-out forwards;
+}
+.rotate2 {
+    animation: rotateAnimation2 0.5s ease-in-out forwards;
+}
+
+@keyframes rotateAnimation {
+    0% {
+        transform: perspective(800px) rotateY(0);
+    }
+    100% {
+        transform: perspective(800px) rotateY(360deg);
+    }
+}
+
+@keyframes rotateAnimation2 {
+    0% {
+        transform: perspective(800px) rotateY(360deg);
+    }
+    100% {
+        transform: perspective(800px) rotateY(0);
+    }
+}
+
 /*@media screen and (max-width: 1200px) {*/
 
 /*}*/

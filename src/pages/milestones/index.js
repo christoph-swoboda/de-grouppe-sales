@@ -11,9 +11,10 @@ import {ClipLoader} from "react-spinners";
 import SubSteps from "./partial/subSteps";
 import {useParams} from "react-router";
 import {toast} from "react-toastify";
+import {AES, enc} from "crypto-js";
 
 const Bestant = () => {
-    const [{companyInfoModal, currentMilestone, noteSent, noteRows, subStepSaved}, dispatch] = useStateValue();
+    const [{companyInfoModal, currentMilestone, noteSent, noteRows, subStepSaved, secretKey}, dispatch] = useStateValue();
     const {toggleCompanyInfoModal} = useModal();
     const [loading, setLoading] = useState(true)
     const [loadingNotes, setLoadingNotes] = useState(false)
@@ -32,7 +33,8 @@ const Bestant = () => {
     const [currentSubStep, setCurrentSubStep] = useState([])
     const param = useParams()
     const [options, setOptions] = useState([])
-    const user = JSON.parse(localStorage.user)
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
 
     useEffect(() => {
@@ -50,7 +52,12 @@ const Bestant = () => {
             setMilestoneTabs(res.data.tabs)
             setLastDoneIndex(res.data.done)
             setCompanyName(res.data.companyName)
-            dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
+            if(Number(res.data.done)!==(Object.keys(res.data.tabs).length)-1){
+                dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
+            }
+            else{
+                dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done)})
+            }
             setLoading(false)
         }).catch(e => {
             setLoading(false)

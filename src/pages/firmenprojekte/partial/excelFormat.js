@@ -4,6 +4,8 @@ import {saveAs} from "file-saver";
 import {RiFileExcel2Fill} from "react-icons/ri";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
+import {AES, enc} from "crypto-js";
+import {useStateValue} from "../../../states/StateProvider";
 
 
 const ExcelExport = ({Gesamt, title, loading, all, len}) => {
@@ -12,7 +14,9 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
     workbook.lastModifiedBy = "test";
     workbook.created = new Date();
     workbook.modified = new Date();
-    const user = JSON.parse(localStorage.getItem('user'))
+    const [{secretKey}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const userID = user.ID
     const [loadingAll, setLoadingAll] = useState(false);
     const fileName = Gesamt ? 'Firmenprojekte-Gesamt-' + formatDate(new Date()) + '.xlsx' : 'Firmenprojekte-' + formatDate(new Date()) + '.xlsx'

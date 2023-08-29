@@ -9,10 +9,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import {RouteData} from "./router/index";
 import ResetPassword from "./pages/resetPassword";
 import SubmitPassword from "./pages/resetPassword/partial/submitPassword";
+import {AES, enc} from "crypto-js";
+import {useStateValue} from "./states/StateProvider";
 
 function App() {
 
-    const user = JSON.parse(localStorage.getItem('user'))
+    const [{secretKey}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
 
     return (
         <div className="App">

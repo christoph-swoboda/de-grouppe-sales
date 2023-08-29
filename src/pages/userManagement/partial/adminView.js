@@ -2,11 +2,11 @@ import React, {useEffect} from "react";
 import UserManagementTable from "./table";
 import {useNavigate} from "react-router";
 
-const BankManagerView = ({users, pageSize, loading, total, role}) => {
+const AdminView = ({users, pageSize, loading, total, role}) => {
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     useEffect(() => {
-        if(role!=='Supervisor'){
+        if (role === 'External' || role === 'Supervisor') {
             navigate('/')
         }
     }, []);
@@ -18,4 +18,4 @@ const BankManagerView = ({users, pageSize, loading, total, role}) => {
     )
 }
 
-export default BankManagerView
+export default AdminView

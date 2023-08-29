@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
-import UserManagementTable from "./partial/table";
 import BankManagerView from "./partial/bankManagerView";
 import Api from "../../Api/api";
 import {useStateValue} from "../../states/StateProvider";
-import {useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router";
 import Modal from "../../hooks/modal";
 import useModal from "../../hooks/useModal";
 import AddUsers from "../../components/modal/addUsers";
@@ -12,13 +11,22 @@ import {BeatLoader} from "react-spinners";
 import {GrUserAdmin} from "react-icons/gr";
 import {MdSupervisorAccount} from "react-icons/md";
 import {FaUser, FaUserSecret} from "react-icons/fa";
+import {AES, enc} from "crypto-js";
+import AdminView from "./partial/adminView";
 
 const UserManagement = () => {
     const [search, setSearch] = useState('')
     const [searchKey, setSearchKey] = useState('')
     const [users, setUsers] = useState([])
     const [searchResults, setSearchResults] = useState([])
-    const user = JSON.parse(localStorage.getItem('user'))
+    const [{secretKey, userValidated,
+        page,
+        addUsersModal,
+        sortUserColum,
+        sortUserMethod,
+        addUsersDone}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const admin = user.isUserAdmin
     const userID = user.ID
     const role = user.role
@@ -27,14 +35,6 @@ const UserManagement = () => {
     const [loading, setLoading] = useState(false);
     const [loadingKeys, setLoadingKeys] = useState(false);
     const [modal, setModal] = useState(false)
-    const [{
-        userValidated,
-        page,
-        addUsersModal,
-        sortUserColum,
-        sortUserMethod,
-        addUsersDone
-    }, dispatch] = useStateValue();
     const navigate = useNavigate()
     const {toggleAddUsersModal} = useModal();
     const modalRef = useRef()
@@ -199,10 +199,10 @@ const UserManagement = () => {
                 }
                 <div className={`${(users?.length === 0 && !loading) && 'hidden'}`}>
                     {
-                        role === 'Internal' || role === 'Controller' ?
-                            <UserManagementTable users={users} pageSize={rows} total={total} loading={loading}/>
-                            :
-                            <BankManagerView users={users} pageSize={rows} total={total} loading={loading}/>
+                        (role === 'Internal' || role === 'Controller') ?
+                            <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
+                            : role==='Supervisor' &&
+                            <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
                     }
                 </div>
             </div>

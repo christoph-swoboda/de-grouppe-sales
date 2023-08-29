@@ -8,6 +8,8 @@ import {MdSupervisorAccount} from "react-icons/md";
 import {FaUser, FaUserAlt, FaUserCog, FaUserSecret, FaUserTie} from "react-icons/fa";
 import ChangePass from "../components/modal/changePass";
 import Api from "../Api/api";
+import {AES, enc} from "crypto-js";
+import {useStateValue} from "../states/StateProvider";
 
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
@@ -23,8 +25,10 @@ const Navbar = () => {
     const [version, setVersion] = useState('')
     const modalRef = useRef()
     const location = useLocation()
-    const UserInfo = localStorage.user
-    let user = JSON.parse(UserInfo ? UserInfo : false)
+
+    const [{secretKey}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
 
     useEffect(() => {
         Api().get('/version').then(res=>{

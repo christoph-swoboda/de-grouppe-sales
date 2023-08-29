@@ -7,14 +7,16 @@ import CollapseExpand from "../../../components/collapseExpandSection";
 import {BeatLoader, ClipLoader} from "react-spinners";
 import {Link} from "react-router-dom";
 import Reminders from "./reminders";
+import {AES, enc} from "crypto-js";
 
 const Status = ({notes, company, loadingNotes, count, role, id}) => {
     const [toggle, setToggle] = useState(false)
     const [loading, setLoading] = useState(false)
     const [note, setNote] = useState('')
-    const user = JSON.parse(localStorage.getItem('user'))
+    const [{secretKey, noteSent, noteRows}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const userID = user.ID
-    const [{noteSent, noteRows}, dispatch] = useStateValue();
     const [{collapse2}] = useStateValue();
 
     function save() {
