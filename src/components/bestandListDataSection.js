@@ -6,6 +6,7 @@ import Pagination from "./pagination";
 import {useStateValue} from "../states/StateProvider";
 import ProjectTafelView from "../pages/firmenprojekte/partial/projekt-tafelView";
 import {formatDate} from "../helper/formatDate";
+import VertriebView from "../pages/firmenprojekte/partial/vertriebView";
 
 const BestandListDataSection = ({
                                     users,
@@ -152,7 +153,7 @@ const BestandListDataSection = ({
                                                 printing={printing}
                                             />
                                         ))
-                                        : (!loading && view === 'Projekt-Tafel') &&
+                                        : (!loading && view === 'Projekt-Tafel') ?
                                         users?.map((u, index) => (
                                             <ProjectTafelView
                                                 key={index}
@@ -173,6 +174,28 @@ const BestandListDataSection = ({
                                                 ProjStart={u.ProjStart}
                                                 MAV_an_FKB={u.MAV_an_FKB}
                                                 MAB_fertig={u.MAB_fertig}
+                                                Note={u.Note}
+                                                printing={printing}
+                                            />
+                                        ))
+                                    : (!loading && view === 'Auswertung Vertrieb') &&
+                                        users?.map((u, index) => (
+                                            <VertriebView
+                                                key={index}
+                                                FirmaID={u.FP_ID}
+                                                FirmaKurz={u.FirmaKurz}
+                                                Firmenname={u.Firmenname}
+                                                ZustandigerFKB={u.ZuständigerFKB}
+                                                BD={u.BD}
+                                                FD={u.FD}
+                                                DGAPIKAM={u.DGAPIKAM}
+                                                MA={u.MA}
+                                                DL_Kzl_vollst={u.DL_Kzl_vollst}
+                                                Projtd_vollst={u.Projtd_vollst}
+                                                Projtd_abge={u.Projtd_abge}
+                                                AA_FA_hin={u.AA_FA_hin}
+                                                StSvGA_erst={u.StSvGA_erst}
+                                                ArTfGA_erst={u.ArTfGA_erst}
                                                 Note={u.Note}
                                                 printing={printing}
                                             />

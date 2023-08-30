@@ -1,4 +1,4 @@
-export const BestantTableHeaders=[
+export const BestandViewHeaders=[
     {
         id:1,
         title:'Firma Kurz'
