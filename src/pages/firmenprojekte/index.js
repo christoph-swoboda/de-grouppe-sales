@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {AiTwotonePrinter} from "react-icons/ai";
-import {BestantTableHeaders} from "../../dummyData/bestantTableHeaders";
+import {BestandViewHeaders} from "../../dummyData/bestandViewHeaders";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
@@ -10,6 +10,9 @@ import BestandListDataSection from "../../components/bestandListDataSection";
 import {BestandView2Headers} from "../../dummyData/bestandView2Headers";
 import {IoMdArrowDropdown} from "react-icons/io";
 import {AES, enc} from "crypto-js";
+import {BestandView3Headers} from "../../dummyData/bestandView3Headers";
+import {BestandView4Headers} from "../../dummyData/bestandView4Headers";
+import {BestandView5Headers} from "../../dummyData/bestandView5Headers";
 
 const BestantList = () => {
     try {
@@ -30,7 +33,7 @@ const BestantList = () => {
     const [total, setTotal] = useState(0);
     const componentRef = useRef();
 
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const userID = user.ID
     const role = user.role === 'Internal' ? 'i' : user.role === 'External' ? 'e' : user.role === 'Controller' ? 'c' : 's'
@@ -54,7 +57,14 @@ const BestantList = () => {
         let url = '/getBestands'
         if (viewName === 'Projekt-Tafel') {
             url = 'getBestands2'
+        } else if (viewName === 'Auswertung Vertrieb') {
+            url = 'getBestands3'
+        } else if (viewName === 'Auswertung DGAPI') {
+            url = 'getBestands4'
+        }else if (viewName === 'Auswertung Beratung') {
+            url = 'getBestands5'
         }
+
         const delayQuery = setTimeout(async () => {
             setLoading(true)
             let data = new FormData()
@@ -180,7 +190,7 @@ const BestantList = () => {
                                     className={`${(user?.role !== 'Internal' && user?.role !== 'Controller') && 'hideDiv'} ${loadingViews ? 'hideDiv' : ''} justify-center w-fit rounded-md border border-offWhite shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
                                 {
                                     views.map((v, i) => (
-                                        <option key={i} disabled={i > 1} value={v.viewName}>
+                                        <option key={i} disabled={i > 4} value={v.viewName}>
                                             {v.viewName}
                                         </option>
                                     ))
@@ -272,7 +282,7 @@ const BestantList = () => {
                         users={users}
                         loading={loading}
                         printPDFRef={componentRef}
-                        headers={viewName === 'Firmenprojekte' ? BestantTableHeaders : BestandView2Headers}
+                        headers={viewName === 'Firmenprojekte' ? BestandViewHeaders : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
                         printing={printing}
                         sortColumn={sortColumn}
                         sortMethod={sortMethod}

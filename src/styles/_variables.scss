@@ -134,10 +134,8 @@ form {
   border-radius: 6px;
   position: absolute;
   left: -45px;
-  margin-top: -100px;
+  margin-top: -50px;
   background-color: rgb(255, 241, 190);
-  /* Position the tooltip text - see examples below! */
-  z-index: 9999;
 }
 
 .tooltiptextclose::-webkit-scrollbar {
