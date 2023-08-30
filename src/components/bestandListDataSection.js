@@ -7,6 +7,8 @@ import {useStateValue} from "../states/StateProvider";
 import ProjectTafelView from "../pages/firmenprojekte/partial/projekt-tafelView";
 import {formatDate} from "../helper/formatDate";
 import VertriebView from "../pages/firmenprojekte/partial/vertriebView";
+import DgapiView from "../pages/firmenprojekte/partial/dgapiView";
+import BeratungView from "../pages/firmenprojekte/partial/beratungView";
 
 const BestandListDataSection = ({
                                     users,
@@ -70,7 +72,8 @@ const BestandListDataSection = ({
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={view==='Firmenprojekte'? {minHeight: '60vh'}: {minHeight: '60vh'}}>
+                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8"
+                     style={view === 'Firmenprojekte' ? {minHeight: '60vh'} : {minHeight: '60vh'}}>
                     <div className="overflow-hidden pt-1">
                         {
                             (users?.length === 0 && !loading) &&
@@ -79,9 +82,11 @@ const BestandListDataSection = ({
                                     gefunden</h2>
                             </div>
                         }
-                        <div className='overflow-x-hidden table-wrp block' ref={printPDFRef} style={view==='Firmenprojekte'? {maxHeight: '60vh'}: {maxHeight: '60vh'}}>
+                        <div className='overflow-x-hidden table-wrp block' ref={printPDFRef}
+                             style={view === 'Firmenprojekte' ? {maxHeight: '60vh'} : {maxHeight: '60vh'}}>
                             <table className='min-w-full text-left bg-white' id="table-to-xls">
-                                <thead className="whitespace-nowrap bg-white border-y border-silver border-x-0 sticky top-0">
+                                <thead
+                                    className="whitespace-nowrap bg-white border-y border-silver border-x-0 sticky top-0">
                                 <tr>
                                     {
                                         !loading &&
@@ -116,13 +121,13 @@ const BestandListDataSection = ({
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                maxLength="50"
-                                                               value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e :header.id === 6 ? filter.f : filter.g}
+                                                               value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : header.id === 6 ? filter.f : filter.g}
                                                                onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />
                                             </span>
                                                 {
-                                                    header.mouseOver?.length>0 &&
+                                                    header.mouseOver?.length > 0 &&
                                                     <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
                                                 }
                                             </th>
@@ -157,52 +162,94 @@ const BestandListDataSection = ({
                                             />
                                         ))
                                         : (!loading && view === 'Projekt-Tafel') ?
-                                        users?.map((u, index) => (
-                                            <ProjectTafelView
-                                                key={index}
-                                                FirmaID={u.FP_ID}
-                                                FirmaKurz={u.FirmaKurz}
-                                                Firmenname={u.Firmenname}
-                                                ZustandigerFKB={u.ZuständigerFKB}
-                                                BD={u.BD}
-                                                FD={u.FD}
-                                                DGAPIKAM={u.DGAPIKAM}
-                                                MA={u.MA}
-                                                DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                                Projtd_vollst={u.Projtd_vollst}
-                                                Projtd_abge={u.Projtd_abge}
-                                                AA_FA_hin={u.AA_FA_hin}
-                                                StSvGA_erst={u.StSvGA_erst}
-                                                ArTfGA_erst={u.ArTfGA_erst}
-                                                ProjStart={u.ProjStart}
-                                                MAV_an_FKB={u.MAV_an_FKB}
-                                                MAB_fertig={u.MAB_fertig}
-                                                Note={u.Note}
-                                                printing={printing}
-                                            />
-                                        ))
-                                    : (!loading && view === 'Auswertung Vertrieb') &&
-                                        users?.map((u, index) => (
-                                            <VertriebView
-                                                key={index}
-                                                FirmaID={u.FP_ID}
-                                                FirmaKurz={u.FirmaKurz}
-                                                Firmenname={u.Firmenname}
-                                                ZustandigerFKB={u.ZuständigerFKB}
-                                                BD={u.BD}
-                                                FD={u.FD}
-                                                DGAPIKAM={u.DGAPIKAM}
-                                                MA={u.MA}
-                                                DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                                Projtd_vollst={u.Projtd_vollst}
-                                                Projtd_abge={u.Projtd_abge}
-                                                AA_FA_hin={u.AA_FA_hin}
-                                                StSvGA_erst={u.StSvGA_erst}
-                                                ArTfGA_erst={u.ArTfGA_erst}
-                                                Note={u.Note}
-                                                printing={printing}
-                                            />
-                                        ))
+                                            users?.map((u, index) => (
+                                                <ProjectTafelView
+                                                    key={index}
+                                                    FirmaID={u.FP_ID}
+                                                    FirmaKurz={u.FirmaKurz}
+                                                    Firmenname={u.Firmenname}
+                                                    ZustandigerFKB={u.ZuständigerFKB}
+                                                    BD={u.BD}
+                                                    FD={u.FD}
+                                                    DGAPIKAM={u.DGAPIKAM}
+                                                    MA={u.MA}
+                                                    DL_Kzl_vollst={u.DL_Kzl_vollst}
+                                                    Projtd_vollst={u.Projtd_vollst}
+                                                    Projtd_abge={u.Projtd_abge}
+                                                    AA_FA_hin={u.AA_FA_hin}
+                                                    StSvGA_erst={u.StSvGA_erst}
+                                                    ArTfGA_erst={u.ArTfGA_erst}
+                                                    ProjStart={u.ProjStart}
+                                                    MAV_an_FKB={u.MAV_an_FKB}
+                                                    MAB_fertig={u.MAB_fertig}
+                                                    Note={u.Note}
+                                                    printing={printing}
+                                                />
+                                            )) : (!loading && view === 'Auswertung DGAPI') ?
+                                                users?.map((u, index) => (
+                                                    <DgapiView
+                                                        key={index}
+                                                        FirmaID={u.FP_ID}
+                                                        FirmaKurz={u.FirmaKurz}
+                                                        Firmenname={u.Firmenname}
+                                                        ZustandigerFKB={u.ZuständigerFKB}
+                                                        BD={u.BD}
+                                                        FD={u.FD}
+                                                        DGAPIKAM={u.DGAPIKAM}
+                                                        MA={u.MA}
+                                                        DL_Kzl_vollst={u.DL_Kzl_vollst}
+                                                        Projtd_vollst={u.Projtd_vollst}
+                                                        Projtd_abge={u.Projtd_abge}
+                                                        AA_FA_hin={u.AA_FA_hin}
+                                                        StSvGA_erst={u.StSvGA_erst}
+                                                        ArTfGA_erst={u.ArTfGA_erst}
+                                                        Note={u.Note}
+                                                        printing={printing}
+                                                    />
+                                                )) : (!loading && view === 'Auswertung Beratung') ?
+                                                users?.map((u, index) => (
+                                                    <BeratungView
+                                                        key={index}
+                                                        FirmaID={u.FP_ID}
+                                                        FirmaKurz={u.FirmaKurz}
+                                                        Firmenname={u.Firmenname}
+                                                        ZustandigerFKB={u.ZuständigerFKB}
+                                                        BD={u.BD}
+                                                        FD={u.FD}
+                                                        DGAPIKAM={u.DGAPIKAM}
+                                                        MA={u.MA}
+                                                        DL_Kzl_vollst={u.DL_Kzl_vollst}
+                                                        Projtd_vollst={u.Projtd_vollst}
+                                                        Projtd_abge={u.Projtd_abge}
+                                                        AA_FA_hin={u.AA_FA_hin}
+                                                        StSvGA_erst={u.StSvGA_erst}
+                                                        ArTfGA_erst={u.ArTfGA_erst}
+                                                        Note={u.Note}
+                                                        printing={printing}
+                                                    />
+                                                ))
+                                                : (!loading && view === 'Auswertung Vertrieb') &&
+                                                users?.map((u, index) => (
+                                                    <VertriebView
+                                                        key={index}
+                                                        FirmaID={u.FP_ID}
+                                                        FirmaKurz={u.FirmaKurz}
+                                                        Firmenname={u.Firmenname}
+                                                        ZustandigerFKB={u.ZuständigerFKB}
+                                                        BD={u.BD}
+                                                        FD={u.FD}
+                                                        DGAPIKAM={u.DGAPIKAM}
+                                                        MA={u.MA}
+                                                        DL_Kzl_vollst={u.DL_Kzl_vollst}
+                                                        Projtd_vollst={u.Projtd_vollst}
+                                                        Projtd_abge={u.Projtd_abge}
+                                                        AA_FA_hin={u.AA_FA_hin}
+                                                        StSvGA_erst={u.StSvGA_erst}
+                                                        ArTfGA_erst={u.ArTfGA_erst}
+                                                        Note={u.Note}
+                                                        printing={printing}
+                                                    />
+                                                ))
                                 }
                                 </tbody>
                             </table>

@@ -59,6 +59,10 @@ const BestantList = () => {
             url = 'getBestands2'
         } else if (viewName === 'Auswertung Vertrieb') {
             url = 'getBestands3'
+        } else if (viewName === 'Auswertung DGAPI') {
+            url = 'getBestands4'
+        }else if (viewName === 'Auswertung Beratung') {
+            url = 'getBestands5'
         }
 
         const delayQuery = setTimeout(async () => {

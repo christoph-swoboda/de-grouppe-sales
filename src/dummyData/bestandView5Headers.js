@@ -36,51 +36,26 @@ export const BestandView5Headers = [
     },
     {
         id: 8,
-        title: 'DL+Kzl vollst',
-        mouseOver: 'DL+Kanzleiauftrag Prüfung vollständig',
+        title: 'FP-Freischaltung',
+        mouseOver: 'Projekt Freischaltung',
     },
     {
         id: 9,
-        title: 'Projtd vollst',
-        mouseOver: 'Projektdefintion vollständig',
+        title: 'FP-Briefing erfolgt',
+        mouseOver: 'Projektbriefing erfolgt',
     },
     {
         id: 10,
-        title: 'Projtd abge',
-        mouseOver: 'Projektdefinition abgefragt',
+        title: 'FP-Start fix',
+        mouseOver: 'Projektbriefing erfolgt',
     },
     {
         id: 11,
-        title: 'AA FA hin',
-        mouseOver: 'AnrAuskunft FA hin',
+        title: 'FP-Abschluss Umsetzung',
+        mouseOver: 'Projektabschluss Umsetzung',
     },
     {
         id: 12,
-        title: 'StSvGA erst.',
-        mouseOver: 'st- sv-Gutachten erstellt',
-    },
-    {
-        id: 13,
-        title: 'ArTfGA erst.',
-        mouseOver: 'arb- tarif-Gutachten erstellt',
-    },
-    {
-        id: 14,
-        title: 'ProjStart',
-        mouseOver: 'ProjektStart (MA-Vortrag)',
-    },
-    {
-        id: 15,
-        title: 'MAV an FKB',
-        mouseOver: 'MA-Vortrag an FKB',
-    },
-    {
-        id: 16,
-        title: 'MAB fertig',
-        mouseOver: 'MAB Druckauftrag',
-    },
-    {
-        id: 17,
         title: 'Note',
     },
 ]
