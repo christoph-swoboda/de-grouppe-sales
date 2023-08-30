@@ -70,7 +70,7 @@ const BestandListDataSection = ({
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={view==='Firmenprojekte'? {minHeight: '65vh'}: {minHeight: '60vh'}}>
+                <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8" style={view==='Firmenprojekte'? {minHeight: '60vh'}: {minHeight: '60vh'}}>
                     <div className="overflow-hidden pt-1">
                         {
                             (users?.length === 0 && !loading) &&
@@ -79,7 +79,7 @@ const BestandListDataSection = ({
                                     gefunden</h2>
                             </div>
                         }
-                        <div className='overflow-x-hidden table-wrp block' ref={printPDFRef} style={view==='Firmenprojekte'? {maxHeight: '65vh'}: {maxHeight: '60vh'}}>
+                        <div className='overflow-x-hidden table-wrp block' ref={printPDFRef} style={view==='Firmenprojekte'? {maxHeight: '60vh'}: {maxHeight: '60vh'}}>
                             <table className='min-w-full text-left bg-white' id="table-to-xls">
                                 <thead className="whitespace-nowrap bg-white border-y border-silver border-x-0 sticky top-0">
                                 <tr>
@@ -121,7 +121,10 @@ const BestandListDataSection = ({
                                                                placeholder='Suche...'
                                                         />
                                             </span>
-                                                <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
+                                                {
+                                                    header.mouseOver?.length>0 &&
+                                                    <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
+                                                }
                                             </th>
                                         ))
                                     }

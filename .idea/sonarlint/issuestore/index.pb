@@ -1,14 +1,10 @@
 
-F
-src/styles/_mixin.scss,f\c\fcaf532d2ce47ef240bc6887160a81465e09748d
 J
 src/hooks/usePagination.js,4\e\4e1ffbb183828d8250912b47cd79f1aa902a58b2
 J
 src/styles/pagination.scss,5\0\509edbf47b45304a3c95c89375386f5581bc2f9f
 K
 src/card/bankManagerCard.js,7\d\7d2ed38b49cecacc7f98db4d78759de41834c33c
-<
-src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
 <
 src/index.js,f\9\f900edc44cb929c2267a16100a32851f6d5b477d
 :
@@ -38,8 +34,6 @@ X
 (src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
 R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
-T
-$src/dummyData/bestantTableHeaders.js,1\4\144b0de3ff6a830550eca01ce4399488c0f19831
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
 X
@@ -93,10 +87,6 @@ Y
 )src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
 E
 src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
-=
-src/index.css,c\5\c5d38a62d1faae90a2acaa34b79a7ef365c917e4
-E
-src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
 T
 $src/pages/dashboard/partial/boxes.js,0\e\0e842c8910571ae4f4b3f5ed43831dcf66507003
 L
