@@ -100,6 +100,7 @@ const BestantList = () => {
     }, [viewName]);
 
     useEffect(() => {
+        dispatch({type: "SET_PAGE_BESTAND", item: 1})
         const isNullUndefEmptyStr = Object.values(filter).every(value => {
             if (value === null || value === undefined || value === '') {
                 return true;
