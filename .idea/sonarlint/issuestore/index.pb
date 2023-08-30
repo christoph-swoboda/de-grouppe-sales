@@ -42,8 +42,6 @@ I
 src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
 [
 +src/pages/milestones/partial/companyData.js,0\2\02463d87faca7f50615a619c6d66ce0169df0d30
-E
-src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
 R
 "src/components/modal/changePass.js,b\8\b87762c22d8ba08904d3c0c7fe709d7b4573c75b
 H
@@ -111,3 +109,7 @@ $src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6
 -src/pages/firmenprojekte/partial/dgapiView.js,0\e\0e58203a08aefdd3a665ec456bed5a6f8d9dd4db
 T
 $src/dummyData/bestandView5Headers.js,1\0\10be4aaebdefb4ce1c803722190e9b4ac1ae39fc
+e
+5src/pages/firmenprojekte/partial/projekt-tafelView.js,1\c\1c0e06ae73ab0ae5b4494e9ef6875b7377416139
+`
+0src/pages/firmenprojekte/partial/beratungView.js,f\1\f14e6b25c3b7235d0bddc45302819acb9770683f

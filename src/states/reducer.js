@@ -23,8 +23,8 @@ export const initialState = {
     sortColumn: 7,
     sortMethod: 'asc',
     ICSaved: false,
-    filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null},
-    filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null},
+    filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:null, i:null, j:null},
+    filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:null, i:null, j:null},
 };
 const reducer = (state, action) => {
     switch (action.type) {
