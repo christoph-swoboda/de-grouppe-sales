@@ -28,16 +28,12 @@ E
 src/hooks/useModal.js,0\a\0a8968e49eb7afbefe942c0f077e77ba0feca5e2
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
-P
- src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 X
 (src/components/modal/companyInfoPopUp.js,2\5\258b4bb65e5a6e14e362be11d9b38317246a948a
 R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
 I
 src/helper/customInput.js,0\d\0dab983055b261c6ab10f72f170fde4d3f3ee171
-X
-(src/pages/milestones/partial/subSteps.js,b\8\b8121536daabe6e2c8b69f06491e109d99d5b045
 I
 src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
 [
@@ -48,8 +44,6 @@ H
 src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
 _
 /src/pages/firmenprojekte/partial/excelFormat.js,7\0\70dbfe05fcca62c0dee52151615b78c7113ae2f3
-M
-src/pages/milestones/index.js,f\9\f9d037951c45e7e04d590f10455f27ca8b559bc1
 V
 &src/pages/milestones/partial/status.js,3\8\38242a0eb5edebeae0825fc9bd32b3184eaf6098
 Y
@@ -83,8 +77,6 @@ f
 6src/pages/firmenprojekte/partial/firmenprojekteView.js,3\6\36eb61ae19603e1c482d996dc66c40aee093d500
 Y
 )src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
-E
-src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
 T
 $src/pages/dashboard/partial/boxes.js,0\e\0e842c8910571ae4f4b3f5ed43831dcf66507003
 L
@@ -113,3 +105,19 @@ e
 5src/pages/firmenprojekte/partial/projekt-tafelView.js,1\c\1c0e06ae73ab0ae5b4494e9ef6875b7377416139
 `
 0src/pages/firmenprojekte/partial/beratungView.js,f\1\f14e6b25c3b7235d0bddc45302819acb9770683f
+E
+src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
+J
+src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
+P
+ src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
+E
+src/layouts/navbar.js,a\5\a5926d49f8ba6af2e375155addd8bdd230e8f716
+Q
+!src/pages/firmenprojekte/index.js,c\6\c6adc604621f603ed3ae0e75e77a92ba6b64f4ea
+X
+(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
+M
+src/pages/milestones/index.js,f\9\f9d037951c45e7e04d590f10455f27ca8b559bc1
+X
+(src/pages/milestones/partial/subSteps.js,b\8\b8121536daabe6e2c8b69f06491e109d99d5b045

@@ -10,6 +10,7 @@ import Api from "../../../Api/api";
 import Options from "./fields/options";
 import {toast} from "react-toastify";
 import {GoCalendar} from "react-icons/go";
+import {AES, enc} from "crypto-js";
 
 registerLocale("de", de);
 
@@ -21,13 +22,14 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const ref = useRef()
     const datePickerRef = useRef(null);
     const [isDatePickerOpen, setIsDatePickerOpen] = useState({});
-    const [{currentMilestone, subStepSaved}, dispatch] = useStateValue();
+    const [{currentMilestone, subStepSaved, secretKey}, dispatch] = useStateValue();
     const {
         register, reset, getValues, setValue, handleSubmit, formState, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
-    const user = JSON.parse(localStorage.user)
+    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
 
     useEffect(() => {

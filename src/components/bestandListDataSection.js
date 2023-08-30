@@ -141,7 +141,7 @@ const BestandListDataSection = ({
 
                         {isOpen && (
                             <div style={{zIndex: 99999}}
-                                 className="mt-14 origin-top-right absolute right-4 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                                 className="mt-14 origin-top-right absolute right-4 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                 <div className="py-1" role="menu" aria-orientation="vertical"
                                      aria-labelledby="options-menu">
                                     <label className="flex items-center px-4 py-2 cursor-pointer">
