@@ -207,7 +207,7 @@ const AddUsers = () => {
                         type="checkbox"
                         id="field-aktiv"
                     />
-                    <span className='mx-1 text-sm text-grey'> Darf InfoCrowler verwalten</span>
+                    <span className='mx-1 text-sm text-grey'> Darf InfoCrawler verwalten</span>
                 </label>
                 {/*</section>*/}
 
