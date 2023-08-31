@@ -18,7 +18,8 @@ const Form = ({name, dropdown, role}) => {
         // console.log('data', data)
         setLoading(true)
         Api().post('/saveNeu', data).then(res => {
-            toast.success('Erfolgreich gespeichert!')
+            toast.success('Das neue Firmenprojekt wurde angelegt.')
+            reset()
             setLoading(false)
         }).catch(e => {
             toast.error('Etwas ist schief gelaufen!!')
