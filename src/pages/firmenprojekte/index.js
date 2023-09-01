@@ -97,19 +97,24 @@ const BestantList = () => {
     }, [viewName]);
 
     useEffect(() => {
-        dispatch({type: "SET_PAGE_BESTAND", item: 1})
+        const keys = Object.keys(filter);
+        const keysToRestore = keys.slice(-3);
+        const valuesToRestore = keysToRestore.map(key => ({ [key]: filter[key] }));
+        keysToRestore.forEach(key => delete filter[key]);
         const isNullUndefEmptyStr = Object.values(filter).every(value => {
-            if (value === null || value === undefined || value === '') {
-                return true;
-            }
-            return false;
+            return value === null || value === undefined || value === '';
         });
         if (isNullUndefEmptyStr) {
             setHasFilter(true)
         } else {
             setHasFilter(false)
         }
+        valuesToRestore.forEach(valueObj => {
+            const key = Object.keys(valueObj)[0];
+            filter[key] = valueObj[key];
+        });
     }, [filter]);
+
     useEffect(() => {
         const closeDropdown = (event) => {
             if (!dropdownRef.current.contains(event.target)) {
@@ -123,8 +128,8 @@ const BestantList = () => {
     }, []);
 
     function clearFilters() {
-        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null, i: null, j: null}})
-        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null, i: null, j: null}})
+        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 1, i: null, j: null}})
+        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 111, i: null, j: null}})
     }
 
     function setPageStates(e) {
