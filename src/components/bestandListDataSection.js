@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
 import FirmenprojekteView from "../pages/firmenprojekte/partial/firmenprojekteView";
@@ -40,6 +40,15 @@ const BestandListDataSection = ({
     const [{pageBestand}, dispatch] = useStateValue();
     const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
     const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+    useEffect(() => {
+        if(filter.h===null){
+            dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, h: 1}})
+            dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, h: 111}})
+        }
+    }, [filter]);
+
+
 
     function ascSort(id) {
         dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
@@ -120,9 +129,9 @@ const BestandListDataSection = ({
 
                     </select>
                     <button disabled={hasFilter} onClick={clearFilters}
-                            className={`${hasFilter && 'opacity-20 bg-white text-text'} ${loading ? 'hideDiv' : ''} ml-1 justify-center w-full rounded-md border border-offWhite shadow-sm px-4 opacity-80 py-2 bg-cancel text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                            className={`${hasFilter && 'opacity-0 bg-white text-text'} ${loading ? 'hideDiv' : ''} ml-1 justify-center w-full rounded-md border border-offWhite shadow-sm px-4 opacity-80 py-2 bg-cancel text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                     >
-                        {!hasFilter ? 'Alle Filter löschen' : 'Kein Filter'}
+                        {!hasFilter ? 'Suche Filter löschen' : 'Kein Suche Filter'}
                     </button>
                     <div
                         className={`float-right text-right ${loading && loadingViews ? 'opacity-50 -mt-4' : ''} ${loading && !loadingViews ? 'opacity-50' : ''}`}
@@ -150,6 +159,8 @@ const BestandListDataSection = ({
                                             name="laufende"
                                             className="mr-2"
                                             defaultChecked={true}
+                                            disabled={loading}
+                                            value={filter.h}
                                             onChange={(e) => enableFilter(111, e.target.checked ? 1 : 0)}
                                         />
                                         laufende Projekte
@@ -159,6 +170,8 @@ const BestandListDataSection = ({
                                             type="checkbox"
                                             name="beendete"
                                             className="mr-2"
+                                            disabled={loading}
+                                            checked={filter.i===1}
                                             onChange={(e) => enableFilter(112, e.target.checked ? 1 : 0)}
                                         />
                                         beendete Projekte
@@ -168,6 +181,8 @@ const BestandListDataSection = ({
                                             type="checkbox"
                                             name="abgesagte"
                                             className="mr-2"
+                                            disabled={loading}
+                                            checked={filter.j===1}
                                             onChange={(e) => enableFilter(113, e.target.checked ? 1 : 0)}
                                         />
                                         abgesagte Projekte

@@ -24,7 +24,7 @@ export const initialState = {
     sortMethod: 'asc',
     ICSaved: false,
     filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:null, i:null, j:null},
-    filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:null, i:null, j:null},
+    filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:1, i:0, j:0},
 };
 const reducer = (state, action) => {
     switch (action.type) {
