@@ -91,7 +91,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                         }
                     }
                     if (d.fieldType === 'text') {
-                        console.log('d.substepID', d.substepID, 'grid[Number(d.substepID) - 1]?.fieldValue', grid[Number(d.substepID) - 1])
                         setValue(`${d.substepID}`, `${grid[Number(d.substepID) - 1]?.fieldValue}`)
                     }
                 }
@@ -117,11 +116,10 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
         const key = 'id';
         const unique = [...new Map(update.map(item => [item[key], item])).values()]
         if (unique.length > 0) {
-            console.log('saving', unique)
             setLoading(true)
             Api().post('/saveSteps', unique).then(res => {
-                toast.success('Daten erfolgreich gespeichert')
                 dispatch({type: "SET_SUBSTEPSAVED", item: !subStepSaved})
+                toast.success('Daten erfolgreich gespeichert')
                 setLoading(false)
             }).catch(e => {
                 setLoading(false)
