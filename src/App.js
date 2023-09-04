@@ -1,5 +1,5 @@
 import './App.scss';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter, HashRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Navbar from "./layouts/navbar";
 import Footer from "./layouts/footer";
@@ -14,9 +14,17 @@ import {useStateValue} from "./states/StateProvider";
 
 function App() {
 
-    const [{secretKey}, dispatch] = useStateValue();
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
-    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
+    const [{secretKey}] = useStateValue();
+    let user=''
+
+    try {
+        const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+        user=JSON.parse(decryptedBytes.toString(enc.Utf8))
+    }
+    catch (e){
+        window.localStorage.removeItem('user')
+    }
+
 
     return (
         <div className="App">
