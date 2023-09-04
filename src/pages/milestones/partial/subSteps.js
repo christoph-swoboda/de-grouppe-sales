@@ -28,7 +28,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
 
@@ -64,6 +64,12 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                         const toDateFormat = moment(new Date(newDate)).format(dateFormat);
                         let valid = moment(toDateFormat, dateFormat, true).isValid()
                         if (valid) {
+                            // if(d.stepName==='Ersttermin'){
+                            //     setValue(`${d.stepName}`, newDate)
+                            // }
+                            // else{
+                            //     setValue(`${d.stepName}`, null)
+                            // }
                             setValue(`${d.stepName}`, newDate)
                         } else {
                             setValue(`${d.stepName}`, moment(new Date()).toDate())
@@ -208,7 +214,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                     onBlur={() => setIsDatePickerOpen(false)}
                                                                     onChange={(date) => {
                                                                         field.onChange(convertLocalToUTCDate(date))
-                                                                        getValues(val.stepName)?
+                                                                        getValues(val.stepName) ?
                                                                             addObjectToArray({
                                                                                 firma: firma,
                                                                                 id: val.substepID,
@@ -228,7 +234,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                     open={isDatePickerOpen[index]}
                                                                     readOnly={role === 'Supervisor'}
                                                                 />
-                                                                <div className={`absolute ${getValues(val.stepName) && 'mr-6'} right-1.5`}  style={{ pointerEvents: 'none' }}>
+                                                                <div
+                                                                    className={`absolute ${getValues(val.stepName) && 'mr-6'} right-1.5`}
+                                                                    style={{pointerEvents: 'none'}}>
                                                                     <GoCalendar color={'#4d57a8'} size={'18px'}
                                                                                 onClick={() =>
                                                                                     setIsDatePickerOpen((prevState) => ({
@@ -236,7 +244,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                                         [index]: !prevState[index],
                                                                                     }))
                                                                                 }
-                                                                                />
+                                                                    />
                                                                 </div>
                                                             </div>
                                                             <div

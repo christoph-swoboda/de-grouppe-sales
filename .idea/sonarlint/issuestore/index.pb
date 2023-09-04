@@ -113,3 +113,15 @@ J
 src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
 E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
+E
+src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
+X
+(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
+A
+public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
+Q
+!src/pages/firmenprojekte/index.js,c\6\c6adc604621f603ed3ae0e75e77a92ba6b64f4ea
+X
+(src/pages/milestones/partial/subSteps.js,b\8\b8121536daabe6e2c8b69f06491e109d99d5b045
+M
+src/pages/milestones/index.js,f\9\f9d037951c45e7e04d590f10455f27ca8b559bc1
