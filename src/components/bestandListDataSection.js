@@ -129,7 +129,7 @@ const BestandListDataSection = ({
 
                     </select>
                     <button disabled={hasFilter} onClick={clearFilters}
-                            className={`${hasFilter && 'opacity-0 bg-white text-text'} ${loading ? 'hideDiv' : ''} ml-1 justify-center w-full rounded-md border border-offWhite shadow-sm px-4 opacity-80 py-2 bg-cancel text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+                            className={`${hasFilter && 'hideDiv bg-white text-text'} ${loading ? 'hideDiv' : ''} ml-1 justify-center w-full rounded-md border border-offWhite shadow-sm px-4 opacity-80 py-2 bg-cancel text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                     >
                         {!hasFilter ? 'Suche Filter löschen' : 'Kein Suche Filter'}
                     </button>
