@@ -37,7 +37,7 @@ const BestantList = () => {
 
     useEffect(() => {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
-    }, [viewName]);
+    }, [viewName, filter]);
 
     useEffect(() => {
         setLoadingViews(true)
@@ -130,6 +130,7 @@ const BestantList = () => {
     function clearFilters() {
         dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 1, i: null, j: null}})
         dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 111, i: null, j: null}})
+
     }
 
     function setPageStates(e) {

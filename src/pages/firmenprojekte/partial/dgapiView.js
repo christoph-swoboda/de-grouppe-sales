@@ -14,15 +14,13 @@ const ProjectTafelView = ({
                               BD,
                               FD,
                               DGAPIKAM,
-                              DL_Kzl_vollst,
-                              Projtd_vollst,
-                              Projtd_abge,
-                              AA_FA_hin,
-                              StSvGA_erst,
-                              ArTfGA_erst,
-                              ProjStart,
-                              MAV_an_FKB,
-                              MAB_fertig,
+                              Auftrag_DL_Paket,
+                              DL_Kanzl_Auftrag_versandt,
+                              DL_Kanzl_Auftrag_zurück,
+                              FP_Grundl_abgeschlossen,
+                              FP_Def_vollständig,
+                              CIB_abgeschlossen,
+                              FP_Freischaltung
                           }) => {
 
     String.prototype.allReplace = function (obj) {
@@ -61,25 +59,25 @@ const ProjectTafelView = ({
                 {DGAPIKAM}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(DL_Kzl_vollst, false)}
+                {formatDate(Auftrag_DL_Paket, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(Projtd_vollst, false)}
+                {formatDate(DL_Kanzl_Auftrag_versandt, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(Projtd_abge, false)}
+                {formatDate(DL_Kanzl_Auftrag_zurück, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(AA_FA_hin, false)}
+                {formatDate(FP_Grundl_abgeschlossen, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(StSvGA_erst, false)}
+                {formatDate(FP_Def_vollständig, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(ArTfGA_erst, false)}
+                {formatDate(CIB_abgeschlossen, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(ProjStart, false)}
+                {formatDate(FP_Freischaltung, false)}
             </td>
             {/*<td className="px-6 font-light text-gray-900">*/}
             {/*    {date}*/}

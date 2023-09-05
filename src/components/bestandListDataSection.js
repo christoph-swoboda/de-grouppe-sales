@@ -39,6 +39,7 @@ const BestandListDataSection = ({
                                 }) => {
     const [{pageBestand}, dispatch] = useStateValue();
     const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
+    const checkboxFields = (view === 'Firmenprojekte' || view==='Projekt-Tafel')? [] :view==='Auswertung Vertrieb'? [8, 9, 10, 11, 12, 13, 14]:view==='Auswertung DGAPI'?[8, 9, 10, 11, 12, 13, 14]:[8, 9, 10, 11]
     const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
     useEffect(() => {
@@ -101,6 +102,10 @@ const BestandListDataSection = ({
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, j: val}})
             dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, j: 113}})
         }
+    }
+
+    function enableDateFilter(id, value){
+        console.log(id, value)
     }
 
     return (
@@ -214,15 +219,22 @@ const BestandListDataSection = ({
                                         {
                                             !loading &&
                                             headers.map(header => (
-
                                                 <th key={header.id} scope="col"
                                                     className="text-sm text-grey pl-1.5 tooltip"
                                                     style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
                                                 >
                                                 <span className='flex justify-left'>
-                                                          <span
-                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
-                                                          >
+                                                        {/*<span*/}
+                                                    {/*        className={`${(searChableFields.includes(header.id)) && 'opacity-0'} cursor-pointer`}>*/}
+                                                    {/*    <input className='w-full mb-4' style={{width:'15px', height:'15px', margin:'10px 5px 0 0'}} type='checkbox'*/}
+                                                    {/*           hidden={printing}*/}
+                                                    {/*           value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : header.id === 6 ? filter.f : filter.g}*/}
+                                                    {/*           onChange={(e) => enableFilter(header.id, e.target.value)}*/}
+                                                    {/*    />*/}
+                                                    {/*</span>*/}
+                                                    <span
+                                                        className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
+                                                    >
                                                             {header.title}
                                                         </span>
                                                         <span hidden={printing}
@@ -240,7 +252,7 @@ const BestandListDataSection = ({
                                                         </span>
                                                     </span>
                                                     <span
-                                                        className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
+                                                        className={`${!(searChableFields.includes(header.id)) && 'hideDiv'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                maxLength="50"
@@ -248,7 +260,18 @@ const BestandListDataSection = ({
                                                                onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />
-                                            </span>
+                                                    </span>
+                                                    <span
+                                                        className={`${!(checkboxFields.includes(header.id)) && 'hideDiv'} cursor-pointer`}>
+                                                            <input className='w-full mb-4' type='checkbox'
+                                                                   hidden={printing}
+                                                                   onChange={(e) => enableDateFilter(header.id, e.target.checked)}
+                                                            />
+                                                    </span>
+                                                    <span  className={`${header.title==='MA' && 'opacity-0'}`}>
+                                                      <input className='w-full mb-4 opacity-0' type='text'
+                                                      />
+                                                    </span>
                                                     {
                                                         header.mouseOver?.length > 0 &&
                                                         <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
@@ -315,17 +338,18 @@ const BestandListDataSection = ({
                                                             FirmaID={u.FP_ID}
                                                             FirmaKurz={u.FirmaKurz}
                                                             Firmenname={u.Firmenname}
-                                                            ZustandigerFKB={u.ZuständigerFKB}
+                                                            ZustandigerFKB={u.Zust_FKB}
                                                             BD={u.BD}
                                                             FD={u.FD}
                                                             DGAPIKAM={u.DGAPIKAM}
                                                             MA={u.MA}
-                                                            DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                                            Projtd_vollst={u.Projtd_vollst}
-                                                            Projtd_abge={u.Projtd_abge}
-                                                            AA_FA_hin={u.AA_FA_hin}
-                                                            StSvGA_erst={u.StSvGA_erst}
-                                                            ArTfGA_erst={u.ArTfGA_erst}
+                                                            Auftrag_DL_Paket={u.Auftrag_DL_Paket}
+                                                            DL_Kanzl_Auftrag_versandt={u.DL_Kanzl_Auftrag_versandt}
+                                                            DL_Kanzl_Auftrag_zurück={u.DL_Kanzl_Auftrag_zurück}
+                                                            FP_Grundl_abgeschlossen={u.FP_Grundl_abgeschlossen}
+                                                            FP_Def_vollständig={u.FP_Def_vollständig}
+                                                            CIB_abgeschlossen={u.CIB_abgeschlossen}
+                                                            FP_Freischaltung={u.FP_Freischaltung}
                                                             Note={u.Note}
                                                             printing={printing}
                                                         />
@@ -336,17 +360,15 @@ const BestandListDataSection = ({
                                                                 FirmaID={u.FP_ID}
                                                                 FirmaKurz={u.FirmaKurz}
                                                                 Firmenname={u.Firmenname}
-                                                                ZustandigerFKB={u.ZuständigerFKB}
+                                                                ZustandigerFKB={u.Zust_FKB}
                                                                 BD={u.BD}
                                                                 FD={u.FD}
                                                                 DGAPIKAM={u.DGAPIKAM}
                                                                 MA={u.MA}
-                                                                DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                                                Projtd_vollst={u.Projtd_vollst}
-                                                                Projtd_abge={u.Projtd_abge}
-                                                                AA_FA_hin={u.AA_FA_hin}
-                                                                StSvGA_erst={u.StSvGA_erst}
-                                                                ArTfGA_erst={u.ArTfGA_erst}
+                                                                FP_Freischaltung={u.FP_Freischaltung}
+                                                                FP_Briefing_erfolgt={u.FP_Briefing_erfolgt}
+                                                                FP_Start_fix={u.FP_Start_fix}
+                                                                FP_Abschluss_Umsetzung={u.FP_Abschluss_Umsetzung}
                                                                 Note={u.Note}
                                                                 printing={printing}
                                                             />
@@ -358,16 +380,16 @@ const BestandListDataSection = ({
                                                                 FirmaID={u.FP_ID}
                                                                 FirmaKurz={u.FirmaKurz}
                                                                 Firmenname={u.Firmenname}
-                                                                ZustandigerFKB={u.ZuständigerFKB}
+                                                                ZustandigerFKB={u.Zust_FKB}
                                                                 BD={u.BD}
                                                                 FD={u.FD}
                                                                 DGAPIKAM={u.DGAPIKAM}
                                                                 MA={u.MA}
-                                                                DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                                                Projtd_vollst={u.Projtd_vollst}
-                                                                Projtd_abge={u.Projtd_abge}
-                                                                AA_FA_hin={u.AA_FA_hin}
-                                                                StSvGA_erst={u.StSvGA_erst}
+                                                                Ersttermin={u.Ersttermin}
+                                                                Analyseb_vollst={u.Analyseb_vollst}
+                                                                SK_Termin={u.SK_Termin}
+                                                                iForm_DGAPI_AM={u.iForm_DGAPI_AM}
+                                                                Auftrag_DL_Paket={u.Auftrag_DL_Paket}
                                                                 ArTfGA_erst={u.ArTfGA_erst}
                                                                 Note={u.Note}
                                                                 printing={printing}

@@ -4,23 +4,23 @@ import {BsChatLeftText} from "react-icons/bs";
 import {formatDate} from "../../../helper/formatDate";
 
 const VertriebView = ({
-                              FirmaKurz,
-                              FirmaID,
-                              Firmenname,
-                              MA,
-                              Note,
-                              printing,
-                              ZustandigerFKB,
-                              BD,
-                              FD,
-                              DGAPIKAM,
-                              DL_Kzl_vollst,
-                              Projtd_vollst,
-                              Projtd_abge,
-                              AA_FA_hin,
-                              StSvGA_erst,
-                              ArTfGA_erst,
-                          }) => {
+                          FirmaKurz,
+                          FirmaID,
+                          Firmenname,
+                          MA,
+                          Note,
+                          printing,
+                          ZustandigerFKB,
+                          BD,
+                          FD,
+                          DGAPIKAM,
+                          Ersttermin,
+                          Analyseb_vollst,
+                          SK_Termin,
+                          iForm_DGAPI_AM,
+                          Auftrag_DL_Paket,
+                          ArTfGA_erst,
+                      }) => {
 
     String.prototype.allReplace = function (obj) {
         let retStr = this;
@@ -47,32 +47,32 @@ const VertriebView = ({
             <td className="w-40 text-gray-900 font-light pr-3">
                 {ZustandigerFKB}
             </td>
-            <td className="text-gray-900 font-light pr-3" >
+            <td className="text-gray-900 font-light pr-3">
                 {BD}
             </td>
-            <td className="text-gray-900 font-light pr-3" >
+            <td className="text-gray-900 font-light pr-3">
                 {FD}
             </td>
-            <td className="text-gray-900 font-light pr-3" >
+            <td className="text-gray-900 font-light pr-3">
                 {DGAPIKAM}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(DL_Kzl_vollst, false)}
+                {formatDate(Ersttermin, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(Projtd_vollst, false)}
+                {formatDate(Analyseb_vollst, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(Projtd_abge, false)}
+                {formatDate(SK_Termin, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(AA_FA_hin, false)}
-            </td>
-            <td className="pr-3 font-light text-gray-900">
-                {formatDate(StSvGA_erst, false)}
+                {formatDate(iForm_DGAPI_AM, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
                 {formatDate(ArTfGA_erst, false)}
+            </td>
+            <td className="pr-3 font-light text-gray-900">
+                {formatDate(Auftrag_DL_Paket, false)}
             </td>
             {/*<td className="px-6 font-light text-gray-900">*/}
             {/*    {date}*/}
