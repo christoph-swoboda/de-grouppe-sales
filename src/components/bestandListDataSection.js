@@ -111,7 +111,7 @@ const BestandListDataSection = ({
     return (
         <div>
             <div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>
-                {/*<ExcelExport all title={'Excel Export'} loading={loading} len={users?.length}/>*/}
+                <ExcelExport all title={'Excel Export'} loading={loading} len={users?.length}/>
                 <ExcelExport Gesamt title={'Excel Export Gesamt'} loading={loading} len={users?.length}/>
                 {/*<CsvExport Gesamt title={'Csv Export Gesamt'} loading={loading} len={users?.length}/>*/}
                 {/*<CsvExport all title={'Csv Export'} loading={loading} len={users?.length}/>*/}
@@ -386,6 +386,7 @@ const BestandListDataSection = ({
                                                                 DGAPIKAM={u.DGAPIKAM}
                                                                 MA={u.MA}
                                                                 Ersttermin={u.Ersttermin}
+                                                                Ersttermin2={u.Ersttermin}
                                                                 Analyseb_vollst={u.Analyseb_vollst}
                                                                 SK_Termin={u.SK_Termin}
                                                                 iForm_DGAPI_AM={u.iForm_DGAPI_AM}

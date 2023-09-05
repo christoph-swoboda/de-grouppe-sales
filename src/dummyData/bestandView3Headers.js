@@ -41,31 +41,36 @@ export const BestandView3Headers = [
     },
     {
         id: 9,
+        title: 'Ersttermin',
+        mouseOver: 'Ersttermin',
+    },
+    {
+        id: 10,
         title: 'Analyseb vollst',
         mouseOver: 'Analysebogen vollständig',
     },
     {
-        id: 10,
+        id: 11,
         title: 'SK-Termin',
         mouseOver: 'SK-Termin',
     },
     {
-        id: 11,
+        id: 12,
         title: 'iForm Termin',
         mouseOver: 'iForm Entscheidungs-Termin',
     },
     {
-        id: 12,
+        id: 13,
         title: 'iForm DGAPI-AM',
         mouseOver: 'iForm an DGAPI-AM',
     },
     {
-        id: 13,
+        id: 14,
         title: 'Auftrag DL-Paket',
         mouseOver: 'Auftrag an AMS zum DL-Paket',
     },
     {
-        id: 14,
+        id: 15,
         title: 'Note',
     },
 ]

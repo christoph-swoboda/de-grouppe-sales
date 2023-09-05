@@ -15,6 +15,7 @@ const VertriebView = ({
                           FD,
                           DGAPIKAM,
                           Ersttermin,
+                          Ersttermin2,
                           Analyseb_vollst,
                           SK_Termin,
                           iForm_DGAPI_AM,
@@ -55,6 +56,9 @@ const VertriebView = ({
             </td>
             <td className="text-gray-900 font-light pr-3">
                 {DGAPIKAM}
+            </td>
+            <td className="pr-3 font-light text-gray-900">
+                {formatDate(Ersttermin2, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
                 {formatDate(Ersttermin, false)}
