@@ -8,11 +8,12 @@ import {UserManagementHeaders} from "../../../dummyData/userManagementHeaders";
 import {formatDate} from "../../../helper/formatDate";
 import {useNavigate} from "react-router";
 
-const UserManagementTable = ({users, pageSize, loading, total, role}) => {
+const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM, filterUM}) => {
 
     let PageSize = pageSize;
     const navigate = useNavigate()
     const [{page, sortUserColum, sortUserMethod}, dispatch] = useStateValue();
+    const searChableFields = [1, 2, 3]
 
     useEffect(() => {
         if (role === 'External') {
@@ -28,6 +29,21 @@ const UserManagementTable = ({users, pageSize, loading, total, role}) => {
     function descSort(id) {
         dispatch({type: "SET_SORTUSERCOLUMN", item: id})
         dispatch({type: "SET_SORTUSERMETHOD", item: 'desc'})
+    }
+
+    function enableFilter(id, val) {
+        if (id === 1) {
+            dispatch({type: "SET_SORTBESTANDFILTERUM", item: {...filterUM, a: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERIDUM", item: {...filterIDUM, a: 1}})
+        }
+        if (id === 2) {
+            dispatch({type: "SET_SORTBESTANDFILTERUM", item: {...filterUM, b: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERIDUM", item: {...filterIDUM, b: 2}})
+        }
+        if (id === 3) {
+            dispatch({type: "SET_SORTBESTANDFILTERUM", item: {...filterUM, c: val}})
+            dispatch({type: "SET_SORTBESTANDFILTERIDUM", item: {...filterIDUM, c: 3}})
+        }
     }
 
     return (
@@ -63,10 +79,16 @@ const UserManagementTable = ({users, pageSize, loading, total, role}) => {
                                                             </p>
                                                         </span>
                                                     </span>
+                                            <span className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
+                                                <input type='text' placeholder='Suche...' className='w-full h-2 px-2 py-3 search'
+                                                       value={header.id === 1 ? filterUM.a : header.id === 2 ? filterUM.b : filterUM.c}
+                                                       onChange={(e) => enableFilter(header.id, e.target.value)}
+                                                />
+                                            </span>
                                         </th>
                                     ))
                                 }
-                                <th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2"/>
+                                {/*<th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2"/>*/}
                             </tr>
                             </thead>
                             {

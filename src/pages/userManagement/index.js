@@ -24,6 +24,7 @@ const UserManagement = () => {
         addUsersModal,
         sortUserColum,
         sortUserMethod,
+        filterIDUM, filterUM,
         addUsersDone}, dispatch] = useStateValue();
     const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
@@ -165,7 +166,7 @@ const UserManagement = () => {
                     <p className='text-sm text-grey ml-auto mt-2'>
                         {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Einträge
                     </p>
-                    <h2 className='text-sm text-grey ml-6 mt-2 ml-10'>
+                    <h2 className='text-sm text-grey mt-2 ml-10'>
                         Einträge anzeigen:
                         <span>
                             <select onChange={setPageStates} className='bg-transparent text-mainBlue'>
@@ -200,9 +201,9 @@ const UserManagement = () => {
                 <div className={`${(users?.length === 0 && !loading) && 'hidden'}`}>
                     {
                         (role === 'Internal' || role === 'Controller') ?
-                            <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
+                            <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading} filterUM={filterUM} filterIDUM={filterIDUM}/>
                             : role==='Supervisor' &&
-                            <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
+                            <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading} filterUM={filterUM} filterIDUM={filterIDUM}/>
                     }
                 </div>
             </div>
