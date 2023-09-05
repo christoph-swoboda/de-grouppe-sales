@@ -128,8 +128,8 @@ const UserManagement = () => {
 
     return (
         <div className='dashboardContainer'>
-            <div className='lg:flex justify-between mt-10 sm:block'>
-                <h2 className='text-2xl lg:text-left font-extrabold'>{admin === '0' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
+            <div className='lg:flex justify-between pt-2 sm:block'>
+                <h2 className='text-2xl lg:text-left'>{admin === '0' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
                 <div className={admin === '0' || user.role==='Controller' ? 'hidden' : ''}>
                     <p className={`px-3 py-2 shadow shadow-md shadow-mainBlue rounded-2xl hover:bg-white hover:text-mainBlue bg-mainBlue text-sm text-white ml-2 cursor-pointer`}
                        onClick={toggleAddUsersModal}>
