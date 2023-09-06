@@ -9,7 +9,7 @@ import {MdSupervisorAccount} from "react-icons/md";
 import UpdateRole from "../components/modal/updateRole";
 import {AES, enc} from "crypto-js";
 
-const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created, role, isAdmin}) => {
+const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created, role, users}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loadingName, setLoadingName] = useState(false)

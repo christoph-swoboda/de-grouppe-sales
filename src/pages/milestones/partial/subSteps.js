@@ -64,12 +64,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                         const toDateFormat = moment(new Date(newDate)).format(dateFormat);
                         let valid = moment(toDateFormat, dateFormat, true).isValid()
                         if (valid) {
-                            // if(d.stepName==='Ersttermin'){
-                            //     setValue(`${d.stepName}`, newDate)
-                            // }
-                            // else{
-                            //     setValue(`${d.stepName}`, null)
-                            // }
                             setValue(`${d.stepName}`, newDate)
                         } else {
                             setValue(`${d.stepName}`, moment(new Date()).toDate())
@@ -259,10 +253,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                             milestone: currentMilestone,
                                                                             value: '1900-01-01',
                                                                         })
-                                                                        // const saveButton = document.getElementById('button');
-                                                                        // if (saveButton) {
-                                                                        //     saveButton.click();
-                                                                        // }
                                                                     }}
                                                                     className='w-full text-sm text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
                                                                 >
@@ -276,7 +266,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                 <p className={`${val.mouseoverText && 'tooltiptextclose'} `}>{val.mouseoverText}</p>
                                             </section>
                                             : val.fieldType === 'header' ?
-                                                // <p>{val.stepName}</p>
                                                 <section key={index} className='tooltip flex'>
                                                     <label style={{fontSize: '.9rem'}}
                                                            className={`py-2 text-text w-full font-bold text-left`}>
@@ -323,5 +312,4 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
         </div>
     )
 }
-
 export default SubSteps

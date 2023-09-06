@@ -26,8 +26,8 @@ export const initialState = {
     dateFilter: {id:null, value:null},
     filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:null, i:null, j:null},
     filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:1, i:0, j:0},
-    filterIDUM: {a: null, b: null, c: null},
-    filterUM: {a: null, b: null, c: null},
+    filterIDUM: {a: null, c: null},
+    filterUM: {a: null, c: null},
 };
 const reducer = (state, action) => {
     switch (action.type) {

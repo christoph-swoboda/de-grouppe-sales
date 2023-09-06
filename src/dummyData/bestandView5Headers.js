@@ -56,6 +56,7 @@ export const BestandView5Headers = [
     },
     {
         id: 12,
-        title: 'Note',
+        title: 'Bemerk',
+        mouseOver: 'Bemerkung'
     },
 ]

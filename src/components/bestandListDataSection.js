@@ -264,7 +264,7 @@ const BestandListDataSection = ({
                                                     </span>
                                                     <span
                                                         className={`${!(checkboxFields.includes(header.id)) && 'hideDiv'} cursor-pointer`}>
-                                                            <input className='w-full mb-4' type='checkbox'
+                                                            <input className='w-full mb-4' type='radio'
                                                                    hidden={printing}
                                                                    checked={dateFilter.id===header.id && dateFilter.value}
                                                                    onChange={(e) => enableDateFilter(header.id, e.target.checked)}
@@ -340,7 +340,7 @@ const BestandListDataSection = ({
                                                             FirmaID={u.FP_ID}
                                                             FirmaKurz={u.FirmaKurz}
                                                             Firmenname={u.Firmenname}
-                                                            ZustandigerFKB={u.Zust_FKB}
+                                                            ZustandigerFKB={u.ZuständigerFKB}
                                                             BD={u.BD}
                                                             FD={u.FD}
                                                             DGAPIKAM={u.DGAPIKAM}
@@ -362,7 +362,7 @@ const BestandListDataSection = ({
                                                                 FirmaID={u.FP_ID}
                                                                 FirmaKurz={u.FirmaKurz}
                                                                 Firmenname={u.Firmenname}
-                                                                ZustandigerFKB={u.Zust_FKB}
+                                                                ZustandigerFKB={u.ZuständigerFKB}
                                                                 BD={u.BD}
                                                                 FD={u.FD}
                                                                 DGAPIKAM={u.DGAPIKAM}
@@ -382,7 +382,7 @@ const BestandListDataSection = ({
                                                                 FirmaID={u.FP_ID}
                                                                 FirmaKurz={u.FirmaKurz}
                                                                 Firmenname={u.Firmenname}
-                                                                ZustandigerFKB={u.Zust_FKB}
+                                                                ZustandigerFKB={u.ZuständigerFKB}
                                                                 BD={u.BD}
                                                                 FD={u.FD}
                                                                 DGAPIKAM={u.DGAPIKAM}

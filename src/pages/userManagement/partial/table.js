@@ -13,7 +13,7 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
     let PageSize = pageSize;
     const navigate = useNavigate()
     const [{page, sortUserColum, sortUserMethod}, dispatch] = useStateValue();
-    const searChableFields = [1, 2, 3]
+    const searChableFields = [3]
 
     useEffect(() => {
         if (role === 'External') {
@@ -79,8 +79,10 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
                                                             </p>
                                                         </span>
                                                     </span>
-                                            <span className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
-                                                <input type='text' placeholder='Suche...' className='w-full h-2 px-2 py-3 search'
+                                            <span
+                                                className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
+                                                <input type='text' placeholder='Suche...'
+                                                       className='w-full h-2 px-2 py-3 search'
                                                        value={header.id === 1 ? filterUM.a : header.id === 2 ? filterUM.b : filterUM.c}
                                                        onChange={(e) => enableFilter(header.id, e.target.value)}
                                                 />
@@ -98,22 +100,29 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
                                         <td style={{marginLeft: '45vw'}}><ClipLoader color={'#afafaf'}/></td>
                                     </tr>
                                     </thead>
-                                    :
-                                    users?.map((u, index) => (
-                                        <UserManagementCard
-                                            key={index}
-                                            index={index}
-                                            name={u.fullname}
-                                            userID={u.ID}
-                                            role={u.role}
-                                            isAdmin={u.isUserAdmin}
-                                            email={u.email}
-                                            lastLogin={formatDate(u.dateLastLogin, true)}
-                                            created={formatDate(u.dateCreate, true)}
-                                            prtnrNo={u.partnernr}
-                                            valid={u.isActive}
-                                        />
-                                    ))
+                                    : (users?.length === 0 && !loading) ?
+                                        <tr className='centerItemsRelative h-80'>
+                                            <td className='text-2xl text-text text-center font-bold'>
+                                                Entschuldigung, keine Daten gefunden
+                                            </td>
+                                        </tr>
+                                        :
+                                        users?.map((u, index) => (
+                                            <UserManagementCard
+                                                key={index}
+                                                index={index}
+                                                name={u.fullname}
+                                                userID={u.ID}
+                                                users={users}
+                                                role={u.role}
+                                                isAdmin={u.isUserAdmin}
+                                                email={u.email}
+                                                lastLogin={formatDate(u.dateLastLogin, true)}
+                                                created={formatDate(u.dateCreate, true)}
+                                                prtnrNo={u.partnernr}
+                                                valid={u.isActive}
+                                            />
+                                        ))
                             }
                         </table>
                         <div className='centerItemsRelative mt-3 mb-2'>
