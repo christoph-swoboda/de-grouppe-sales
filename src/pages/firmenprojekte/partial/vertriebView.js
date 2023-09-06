@@ -15,12 +15,12 @@ const VertriebView = ({
                           FD,
                           DGAPIKAM,
                           Ersttermin,
-                          Ersttermin2,
+                          Überl_R_V,
                           Analyseb_vollst,
                           SK_Termin,
                           iForm_DGAPI_AM,
                           Auftrag_DL_Paket,
-                          ArTfGA_erst,
+                          iForm_Termin,
                       }) => {
 
     String.prototype.allReplace = function (obj) {
@@ -58,7 +58,7 @@ const VertriebView = ({
                 {DGAPIKAM}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(Ersttermin2, false)}
+                {formatDate(Überl_R_V, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
                 {formatDate(Ersttermin, false)}
@@ -70,10 +70,10 @@ const VertriebView = ({
                 {formatDate(SK_Termin, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(iForm_DGAPI_AM, false)}
+                {formatDate(iForm_Termin, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
-                {formatDate(ArTfGA_erst, false)}
+                {formatDate(iForm_DGAPI_AM, false)}
             </td>
             <td className="pr-3 font-light text-gray-900">
                 {formatDate(Auftrag_DL_Paket, false)}

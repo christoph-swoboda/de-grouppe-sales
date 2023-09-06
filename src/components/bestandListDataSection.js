@@ -37,7 +37,7 @@ const BestandListDataSection = ({
                                     loadingViews,
                                     user
                                 }) => {
-    const [{pageBestand}, dispatch] = useStateValue();
+    const [{pageBestand, dateFilter}, dispatch] = useStateValue();
     const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
     const checkboxFields = (view === 'Firmenprojekte' || view==='Projekt-Tafel')? [] :view==='Auswertung Vertrieb'? [8, 9, 10, 11, 12, 13, 14]:view==='Auswertung DGAPI'?[8, 9, 10, 11, 12, 13, 14]:[8, 9, 10, 11]
     const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
@@ -106,6 +106,7 @@ const BestandListDataSection = ({
 
     function enableDateFilter(id, value){
         console.log(id, value)
+        dispatch({type: "SET_DATEFILTER", item: {id:id, value: value}})
     }
 
     return (
@@ -265,6 +266,7 @@ const BestandListDataSection = ({
                                                         className={`${!(checkboxFields.includes(header.id)) && 'hideDiv'} cursor-pointer`}>
                                                             <input className='w-full mb-4' type='checkbox'
                                                                    hidden={printing}
+                                                                   checked={dateFilter.id===header.id && dateFilter.value}
                                                                    onChange={(e) => enableDateFilter(header.id, e.target.checked)}
                                                             />
                                                     </span>
@@ -343,13 +345,13 @@ const BestandListDataSection = ({
                                                             FD={u.FD}
                                                             DGAPIKAM={u.DGAPIKAM}
                                                             MA={u.MA}
-                                                            Auftrag_DL_Paket={u.Auftrag_DL_Paket}
-                                                            DL_Kanzl_Auftrag_versandt={u.DL_Kanzl_Auftrag_versandt}
-                                                            DL_Kanzl_Auftrag_zurück={u.DL_Kanzl_Auftrag_zurück}
-                                                            FP_Grundl_abgeschlossen={u.FP_Grundl_abgeschlossen}
-                                                            FP_Def_vollständig={u.FP_Def_vollständig}
-                                                            CIB_abgeschlossen={u.CIB_abgeschlossen}
-                                                            FP_Freischaltung={u.FP_Freischaltung}
+                                                            Auftrag_DL_Paket={u.Auftr_DL_P}
+                                                            DL_Kanzl_Auftrag_versandt={u.DL_KA_vers}
+                                                            DL_Kanzl_Auftrag_zurück={u.DL_KA_zur}
+                                                            FP_Grundl_abgeschlossen={u.FP_Grdl_abg}
+                                                            FP_Def_vollständig={u.FP_Def_vollst}
+                                                            CIB_abgeschlossen={u.CIB_abg}
+                                                            FP_Freischaltung={u.FP_Freischltg}
                                                             Note={u.Note}
                                                             printing={printing}
                                                         />
@@ -385,13 +387,13 @@ const BestandListDataSection = ({
                                                                 FD={u.FD}
                                                                 DGAPIKAM={u.DGAPIKAM}
                                                                 MA={u.MA}
+                                                                Überl_R_V={u.Überl_R_V}
                                                                 Ersttermin={u.Ersttermin}
-                                                                Ersttermin2={u.Ersttermin}
                                                                 Analyseb_vollst={u.Analyseb_vollst}
                                                                 SK_Termin={u.SK_Termin}
                                                                 iForm_DGAPI_AM={u.iForm_DGAPI_AM}
                                                                 Auftrag_DL_Paket={u.Auftrag_DL_Paket}
-                                                                ArTfGA_erst={u.ArTfGA_erst}
+                                                                iForm_Termin={u.iForm_Termin}
                                                                 Note={u.Note}
                                                                 printing={printing}
                                                             />

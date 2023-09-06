@@ -25,7 +25,7 @@ const BestantList = () => {
     const [viewName, setViewName] = useState('Firmenprojekte');
     const [views, setViews] = useState([]);
     let PageSize = rows;
-    const [{pageBestand, sortColumn, sortMethod, filterID, filter, secretKey}, dispatch] = useStateValue();
+    const [{pageBestand, sortColumn, sortMethod, filterID, filter, dateFilter, secretKey}, dispatch] = useStateValue();
     const [users, setUsers] = useState([]);
     const [total, setTotal] = useState(0);
     const componentRef = useRef();
@@ -37,7 +37,7 @@ const BestantList = () => {
 
     useEffect(() => {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
-    }, [viewName, filter]);
+    }, [viewName, filter, dateFilter]);
 
     useEffect(() => {
         setLoadingViews(true)
@@ -72,6 +72,7 @@ const BestantList = () => {
             data.append('sortMethod', sortMethod)
             data.append('filterID', JSON.stringify(filterID))
             data.append('filter', JSON.stringify(filter))
+            data.append('dateFilter', JSON.stringify(dateFilter))
 
             Api().post(url, data).then(res => {
                 setUsers(res.data.bestands)
@@ -86,10 +87,10 @@ const BestantList = () => {
                 setLoading(false)
                 toast.error('Etwas ist schief gelaufen!!')
             })
-        }, filter ? 800 : 0)
+        }, filter || dateFilter ? 800 : 0)
 
         return () => clearTimeout(delayQuery)
-    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName])
+    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, dateFilter])
 
     useEffect(() => {
         setLoading(true)
@@ -99,7 +100,7 @@ const BestantList = () => {
     useEffect(() => {
         const keys = Object.keys(filter);
         const keysToRestore = keys.slice(-3);
-        const valuesToRestore = keysToRestore.map(key => ({ [key]: filter[key] }));
+        const valuesToRestore = keysToRestore.map(key => ({[key]: filter[key]}));
         keysToRestore.forEach(key => delete filter[key]);
         const isNullUndefEmptyStr = Object.values(filter).every(value => {
             return value === null || value === undefined || value === '';
@@ -128,8 +129,14 @@ const BestantList = () => {
     }, []);
 
     function clearFilters() {
-        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 1, i: null, j: null}})
-        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 111, i: null, j: null}})
+        dispatch({
+            type: "SET_SORTBESTANDFILTER",
+            item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 1, i: null, j: null}
+        })
+        dispatch({
+            type: "SET_SORTBESTANDFILTERID",
+            item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 111, i: null, j: null}
+        })
     }
 
     function setPageStates(e) {

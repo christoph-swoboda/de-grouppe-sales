@@ -36,8 +36,8 @@ export const BestandView3Headers = [
     },
     {
         id: 8,
-        title: 'Ersttermin',
-        mouseOver: 'Ersttermin',
+        title: 'Überl. R+V',
+        mouseOver: 'Überl. R+V',
     },
     {
         id: 9,
