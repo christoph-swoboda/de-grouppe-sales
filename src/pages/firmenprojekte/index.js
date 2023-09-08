@@ -95,6 +95,12 @@ const BestantList = () => {
     useEffect(() => {
         setLoading(true)
         clearFilters()
+        if (viewName === 'Auswertung Vertrieb' || viewName === 'Auswertung Beratung' || viewName === 'Auswertung DGAPI') {
+            dispatch({
+                type: "SET_DATEFILTER",
+                item: {id: 8, value: true}
+            })
+        }
     }, [viewName]);
 
     useEffect(() => {
@@ -137,6 +143,10 @@ const BestantList = () => {
             type: "SET_SORTBESTANDFILTERID",
             item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 111, i: null, j: null}
         })
+        // dispatch({
+        //     type: "SET_DATEFILTER",
+        //     item: {id: null, value: null}
+        // })
     }
 
     function setPageStates(e) {

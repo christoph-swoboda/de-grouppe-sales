@@ -144,7 +144,7 @@ const UserManagement = () => {
     return (
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between pt-2 sm:block'>
-                <h2 className='text-2xl lg:text-left'>{admin === '0' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
+                <h2 className='text-2xl lg:text-left'>{admin === '0' ? 'Benutzerübersicht' : 'Benutzerverwaltung'}</h2>
                 <div className={admin === '0' || user.role === 'Controller' ? 'hidden' : ''}>
                     <p className={`px-3 py-2 shadow shadow-md shadow-mainBlue rounded-2xl hover:bg-white hover:text-mainBlue bg-mainBlue text-sm text-white ml-2 cursor-pointer`}
                        onClick={toggleAddUsersModal}>
@@ -165,26 +165,38 @@ const UserManagement = () => {
                     </form>
                     <div className='flex justify-between sm:mb-6 lg:ml-24 mt-2 text-grey'>
                         <div
-                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.c ? 'border border-whiteDark' : 'opacity-50'}`}
-                            onClick={() => setRoleFilter({...roleFilter, c: !roleFilter.c})}>
+                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.c ? 'border border-offWhite' : 'opacity-50'}`}
+                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                ...roleFilter,
+                                c: !roleFilter.c
+                            })}>
                             <FaUserSecret size={'17px'} color={'#565c8c'}/> <span
                             className='ml-1 mr-6 text-sm'>Controlling</span>
                         </div>
                         <div
-                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.i ? 'border border-whiteDark' : 'opacity-50'}`}
-                            onClick={() => setRoleFilter({...roleFilter, i: !roleFilter.i})}>
+                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.i ? 'border border-offWhite' : 'opacity-50'}`}
+                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                ...roleFilter,
+                                i: !roleFilter.i
+                            })}>
                             <GrUserAdmin size={'17px'} color={'#565c8c'}/> <span
                             className='ml-1 mr-6 text-sm'>Innendienst</span>
                         </div>
                         <div
-                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.e ? 'border border-whiteDark' : 'opacity-50'}`}
-                            onClick={() => setRoleFilter({...roleFilter, e: !roleFilter.e})}>
+                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.e ? 'border border-offWhite' : 'opacity-50'}`}
+                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                ...roleFilter,
+                                e: !roleFilter.e
+                            })}>
                             <MdSupervisorAccount size={'17px'} color={'#3A46A9'}/><span
                             className='ml-1 mr-6 text-sm'>FKB </span>
                         </div>
                         <div
-                            className={`flex justify-between cursor-pointer pl-1 ${roleFilter.m ? 'border border-whiteDark' : 'opacity-50'}`}
-                            onClick={() => setRoleFilter({...roleFilter, m: !roleFilter.m})}>
+                            className={`flex justify-between cursor-pointer pl-1 ${roleFilter.m ? 'border border-offWhite' : 'opacity-50'}`}
+                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                ...roleFilter,
+                                m: !roleFilter.m
+                            })}>
                             <FaUser size={'17px'} color={'#565c8c'}/> <span
                             className='ml-1 mr-6 text-sm'>Management</span>
                         </div>

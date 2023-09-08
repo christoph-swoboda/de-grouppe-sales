@@ -34,8 +34,8 @@ export const RouteData = [
     },
     {
         id: 3,
-        path: "/bank-Kooperationspartner",
-        name: 'Bank-Kooperationspartner',
+        path: "/benutzerubersicht",
+        name: 'Benutzerübersicht',
         component: <UserManagement/>,
         redirection: '/anmeldung'
     },
@@ -83,7 +83,7 @@ export const RouteData = [
     },
     {
         id: 10,
-        path: 'Storfalle',
+        path: 'storfalle',
         name: 'Störfälle',
         component: <Storfalle/>,
         redirection: '/anmeldung'

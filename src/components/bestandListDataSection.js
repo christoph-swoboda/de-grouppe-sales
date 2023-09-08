@@ -105,7 +105,6 @@ const BestandListDataSection = ({
     }
 
     function enableDateFilter(id, value){
-        console.log(id, value)
         dispatch({type: "SET_DATEFILTER", item: {id:id, value: value}})
     }
 

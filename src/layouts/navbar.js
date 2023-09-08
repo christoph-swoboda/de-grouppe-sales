@@ -87,7 +87,7 @@ const Navbar = () => {
                             }
                             {
                                 user?.role === ('Internal' || 'Controller') &&
-                                <Link to={'/Storfalle'} onClick={toggleNav}>
+                                <Link to={'/storfalle'} onClick={toggleNav}>
                                     <li className={`items ${path.pathname === '/Storfalle' && 'text-mainBlue'} hover:text-mainBlue`}>Störfälle</li>
                                 </Link>
                             }
@@ -95,16 +95,16 @@ const Navbar = () => {
                                 <li className={`items ${path.pathname.includes('/firmenprojekte') && 'text-mainBlue'} hover:text-mainBlue`}>Firmenprojekte</li>
                             </Link>
                             {
-                                user?.role === 'Internal' || user?.role === 'Controller' ?
+                                user?.role === 'Internal' && user?.isUserAdmin==='1' ?
                                     <Link to={'/benutzerverwaltung'}>
                                         <li className={`items ${path.pathname.includes('/benutzerverwaltung') && ' text-mainBlue'} hover:text-mainBlue`}>
                                             Benutzerverwaltung
                                         </li>
                                     </Link>
-                                    : user?.role === 'Supervisor' &&
-                                    <Link to={'/bank-Kooperationspartner'}>
+                                    :
+                                    <Link to={'/benutzerubersicht'}>
                                         <li className={`items ${path.pathname.includes('/bank-Kooperationspartner') && ' text-mainBlue'} hover:text-mainBlue`}>
-                                            Bank-Kooperationspartner
+                                            Benutzerübersicht
                                         </li>
                                     </Link>
                             }

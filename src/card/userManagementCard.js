@@ -80,7 +80,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
             <tbody>
             <tr className={`${(deleteClicked) && 'overlay'}`}/>
             <tr
-                className={`${(!edit || !deleteClicked) && 'hideDiv'} shadow shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
+                className={`${(!edit || !deleteClicked) && 'hideDiv'} shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
                 <td>Wollen Sie den Benutzer ({firstName + ' ' + lastName}) wirklich löschen?</td>
                 <td className={`${deleting && 'hideDiv'} flex justify-start px-24 pt-5 text-sm text-md font-bold`}>
                     <button onClick={() => removeUser(userID)}

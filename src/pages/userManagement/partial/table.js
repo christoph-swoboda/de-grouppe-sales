@@ -55,7 +55,6 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
                             <thead className="border-y border-silver border-x-0">
                             <tr>
                                 {
-
                                     UserManagementHeaders.map(header => (
                                         <th key={header.id} scope="col"
                                             className="text-sm font-medium text-grey px-6 py-2"
@@ -90,7 +89,6 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
                                         </th>
                                     ))
                                 }
-                                {/*<th scope="col" className="text-sm w-2/12 font-medium text-grey px-6 py-2"/>*/}
                             </tr>
                             </thead>
                             {
