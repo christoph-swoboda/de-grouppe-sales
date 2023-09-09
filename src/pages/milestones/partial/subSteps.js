@@ -178,7 +178,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?
                                         <section
-                                            key={index} className='tooltip flex'
+                                            key={index} className='tooltip grid grid-cols-2 gap-1 mt-0 rounded-lg'
                                             onChange={() =>
                                                 getValues(val.stepName) ?
                                                     addObjectToArray({
@@ -210,7 +210,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                         </section>
                                         : val.fieldType === 'date' ?
                                             <section
-                                                key={index} className='tooltip flex justify-between'>
+                                                key={index} className='tooltip grid grid-cols-2 gap-1 mt-0 rounded-lg'>
                                                 <label
                                                     className={`text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
                                                 <Controller
@@ -314,7 +314,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                 value: null,
                                                             })
                                                     }
-                                                    key={index} className='tooltip flex'
+                                                    key={index} className='tooltip flex grid grid-cols-2 gap-1 mt-0 rounded-lg'
                                                 >
                                                     <label className='text-sm text-grey label'>{val.stepName}</label>
                                                     <input placeholder='Text Input'
