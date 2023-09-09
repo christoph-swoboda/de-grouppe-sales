@@ -4,7 +4,7 @@ import Pagination from "../../../components/pagination";
 import {useStateValue} from "../../../states/StateProvider";
 import {ClipLoader, HashLoader} from "react-spinners";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
-import {UserManagementHeaders} from "../../../dummyData/userManagementHeaders";
+import {UserManagementHeaders} from "../../../staticData/userManagementHeaders";
 import {formatDate} from "../../../helper/formatDate";
 import {useNavigate} from "react-router";
 

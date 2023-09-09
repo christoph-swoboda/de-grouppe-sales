@@ -1,15 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
-import {BestandViewHeaders} from "../../dummyData/bestandViewHeaders";
+import {BestandViewHeaders} from "../../staticData/bestandViewHeaders";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
 import {useReactToPrint} from "react-to-print"
 import BestandListDataSection from "../../components/bestandListDataSection";
-import {BestandView2Headers} from "../../dummyData/bestandView2Headers";
+import {BestandView2Headers} from "../../staticData/bestandView2Headers";
 import {AES, enc} from "crypto-js";
-import {BestandView3Headers} from "../../dummyData/bestandView3Headers";
-import {BestandView4Headers} from "../../dummyData/bestandView4Headers";
-import {BestandView5Headers} from "../../dummyData/bestandView5Headers";
+import {BestandView3Headers} from "../../staticData/bestandView3Headers";
+import {BestandView4Headers} from "../../staticData/bestandView4Headers";
+import {BestandView5Headers} from "../../staticData/bestandView5Headers";
 
 const BestantList = () => {
     try {

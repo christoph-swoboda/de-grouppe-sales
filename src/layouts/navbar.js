@@ -88,7 +88,7 @@ const Navbar = () => {
                             {
                                 user?.role === ('Internal' || 'Controller') &&
                                 <Link to={'/storfalle'} onClick={toggleNav}>
-                                    <li className={`items ${path.pathname === '/Storfalle' && 'text-mainBlue'} hover:text-mainBlue`}>Störfälle</li>
+                                    <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'} hover:text-mainBlue`}>Störfälle</li>
                                 </Link>
                             }
                             <Link to={'/firmenprojekte-liste'} onClick={toggleNav}>
