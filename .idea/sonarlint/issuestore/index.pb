@@ -16,12 +16,8 @@ U
 0src/pages/dashboard/partial/notificationTable.js,3\5\3505dd6757ff68631ce16f50aed0f4e3a829497f
 L
 src/components/pagination.js,d\2\d290a95cd3e99b00b97aa3d0c24606cf4c302278
-K
-src/dummyData/milestones.js,e\6\e61ab58db66634517701a6c2730d7596b32ca0a7
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-L
-src/dummyData/bestantInfo.js,6\2\62db3afec19d67d869ac3bbdc2ae55301533f7df
 >
 src/Api/api.js,c\1\c14a0787926a3514d1e3760f96f5f1555596014f
 E
@@ -91,16 +87,8 @@ B
 tailwind.config.js,0\9\0918cbb76f2c44f223706cec9d31a32cd1177ce4
 `
 0src/pages/firmenprojekte/partial/vertriebView.js,f\c\fcfbf63dd0b675c0709eca75780373f6352fbdff
-T
-$src/dummyData/bestandView4Headers.js,b\a\bab1de7d9e9477f4339dbc4e8ad1a3e14660400a
-S
-#src/dummyData/bestandViewHeaders.js,f\b\fb18683b7f76ce067ce398eca11713be465bc8f5
-T
-$src/dummyData/bestandView2Headers.js,5\3\53256d44fb8ba3deea4b7ac8bdbd15e5385d6f6b
 ]
 -src/pages/firmenprojekte/partial/dgapiView.js,0\e\0e58203a08aefdd3a665ec456bed5a6f8d9dd4db
-T
-$src/dummyData/bestandView5Headers.js,1\0\10be4aaebdefb4ce1c803722190e9b4ac1ae39fc
 e
 5src/pages/firmenprojekte/partial/projekt-tafelView.js,1\c\1c0e06ae73ab0ae5b4494e9ef6875b7377416139
 `
@@ -125,7 +113,13 @@ X
 (src/pages/milestones/partial/subSteps.js,b\8\b8121536daabe6e2c8b69f06491e109d99d5b045
 M
 src/pages/milestones/index.js,f\9\f9d037951c45e7e04d590f10455f27ca8b559bc1
-T
-$src/dummyData/bestandView3Headers.js,6\e\6e6e23e4e387cacec8a8038f27f7f38fc4cbdae3
-V
-&src/dummyData/userManagementHeaders.js,c\9\c9a60b91cf144a9af6f566cf39791d35f2c42156
+U
+%src/staticData/bestandView4Headers.js,2\7\271b05fd78d24543c064219db5ee34e72a8691c4
+H
+src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
+L
+src/pages/Storfalle/index.js,8\a\8a85e04cac06bb04d020c0f8a656fbd9ce902ab5
+]
+-src/pages/Storfalle/partial/strofalleTable.js,b\2\b2277a26ab96f2cfa79c1d0aceda33b2875a2be3
+R
+"src/staticData/storfalleHeaders.js,6\8\687a0bc285c31274ae66ac520e478264969d2b9c

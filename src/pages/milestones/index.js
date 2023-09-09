@@ -14,7 +14,14 @@ import {toast} from "react-toastify";
 import {AES, enc} from "crypto-js";
 
 const Bestant = () => {
-    const [{companyInfoModal, currentMilestone, noteSent, noteRows, subStepSaved, secretKey}, dispatch] = useStateValue();
+    const [{
+        companyInfoModal,
+        currentMilestone,
+        noteSent,
+        noteRows,
+        subStepSaved,
+        secretKey
+    }, dispatch] = useStateValue();
     const {toggleCompanyInfoModal} = useModal();
     const [loading, setLoading] = useState(true)
     const [loadingNotes, setLoadingNotes] = useState(false)
@@ -33,7 +40,7 @@ const Bestant = () => {
     const [currentSubStep, setCurrentSubStep] = useState([])
     const param = useParams()
     const [options, setOptions] = useState([])
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
 
@@ -43,7 +50,7 @@ const Bestant = () => {
     }, [currentMilestone]);
 
     useEffect(() => {
-        let index = (Object.keys(milestoneTabs).length)-1
+        let index = (Object.keys(milestoneTabs).length) - 1
         setLastIndex(index)
     }, [milestoneTabs]);
 
@@ -52,10 +59,9 @@ const Bestant = () => {
             setMilestoneTabs(res.data.tabs)
             setLastDoneIndex(res.data.done)
             setCompanyName(res.data.companyName)
-            if(Number(res.data.done)!==(Object.keys(res.data.tabs).length)-1){
+            if (Number(res.data.done) !== (Object.keys(res.data.tabs).length) - 1) {
                 dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
-            }
-            else{
+            } else {
                 dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done)})
             }
             setLoading(false)
@@ -83,6 +89,22 @@ const Bestant = () => {
                 setFiltered(filter)
                 if (filter.length === 0) {
                     setStepsLoading(false)
+                }
+
+                const unsaved = localStorage.data && JSON.parse(localStorage.data)
+                if (unsaved?.length > 0) {
+                    res.data.grid.map(r => {
+                        unsaved?.map(u => {
+                            if (currentMilestone === u.milestone && r.stepID === u.id && Number(param.id) === Number(u.firma)) {
+                                const formatted = formatDate(u.value);
+                                if (u.type === 'date') {
+                                    r.fieldValue = formatted
+                                } else {
+                                    r.fieldValue = u.value
+                                }
+                            }
+                        })
+                    })
                 }
                 setGrid(res.data.grid)
                 // setNextStep(res.data.next)
@@ -137,6 +159,20 @@ const Bestant = () => {
             setSubString(2)
         }
     }, [currentMilestone, lastIndex, subString]);
+
+    const formatDate = (input) => {
+        const dt = new Date(input);
+        if (!isNaN(dt)) {
+            // Format the date as "yyyy-MM-dd"
+            const year = dt.getFullYear();
+            const month = String(dt.getMonth() + 1).padStart(2, '0');
+            const day = String(dt.getDate()).padStart(2, '0');
+            const formatted = `${year}-${month}-${day}`;
+            return formatted;
+        } else {
+            return false;
+        }
+    };
 
     return (
         <div className='dashboardContainer'>
