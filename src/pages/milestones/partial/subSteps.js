@@ -166,12 +166,31 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                     <div hidden={loading}>
                         <div className='flex justify-between flex-wrap'>
                             <h2 className='text-xl mb-2 text-center font-bold'>{title}</h2>
-                            <button
-                                onClick={() => ref.current?.click()}
-                                className={`${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto  bg-mainBlue text-white cursor-pointer px-4 text-sm py-2  rounded-3xl`}
-                                disabled={!isValid}>
-                                {Loading ? 'Sparen...' : 'Speichern'}
-                            </button>
+                           <div className='flex justify-center ml-auto gap-2 float-right'>
+                               <button
+                                   onClick={() => {
+                                       setValue(data[data?.length-1]?.stepName, new Date('1900-01-01'))
+                                       addObjectToArray({
+                                           firma: firma,
+                                           id: data[data?.length-1]?.substepID,
+                                           milestone: currentMilestone,
+                                           type: 'date',
+                                           value: '1900-01-01',
+                                           user: user.ID,
+                                       })
+                                   }}
+                                   className={`${!getValues(data[data?.length-1]?.stepName) ? '' : 'hideDiv'} ${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                               >
+                                   P-Schritt überspringen
+                               </button>
+                               <button
+                                   onClick={() => ref.current?.click()}
+                                   disabled={!isValid}
+                                   className={`${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                               >
+                                   {Loading ? 'Sparen...' : 'Speichern'}
+                               </button>
+                           </div>
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)}
                               className='grid grid-cols-1 gap-1 mt-6 rounded-lg'>
@@ -268,26 +287,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                                 }
                                                                     />
                                                                 </div>
-                                                            </div>
-                                                            <div
-                                                                className={`${Number(currentMilestone) === lastIndex && !getValues(val.stepName) ? 'cursor-pointer' : 'hideDiv'}`}>
-                                                                <h3
-                                                                    onClick={() => {
-                                                                        setValue(val.stepName, new Date('1900-01-01'))
-                                                                        addObjectToArray({
-                                                                            firma: firma,
-                                                                            id: val.substepID,
-                                                                            milestone: currentMilestone,
-                                                                            type: 'date',
-                                                                            value: '1900-01-01',
-                                                                            user: user.ID,
-                                                                        })
-                                                                    }}
-                                                                    className='w-full text-sm text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
-                                                                >
-                                                                    Überspringen Sie den Meilenstein
-                                                                </h3>
-                                                                {/*<button id='button' type={'submit'} hidden>save</button>*/}
                                                             </div>
                                                         </div>
                                                     )}

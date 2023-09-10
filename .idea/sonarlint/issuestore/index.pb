@@ -103,8 +103,6 @@ E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
-X
-(src/components/bestandListDataSection.js,5\d\5da8ab1d730d1c873a5b8ffaa92b121f4fc5b591
 A
 public/index.html,f\4\f43ecdf8d666ee908aacce037b4cd72159e4741b
 Q
@@ -125,3 +123,7 @@ R
 "src/staticData/storfalleHeaders.js,6\8\687a0bc285c31274ae66ac520e478264969d2b9c
 ^
 .src/pages/milestones/partial/fields/options.js,c\1\c128a83c56e4f9ebb01ef97f189675c2d4ee9ff3
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+j
+:src/pages/firmenprojekte/partial/bestandListDataSection.js,a\b\ab188e93cf4991ee5fa429a99be03b25fea9d46d
