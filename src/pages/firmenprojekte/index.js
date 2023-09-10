@@ -4,7 +4,7 @@ import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
 import {useReactToPrint} from "react-to-print"
-import BestandListDataSection from "../../components/bestandListDataSection";
+import BestandListDataSection from "./partial/bestandListDataSection";
 import {BestandView2Headers} from "../../staticData/bestandView2Headers";
 import {AES, enc} from "crypto-js";
 import {BestandView3Headers} from "../../staticData/bestandView3Headers";

@@ -123,3 +123,5 @@ L
 -src/pages/Storfalle/partial/strofalleTable.js,b\2\b2277a26ab96f2cfa79c1d0aceda33b2875a2be3
 R
 "src/staticData/storfalleHeaders.js,6\8\687a0bc285c31274ae66ac520e478264969d2b9c
+^
+.src/pages/milestones/partial/fields/options.js,c\1\c128a83c56e4f9ebb01ef97f189675c2d4ee9ff3

@@ -18,7 +18,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
 
     const [Loading, setLoading] = useState(false)
     const initialState = [];
-    const [update, setUpdated] = useState(localStorage.data ? JSON.parse(localStorage.data) : [])
     const ref = useRef()
     const datePickerRef = useRef(null);
     const [isDatePickerOpen, setIsDatePickerOpen] = useState({});
@@ -31,6 +30,8 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
+    const [update, setUpdated] = useState((localStorage.data && user.ID===JSON.parse(localStorage.data)[0].user )? JSON.parse(localStorage.data): [])
+
 
     useEffect(() => {
         let key = 'id';
@@ -39,9 +40,9 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
             const confirmationMessage = 'Sind Sie sicher, dass Sie diese Seite verlassen möchten?';
             event.preventDefault();
             event.returnValue = confirmationMessage;
-            if (unique.length > 0) {
+            // if (unique.length > 0) {
                 localStorage.setItem('data', JSON.stringify(unique));
-            }
+            // }
         };
         window.addEventListener('beforeunload', handleBeforeUnload);
 
@@ -187,7 +188,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                         milestone: currentMilestone,
                                                         type: 'option',
                                                         value: getValues(val.stepName),
-                                                        user: user.id,
+                                                        user: user.ID,
                                                     }) :
                                                     addObjectToArray({
                                                         firma: firma,
@@ -195,7 +196,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                         milestone: currentMilestone,
                                                         type: 'option',
                                                         value: null,
-                                                        user: user.id,
+                                                        user: user.ID,
                                                     })
                                             }>
                                             <Options
@@ -238,6 +239,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                                 milestone: currentMilestone,
                                                                                 type: 'date',
                                                                                 value: getValues(val.stepName),
+                                                                                user: user.ID,
                                                                             }) :
                                                                             addObjectToArray({
                                                                                 firma: firma,
@@ -245,7 +247,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                                 milestone: currentMilestone,
                                                                                 type: 'date',
                                                                                 value: null,
-                                                                                user: user.id,
+                                                                                user: user.ID,
                                                                             })
                                                                     }}
                                                                     selected={field.value}
@@ -278,7 +280,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                             milestone: currentMilestone,
                                                                             type: 'date',
                                                                             value: '1900-01-01',
-                                                                            user: user.id,
+                                                                            user: user.ID,
                                                                         })
                                                                     }}
                                                                     className='w-full text-sm text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
@@ -309,7 +311,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                 milestone: currentMilestone,
                                                                 type: 'text',
                                                                 value: getValues(val.substepID),
-                                                                user: user.id,
+                                                                user: user.ID,
                                                             }) :
                                                             addObjectToArray({
                                                                 firma: firma,
@@ -317,7 +319,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                 milestone: currentMilestone,
                                                                 type: 'text',
                                                                 value: null,
-                                                                user: user.id,
+                                                                user: user.ID,
                                                             })
                                                     }
                                                     key={index} className='tooltip flex grid grid-cols-2 gap-1 mt-0 rounded-lg'

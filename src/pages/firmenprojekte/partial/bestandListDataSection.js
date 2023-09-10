@@ -1,15 +1,15 @@
 import React, {useEffect} from "react";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
-import FirmenprojekteView from "../pages/firmenprojekte/partial/firmenprojekteView";
-import Pagination from "./pagination";
-import {useStateValue} from "../states/StateProvider";
-import ProjectTafelView from "../pages/firmenprojekte/partial/projekt-tafelView";
-import {formatDate} from "../helper/formatDate";
-import VertriebView from "../pages/firmenprojekte/partial/vertriebView";
-import DgapiView from "../pages/firmenprojekte/partial/dgapiView";
-import BeratungView from "../pages/firmenprojekte/partial/beratungView";
-import ExcelExport from "../pages/firmenprojekte/partial/excelFormat";
+import FirmenprojekteView from "./firmenprojekteView";
+import Pagination from "../../../components/pagination";
+import {useStateValue} from "../../../states/StateProvider";
+import ProjectTafelView from "./projekt-tafelView";
+import {formatDate} from "../../../helper/formatDate";
+import VertriebView from "./vertriebView";
+import DgapiView from "./dgapiView";
+import BeratungView from "./beratungView";
+import ExcelExport from "./excelFormat";
 import {AiTwotonePrinter} from "react-icons/ai";
 import {IoMdArrowDropdown} from "react-icons/io";
 
@@ -228,14 +228,6 @@ const BestandListDataSection = ({
                                                     style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
                                                 >
                                                 <span className='flex justify-left'>
-                                                        {/*<span*/}
-                                                    {/*        className={`${(searChableFields.includes(header.id)) && 'opacity-0'} cursor-pointer`}>*/}
-                                                    {/*    <input className='w-full mb-4' style={{width:'15px', height:'15px', margin:'10px 5px 0 0'}} type='checkbox'*/}
-                                                    {/*           hidden={printing}*/}
-                                                    {/*           value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : header.id === 6 ? filter.f : filter.g}*/}
-                                                    {/*           onChange={(e) => enableFilter(header.id, e.target.value)}*/}
-                                                    {/*    />*/}
-                                                    {/*</span>*/}
                                                     <span
                                                         className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
                                                     >
@@ -284,7 +276,6 @@ const BestandListDataSection = ({
                                                 </th>
                                             ))
                                         }
-                                        {/*<th scope="col" className="text-sm w-1/12 text-grey px-2"/>*/}
                                     </tr>
                                     </thead>
                                     <tbody>

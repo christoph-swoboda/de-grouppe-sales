@@ -91,16 +91,18 @@ const Bestant = () => {
                     setStepsLoading(false)
                 }
 
-                const unsaved = localStorage.data && JSON.parse(localStorage.data)
+                const unsaved = localStorage.data ? JSON.parse(localStorage.data):[]
                 if (unsaved?.length > 0) {
                     res.data.grid.map(r => {
                         unsaved?.map(u => {
-                            if (currentMilestone === u.milestone && r.stepID === u.id && Number(param.id) === Number(u.firma) && user?.id===u.user) {
+                            if (currentMilestone === u.milestone && r.stepID === u.id && Number(param.id) === Number(u.firma) && user.ID===u.user) {
                                 const formatted = formatDate(u.value);
-                                if (u.type === 'date') {
+                                if (u.type === 'date' && u.value!==null) {
                                     r.fieldValue = formatted
                                 } else {
-                                    r.fieldValue = u.value
+                                    if(u.value!==null){
+                                        r.fieldValue = u.value
+                                    }
                                 }
                             }
                         })
