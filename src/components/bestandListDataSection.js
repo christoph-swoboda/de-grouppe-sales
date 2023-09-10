@@ -136,7 +136,7 @@ const BestandListDataSection = ({
                     <button disabled={hasFilter} onClick={clearFilters}
                             className={`${hasFilter && 'hideDiv bg-white text-text'} ${loading ? 'hideDiv' : ''} ml-1 justify-center w-full rounded-md border border-offWhite shadow-sm px-4 opacity-80 py-2 bg-cancel text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                     >
-                        {!hasFilter ? 'Suche Filter löschen' : 'Kein Suche Filter'}
+                        {!hasFilter ? 'Such-Filter zurücksetzen' : 'Kein Suche Filter'}
                     </button>
                     <div
                         className={`float-right text-right ${loading && loadingViews ? 'opacity-50 -mt-4' : ''} ${loading && !loadingViews ? 'opacity-50' : ''}`}
@@ -206,8 +206,12 @@ const BestandListDataSection = ({
                             {
                                 (users?.length === 0 && !loading) &&
                                 <div className='centerItemsAbsolute'>
-                                    <h2 className='text-2xl text-text font-bold'>Entschuldigung, keine Daten
-                                        gefunden</h2>
+                                    <h2 className='text-2xl text-text font-bold'>
+                                        Es wurden keine Daten zu Ihrer Suche gefunden.
+                                    </h2>
+                                    <h2 className='text-2xl text-text font-bold'>
+                                        Bitte prüfen Sie ggf. die Filter-Einstellungen.
+                                    </h2>
                                 </div>
                             }
                             <div className='overflow-x-hidden table-wrp block' ref={printPDFRef}

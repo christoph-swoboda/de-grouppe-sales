@@ -20,7 +20,7 @@ const Storfalle = () => {
     }
 
     const searChableFields = []
-    const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8]
+    const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     const [loading, setLoading]=useState(true)
     const [data, setData]=useState([])
     const [{sortColumn, sortMethod}, dispatch] = useStateValue();
@@ -63,7 +63,7 @@ const Storfalle = () => {
                                     </h2>
                                 </div>
                             }
-                            <div className='table-wrp block'
+                            <div className='overflow-x-hidden table-wrp block'
                                  style={{maxHeight: '60vh'}}>
                                 <table className='min-w-full text-left bg-white'>
                                     <thead
@@ -105,10 +105,11 @@ const Storfalle = () => {
                                                                placeholder='Suche...'
                                                         />
                                                     </span>
-                                                    <span  className={`${header.title==='MA' && 'opacity-0'}`}>
-                                                      <input className='w-full mb-4 opacity-0' type='text'
-                                                      />
-                                                    </span>
+                                                    <br/>
+                                                    {/*<span  className={`${header.title==='MA' && 'opacity-0'}`}>*/}
+                                                    {/*  <input className='w-full mb-4 opacity-0' type='text'*/}
+                                                    {/*  />*/}
+                                                    {/*</span>*/}
                                                     {
                                                         header.mouseOver?.length > 0 &&
                                                         <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
@@ -150,9 +151,9 @@ const Storfalle = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={`text-center flex justify-center`}>
-                        <p className='font-bold text-text border border-whiteDark px-10 py-2 w-fit rounded-md'>{data[0]?.totalSF} Gesamtprojekte</p>
-                    </div>
+                </div>
+                <div className={`text-center flex justify-center mt-4`}>
+                    <p className='font-bold text-text border border-whiteDark px-5 py-2 w-fit rounded-md'>{data[0]?.totalSF} Gesamtprojekte</p>
                 </div>
             </div>
         </div>

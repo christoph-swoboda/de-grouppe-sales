@@ -5,30 +5,34 @@ export const StorfalleHeaders = [
     },
     {
         id: 2,
-        title: 'Zust. FKB'
+        title: 'Firma'
     },
     {
         id: 3,
-        title: 'Bank'
+        title: 'Zust. FKB'
     },
     {
         id: 4,
-        title: 'MA'
+        title: 'Bank'
     },
     {
         id: 5,
-        title: 'P-Status'
+        title: 'MA'
     },
     {
         id: 6,
-        title: 'P-Datum'
+        title: 'P-Status'
     },
     {
         id: 7,
-        title: 'StörfallDatum'
+        title: 'P-Datum'
     },
     {
         id: 8,
+        title: 'StörfallDatum'
+    },
+    {
+        id: 9,
         title: 'Bemerkung',
     },
 ]

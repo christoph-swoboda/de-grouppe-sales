@@ -187,6 +187,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                         milestone: currentMilestone,
                                                         type: 'option',
                                                         value: getValues(val.stepName),
+                                                        user: user.id,
                                                     }) :
                                                     addObjectToArray({
                                                         firma: firma,
@@ -194,6 +195,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                         milestone: currentMilestone,
                                                         type: 'option',
                                                         value: null,
+                                                        user: user.id,
                                                     })
                                             }>
                                             <Options
@@ -243,6 +245,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                                 milestone: currentMilestone,
                                                                                 type: 'date',
                                                                                 value: null,
+                                                                                user: user.id,
                                                                             })
                                                                     }}
                                                                     selected={field.value}
@@ -275,6 +278,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                             milestone: currentMilestone,
                                                                             type: 'date',
                                                                             value: '1900-01-01',
+                                                                            user: user.id,
                                                                         })
                                                                     }}
                                                                     className='w-full text-sm text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
@@ -305,6 +309,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                 milestone: currentMilestone,
                                                                 type: 'text',
                                                                 value: getValues(val.substepID),
+                                                                user: user.id,
                                                             }) :
                                                             addObjectToArray({
                                                                 firma: firma,
@@ -312,6 +317,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                 milestone: currentMilestone,
                                                                 type: 'text',
                                                                 value: null,
+                                                                user: user.id,
                                                             })
                                                     }
                                                     key={index} className='tooltip flex grid grid-cols-2 gap-1 mt-0 rounded-lg'

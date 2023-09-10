@@ -30,6 +30,9 @@ const StrofalleTable = ({
                     {FirmaKurz}
                 </Link>
             </td>
+            <td className="w-52 text-gray-900 font-light pr-3">
+                {Firma}
+            </td>
             <td className="w-40 text-gray-900 font-light pr-3">
                 {ZustFKB}
             </td>
@@ -39,16 +42,16 @@ const StrofalleTable = ({
             <td className="w-16 text-gray-900 font-light pr-3">
                 {MA}
             </td>
-            <td className="w-40 text-gray-900 font-light pr-3 ">
+            <td className="w-48 text-gray-900 font-light pr-3 ">
                 {PStatus}
             </td>
-            <td className="w-24 font-light text-gray-900 pr-3">
+            <td className="w-32 font-light text-gray-900 pr-3">
                 {PDatum}
             </td>
-            <td className="w-24 font-light text-gray-900 pr-3">
+            <td className="w-32 font-light text-gray-900 pr-3">
                 {StorfallDatum}
             </td>
-            <td className="w-16 tooltip text-gray-900 font-light pr-3">
+            <td className="w-16 tooltip text-gray-900 font-light ml-10 float-right">
                 <BsChatLeftText size='16px'/>
                 <span className={`${Bemerkung ? 'tooltiptext' : 'hidden'}`}>
                     {Bemerkung}

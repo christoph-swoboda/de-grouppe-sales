@@ -9,7 +9,7 @@ import {MdSupervisorAccount} from "react-icons/md";
 import UpdateRole from "../components/modal/updateRole";
 import {AES, enc} from "crypto-js";
 
-const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created, role, users}) => {
+const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, created, role, users, status}) => {
     const [edit, setEdit] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loadingName, setLoadingName] = useState(false)
@@ -20,7 +20,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     const [lastName, setLastName] = useState('')
     const [verified, setVerified] = useState(valid)
     const [{userValidated, secretKey}, dispatch] = useStateValue();
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const admin = user.isUserAdmin
 
@@ -77,7 +77,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
 
     return (
         <>
-            <tbody>
+            <tbody className={`${status === 'red' && (user.role==='Internal' || role==='Controller') ? 'bg-redLight' : status === 'yellow' && (user.role==='Internal' || role==='Controller') ? 'bg-yellowLight' : ''}`}>
             <tr className={`${(deleteClicked) && 'overlay'}`}/>
             <tr
                 className={`${(!edit || !deleteClicked) && 'hideDiv'} shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
@@ -172,14 +172,14 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                         Abbrechen
                     </button>
                 </td>
-                    <td hidden={edit || admin !== '1' || user.role === 'Controller'}
-                        className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
-                        <button onClick={() => setEditStates(userID)}
-                                className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'
-                        >
-                            Bearbeiten
-                        </button>
-                    </td>
+                <td hidden={edit || admin !== '1' || user.role === 'Controller'}
+                    className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+                    <button onClick={() => setEditStates(userID)}
+                            className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'
+                    >
+                        Bearbeiten
+                    </button>
+                </td>
                 <td hidden={!edit}
                     className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
                     <button onClick={save}

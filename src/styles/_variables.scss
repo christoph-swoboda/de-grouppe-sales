@@ -59,6 +59,7 @@ form {
 
 .tooltip {
   position: relative;
+  background-color: white;
   //display: inline-block;
 }
 
@@ -73,9 +74,11 @@ form {
   color: black;
   font-size: 12px;
   border-radius: 6px;
-  position: absolute;
-  top: -25px;
-  left: -625px;
+  position: fixed;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: 120px;
   /* Position the tooltip text - see examples below! */
   z-index: 1;
 }

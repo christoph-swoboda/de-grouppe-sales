@@ -95,7 +95,7 @@ const Bestant = () => {
                 if (unsaved?.length > 0) {
                     res.data.grid.map(r => {
                         unsaved?.map(u => {
-                            if (currentMilestone === u.milestone && r.stepID === u.id && Number(param.id) === Number(u.firma)) {
+                            if (currentMilestone === u.milestone && r.stepID === u.id && Number(param.id) === Number(u.firma) && user?.id===u.user) {
                                 const formatted = formatDate(u.value);
                                 if (u.type === 'date') {
                                     r.fieldValue = formatted

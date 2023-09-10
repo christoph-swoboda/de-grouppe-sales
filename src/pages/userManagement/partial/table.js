@@ -115,6 +115,7 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
                                                 role={u.role}
                                                 isAdmin={u.isUserAdmin}
                                                 email={u.email}
+                                                status={u.status}
                                                 lastLogin={formatDate(u.dateLastLogin, true)}
                                                 created={formatDate(u.dateCreate, true)}
                                                 prtnrNo={u.partnernr}
