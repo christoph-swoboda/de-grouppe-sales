@@ -1,15 +1,15 @@
 import React, {useEffect} from "react";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
-import FirmenprojekteView from "../pages/firmenprojekte/partial/firmenprojekteView";
-import Pagination from "./pagination";
-import {useStateValue} from "../states/StateProvider";
-import ProjectTafelView from "../pages/firmenprojekte/partial/projekt-tafelView";
-import {formatDate} from "../helper/formatDate";
-import VertriebView from "../pages/firmenprojekte/partial/vertriebView";
-import DgapiView from "../pages/firmenprojekte/partial/dgapiView";
-import BeratungView from "../pages/firmenprojekte/partial/beratungView";
-import ExcelExport from "../pages/firmenprojekte/partial/excelFormat";
+import FirmenprojekteView from "./firmenprojekteView";
+import Pagination from "../../../components/pagination";
+import {useStateValue} from "../../../states/StateProvider";
+import ProjectTafelView from "./projekt-tafelView";
+import {formatDate} from "../../../helper/formatDate";
+import VertriebView from "./vertriebView";
+import DgapiView from "./dgapiView";
+import BeratungView from "./beratungView";
+import ExcelExport from "./excelFormat";
 import {AiTwotonePrinter} from "react-icons/ai";
 import {IoMdArrowDropdown} from "react-icons/io";
 
@@ -37,8 +37,9 @@ const BestandListDataSection = ({
                                     loadingViews,
                                     user
                                 }) => {
-    const [{pageBestand}, dispatch] = useStateValue();
+    const [{pageBestand, dateFilter}, dispatch] = useStateValue();
     const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
+    const checkboxFields = (view === 'Firmenprojekte' || view==='Projekt-Tafel')? [] :view==='Auswertung Vertrieb'? [8, 9, 10, 11, 12, 13, 14]:view==='Auswertung DGAPI'?[8, 9, 10, 11, 12, 13, 14]:[8, 9, 10, 11]
     const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
     useEffect(() => {
@@ -103,15 +104,19 @@ const BestandListDataSection = ({
         }
     }
 
+    function enableDateFilter(id, value){
+        dispatch({type: "SET_DATEFILTER", item: {id:id, value: value}})
+    }
+
     return (
         <div>
             <div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>
-                {/*<ExcelExport all title={'Excel Export'} loading={loading} len={users?.length}/>*/}
+                <ExcelExport all title={'Excel Export'} loading={loading} len={users?.length}/>
                 <ExcelExport Gesamt title={'Excel Export Gesamt'} loading={loading} len={users?.length}/>
                 {/*<CsvExport Gesamt title={'Csv Export Gesamt'} loading={loading} len={users?.length}/>*/}
                 {/*<CsvExport all title={'Csv Export'} loading={loading} len={users?.length}/>*/}
                 <div
-                    className={`${loading ? 'opacity-50' : ''} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}
+                    className={`${loading ? 'opacity-50' : 'opacity-0'} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}
                     onClick={setPrintState}>
                     <AiTwotonePrinter className='mr-1' size='25px' color={'#DB2955'}/>
                     <span className='mr-1 mb-2 text-grey text-sm'>Drucken</span>
@@ -131,7 +136,7 @@ const BestandListDataSection = ({
                     <button disabled={hasFilter} onClick={clearFilters}
                             className={`${hasFilter && 'hideDiv bg-white text-text'} ${loading ? 'hideDiv' : ''} ml-1 justify-center w-full rounded-md border border-offWhite shadow-sm px-4 opacity-80 py-2 bg-cancel text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
                     >
-                        {!hasFilter ? 'Suche Filter löschen' : 'Kein Suche Filter'}
+                        {!hasFilter ? 'Such-Filter zurücksetzen' : 'Kein Suche Filter'}
                     </button>
                     <div
                         className={`float-right text-right ${loading && loadingViews ? 'opacity-50 -mt-4' : ''} ${loading && !loadingViews ? 'opacity-50' : ''}`}
@@ -201,8 +206,12 @@ const BestandListDataSection = ({
                             {
                                 (users?.length === 0 && !loading) &&
                                 <div className='centerItemsAbsolute'>
-                                    <h2 className='text-2xl text-text font-bold'>Entschuldigung, keine Daten
-                                        gefunden</h2>
+                                    <h2 className='text-2xl text-text font-bold'>
+                                        Es wurden keine Daten zu Ihrer Suche gefunden.
+                                    </h2>
+                                    <h2 className='text-2xl text-text font-bold'>
+                                        Bitte prüfen Sie ggf. die Filter-Einstellungen.
+                                    </h2>
                                 </div>
                             }
                             <div className='overflow-x-hidden table-wrp block' ref={printPDFRef}
@@ -214,15 +223,14 @@ const BestandListDataSection = ({
                                         {
                                             !loading &&
                                             headers.map(header => (
-
                                                 <th key={header.id} scope="col"
                                                     className="text-sm text-grey pl-1.5 tooltip"
                                                     style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
                                                 >
                                                 <span className='flex justify-left'>
-                                                          <span
-                                                              className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
-                                                          >
+                                                    <span
+                                                        className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
+                                                    >
                                                             {header.title}
                                                         </span>
                                                         <span hidden={printing}
@@ -240,7 +248,7 @@ const BestandListDataSection = ({
                                                         </span>
                                                     </span>
                                                     <span
-                                                        className={`${!(searChableFields.includes(header.id)) && 'opacity-0'}`}>
+                                                        className={`${!(searChableFields.includes(header.id)) && 'hideDiv'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                hidden={printing}
                                                                maxLength="50"
@@ -248,7 +256,19 @@ const BestandListDataSection = ({
                                                                onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />
-                                            </span>
+                                                    </span>
+                                                    <span
+                                                        className={`${!(checkboxFields.includes(header.id)) && 'hideDiv'} cursor-pointer`}>
+                                                            <input className='w-full mb-4' type='radio'
+                                                                   hidden={printing}
+                                                                   checked={dateFilter.id===header.id && dateFilter.value}
+                                                                   onChange={(e) => enableDateFilter(header.id, e.target.checked)}
+                                                            />
+                                                    </span>
+                                                    <span  className={`${header.title==='MA' && 'opacity-0'}`}>
+                                                      <input className='w-full mb-4 opacity-0' type='text'
+                                                      />
+                                                    </span>
                                                     {
                                                         header.mouseOver?.length > 0 &&
                                                         <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
@@ -256,7 +276,6 @@ const BestandListDataSection = ({
                                                 </th>
                                             ))
                                         }
-                                        {/*<th scope="col" className="text-sm w-1/12 text-grey px-2"/>*/}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -320,12 +339,13 @@ const BestandListDataSection = ({
                                                             FD={u.FD}
                                                             DGAPIKAM={u.DGAPIKAM}
                                                             MA={u.MA}
-                                                            DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                                            Projtd_vollst={u.Projtd_vollst}
-                                                            Projtd_abge={u.Projtd_abge}
-                                                            AA_FA_hin={u.AA_FA_hin}
-                                                            StSvGA_erst={u.StSvGA_erst}
-                                                            ArTfGA_erst={u.ArTfGA_erst}
+                                                            Auftrag_DL_Paket={u.Auftr_DL_P}
+                                                            DL_Kanzl_Auftrag_versandt={u.DL_KA_vers}
+                                                            DL_Kanzl_Auftrag_zurück={u.DL_KA_zur}
+                                                            FP_Grundl_abgeschlossen={u.FP_Grdl_abg}
+                                                            FP_Def_vollständig={u.FP_Def_vollst}
+                                                            CIB_abgeschlossen={u.CIB_abg}
+                                                            FP_Freischaltung={u.FP_Freischltg}
                                                             Note={u.Note}
                                                             printing={printing}
                                                         />
@@ -341,12 +361,10 @@ const BestandListDataSection = ({
                                                                 FD={u.FD}
                                                                 DGAPIKAM={u.DGAPIKAM}
                                                                 MA={u.MA}
-                                                                DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                                                Projtd_vollst={u.Projtd_vollst}
-                                                                Projtd_abge={u.Projtd_abge}
-                                                                AA_FA_hin={u.AA_FA_hin}
-                                                                StSvGA_erst={u.StSvGA_erst}
-                                                                ArTfGA_erst={u.ArTfGA_erst}
+                                                                FP_Freischaltung={u.FP_Freischaltung}
+                                                                FP_Briefing_erfolgt={u.FP_Briefing_erfolgt}
+                                                                FP_Start_fix={u.FP_Start_fix}
+                                                                FP_Abschluss_Umsetzung={u.FP_Abschluss_Umsetzung}
                                                                 Note={u.Note}
                                                                 printing={printing}
                                                             />
@@ -363,12 +381,13 @@ const BestandListDataSection = ({
                                                                 FD={u.FD}
                                                                 DGAPIKAM={u.DGAPIKAM}
                                                                 MA={u.MA}
-                                                                DL_Kzl_vollst={u.DL_Kzl_vollst}
-                                                                Projtd_vollst={u.Projtd_vollst}
-                                                                Projtd_abge={u.Projtd_abge}
-                                                                AA_FA_hin={u.AA_FA_hin}
-                                                                StSvGA_erst={u.StSvGA_erst}
-                                                                ArTfGA_erst={u.ArTfGA_erst}
+                                                                Überl_R_V={u.Überl_R_V}
+                                                                Ersttermin={u.Ersttermin}
+                                                                Analyseb_vollst={u.Analyseb_vollst}
+                                                                SK_Termin={u.SK_Termin}
+                                                                iForm_DGAPI_AM={u.iForm_DGAPI_AM}
+                                                                Auftrag_DL_Paket={u.Auftrag_DL_Paket}
+                                                                iForm_Termin={u.iForm_Termin}
                                                                 Note={u.Note}
                                                                 printing={printing}
                                                             />

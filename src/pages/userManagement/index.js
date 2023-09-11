@@ -18,14 +18,18 @@ const UserManagement = () => {
     const [search, setSearch] = useState('')
     const [searchKey, setSearchKey] = useState('')
     const [users, setUsers] = useState([])
+    const [roleFilter, setRoleFilter] = useState({i: true, e: true, m: true, c: true})
     const [searchResults, setSearchResults] = useState([])
-    const [{secretKey, userValidated,
+    const [{
+        secretKey, userValidated,
         page,
         addUsersModal,
         sortUserColum,
         sortUserMethod,
-        addUsersDone}, dispatch] = useStateValue();
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+        filterIDUM, filterUM,
+        addUsersDone
+    }, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const admin = user.isUserAdmin
     const userID = user.ID
@@ -40,8 +44,13 @@ const UserManagement = () => {
     const modalRef = useRef()
 
     useEffect(() => {
-        getUsers(searchKey)
-    }, [rows, userID, userValidated, page, sortUserMethod, sortUserColum, addUsersDone, searchKey]);
+        const delayQuery = setTimeout(async () => {
+            getUsers(searchKey)
+        }, filterUM ? 800 : 0)
+
+        return () => clearTimeout(delayQuery)
+
+    }, [rows, userID, userValidated, page, sortUserMethod, sortUserColum, addUsersDone, searchKey, filterUM, roleFilter]);
 
     useEffect(() => {
         const delayQuery = setTimeout(async () => {
@@ -49,6 +58,7 @@ const UserManagement = () => {
                 let data = new FormData()
                 data.append('userID', userID)
                 data.append('search', search)
+
                 setLoadingKeys(true)
                 Api().post('/searchByMail', data).then(res => {
                     setSearchResults(res.data)
@@ -86,6 +96,10 @@ const UserManagement = () => {
         }
     }, [search]);
 
+    useEffect(() => {
+        setSearch('')
+    }, [userValidated]);
+
     function getUsers(src) {
         if (role === 'External') {
             navigate('/')
@@ -98,12 +112,24 @@ const UserManagement = () => {
         data.append('search', src)
         data.append('sortColumn', sortUserColum)
         data.append('sortMethod', sortUserMethod)
+        data.append('I', roleFilter.i ? '1' : '0')
+        data.append('E', roleFilter.e ? '1' : '0')
+        data.append('M', roleFilter.m ? '1' : '0')
+        data.append('C', roleFilter.c ? '1' : '0')
+        data.append('vp', filterUM.c)
 
         Api().post('/getUsers', data).then(res => {
+
             setUsers(res.data)
-            setTotal(Number(res.data[0].totalUsers))
+            if (res.data.length > 0) {
+                setTotal(Number(res.data[0].totalUsers))
+            } else {
+                setTotal(0)
+            }
             setLoading(false)
+
         }).catch(e => {
+            console.log(e)
             setLoading(false)
             toast.error('etwas ist schief gelaufen!')
         })
@@ -128,9 +154,9 @@ const UserManagement = () => {
 
     return (
         <div className='dashboardContainer'>
-            <div className='lg:flex justify-between mt-10 sm:block'>
-                <h2 className='text-2xl lg:text-left font-extrabold'>{admin === '0' ? 'Banken-Kooperations-Verwaltung' : 'Benutzerverwaltung'}</h2>
-                <div className={admin === '0' || user.role==='Controller' ? 'hidden' : ''}>
+            <div className='lg:flex justify-between pt-2 sm:block'>
+                <h2 className='text-2xl lg:text-left'>{admin === '0' ? 'Benutzerübersicht' : 'Benutzerverwaltung'}</h2>
+                <div className={admin === '0' || user.role === 'Controller' ? 'hidden' : ''}>
                     <p className={`px-3 py-2 shadow shadow-md shadow-mainBlue rounded-2xl hover:bg-white hover:text-mainBlue bg-mainBlue text-sm text-white ml-2 cursor-pointer`}
                        onClick={toggleAddUsersModal}>
                         Neuen Benutzer anlegen
@@ -139,7 +165,7 @@ const UserManagement = () => {
             </div>
 
             <div className={`bg-white my-4`}>
-                <div className={`${(users?.length === 0 && !loading) && 'opacity-0'} rounded-xl p-8 lg:flex sm:block`}>
+                <div className={`rounded-xl p-8 lg:flex sm:block`}>
                     <form onSubmit={searchSubmit} className=' xl:w-3/12 sm:w-full'>
                         <input type="text" className='mr-5 w-full'
                                value={search}
@@ -148,24 +174,48 @@ const UserManagement = () => {
                         />
                         <input type="submit" value="Submit" hidden/>
                     </form>
-                    <div className='flex justify-between sm:mb-6 lg:ml-28 mt-2 text-grey'>
-                        <div className='flex justify-between'>
-                            <FaUserSecret size={'17px'} color={'#565c8c'}/> <span className='ml-1 mr-6 text-sm'>Controlling</span>
+                    <div className='flex justify-between sm:mb-6 lg:ml-24 mt-2 text-grey'>
+                        <div
+                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.c ? 'border border-offWhite' : 'opacity-50'}`}
+                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                ...roleFilter,
+                                c: !roleFilter.c
+                            })}>
+                            <FaUserSecret size={'17px'} color={'#565c8c'}/> <span
+                            className='ml-1 mr-6 text-sm'>Controlling</span>
                         </div>
-                        <div className='flex justify-between'>
-                            <GrUserAdmin size={'17px'} color={'#565c8c'}/> <span className='ml-1 mr-6 text-sm'>Innendienst</span>
+                        <div
+                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.i ? 'border border-offWhite' : 'opacity-50'}`}
+                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                ...roleFilter,
+                                i: !roleFilter.i
+                            })}>
+                            <GrUserAdmin size={'17px'} color={'#565c8c'}/> <span
+                            className='ml-1 mr-6 text-sm'>Innendienst</span>
                         </div>
-                        <div className='flex justify-between'>
-                            <MdSupervisorAccount size={'17px'} color={'#3A46A9'}/><span className='ml-1 mr-6 text-sm'>FKB </span>
+                        <div
+                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.e ? 'border border-offWhite' : 'opacity-50'}`}
+                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                ...roleFilter,
+                                e: !roleFilter.e
+                            })}>
+                            <MdSupervisorAccount size={'17px'} color={'#3A46A9'}/><span
+                            className='ml-1 mr-6 text-sm'>FKB </span>
                         </div>
-                        <div className='flex justify-between'>
-                            <FaUser size={'17px'} color={'#565c8c'}/> <span className='ml-1 mr-6 text-sm'>Management</span>
+                        <div
+                            className={`flex justify-between cursor-pointer pl-1 ${roleFilter.m ? 'border border-offWhite' : 'opacity-50'}`}
+                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                ...roleFilter,
+                                m: !roleFilter.m
+                            })}>
+                            <FaUser size={'17px'} color={'#565c8c'}/> <span
+                            className='ml-1 mr-6 text-sm'>Management</span>
                         </div>
                     </div>
                     <p className='text-sm text-grey ml-auto mt-2'>
                         {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Einträge
                     </p>
-                    <h2 className='text-sm text-grey ml-6 mt-2 ml-10'>
+                    <h2 className='text-sm text-grey mt-2 ml-10'>
                         Einträge anzeigen:
                         <span>
                             <select onChange={setPageStates} className='bg-transparent text-mainBlue'>
@@ -191,18 +241,14 @@ const UserManagement = () => {
                     }
 
                 </div>
-                {
-                    (users?.length === 0 && !loading) &&
-                    <div className='centerItemsRelative h-80'>
-                        <h2 className='text-2xl text-text font-bold'>Entschuldigung, keine Daten gefunden</h2>
-                    </div>
-                }
-                <div className={`${(users?.length === 0 && !loading) && 'hidden'}`}>
+                <div>
                     {
                         (role === 'Internal' || role === 'Controller') ?
-                            <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
-                            : role==='Supervisor' &&
-                            <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}/>
+                            <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading}
+                                       filterUM={filterUM} filterIDUM={filterIDUM}/>
+                            : role === 'Supervisor' &&
+                            <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}
+                                             filterUM={filterUM} filterIDUM={filterIDUM}/>
                     }
                 </div>
             </div>

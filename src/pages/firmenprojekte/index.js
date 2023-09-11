@@ -1,15 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
-import {BestandViewHeaders} from "../../dummyData/bestandViewHeaders";
+import {BestandViewHeaders} from "../../staticData/bestandViewHeaders";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
 import {useReactToPrint} from "react-to-print"
-import BestandListDataSection from "../../components/bestandListDataSection";
-import {BestandView2Headers} from "../../dummyData/bestandView2Headers";
+import BestandListDataSection from "./partial/bestandListDataSection";
+import {BestandView2Headers} from "../../staticData/bestandView2Headers";
 import {AES, enc} from "crypto-js";
-import {BestandView3Headers} from "../../dummyData/bestandView3Headers";
-import {BestandView4Headers} from "../../dummyData/bestandView4Headers";
-import {BestandView5Headers} from "../../dummyData/bestandView5Headers";
+import {BestandView3Headers} from "../../staticData/bestandView3Headers";
+import {BestandView4Headers} from "../../staticData/bestandView4Headers";
+import {BestandView5Headers} from "../../staticData/bestandView5Headers";
 
 const BestantList = () => {
     try {
@@ -25,7 +25,7 @@ const BestantList = () => {
     const [viewName, setViewName] = useState('Firmenprojekte');
     const [views, setViews] = useState([]);
     let PageSize = rows;
-    const [{pageBestand, sortColumn, sortMethod, filterID, filter, secretKey}, dispatch] = useStateValue();
+    const [{pageBestand, sortColumn, sortMethod, filterID, filter, dateFilter, secretKey}, dispatch] = useStateValue();
     const [users, setUsers] = useState([]);
     const [total, setTotal] = useState(0);
     const componentRef = useRef();
@@ -37,7 +37,7 @@ const BestantList = () => {
 
     useEffect(() => {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
-    }, [viewName]);
+    }, [viewName, filter, dateFilter]);
 
     useEffect(() => {
         setLoadingViews(true)
@@ -72,6 +72,7 @@ const BestantList = () => {
             data.append('sortMethod', sortMethod)
             data.append('filterID', JSON.stringify(filterID))
             data.append('filter', JSON.stringify(filter))
+            data.append('dateFilter', JSON.stringify(dateFilter))
 
             Api().post(url, data).then(res => {
                 setUsers(res.data.bestands)
@@ -86,20 +87,39 @@ const BestantList = () => {
                 setLoading(false)
                 toast.error('Etwas ist schief gelaufen!!')
             })
-        }, filter ? 800 : 0)
+        }, filter || dateFilter ? 800 : 0)
 
         return () => clearTimeout(delayQuery)
-    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName])
+    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, dateFilter])
 
     useEffect(() => {
         setLoading(true)
         clearFilters()
+        if (viewName === 'Auswertung Vertrieb') {
+            dispatch({
+                type: "SET_DATEFILTER",
+                item: {id: 14, value: true}
+            })
+        }
+        else if( viewName === 'Auswertung DGAPI'){
+            dispatch({
+                type: "SET_DATEFILTER",
+                item: {id: 14, value: true}
+            })
+        }
+        else if(viewName === 'Auswertung Beratung'){
+            dispatch({
+                type: "SET_DATEFILTER",
+                item: {id: 11, value: true}
+            })
+        }
+
     }, [viewName]);
 
     useEffect(() => {
         const keys = Object.keys(filter);
         const keysToRestore = keys.slice(-3);
-        const valuesToRestore = keysToRestore.map(key => ({ [key]: filter[key] }));
+        const valuesToRestore = keysToRestore.map(key => ({[key]: filter[key]}));
         keysToRestore.forEach(key => delete filter[key]);
         const isNullUndefEmptyStr = Object.values(filter).every(value => {
             return value === null || value === undefined || value === '';
@@ -128,8 +148,18 @@ const BestantList = () => {
     }, []);
 
     function clearFilters() {
-        dispatch({type: "SET_SORTBESTANDFILTER", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 1, i: null, j: null}})
-        dispatch({type: "SET_SORTBESTANDFILTERID", item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 111, i: null, j: null}})
+        dispatch({
+            type: "SET_SORTBESTANDFILTER",
+            item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 1, i: null, j: null}
+        })
+        dispatch({
+            type: "SET_SORTBESTANDFILTERID",
+            item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 111, i: null, j: null}
+        })
+        // dispatch({
+        //     type: "SET_DATEFILTER",
+        //     item: {id: null, value: null}
+        // })
     }
 
     function setPageStates(e) {
@@ -156,11 +186,11 @@ const BestantList = () => {
     return (
         <>
             <div className={`dashboardContainer`}>
-                <h2 className='text-left text-2xl pt-2 pb-4'>Firmenprojekt</h2>
+                <h2 className='text-2xl lg:text-left pb-5'>Firmenprojekt</h2>
                 <div className='bg-white'>
                     <BestandListDataSection
                         views={views}
-                        setPrintState={setPrintState}
+                        setPrintStte={setPrintState}
                         hasFilter={hasFilter}
                         clearFilters={clearFilters}
                         setViewName={setViewName}
@@ -188,7 +218,7 @@ const BestantList = () => {
                             <p className={`${(users?.length === 0) && 'hideDiv'} mr-2 text-sm text-grey mt-2`}>
                                 {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users?.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Einträge
                             </p>
-                            <h2 className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey ml-6 mt-2 ml-10`}>
+                            <h2 className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey mt-2 ml-10`}>
                                 Einträge anzeigen:
                                 <span>
                                 <select onChange={setPageStates} className={` bg-transparent text-mainBlue`}>

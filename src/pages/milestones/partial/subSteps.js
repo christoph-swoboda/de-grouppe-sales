@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useCallback, useEffect, useRef, useState} from "react"
 import {RiseLoader} from "react-spinners";
 import {Controller, useForm} from "react-hook-form"
 import {useStateValue} from "../../../states/StateProvider"
@@ -18,7 +18,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
 
     const [Loading, setLoading] = useState(false)
     const initialState = [];
-    const [update, setUpdated] = useState(initialState)
     const ref = useRef()
     const datePickerRef = useRef(null);
     const [isDatePickerOpen, setIsDatePickerOpen] = useState({});
@@ -31,14 +30,34 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
+    const [update, setUpdated] = useState((localStorage.data && user.ID===JSON.parse(localStorage.data)[0].user )? JSON.parse(localStorage.data): [])
+
 
     useEffect(() => {
-        reset()
-    }, [currentMilestone]);
+        let key = 'id';
+        const unique = [...new Map(update?.map(item => [item[key], item])).values()];
+        const handleBeforeUnload = (event) => {
+            const confirmationMessage = 'Sind Sie sicher, dass Sie diese Seite verlassen möchten?';
+            event.preventDefault();
+            event.returnValue = confirmationMessage;
+            // if (unique.length > 0) {
+                localStorage.setItem('data', JSON.stringify(unique));
+            // }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [update, currentMilestone]);
+
+    // useEffect(() => {
+    //     reset()
+    // }, [currentMilestone]);
 
     useEffect(() => {
         const handleDocumentClick = (event) => {
-            if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+            if (datePickerRef.current && !datePickerRef.current?.contains(event.target)) {
                 setIsDatePickerOpen(false);
             }
         };
@@ -64,12 +83,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                         const toDateFormat = moment(new Date(newDate)).format(dateFormat);
                         let valid = moment(toDateFormat, dateFormat, true).isValid()
                         if (valid) {
-                            // if(d.stepName==='Ersttermin'){
-                            //     setValue(`${d.stepName}`, newDate)
-                            // }
-                            // else{
-                            //     setValue(`${d.stepName}`, null)
-                            // }
                             setValue(`${d.stepName}`, newDate)
                         } else {
                             setValue(`${d.stepName}`, moment(new Date()).toDate())
@@ -106,7 +119,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     }, [data, grid, setValue, next, options]);
 
     const addObjectToArray = obj => {
-        setUpdated(current => [...current, obj]);
+        setUpdated(current => current && [...current, obj])
     };
 
     function convertLocalToUTCDate(date) {
@@ -120,10 +133,12 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
 
     const onSubmit = async (Data) => {
         const key = 'id';
-        const unique = [...new Map(update.map(item => [item[key], item])).values()]
-        if (unique.length > 0) {
+        const unique = [...new Map(update?.map(item => [item[key], item])).values()]
+
+        if (unique?.length >0) {
             setLoading(true)
             Api().post('/saveSteps', unique).then(res => {
+                localStorage.removeItem('data')
                 dispatch({type: "SET_SUBSTEPSAVED", item: !subStepSaved})
                 toast.success('Daten erfolgreich gespeichert')
                 setLoading(false)
@@ -134,7 +149,6 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
         } else {
             toast.warning('Sie haben nichts eingegeben')
         }
-
     };
 
     return (
@@ -152,12 +166,32 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                     <div hidden={loading}>
                         <div className='flex justify-between flex-wrap'>
                             <h2 className='text-xl mb-2 text-center font-bold'>{title}</h2>
-                            <button
-                                onClick={() => ref.current.click()}
-                                className={`${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto  bg-mainBlue text-white cursor-pointer px-4 text-sm py-2  rounded-3xl`}
-                                disabled={!isValid}>
-                                {Loading ? 'Sparen...' : 'Speichern'}
-                            </button>
+                           <div className='flex justify-center ml-auto gap-2 float-right'>
+                               <button
+                                   onClick={() => {
+                                       setValue(data[data?.length-1]?.stepName, new Date('1900-01-01'))
+                                       addObjectToArray({
+                                           firma: firma,
+                                           id: data[data?.length-1]?.substepID,
+                                           milestone: currentMilestone,
+                                           type: 'date',
+                                           value: '1900-01-01',
+                                           user: user.ID,
+                                       })
+                                   }}
+                                   // className={`${Number(currentMilestone) !== lastIndex && !getValues(data[data?.length-1]?.stepName) ? '' : 'hideDiv'} ${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                                   className={`${Number(currentMilestone) !== lastIndex ? '' : 'hideDiv'} ${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                               >
+                                   P-Schritt überspringen
+                               </button>
+                               <button
+                                   onClick={() => ref.current?.click()}
+                                   disabled={!isValid}
+                                   className={`${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                               >
+                                   {Loading ? 'Sparen...' : 'Speichern'}
+                               </button>
+                           </div>
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)}
                               className='grid grid-cols-1 gap-1 mt-6 rounded-lg'>
@@ -165,20 +199,24 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                 data.map((val, index) => (
                                     val.fieldType === 'option' ?
                                         <section
-                                            key={index} className='tooltip flex'
+                                            key={index} className='tooltip grid grid-cols-2 gap-1 mt-0 rounded-lg'
                                             onChange={() =>
                                                 getValues(val.stepName) ?
                                                     addObjectToArray({
                                                         firma: firma,
                                                         id: val.substepID,
                                                         milestone: currentMilestone,
+                                                        type: 'option',
                                                         value: getValues(val.stepName),
+                                                        user: user.ID,
                                                     }) :
                                                     addObjectToArray({
                                                         firma: firma,
                                                         id: val.substepID,
                                                         milestone: currentMilestone,
+                                                        type: 'option',
                                                         value: null,
+                                                        user: user.ID,
                                                     })
                                             }>
                                             <Options
@@ -195,7 +233,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                         </section>
                                         : val.fieldType === 'date' ?
                                             <section
-                                                key={index} className='tooltip flex justify-between'>
+                                                key={index} className='tooltip grid grid-cols-2 gap-1 mt-0 rounded-lg'>
                                                 <label
                                                     className={`text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
                                                 <Controller
@@ -219,13 +257,17 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                                 firma: firma,
                                                                                 id: val.substepID,
                                                                                 milestone: currentMilestone,
+                                                                                type: 'date',
                                                                                 value: getValues(val.stepName),
+                                                                                user: user.ID,
                                                                             }) :
                                                                             addObjectToArray({
                                                                                 firma: firma,
                                                                                 id: val.substepID,
                                                                                 milestone: currentMilestone,
+                                                                                type: 'date',
                                                                                 value: null,
+                                                                                user: user.ID,
                                                                             })
                                                                     }}
                                                                     selected={field.value}
@@ -247,36 +289,12 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                     />
                                                                 </div>
                                                             </div>
-                                                            <div
-                                                                className={`${Number(currentMilestone) === lastIndex && !getValues(val.stepName) ? 'cursor-pointer' : 'hideDiv'}`}>
-                                                                <h3
-                                                                    onClick={() => {
-                                                                        console.log(getValues(val.stepName))
-                                                                        setValue(val.stepName, new Date('1900-01-01'))
-                                                                        addObjectToArray({
-                                                                            firma: firma,
-                                                                            id: val.substepID,
-                                                                            milestone: currentMilestone,
-                                                                            value: '1900-01-01',
-                                                                        })
-                                                                        // const saveButton = document.getElementById('button');
-                                                                        // if (saveButton) {
-                                                                        //     saveButton.click();
-                                                                        // }
-                                                                    }}
-                                                                    className='w-full text-sm text-center bg-yellowLight rounded-full text-text border border-1 border-whiteDark px-4 py-2 my-5'
-                                                                >
-                                                                    Überspringen Sie den Meilenstein
-                                                                </h3>
-                                                                {/*<button id='button' type={'submit'} hidden>save</button>*/}
-                                                            </div>
                                                         </div>
                                                     )}
                                                 />
                                                 <p className={`${val.mouseoverText && 'tooltiptextclose'} `}>{val.mouseoverText}</p>
                                             </section>
                                             : val.fieldType === 'header' ?
-                                                // <p>{val.stepName}</p>
                                                 <section key={index} className='tooltip flex'>
                                                     <label style={{fontSize: '.9rem'}}
                                                            className={`py-2 text-text w-full font-bold text-left`}>
@@ -291,16 +309,20 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                 firma: firma,
                                                                 id: val.substepID,
                                                                 milestone: currentMilestone,
+                                                                type: 'text',
                                                                 value: getValues(val.substepID),
+                                                                user: user.ID,
                                                             }) :
                                                             addObjectToArray({
                                                                 firma: firma,
                                                                 id: val.substepID,
                                                                 milestone: currentMilestone,
+                                                                type: 'text',
                                                                 value: null,
+                                                                user: user.ID,
                                                             })
                                                     }
-                                                    key={index} className='tooltip flex'
+                                                    key={index} className='tooltip flex grid grid-cols-2 gap-1 mt-0 rounded-lg'
                                                 >
                                                     <label className='text-sm text-grey label'>{val.stepName}</label>
                                                     <input placeholder='Text Input'
@@ -323,5 +345,4 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
         </div>
     )
 }
-
 export default SubSteps

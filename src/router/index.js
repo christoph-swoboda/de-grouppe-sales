@@ -1,13 +1,13 @@
 import NewCreation from "../pages/newCreation";
 import UserManagement from "../pages/userManagement";
-import BestantList from "../pages/firmenprojekte";
-import Bestant from "../pages/milestones";
+import Firmenprojekte from "../pages/firmenprojekte";
+import FirmenprojekteListe from "../pages/milestones";
 import Dashboard from "../pages/dashboard";
 import AllNotes from "../components/allNotes";
 import Documents from "../pages/documents";
-import ResetPassword from "../pages/resetPassword";
 import InfoCrawler from "../pages/infoCrawler";
 import MailHistory from "../pages/icMailHistory";
+import Storfalle from "../pages/Storfalle";
 
 
 export const RouteData = [
@@ -34,8 +34,8 @@ export const RouteData = [
     },
     {
         id: 3,
-        path: "/bank-Kooperationspartner",
-        name: 'Bank-Kooperationspartner',
+        path: "/benutzerubersicht",
+        name: 'Benutzerübersicht',
         component: <UserManagement/>,
         redirection: '/anmeldung'
     },
@@ -43,14 +43,14 @@ export const RouteData = [
         id: 4,
         path: '/firmenprojekte-liste',
         name: 'bestand-list',
-        component: <BestantList/>,
+        component: <Firmenprojekte/>,
         redirection: '/anmeldung'
     },
     {
         id: 5,
         path: 'firmenprojekte/:id',
         name: 'bestand',
-        component: <Bestant/>,
+        component: <FirmenprojekteListe/>,
         redirection: '/anmeldung'
     },
     {
@@ -79,6 +79,13 @@ export const RouteData = [
         path: 'mail-verlauf',
         name: 'mailVerlauf',
         component: <MailHistory/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 10,
+        path: 'storfalle',
+        name: 'Störfälle',
+        component: <Storfalle/>,
         redirection: '/anmeldung'
     },
 

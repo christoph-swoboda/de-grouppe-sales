@@ -26,15 +26,15 @@ const Navbar = () => {
     const modalRef = useRef()
     const location = useLocation()
 
-    const [{secretKey}, dispatch] = useStateValue();
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const [{secretKey}] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
 
     useEffect(() => {
-        Api().get('/version').then(res=>{
+        Api().get('/version').then(res => {
             setVersion(Object.values(res.data[0])[0])
         })
-        Api().get(`/icAdminCheck/${user.ID}`).then(res=>{
+        Api().get(`/icAdminCheck/${user.ID}`).then(res => {
             setIsICAdmin(res.data)
         })
     }, []);
@@ -67,8 +67,8 @@ const Navbar = () => {
     }
 
     return (
-        <nav className='shadow shadow-lg shadow-whiteDark' style={{zIndex: '1'}} ref={modalRef}
-             hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren')|| location.pathname.includes('reset-password')}>
+        <nav className='shadow-lg shadow-whiteDark' style={{zIndex: '1'}} ref={modalRef}
+             hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren') || location.pathname.includes('reset-password')}>
             <ul className="list">
                 <li className='logo'>Projektportal</li>
                 <li className='text-red mr-8 border border-y-0 border-l-0 pr-3 border-r-1 border-r-graph'> {version}</li>
@@ -85,35 +85,40 @@ const Navbar = () => {
                                     <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'} hover:text-mainBlue`}>Neu</li>
                                 </Link>
                             }
-
+                            {
+                                user?.role === ('Internal' || 'Controller') &&
+                                <Link to={'/storfalle'} onClick={toggleNav}>
+                                    <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'} hover:text-mainBlue`}>Störfälle</li>
+                                </Link>
+                            }
                             <Link to={'/firmenprojekte-liste'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname.includes('/firmenprojekte') && 'text-mainBlue'} hover:text-mainBlue`}>Firmenprojekte</li>
                             </Link>
                             {
-                                user?.role === 'Internal' || user?.role === 'Controller' ?
+                                user?.role === 'Internal' && user?.isUserAdmin==='1' ?
                                     <Link to={'/benutzerverwaltung'}>
                                         <li className={`items ${path.pathname.includes('/benutzerverwaltung') && ' text-mainBlue'} hover:text-mainBlue`}>
                                             Benutzerverwaltung
                                         </li>
                                     </Link>
-                                    : user?.role === 'Supervisor' &&
-                                    <Link to={'/bank-Kooperationspartner'}>
+                                    :
+                                    <Link to={'/benutzerubersicht'}>
                                         <li className={`items ${path.pathname.includes('/bank-Kooperationspartner') && ' text-mainBlue'} hover:text-mainBlue`}>
-                                            Bank-Kooperationspartner
+                                            Benutzerübersicht
                                         </li>
                                     </Link>
                             }
                             {
-                                isICAdmin===1 ?
+                                isICAdmin === 1 ?
                                     <Link to={{
                                         pathname: '/info-crawler',
-                                        state: { data: isICAdmin }
+                                        state: {data: isICAdmin}
                                     }}>
                                         <li className={`items ${path.pathname.includes('/info-crawler') && ' text-mainBlue'} hover:text-mainBlue`}>
                                             InfoCrawler
                                         </li>
                                     </Link>
-                                    :''
+                                    : ''
                             }
                             <li className='userInfo cursor-pointer'>
                                 {/*<img src={image} alt='image'/>*/}

@@ -44,7 +44,7 @@ const NewCreation = () => {
 
     return (
         <div className='dashboardContainer'>
-            <h2 className='text-left text-xl font-bold pt-5 pb-5'>Neues Firmenprojekt</h2>
+            <h2 className='text-2xl lg:text-left pb-5'>Neues Firmenprojekt</h2>
             {
                 !loading && <Form name={name} role={user?.role} dropdown={dropdownData}/>
             }

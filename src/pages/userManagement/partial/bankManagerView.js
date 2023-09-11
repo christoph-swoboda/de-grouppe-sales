@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import UserManagementTable from "./table";
 import {useNavigate} from "react-router";
 
-const BankManagerView = ({users, pageSize, loading, total, role}) => {
+const BankManagerView = ({users, pageSize, loading, total, role, filterIDUM, filterUM}) => {
 
     const navigate=useNavigate()
     useEffect(() => {
@@ -13,7 +13,7 @@ const BankManagerView = ({users, pageSize, loading, total, role}) => {
 
     return (
         <div>
-            <UserManagementTable role={role} loading={loading} users={users} pageSize={pageSize} total={total}/>
+            <UserManagementTable role={role} loading={loading} users={users} pageSize={pageSize} total={total} filterUM={filterUM} filterIDUM={filterIDUM}/>
         </div>
     )
 }

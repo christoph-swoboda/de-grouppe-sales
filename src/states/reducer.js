@@ -23,8 +23,11 @@ export const initialState = {
     sortColumn: 7,
     sortMethod: 'asc',
     ICSaved: false,
+    dateFilter: {id:null, value:null},
     filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:null, i:null, j:null},
     filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:1, i:0, j:0},
+    filterIDUM: {a: null, c: null},
+    filterUM: {a: null, c: null},
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -132,6 +135,21 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 filterID: action.item
+            }
+            case "SET_SORTBESTANDFILTERUM":
+            return {
+                ...state,
+                filterUM: action.item
+            }
+        case "SET_SORTBESTANDFILTERIDUM":
+            return {
+                ...state,
+                filterIDUM: action.item
+            }
+            case "SET_DATEFILTER":
+            return {
+                ...state,
+                dateFilter: action.item
             }
         case "SET_SENDMAIL":
             return {

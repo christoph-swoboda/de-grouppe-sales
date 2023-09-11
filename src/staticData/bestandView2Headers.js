@@ -1,4 +1,4 @@
-export const BestandView3Headers = [
+export const BestandView2Headers = [
     {
         id: 1,
         title: 'Firma Kurz',
@@ -36,36 +36,52 @@ export const BestandView3Headers = [
     },
     {
         id: 8,
-        title: 'DL Kzl vollst',
-        mouseOver: 'Ersttermin',
+        title: 'DL+Kzl vollst',
+        mouseOver: 'DL+Kanzleiauftrag Prüfung vollständig',
     },
     {
         id: 9,
         title: 'Projtd vollst',
-        mouseOver: 'Analysebogen vollständig',
+        mouseOver: 'Projektdefintion vollständig',
     },
     {
         id: 10,
         title: 'Projtd abge',
-        mouseOver: 'SK-Termin',
+        mouseOver: 'Projektdefinition abgefragt',
     },
     {
         id: 11,
         title: 'AA FA hin',
-        mouseOver: 'iForm Entscheidungs-Termin',
+        mouseOver: 'AnrAuskunft FA hin',
     },
     {
         id: 12,
-        title: 'StSvGA erst',
-        mouseOver: 'iForm an DGAPI-AM',
+        title: 'StSvGA erst.',
+        mouseOver: 'st- sv-Gutachten erstellt',
     },
     {
         id: 13,
-        title: 'ArTfGA erst',
-        mouseOver: 'Auftrag an AMS zum DL-Paket',
+        title: 'ArTfGA erst.',
+        mouseOver: 'arb- tarif-Gutachten erstellt',
     },
     {
         id: 14,
-        title: 'Note',
+        title: 'ProjStart',
+        mouseOver: 'ProjektStart (MA-Vortrag)',
+    },
+    {
+        id: 15,
+        title: 'MAV an FKB',
+        mouseOver: 'MA-Vortrag an FKB',
+    },
+    {
+        id: 16,
+        title: 'MAB fertig',
+        mouseOver: 'MAB Druckauftrag',
+    },
+    {
+        id: 17,
+        title: 'Bemerk',
+        mouseOver: 'Bemerkung'
     },
 ]
