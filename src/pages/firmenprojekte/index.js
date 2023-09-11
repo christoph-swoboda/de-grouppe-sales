@@ -95,12 +95,25 @@ const BestantList = () => {
     useEffect(() => {
         setLoading(true)
         clearFilters()
-        if (viewName === 'Auswertung Vertrieb' || viewName === 'Auswertung Beratung' || viewName === 'Auswertung DGAPI') {
+        if (viewName === 'Auswertung Vertrieb') {
             dispatch({
                 type: "SET_DATEFILTER",
-                item: {id: 8, value: true}
+                item: {id: 14, value: true}
             })
         }
+        else if( viewName === 'Auswertung DGAPI'){
+            dispatch({
+                type: "SET_DATEFILTER",
+                item: {id: 14, value: true}
+            })
+        }
+        else if(viewName === 'Auswertung Beratung'){
+            dispatch({
+                type: "SET_DATEFILTER",
+                item: {id: 11, value: true}
+            })
+        }
+
     }, [viewName]);
 
     useEffect(() => {
@@ -177,7 +190,7 @@ const BestantList = () => {
                 <div className='bg-white'>
                     <BestandListDataSection
                         views={views}
-                        setPrintState={setPrintState}
+                        setPrintStte={setPrintState}
                         hasFilter={hasFilter}
                         clearFilters={clearFilters}
                         setViewName={setViewName}

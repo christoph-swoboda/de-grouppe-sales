@@ -116,7 +116,7 @@ const BestandListDataSection = ({
                 {/*<CsvExport Gesamt title={'Csv Export Gesamt'} loading={loading} len={users?.length}/>*/}
                 {/*<CsvExport all title={'Csv Export'} loading={loading} len={users?.length}/>*/}
                 <div
-                    className={`${loading ? 'opacity-50' : ''} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}
+                    className={`${loading ? 'opacity-50' : 'opacity-0'} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}
                     onClick={setPrintState}>
                     <AiTwotonePrinter className='mr-1' size='25px' color={'#DB2955'}/>
                     <span className='mr-1 mb-2 text-grey text-sm'>Drucken</span>

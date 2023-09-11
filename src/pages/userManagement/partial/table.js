@@ -98,13 +98,7 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
                                         <td style={{marginLeft: '45vw'}}><ClipLoader color={'#afafaf'}/></td>
                                     </tr>
                                     </thead>
-                                    : (users?.length === 0 && !loading) ?
-                                        <tr className='centerItemsRelative h-80'>
-                                            <td className='text-2xl text-text text-center font-bold'>
-                                                Entschuldigung, keine Daten gefunden
-                                            </td>
-                                        </tr>
-                                        :
+                                    : (users?.length > 0 && !loading) &&
                                         users?.map((u, index) => (
                                             <UserManagementCard
                                                 key={index}
@@ -124,6 +118,17 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
                                         ))
                             }
                         </table>
+                        {
+                            (users?.length === 0 && !loading) &&
+                            <div className='centerItemsRelative h-80'>
+                                <h2 className='text-2xl text-text text-center font-bold'>
+                                    Es wurden keine Daten zu Ihrer Suche gefunden.
+                                    <br/>
+                                    Bitte prüfen Sie ggf. die Filter-Einstellungen.
+                                </h2>
+                            </div>
+                        }
+
                         <div className='centerItemsRelative mt-3 mb-2'>
                             <Pagination
                                 className="pagination-bar"

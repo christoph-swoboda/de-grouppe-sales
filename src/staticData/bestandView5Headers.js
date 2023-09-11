@@ -36,12 +36,12 @@ export const BestandView5Headers = [
     },
     {
         id: 8,
-        title: 'FP-Freischaltung',
+        title: 'FP Freischaltung',
         mouseOver: 'Projekt Freischaltung',
     },
     {
         id: 9,
-        title: 'FP-Briefing erfolgt',
+        title: 'FP Briefing erfolgt',
         mouseOver: 'Projektbriefing erfolgt',
     },
     {
@@ -51,7 +51,7 @@ export const BestandView5Headers = [
     },
     {
         id: 11,
-        title: 'FP-Abschluss Umsetzung',
+        title: 'FP Abschluss Umsetzung',
         mouseOver: 'Projektabschluss Umsetzung',
     },
     {

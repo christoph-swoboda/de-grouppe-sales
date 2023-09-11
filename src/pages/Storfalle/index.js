@@ -20,7 +20,7 @@ const Storfalle = () => {
     }
 
     const searChableFields = []
-    const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const sortableFields = []
     const [loading, setLoading]=useState(true)
     const [data, setData]=useState([])
     const [{sortColumn, sortMethod}, dispatch] = useStateValue();

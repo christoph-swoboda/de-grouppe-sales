@@ -10,13 +10,15 @@ const CompanyData = ({toggle, company, info}) => {
 
     const [{collapse1}] = useStateValue()
     const [email, setEmail] = useState('')
-    const line1 = info?.Zeile1.replaceAll(/Tel.|\|+|FKB:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
+    const line1 = info?.Zeile1.replaceAll(/Tel.|\|+|Ref-Kd.|\|+|DGAPI-KAM:|\|+|FKB:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     const line2 = info?.Zeile2.replaceAll(/BANK:|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     let line3 = info?.Zeile3.replaceAll(/BANK:|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
+    // let line4 = info?.Zeile4.replaceAll(/Link B4Y-Portal|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     const onlyMail = line2?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, '');
     const withoutMail = onlyMail?.replaceAll(/Anspr.:|\|+| Mob.:| Email:| Tel.:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     const Email = email?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, match => `<span style="color: #3A46A9; text-decoration: underline">${match} </span>`);
     const [{}, dispatch] = useStateValue()
+    const Web = info?.Zeile4?.replace('Link B4Y-Portal:', '');
 
     useEffect(() => {
         if (info?.Zeile2) {
@@ -52,6 +54,14 @@ const CompanyData = ({toggle, company, info}) => {
                       dangerouslySetInnerHTML={{__html: Email}}/>
                 <div className='hideDiv'>
                     <ButtonMailto label={`Email: ${email}`} mailto={`mailto:${email}`}/>
+                </div>
+                <div className='flex justify-start'>
+                    <p style={{color:'#a1a1a1'}} className='mr-1'>B4Y-Portal: </p>
+                    <p onClick={()=>window.open(Web, '_blank')} style={{color:'#3A46A9'}}
+                       className='underline cursor-pointer'
+                    >
+                        {Web}
+                    </p>
                 </div>
             </div>
             <div className='flex justify-between'>

@@ -59,12 +59,12 @@ form {
 
 .tooltip {
   position: relative;
-  background-color: white;
+  //background-color: white;
   //display: inline-block;
 }
 
 /* Tooltip text */
-.tooltip .tooltiptext {
+.tooltip .tooltiptextFixed {
   visibility: hidden;
   min-width: 100px;
   max-width: 650px;
@@ -83,8 +83,33 @@ form {
   z-index: 1;
 }
 
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 650px!important;
+  height: fit-content;
+  padding: 20px;
+  background-color: #FFF4C7;
+  color: black;
+  font-size: 12px;
+  border-radius: 6px;
+  position: absolute;
+  top: -25px;
+  left: auto;
+  right: 80px;
+  /* Position the tooltip text - see examples below! */
+  z-index: 1;
+}
+
 /* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
+.tooltip:hover .tooltiptext{
+  transition-delay: .5s;
+  visibility: visible;
+  text-align: left;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptextFixed {
   transition-delay: .5s;
   visibility: visible;
   text-align: left;

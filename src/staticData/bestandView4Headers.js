@@ -36,37 +36,37 @@ export const BestandView4Headers = [
     },
     {
         id: 8,
-        title: 'Auftrag DL Paket',
+        title: 'Auftr. DL-P',
         mouseOver: 'Auftrag an AMS zum DL-Paket',
     },
     {
         id: 9,
-        title: 'DL+Kanzl-Auftrag versandt',
+        title: 'DL+KA >',
         mouseOver: 'DL+Kanzleiauftrag versandt',
     },
     {
         id: 10,
-        title: 'DL+Kanzl-Auftrag zurück',
+        title: 'DL+KA <',
         mouseOver: 'DL+Kanzleiauftrag von Kunde zurück',
     },
     {
         id: 11,
-        title: 'FP-Grundl abgeschlossen',
+        title: 'FP-Grdl. abg.',
         mouseOver: 'Projektgrundlagen abgeschlossen',
     },
     {
         id: 12,
-        title: 'FP-Def vollständig',
+        title: 'FP-Def vollst.',
         mouseOver: 'Projektdefintion vollständig',
     },
     {
         id: 13,
-        title: 'CIB abgeschlossen',
+        title: 'CIB abg.',
         mouseOver: 'CIB abgeschlossen',
     },
     {
         id: 14,
-        title: 'FP-Freischaltung',
+        title: 'FP-Feischltg.',
         mouseOver: 'Projekt Freischaltung',
     },
     {

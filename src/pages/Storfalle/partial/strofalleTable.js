@@ -53,7 +53,7 @@ const StrofalleTable = ({
             </td>
             <td className="w-16 tooltip text-gray-900 font-light ml-10 float-right">
                 <BsChatLeftText size='16px'/>
-                <span className={`${Bemerkung ? 'tooltiptext' : 'hidden'}`}>
+                <span className={`${Bemerkung ? 'tooltiptextFixed' : 'hidden'}`}>
                     {Bemerkung}
                 </span>
             </td>

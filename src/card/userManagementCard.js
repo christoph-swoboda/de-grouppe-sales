@@ -54,6 +54,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     function removeUser(id) {
         setDeleting(true)
         Api().get(`/deleteUser/${id}`).then(res => {
+            dispatch({type: "SET_PAGE", item: 1})
             setEdit(false)
             setDeleting(false)
             toast.success('Benutzer erfolgreich gelöscht')

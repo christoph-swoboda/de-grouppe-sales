@@ -96,6 +96,10 @@ const UserManagement = () => {
         }
     }, [search]);
 
+    useEffect(() => {
+        setSearch('')
+    }, [userValidated]);
+
     function getUsers(src) {
         if (role === 'External') {
             navigate('/')
@@ -115,10 +119,17 @@ const UserManagement = () => {
         data.append('vp', filterUM.c)
 
         Api().post('/getUsers', data).then(res => {
+
             setUsers(res.data)
-            setTotal(Number(res.data[0].totalUsers))
+            if (res.data.length > 0) {
+                setTotal(Number(res.data[0].totalUsers))
+            } else {
+                setTotal(0)
+            }
             setLoading(false)
+
         }).catch(e => {
+            console.log(e)
             setLoading(false)
             toast.error('etwas ist schief gelaufen!')
         })
