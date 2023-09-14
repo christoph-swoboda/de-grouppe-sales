@@ -30,7 +30,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
-    const [update, setUpdated] = useState((localStorage.data && user.ID===JSON.parse(localStorage.data)[0].user )? JSON.parse(localStorage.data): [])
+    const [update, setUpdated] = useState((localStorage.data && user.ID===JSON.parse(localStorage.data)[0]?.user )? JSON.parse(localStorage.data): [])
 
 
     useEffect(() => {

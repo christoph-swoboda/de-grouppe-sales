@@ -127,3 +127,11 @@ R
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 j
 :src/pages/firmenprojekte/partial/bestandListDataSection.js,a\b\ab188e93cf4991ee5fa429a99be03b25fea9d46d
+U
+%src/staticData/bestandView3Headers.js,6\b\6b36a607590beb193b65540abe67cc6cef6894d7
+U
+%src/staticData/bestandView5Headers.js,d\2\d2696b62ffa76076d5df46629be540178f4c1102
+L
+src/staticData/milestones.js,8\d\8d18b041fb0d2adf90c687c30f204f202385e56d
+<
+src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
