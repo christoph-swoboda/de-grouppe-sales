@@ -35,7 +35,10 @@ const BestandListDataSection = ({
                                     hasFilter,
                                     setPrintState,
                                     loadingViews,
-                                    user
+                                    user,
+                                    url,
+                                    count,
+                                    rows
                                 }) => {
     const [{pageBestand, dateFilter}, dispatch] = useStateValue();
     const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
@@ -111,8 +114,8 @@ const BestandListDataSection = ({
     return (
         <div>
             <div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>
-                <ExcelExport all title={'Excel Export'} loading={loading} len={users?.length}/>
-                <ExcelExport Gesamt title={'Excel Export Gesamt'} loading={loading} len={users?.length}/>
+                <ExcelExport all url={url} count={count} rows={rows} title={'Excel Export'} loading={loading} len={users?.length}/>
+                <ExcelExport Gesamt url={url} count={count} rows={rows} title={'Excel Export Gesamt'} loading={loading} len={users?.length}/>
                 {/*<CsvExport Gesamt title={'Csv Export Gesamt'} loading={loading} len={users?.length}/>*/}
                 {/*<CsvExport all title={'Csv Export'} loading={loading} len={users?.length}/>*/}
                 <div
