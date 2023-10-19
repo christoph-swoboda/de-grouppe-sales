@@ -109,6 +109,8 @@ const BestandListDataSection = ({
 
     function enableDateFilter(id, value){
         dispatch({type: "SET_DATEFILTER", item: {id:id, value: value}})
+        dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
+        dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
     }
 
     return (

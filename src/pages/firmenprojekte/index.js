@@ -102,18 +102,29 @@ const BestantList = () => {
                 type: "SET_DATEFILTER",
                 item: {id: 14, value: true}
             })
+            dispatch({type: "SET_SORTBESTANDCOLUMN", item: 14})
+            dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
+
         } else if (viewName === 'Auswertung DGAPI') {
             dispatch({
                 type: "SET_DATEFILTER",
                 item: {id: 14, value: true}
             })
+            dispatch({type: "SET_SORTBESTANDCOLUMN", item: 14})
+            dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
+
         } else if (viewName === 'Auswertung Beratung') {
             dispatch({
                 type: "SET_DATEFILTER",
                 item: {id: 11, value: true}
             })
+            dispatch({type: "SET_SORTBESTANDCOLUMN", item: 11})
+            dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
         }
-
+        else{
+            dispatch({type: "SET_SORTBESTANDCOLUMN", item: 7})
+            dispatch({type: "SET_SORTBESTANDMETHOD", item: 'asc'})
+        }
     }, [viewName]);
 
     useEffect(() => {
