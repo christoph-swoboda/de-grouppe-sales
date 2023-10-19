@@ -8,14 +8,22 @@ import {AES, enc} from "crypto-js";
 import {useStateValue} from "../../../states/StateProvider";
 
 
-const ExcelExport = ({Gesamt, title, loading, all, len}) => {
+const ExcelExport = ({Gesamt, title, loading, all, len, rows, url, count}) => {
     const workbook = new excelJS.Workbook();
     workbook.creator = "test";
     workbook.lastModifiedBy = "test";
     workbook.created = new Date();
     workbook.modified = new Date();
-    const [{secretKey}, dispatch] = useStateValue();
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const [{
+        pageBestand,
+        sortColumn,
+        sortMethod,
+        filterID,
+        filter,
+        dateFilter,
+        secretKey
+    }, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const userID = user.ID
     const [loadingAll, setLoadingAll] = useState(false);
@@ -43,16 +51,19 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
     async function printXl() {
         let data = new FormData()
         data.append('userID', userID)
-        data.append('rows', '10000')
-        data.append('page', '1')
-        data.append('sortColumn', '7')
-        data.append('sortMethod', 'asc')
+        data.append('rows', rows)
+        data.append('page', pageBestand)
+        data.append('sortColumn', sortColumn)
+        data.append('sortMethod', sortMethod)
+        data.append('filterID', JSON.stringify(filterID))
+        data.append('filter', JSON.stringify(filter))
+        data.append('dateFilter', JSON.stringify(dateFilter))
 
         let Data = new FormData()
         Data.append('userID', userID)
 
         if (all) {
-            await prepareData('Firmenprojekte excel daten', '/getBestands', data)
+            await prepareData('Firmenprojekte excel daten', url, data)
         } else {
             await prepareData('Firmenprojekte Gesamt daten', '/allExcel', Data)
         }
@@ -70,7 +81,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
                         arr.push(k)
                     }
                 })
-                sheet.getRow(1).values = Object.values(arr).slice(0, 7)
+                sheet.getRow(1).values = Object.values(arr).slice(0, count)
             } else {
                 sheet.getRow(1).values = Object.keys(res.data.bestands[0])
             }
@@ -105,7 +116,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
                         arr.push(k)
                     }
                 })
-                sheet.columns = arr.slice(0, 7);
+                sheet.columns = arr.slice(0, count);
             } else {
                 sheet.columns = keys;
             }
@@ -127,7 +138,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len}) => {
 
     return (
         <div
-            className={`${loading || loadingAll ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer ${(len === 0 && title!=='Excel Export Gesamt') && 'hideDiv'} `}
+            className={`${loading || loadingAll ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer ${(len === 0 && title !== 'Excel Export Gesamt') && 'hideDiv'} `}
             onClick={printXl}
         >
             <RiFileExcel2Fill className='mr-1' size='25px' color={'#388E3C'}/>

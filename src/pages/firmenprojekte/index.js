@@ -22,6 +22,7 @@ const BestantList = () => {
     const [hasFilter, setHasFilter] = useState(false);
     const [loadingViews, setLoadingViews] = useState(false);
     const [rows, setRows] = useState('10');
+    const [url, setUrl] = useState('getBestands');
     const [viewName, setViewName] = useState('Firmenprojekte');
     const [views, setViews] = useState([]);
     let PageSize = rows;
@@ -51,15 +52,16 @@ const BestantList = () => {
     }, [])
 
     useEffect(() => {
-        let url = '/getBestands'
-        if (viewName === 'Projekt-Tafel') {
-            url = 'getBestands2'
+        if (viewName === 'Firmenprojekte') {
+            setUrl('getBestands')
+        } else if (viewName === 'Projekt-Tafel') {
+            setUrl('getBestands2')
         } else if (viewName === 'Auswertung Vertrieb') {
-            url = 'getBestands3'
+            setUrl('getBestands3')
         } else if (viewName === 'Auswertung DGAPI') {
-            url = 'getBestands4'
+            setUrl('getBestands4')
         } else if (viewName === 'Auswertung Beratung') {
-            url = 'getBestands5'
+            setUrl('getBestands5')
         }
 
         const delayQuery = setTimeout(async () => {
@@ -100,14 +102,12 @@ const BestantList = () => {
                 type: "SET_DATEFILTER",
                 item: {id: 14, value: true}
             })
-        }
-        else if( viewName === 'Auswertung DGAPI'){
+        } else if (viewName === 'Auswertung DGAPI') {
             dispatch({
                 type: "SET_DATEFILTER",
                 item: {id: 14, value: true}
             })
-        }
-        else if(viewName === 'Auswertung Beratung'){
+        } else if (viewName === 'Auswertung Beratung') {
             dispatch({
                 type: "SET_DATEFILTER",
                 item: {id: 11, value: true}
@@ -190,6 +190,7 @@ const BestantList = () => {
                 <div className='bg-white'>
                     <BestandListDataSection
                         views={views}
+                        rows={rows}
                         setPrintStte={setPrintState}
                         hasFilter={hasFilter}
                         clearFilters={clearFilters}
@@ -198,11 +199,13 @@ const BestantList = () => {
                         toggleDropdown={toggleDropdown}
                         isOpen={isOpen}
                         user={user}
+                        url={url}
                         loadingViews={loadingViews}
                         users={users}
                         loading={loading}
                         printPDFRef={componentRef}
                         headers={viewName === 'Firmenprojekte' ? BestandViewHeaders : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
+                        count={viewName === 'Firmenprojekte' ? BestandViewHeaders.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
                         printing={printing}
                         sortColumn={sortColumn}
                         sortMethod={sortMethod}

@@ -18,11 +18,16 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     const [partnerNr, setPartnerNo] = useState(prtnrNo)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [verified, setVerified] = useState(valid)
+    const [verified, setVerified] = useState(Number(valid) === 1)
     const [{userValidated, secretKey}, dispatch] = useStateValue();
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const admin = user.isUserAdmin
+
+    useEffect(() => {
+        console.log(valid, verified)
+    }, [valid]);
+
 
     function save() {
         setLoading(true)
@@ -78,7 +83,8 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
 
     return (
         <>
-            <tbody className={`${status === 'red' && (user.role==='Internal' || role==='Controller') ? 'bg-redLight' : status === 'yellow' && (user.role==='Internal' || role==='Controller') ? 'bg-yellowLight' : ''}`}>
+            <tbody
+                className={`${status === 'red' && (user.role === 'Internal' || role === 'Controller') ? 'bg-redLight' : status === 'yellow' && (user.role === 'Internal' || role === 'Controller') ? 'bg-yellowLight' : ''}`}>
             <tr className={`${(deleteClicked) && 'overlay'}`}/>
             <tr
                 className={`${(!edit || !deleteClicked) && 'hideDiv'} shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
@@ -142,13 +148,13 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
 
                 <td>
                     <button disabled={!edit}
-                            onClick={() => setVerified('1')}
+                            onClick={() => setVerified(!verified)}
                             className="text-sm text-gray-900 font-light px-6 py-0 whitespace-nowrap">
                         {
-                            verified === '1' ?
+                            verified === true ?
                                 <FaToggleOn color={'#3A46A9'} style={{cursor: edit ? 'pointer' : 'default'}}
                                             size='30px'/>
-                                : verified === '0' &&
+                                : verified === false &&
                                 <GrCheckbox style={{cursor: edit ? 'pointer' : 'default', height: '30px'}}/>
                         }
                     </button>
