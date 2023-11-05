@@ -80,15 +80,15 @@ const Navbar = () => {
                                 <li className={`items ${path.pathname === '/' && 'text-mainBlue'}  hover:text-mainBlue`}>Dashboard</li>
                             </Link>
                             {
-                                user?.role !== 'Supervisor' &&
-                                <Link to={'/neu'} onClick={toggleNav}>
-                                    <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'} hover:text-mainBlue`}>Neu</li>
-                                </Link>
-                            }
-                            {
                                 user?.role === ('Internal' || 'Controller') &&
                                 <Link to={'/storfalle'} onClick={toggleNav}>
                                     <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'} hover:text-mainBlue`}>Störfälle</li>
+                                </Link>
+                            }
+                            {
+                                user?.role !== 'Supervisor' &&
+                                <Link to={'/neu'} onClick={toggleNav}>
+                                    <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'} hover:text-mainBlue`}>Neu</li>
                                 </Link>
                             }
                             <Link to={'/firmenprojekte-liste'} onClick={toggleNav}>
