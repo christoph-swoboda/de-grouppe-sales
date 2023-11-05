@@ -120,6 +120,14 @@ const Navbar = () => {
                                     </Link>
                                     : ''
                             }
+                            {
+                                user?.role === ('Internal') &&
+                                <Link to={'/mail-verlauf'} onClick={toggleNav}>
+                                    <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                        Mail Verlauf
+                                    </li>
+                                </Link>
+                            }
                             <li className='userInfo cursor-pointer'>
                                 {/*<img src={image} alt='image'/>*/}
                                 {
