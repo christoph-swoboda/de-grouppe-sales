@@ -11,6 +11,7 @@ import ResetPassword from "./pages/resetPassword";
 import SubmitPassword from "./pages/resetPassword/partial/submitPassword";
 import {AES, enc} from "crypto-js";
 import {useStateValue} from "./states/StateProvider";
+import packageJson from "../package.json";
 
 function App() {
 
@@ -24,7 +25,26 @@ function App() {
     catch (e){
         window.localStorage.removeItem('user')
     }
+    useEffect(() => {
 
+        let version = localStorage.getItem('version');
+        if (version !== packageJson.version) {
+            if ('caches' in window) {
+                caches.keys().then((names) => {
+                    // Delete all the cache files
+                    names.forEach(name => {
+                        caches.delete(name);
+                    })
+                });
+
+                // Makes sure the page reloads. Changes are only visible after you refresh.
+                window.location.reload(true);
+            }
+
+            localStorage.clear();
+            localStorage.setItem('version', packageJson.version);
+        }
+    }, []);
 
     return (
         <div className="App">

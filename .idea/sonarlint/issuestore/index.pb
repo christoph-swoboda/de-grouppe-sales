@@ -139,3 +139,5 @@ T
 $src/staticData/bestandViewHeaders.js,5\f\5fa22ac894cbc5d929bfdcecdf7897f9cce51290
 U
 %src/staticData/bestandView2Headers.js,1\a\1ae85f0b7364690f78c477cf1b0d903eb8058e69
+E
+src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
