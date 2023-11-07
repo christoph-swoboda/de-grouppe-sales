@@ -15,7 +15,6 @@ const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,
     return (
         <tr className="border-y border-silver border-x-0 text-sm">
             <td className="w-40 text-sm text-mainBlue underline font-light pr-3">
-                {/*add firmaID here*/}
                 <Link to={`/firmenprojekte/${FirmaID}`} target="_blank">
                     {FirmaKurz}
                 </Link>
