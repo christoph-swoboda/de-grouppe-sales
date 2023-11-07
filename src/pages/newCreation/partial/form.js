@@ -102,14 +102,15 @@ const Form = ({name, dropdown, role}) => {
                     </section>
 
                     <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
-                        <label>DGAPI KAM *</label>
+                        <label>DGAPI KAM </label>
                         <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
-                                {...register('dgapi', {required: true})}
+                                {...register('dgapi', {required: false})}
                                 style={{border: errors.dgapi && '1px solid red'}}
                         >
-                            <option defaultValue value={'Neuhoff_Bernd'}>Neuhoff, Bernd</option>
-                            <option value={'Bader_Josef'}> Bader, Josef</option>
-                            <option value={'nicht_bekannt'}> nicht bekannt</option>
+                            <option value={''}>Option wählen</option>
+                            <option value={'Neuhoff, Bernd'}>Neuhoff, Bernd</option>
+                            <option value={'Bader, Josef'}> Bader, Josef</option>
+                            <option value={'nicht bekannt<'}> nicht bekannt</option>
                         </select>
                         {errors.dgapi && touchedFields && <p>DGAPI KAM Feld ist erforderlich</p>}
                     </section>
