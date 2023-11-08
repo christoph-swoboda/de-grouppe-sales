@@ -50,38 +50,38 @@ const Dashboard = () => {
                             <Boxes rotate={toggle} toggleState ={updateMainState} col={'#2f2f2f'} data={canceled} icon={<AiOutlineClose  color={'#ffffff'} size='30px'/>} title={'Abgesagt'}/>
                     }
                     <div className="flex flex-col rounded-md shadow-lg px-6">
-                        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                                <div className="h-36 overflow-auto">
-                                    <table className="min-w-full text-left text-sm font-light">
-                                        <thead className="border-b font-medium border-whiteDark">
-                                        <tr>
-                                            {/*<th scope="col" className="px-6 py-4">#</th>*/}
-                                            <th scope="col" className="px-6 py-4">Firma</th>
-                                            <th scope="col" className="px-6 py-4">Note</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr className="border-b border-whiteDark">
-                                            {/*<td className="whitespace-nowrap px-6 py-4 font-medium">1</td>*/}
-                                            <td className="whitespace-nowrap px-6 py-4">Mark</td>
-                                            <td className="whitespace-nowrap px-6 py-4">Otto</td>
-                                        </tr>
-                                        <tr className="border-b border-whiteDark">
-                                            {/*<td className="whitespace-nowrap px-6 py-4 font-medium">2</td>*/}
-                                            <td className="whitespace-nowrap px-6 py-4">Jacob</td>
-                                            <td className="whitespace-nowrap px-6 py-4">Thornton</td>
-                                        </tr>
-                                        <tr className="border-b border-whiteDark">
-                                            {/*<td className="whitespace-nowrap px-6 py-4 font-medium">3</td>*/}
-                                            <td className="whitespace-nowrap px-6 py-4">Larry</td>
-                                            <td className="whitespace-nowrap px-6 py-4">Wild</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        {/*<div className="overflow-x-auto sm:-mx-6 lg:-mx-8">*/}
+                        {/*    <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">*/}
+                        {/*        <div className="h-36 overflow-auto">*/}
+                        {/*            <table className="min-w-full text-left text-sm font-light">*/}
+                        {/*                <thead className="border-b font-medium border-whiteDark">*/}
+                        {/*                <tr>*/}
+                        {/*                    /!*<th scope="col" className="px-6 py-4">#</th>*!/*/}
+                        {/*                    <th scope="col" className="px-6 py-4">Firma</th>*/}
+                        {/*                    <th scope="col" className="px-6 py-4">Note</th>*/}
+                        {/*                </tr>*/}
+                        {/*                </thead>*/}
+                        {/*                <tbody>*/}
+                        {/*                <tr className="border-b border-whiteDark">*/}
+                        {/*                    /!*<td className="whitespace-nowrap px-6 py-4 font-medium">1</td>*!/*/}
+                        {/*                    <td className="whitespace-nowrap px-6 py-4">Mark</td>*/}
+                        {/*                    <td className="whitespace-nowrap px-6 py-4">Otto</td>*/}
+                        {/*                </tr>*/}
+                        {/*                <tr className="border-b border-whiteDark">*/}
+                        {/*                    /!*<td className="whitespace-nowrap px-6 py-4 font-medium">2</td>*!/*/}
+                        {/*                    <td className="whitespace-nowrap px-6 py-4">Jacob</td>*/}
+                        {/*                    <td className="whitespace-nowrap px-6 py-4">Thornton</td>*/}
+                        {/*                </tr>*/}
+                        {/*                <tr className="border-b border-whiteDark">*/}
+                        {/*                    /!*<td className="whitespace-nowrap px-6 py-4 font-medium">3</td>*!/*/}
+                        {/*                    <td className="whitespace-nowrap px-6 py-4">Larry</td>*/}
+                        {/*                    <td className="whitespace-nowrap px-6 py-4">Wild</td>*/}
+                        {/*                </tr>*/}
+                        {/*                </tbody>*/}
+                        {/*            </table>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
                 <Graph User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>

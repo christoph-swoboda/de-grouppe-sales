@@ -40,7 +40,7 @@ const ProjectTafelView = ({
                 </Link>
             </td>
             <td className="w-52 text-gray-900 font-light pr-3" title={Firmenname}>
-                <span >{Firmenname.length > 30 ? `${Firmenname.substring(0, 30)}...` : Firmenname}</span>
+                <span >{Firmenname?.length > 30 ? `${Firmenname?.substring(0, 30)}...` : Firmenname}</span>
             </td>
             <td className="w-16 text-gray-900 font-light pr-3">
                 {MA}

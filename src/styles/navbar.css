@@ -35,7 +35,7 @@ nav {
 
 .time {
     color: grey;
-    margin: 0 2rem 0 0;
+    margin: 0 8rem 0 0;
 }
 
 .userInfo{
@@ -163,6 +163,37 @@ nav {
     }
 }
 
-/*@media screen and (max-width: 1200px) {*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-/*}*/
+.dropdown-content {
+    display: none;
+    position: absolute;
+    margin-left: -30px;
+    background-color: #f9f9f9;
+    width: 200px;
+    text-align: left;
+    padding: 30px 30px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropbtn{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-right: 20px;
+}
