@@ -15,7 +15,13 @@ const ResetPassword = () => {
             setLoading(false)
             toast.success('Wir haben Ihnen eine E-Mail mit dem Link zum Zurücksetzen gesendet')
         }).catch(e => {
-            toast.error('Etwas ist schief gelaufen!!')
+            console.log('e', e.response.status)
+            if(e.response.status===520){
+                toast.error('Benutzer nicht gefunden!!')
+            }
+            else{
+                toast.error('Etwas ist schief gelaufen!!')
+            }
             setLoading(false)
         })
     };
@@ -42,15 +48,15 @@ const ResetPassword = () => {
                     {errors.email && touchedFields && <p>{errors.email.message}</p>}
                 </section>
 
-                {/*<section className='flex flex-col text-left text-grey text-sm'>*/}
-                {/*    <label className='py-2'>VP-Nummer *</label>*/}
-                {/*    <input placeholder='VP-Nummer'*/}
-                {/*           type='text'*/}
-                {/*           {...register('vp', {required: 'Ihr Passwort ist erforderlich'})}*/}
-                {/*           style={{border: errors.vp && '1px solid red'}}*/}
-                {/*    />*/}
-                {/*    {errors.vp && touchedFields && <p>{errors.vp.message}</p>}*/}
-                {/*</section>*/}
+                <section className='flex flex-col text-left text-grey text-sm'>
+                    <label className='py-2'>VP-Nummer *</label>
+                    <input placeholder='VP-Nummer'
+                           type='text'
+                           {...register('vp', {required: 'Ihr Passwort ist erforderlich'})}
+                           style={{border: errors.vp && '1px solid red'}}
+                    />
+                    {errors.vp && touchedFields && <p>{errors.vp.message}</p>}
+                </section>
 
                 <section className='flex flex-col text-left text-grey text-sm'>
                     <label className='opacity-0'>Passwort *</label>

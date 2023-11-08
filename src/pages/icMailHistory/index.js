@@ -23,7 +23,7 @@ const MailHistory = () => {
     }, []);
 
     return (
-        <div className='dashboardContainer mx-24'>
+        <div className='dashboardContainer'>
             <h2 className='text-center text-3xl mt-3 font-bold border border-b-0 border-x-0 border-t-0 border-white'>Mail
                 Verlauf</h2>
             <div className='float-right'>
@@ -51,19 +51,19 @@ const MailHistory = () => {
                         {
                             data.map(d => (
                                 <tr className='border-y border-silver border-x-0 text-sm'>
-                                    <td className='w-40 text-gray-900 font-light pr-3'>
+                                    <td className='text-gray-900 font-light pr-3'>
                                         {d.Empfänger}
                                     </td>
-                                    <td className='w-40 text-gray-900 font-light pr-3'>
+                                    <td className='text-gray-900 font-light pr-3'>
                                         {d.CC_Empfänger}
                                     </td>
-                                    <td className='w-40 text-gray-900 font-light pr-3'>
+                                    <td className='text-gray-900 font-light pr-3'>
                                         {d.Betreff}
                                     </td>
-                                    <td className='w-96 text-gray-900 font-light pr-3'>
+                                    <td className='text-gray-900 font-light pr-3'>
                                         {d.Mailtext}
                                     </td>
-                                    <td className='w-28 text-gray-900 font-light pr-3'>
+                                    <td className='text-gray-900 font-light pr-3'>
                                         {formatDate(d.Datum, false)}
                                     </td>
                                 </tr>

@@ -35,7 +35,7 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
                     <SkewLoader size='5px' color={'#dcdcdc'}/>
                     :
                     <div className='flex justify-between'>
-                        {/* {
+                        {
                             title !== 'Alle Projekte' ?
                                 <a title={`${title==='Abgesagt'?'Ansicht abgeschlossen': 'Ansicht abgebrochen'}`} className={`cursor-pointer rounded-full p-1`} onClick={handleClick}>
                                     {
@@ -46,20 +46,7 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
                                     }
                                 </a>
                                 : <p/>
-                        } */}
-
-
-
-
-
-                        {/* REMOVE THIS P */}
-                        <p></p>
-                         {/* REMOVE THIS P */}
-
-
-
-
-
+                        }
                         <p className='float-right text-sm'>{data[1]?.Label}
                             <span className='tracking-wider text-lg bg-silver px-2 py-1 rounded-full ml-2'
                                   style={{color: col}}>

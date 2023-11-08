@@ -21,12 +21,12 @@ export const BestandView3Headers = [
     },
     {
         id: 5,
-        title: 'BD',
+        title: 'KBD',
         mouseOver: '',
     },
     {
         id: 6,
-        title: 'FD',
+        title: 'KFD',
         mouseOver: '',
     },
     {

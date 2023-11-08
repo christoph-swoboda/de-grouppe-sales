@@ -235,7 +235,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                             <section
                                                 key={index} className='tooltip grid grid-cols-2 gap-1 mt-0 rounded-lg'>
                                                 <label
-                                                    className={`text-grey text-sm ${Number(val.substepID) === data?.length && 'text-red2'} label`}>{val.stepName}</label>
+                                                    className={`text-grey text-sm ${val.isFinalStep==='1' && 'text-red2'} label`}>{val.stepName}</label>
                                                 <Controller
                                                     control={control}
                                                     name={val.stepName}
