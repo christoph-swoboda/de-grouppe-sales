@@ -99,8 +99,8 @@ const ChangePass = () => {
                                                    {...register('password', {
                                                        required: 'Ihr Passwort ist erforderlich',
                                                        pattern: {
-                                                           value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                                                           message: 'Mindestens acht Zeichen, mindestens ein Großbuchstabe, ein Kleinbuchstabe, eine Zahl und ein Sonderzeichen (@ $ ! % * ? &)',
+                                                           value: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+                                                           message: 'Mindestens acht Zeichen, mindestens ein Großbuchstabe, ein Kleinbuchstabe und eine Zahl',
                                                        },
                                                    })}
                                                    required
