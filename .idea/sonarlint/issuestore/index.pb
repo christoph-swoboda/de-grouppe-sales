@@ -141,3 +141,11 @@ U
 %src/staticData/bestandView2Headers.js,1\a\1ae85f0b7364690f78c477cf1b0d903eb8058e69
 E
 src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
+K
+src/pages/infoMail/index.js,d\5\d57723c9f35bb6303caf8ab233a9a8ec634aa8d8
+J
+src/components/allNotes.js,2\5\2548fc89f9e4dba934290b135234b123d7e2bbc5
+L
+src/pages/adminEdit/index.js,7\3\730dbb46c578887c61c2e6858e11f66e7f9471f5
+]
+-src/pages/adminEdit/partial/adminEditTable.js,c\0\c0d0d78be26e6017c744b0594198d8146e486fef

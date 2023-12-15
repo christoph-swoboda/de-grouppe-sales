@@ -180,6 +180,7 @@ const Bestant = () => {
         <div className='dashboardContainer'>
             <CompanyData info={info}
                          company={companyName}
+                         companyID={param.id}
                          toggle={toggleCompanyInfoModal}
             />
 
@@ -225,8 +226,9 @@ const Bestant = () => {
                                 </div>
                             </div>
                             <div className='bg-white mt-1 px-3 2xl:w-2/4 pb-10 lg:w-4/12 xl:ml-0 rounded-lg min-h-full'>
-                                <Status company={companyName} notes={notes}
-                                        role={role} id={param.id}
+                                <Status company={companyName}
+                                        companyID={param.id} notes={notes}
+                                        role={role}
                                         loadingNotes={loadingNotes} count={notesCount}
                                 />
                             </div>

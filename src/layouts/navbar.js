@@ -15,6 +15,7 @@ const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
     const [loading, setLoading] = useState(false)
     const [isICAdmin, setIsICAdmin] = useState()
+    const [isSAdmin, setIsSAdmin] = useState()
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path = useLocation()
@@ -36,6 +37,9 @@ const Navbar = () => {
         })
         Api().get(`/icAdminCheck/${user.ID}`).then(res => {
             setIsICAdmin(res.data)
+        })
+        Api().get(`/fn_checkSAdmin/${user.ID}`).then(res => {
+            setIsSAdmin(res.data)
         })
     }, []);
 
@@ -136,13 +140,24 @@ const Navbar = () => {
                                         </li>
                                     </Link>
                                 )}
-                                {/*{user?.role === 'Internal' && (*/}
-                                {/*    <Link to={'/mail-verlauf'} onClick={toggleNav}>*/}
-                                {/*        <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>*/}
-                                {/*            InfoMail*/}
-                                {/*        </li>*/}
-                                {/*    </Link>*/}
-                                {/*)}*/}
+                                {user?.role === 'Internal' && (
+                                    <Link to={'/info-mail'} onClick={toggleNav}>
+                                        <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                            InfoMail
+                                        </li>
+                                    </Link>
+                                )}
+                                {(user?.role === 'Internal' && isSAdmin === 1) && (
+                                    <Link
+                                        to={{
+                                            pathname: '/admin-edit',
+                                            state: { data: isSAdmin },
+                                        }}>
+                                        <li className={`items ${path.pathname === '/admin-edit' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                            Admin Edit
+                                        </li>
+                                    </Link>
+                                )}
                             </div>
                         </div>
                         <li className='userInfo cursor-pointer'>

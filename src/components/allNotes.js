@@ -10,15 +10,17 @@ import {useParams} from "react-router";
 const AllNotes = () => {
 
     const [notes, setNotes] = useState([])
+    const [name, setName] = useState([])
     const [loadingNotes, setLoadingNotes] = useState(true)
     const navigate = useNavigate();
     const param = useParams()
 
     useEffect(() => {
         let data = new FormData()
-        data.append('firma', param.company.replaceAll('_', ' '))
+        data.append('firma', param.company)
         Api().post('/getAllNotes', data).then(res => {
-                setNotes(res.data)
+                setNotes(res.data.notes)
+                setName(res.data.name)
                 setLoadingNotes(false)
             }
         ).catch(e => {
@@ -32,7 +34,7 @@ const AllNotes = () => {
             <div className='xl:px-72 md:px-20 py-24'>
                 <div className='flex justify-between px-2 mb-8'>
                     <h2 className='text-xl text-text '>Alle notizen für:
-                        <span className='font-bold ml-1 text-disableBlue'>{param.company.replaceAll('_', ' ')}</span>
+                        <span className='font-bold ml-1 text-disableBlue'>{name}</span>
                     </h2>
                     {/*<div className='cursor-pointer' onClick={() => navigate(-1)}>*/}
                     {/*    <MdKeyboardBackspace size={'30px'}/>*/}
