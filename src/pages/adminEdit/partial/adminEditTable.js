@@ -10,16 +10,18 @@ const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addresse
     const [MouseOverText, setMouseOverText] = useState(mouseoverText)
     const [StepName, setStepName] = useState(stepName)
 
-    function save(){
+    function save() {
         setLoading(true)
-        let data=new FormData
+        let data = new FormData
         data.append('milestoneID', milestoneID)
         data.append('substepID', substepID)
         data.append('stepName', StepName)
         data.append('mouseOverText', MouseOverText)
 
         Api().post(`/putAdminMSSubstep`, data).then(res => {
-                console.log(res.data)
+                toast.success('Daten erfolgreich gespeichert')
+                setMouseOverEdit(false)
+                setStepNameEdit(false)
                 setLoading(false)
             }
         ).catch(e => {
@@ -40,7 +42,7 @@ const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addresse
                     {
                         stepNameEdit &&
                         <textarea value={StepName}
-                                  style={{width:'100%', backgroundColor:'whitesmoke', padding:'10px 5px'}}
+                                  style={{width: '100%', backgroundColor: 'whitesmoke', padding: '10px 5px'}}
                                   onChange={(e) => setStepName(e.target.value)}
                                   placeholder='Step Name'/>
                     }
@@ -52,16 +54,16 @@ const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addresse
                     {
                         mouseOverEdit &&
                         <textarea value={MouseOverText}
-                               style={{width:'100%', backgroundColor:'whitesmoke', padding:'10px 5px'}}
-                               onChange={(e) => setMouseOverText(e.target.value)}
-                               placeholder='new mouseover text'/>
+                                  style={{width: '100%', backgroundColor: 'whitesmoke', padding: '10px 5px'}}
+                                  onChange={(e) => setMouseOverText(e.target.value)}
+                                  placeholder='new mouseover text'/>
                     }
                 </td>
                 <td>{fieldType}</td>
                 <td>{addressesField}</td>
                 <td onClick={save}>
                     <button className='px-3 py-1 bg-mainBlue text-white rounded rounded-md'>
-                        Save
+                        {loading? 'sparen...': 'Speichern'}
                     </button>
                 </td>
             </tr>

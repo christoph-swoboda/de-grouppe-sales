@@ -28,7 +28,7 @@ const AdminEdit = () => {
     }, []);
 
     const onSubmit = async (data) => {
-
+        console.log('data', data)
     };
     const handleSelectChange = (e) => {
         setMilestoneID(e.target.value)
@@ -48,7 +48,7 @@ const AdminEdit = () => {
             <h2 className='mt-16 text-2xl text-left font-light'>Admin Edit</h2>
             <div className='bg-white rounded-md my-5 px-5 pt-4 pb-10 min-h-screen'>
                 <section className='flex flex-col text-left text-grey text-sm mt-3 mb-7 pb-4 py-2 rounded-lg'>
-                    <label className='py-2'>Wählen Sie „Meilenstein“, um zu beginnen</label>
+                    <label className='py-2'>Bitte wählen Sie zuerst einen Meilenstein</label>
                     <select placeholder='Milestone'
                             className='p-3 bg-transparent border border-whiteDark rounded-lg w-fit'
                             onChange={handleSelectChange}
@@ -74,10 +74,10 @@ const AdminEdit = () => {
                         <thead className="whitespace-nowrap border-y border-silver border-x-0">
                         <tr>
                             <th className="text-sm text-grey pl-1.5" scope="col">SubStep ID</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col">SubStep Name</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"> Mouseover text</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"> Field Type</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col">Address Field</th>
+                            <th className="text-sm text-grey pl-1.5" scope="col">SubStep Bezeichnung </th>
+                            <th className="text-sm text-grey pl-1.5" scope="col"> Mouseover Text </th>
+                            <th className="text-sm text-grey pl-1.5" scope="col"> Typ </th>
+                            <th className="text-sm text-grey pl-1.5" scope="col">Feld in Cobra</th>
                             <th className="text-sm text-grey pl-1.5" scope="col"></th>
                         </tr>
                         </thead>

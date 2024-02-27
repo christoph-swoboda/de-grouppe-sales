@@ -50,7 +50,8 @@ const Bestant = () => {
     }, [currentMilestone]);
 
     useEffect(() => {
-        let index = (Object.keys(milestoneTabs).length) - 1
+        // let index = (Object.keys(milestoneTabs).length) - 1
+        let index = (Object.keys(milestoneTabs).length)
         setLastIndex(index)
     }, [milestoneTabs]);
 
@@ -220,7 +221,7 @@ const Bestant = () => {
                                         options={options}
                                         grid={grid}
                                         lastIndex={lastIndex}
-                                        title={milestoneTabs[Number(currentMilestone)]?.milestoneLabel.substring(subString)}
+                                        title={milestoneTabs[Number(currentMilestone-1)]?.milestoneLabel.substring(subString)}
                                         firma={param.id}
                                     />
                                 </div>

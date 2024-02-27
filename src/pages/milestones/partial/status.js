@@ -74,11 +74,11 @@ const Status = ({notes, company, loadingNotes, count, role, companyID}) => {
                     </button>
                 </div>
 
-                {/*<div onClick={()=>dispatch({type: "SET_NOTEROWS", item: 10})}>*/}
+                <div onClick={()=>dispatch({type: "SET_NOTEROWS", item: 10})}>
                 {
                     count > 8 && <CollapseExpand show={collapse2} id={2}/>
                 }
-                {/*</div>*/}
+                </div>
             </div>
             <div>
                 {loadingNotes && <div className='centerItemsRelative'><ClipLoader color={'#757575'}/></div>}
