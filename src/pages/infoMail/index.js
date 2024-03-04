@@ -32,7 +32,7 @@ const InfoMail = () => {
     } = useForm({mode: "onChange"});
 
     useEffect(() => {
-        Api().get(`/icAdminCheck/${user.ID}`).then(res => {
+        Api().get(`/imAdminCheck/${user.ID}`).then(res => {
             if (res.data === 0) {
                 navigate('/')
             }
@@ -71,7 +71,7 @@ const InfoMail = () => {
         Api().get(`sp_getDataIM/${milestone}/${subStep}`).then(res => {
             res.data.map(r => {
                 Object.keys(r).forEach((key) => {
-                    if (key.includes('informFKB') || key.includes('informVA')  || key.includes('informMail') || key.includes('informDGAPIAMS') || key.includes('informDGAPIKAM') || key.includes('informKBD') || key.includes('informVBLF') || key.includes('informCCText')) {
+                    if (key.includes('informFKB') || key.includes('informVA') || key.includes('informMail') || key.includes('informDGAPIAMS') || key.includes('informDGAPIKAM') || key.includes('informKBD') || key.includes('informVBLF') || key.includes('informCCText')) {
                         if (r[key] === '0') {
                             r[key] = false
                         } else if (r[key] === '1') {
@@ -80,8 +80,8 @@ const InfoMail = () => {
                     }
                     setValue(key, r[key]);
                     if (key === 'informCC' && r[key]) {
-                        setValue('informCC', 1)
                         setValue('informCC', r[key])
+                        setValue('hasInformCC', 1)
                     }
                 });
             })
@@ -101,9 +101,9 @@ const InfoMail = () => {
 
         Api().post('/sp_putIM', modifiedData).then(res => {
             if (res.status === 200) {
-                if(res.data===2){
+                if (res.data === 2) {
                     toast.success('Der Datensatz wurde erfolgreich geändert.')
-                }else if(res.data===1){
+                } else if (res.data === 1) {
                     toast.success('Der Datensatz wurde erfolgreich gespeichert.')
                 }
             }
@@ -141,6 +141,20 @@ const InfoMail = () => {
 
         reset(updatedValues);
     };
+
+    function ccChanged(e) {
+        if (e.target.value === '') {
+            setValue('hasInformCC', 0)
+        } else {
+            setValue('hasInformCC', 1)
+        }
+    }
+
+    function hasCcChanged(e) {
+        if (!e.target.checked) {
+            setValue('informCC', '')
+        }
+    }
 
     return (
         <div className={`dashboardContainer`}>
@@ -270,13 +284,15 @@ const InfoMail = () => {
                                         <div className='flex justify-start my-2'>
                                             <label className='w-2/12 -mr-3' style={{lineBreak: 'strict'}}>
                                                 <input type='checkbox' className='mr-3'
-                                                       {...register('informCC')}
+                                                       {...register('hasInformCC')}
+                                                       onChange={hasCcChanged}
                                                        style={{border: errors.remind1cc && '1px solid red'}}
                                                 />
                                                 cc ebenfalls an
                                             </label>
                                             <input type='text' placeholder='info@anymail.com'
                                                    {...register('informCC')}
+                                                   onChange={ccChanged}
                                                    style={{border: errors.remind1ccText && '1px solid red'}}
                                                    className='py-2 w-full text-grey'/>
                                         </div>
