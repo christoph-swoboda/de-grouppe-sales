@@ -21,13 +21,20 @@ const CompanyInfoPopUp = ({company, Info}) => {
     const line4=info?.Zeile4.replaceAll(/US-Id:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line5=info?.Zeile5.replaceAll(/Tel. Zentrale:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line7=info?.Zeile7
-    const line8=info?.Zeile8
-    const line9=info?.Zeile9.replaceAll(/Name:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line10=info?.Zeile10.replaceAll(/Brief-Anrede:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line11=info?.Zeile11.replaceAll(/Tel. Direkt:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line12=info?.Zeile12.replaceAll(/Mobil:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line13=info?.Zeile13.replaceAll(/Privat:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line14=info?.Zeile14.replaceAll(/Fax:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line8=info?.Zeile8.replaceAll(/Koop-Bank: /gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line9=info?.Zeile9
+    const line10=info?.Zeile10
+    const line11=info?.Zeile11.replaceAll(/KVD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line12=info?.Zeile12.replaceAll(/KFD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line13=info?.Zeile13.replaceAll(/KBD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line14=info?.Zeile14
+    const line15=info?.Zeile15
+    const line16=info?.Zeile16.replaceAll(/Name:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line17=info?.Zeile17.replaceAll(/Brief-Anrede:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line18=info?.Zeile18.replaceAll(/Tel. Direkt:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line19=info?.Zeile19.replaceAll(/Mobil:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line20=info?.Zeile20.replaceAll(/Privat:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line21=info?.Zeile21.replaceAll(/Fax:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const Email = email?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, match => `<span style="color: #3A46A9; text-decoration: underline">${match} </span>`);
     const Web = info?.Zeile6?.replace('Web:', '');
 
@@ -75,8 +82,6 @@ const CompanyInfoPopUp = ({company, Info}) => {
                             <div dangerouslySetInnerHTML={{__html: line3}}/>
                             <div dangerouslySetInnerHTML={{__html: line4}}/>
                             <div dangerouslySetInnerHTML={{__html: line5}}/>
-                            {/*<div dangerouslySetInnerHTML={{__html: line6}}/>*/}
-                            {/*<div dangerouslySetInnerHTML={{__html: line6}}/>*/}
                             <div className='flex justify-start'>
                                 <p style={{color:'#a1a1a1'}} className='mr-1'>Web: </p>
                                 <p onClick={()=>window.open(Web, '_blank')} style={{color:'#3A46A9'}}
@@ -86,14 +91,21 @@ const CompanyInfoPopUp = ({company, Info}) => {
                                 </p>
                             </div>
                             <p style={{color:'#a1a1a1'}} className='mt-4'>{line7}</p>
-                            <p style={{color:'#a1a1a1'}}>{line8}</p>
+                            <div dangerouslySetInnerHTML={{__html: line8}}/>
+                            <br/>
                             <div dangerouslySetInnerHTML={{__html: line9}}/>
                             <div dangerouslySetInnerHTML={{__html: line10}}/>
                             <div dangerouslySetInnerHTML={{__html: line11}}/>
                             <div dangerouslySetInnerHTML={{__html: line12}}/>
                             <div dangerouslySetInnerHTML={{__html: line13}}/>
-                            <div dangerouslySetInnerHTML={{__html: line14}}/>
-                            {/*<div dangerouslySetInnerHTML={{__html: line15}}/>*/}
+                            <p style={{color:'#a1a1a1'}}>{line14}</p>
+                            <p style={{color:'#a1a1a1'}} className='mt-4'>{line15}</p>
+                            <div dangerouslySetInnerHTML={{__html: line16}}/>
+                            <div dangerouslySetInnerHTML={{__html: line17}}/>
+                            <div dangerouslySetInnerHTML={{__html: line18}}/>
+                            <div dangerouslySetInnerHTML={{__html: line19}}/>
+                            <div dangerouslySetInnerHTML={{__html: line20}}/>
+                            <div dangerouslySetInnerHTML={{__html: line21}}/>
                             <div className='flex justify-start'>
                                 <p style={{color:'#a1a1a1'}} className='mr-1'>Email: </p>
                                 <div className='cursor-pointer' onClick={()=>dispatch({type:'SET_SENDMAIL', item:true})} dangerouslySetInnerHTML={{__html: Email}}/>

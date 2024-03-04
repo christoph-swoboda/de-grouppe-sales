@@ -10,7 +10,7 @@ import {useStateValue} from "../../states/StateProvider";
 import {AiOutlineClose} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import {formatDate} from "../../helper/formatDate";
-import {BeatLoader, SkewLoader} from "react-spinners";
+import {BeatLoader, ClipLoader, SkewLoader} from "react-spinners";
 
 const Dashboard = () => {
     const [user, setUser] = useState([])
@@ -18,6 +18,7 @@ const Dashboard = () => {
     const [strofalles, setStrofalles] = useState([])
     const [done, setDone] = useState([])
     const [toggle, setToggle] = useState(false)
+    const [loadingStrofalle, setLoadingStrofalle] = useState(true)
     const [canceled, setCanceled] = useState([])
     const [{secretKey}, dispatch] = useStateValue();
 
@@ -39,6 +40,7 @@ const Dashboard = () => {
                 Api().get(`/sp_getDataDashStoerfaelle/${User.ID}`).then(res => {
                     setStrofalles(res.data)
                 })
+                setLoadingStrofalle(false)
             })
         } catch (e) {
             window.location.replace('/anmeldung')
@@ -109,14 +111,20 @@ const Dashboard = () => {
                                                         <td className="px-1 py-1">{str.Bemerkung}</td>
                                                         <td className="px-1 py-1">{formatDate(str.StörfallDatum, false)}</td>
                                                     </tr>
-                                                )) :
-                                                <div className='centerItemsRelative'>
-                                                    <SkewLoader size='5px'/>
-                                                </div>
+                                                )) : !loadingStrofalle &&
+                                                <tr className='centerItemsRelative border-b border-whiteDark'>
+                                                    <td className='px-2 py-1 text-mainBlue'> </td>
+                                                    <td className='px-2 py-1 text-mainBlue'>No Data</td>
+                                                </tr>
                                         }
-
                                         </tbody>
                                     </table>
+                                    {
+                                        loadingStrofalle &&
+                                        <div className='centerItemsRelative mt-2'>
+                                            <ClipLoader color='lightGrey'/>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
