@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 import Reminders from "./reminders";
 import {AES, enc} from "crypto-js";
 
-const Status = ({notes, company, loadingNotes, count, role, id}) => {
+const Status = ({notes, company, loadingNotes, count, role, companyID}) => {
     const [toggle, setToggle] = useState(false)
     const [loading, setLoading] = useState(false)
     const [note, setNote] = useState('')
@@ -24,7 +24,7 @@ const Status = ({notes, company, loadingNotes, count, role, id}) => {
         let data = new FormData()
         data.append('note', note)
         data.append('userID', userID)
-        data.append('firma', company)
+        data.append('firma', companyID)
 
         Api().post('/sendNote', data).then(res => {
             setNote('')
@@ -49,7 +49,7 @@ const Status = ({notes, company, loadingNotes, count, role, id}) => {
 
     return (
         <>
-            <Reminders id={id} userID={userID} role={role}/>
+            <Reminders id={companyID} userID={userID} role={role}/>
             <div className='flex justify-between bg-white mt-5'>
                 <div className='text-left sm:mt-5 lg:mt-0'>
                     <button
@@ -74,11 +74,11 @@ const Status = ({notes, company, loadingNotes, count, role, id}) => {
                     </button>
                 </div>
 
-                {/*<div onClick={()=>dispatch({type: "SET_NOTEROWS", item: 10})}>*/}
+                <div onClick={()=>dispatch({type: "SET_NOTEROWS", item: 10})}>
                 {
                     count > 8 && <CollapseExpand show={collapse2} id={2}/>
                 }
-                {/*</div>*/}
+                </div>
             </div>
             <div>
                 {loadingNotes && <div className='centerItemsRelative'><ClipLoader color={'#757575'}/></div>}
@@ -97,7 +97,7 @@ const Status = ({notes, company, loadingNotes, count, role, id}) => {
             </div>
             {
                 (count > 8 && !loadingNotes && noteRows === 8) &&
-                <Link to={`/alle-notizen/${company.allReplace({'/': '%2F', ' ': '_'})}`} target={'_blank'}>
+                <Link to={`/alle-notizen/${companyID}`} target={'_blank'}>
                     <button className='bg-mainBlue text-white rounded-2xl px-3 py-2 mt-2 text-sm'> Alles sehen</button>
                 </Link>
             }

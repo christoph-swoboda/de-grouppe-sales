@@ -9,7 +9,7 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
     };
 
     return (
-        <div className={`rounded-md shadow-lg px-6 py-8 bg-white ${rotate && title!=='Alle Projekte' ? 'box rotate' : 'box2 rotate2'}`}>
+        <div className={`rounded-md col-span-3 shadow-lg px-4 py-8 bg-white ${rotate && title!=='Alle Projekte' ? 'box rotate' : 'box2 rotate2'}`}>
             <div className='flex justify-between'>
                 <div
                     className='px-3 absolute h-16 -mt-6 float-right centerItemsRelative rounded-md bg-mainBlue shadow-lg shadow-grey'>

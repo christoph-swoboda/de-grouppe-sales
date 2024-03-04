@@ -216,7 +216,7 @@ const InfoCrawler = () => {
                         </div>
                         <div className='centerItemsRelative flex-wrap'>
                             <div className='lg:w-fit'>
-                                <div className='lg:grid grid-cols-6 items-center my-2'>
+                                <div className='lg:grid grid-cols-7 items-center my-2'>
                                     <p className='w-fit col-span-1'>Einstellungen für: </p>
                                     <select onChange={milestoneChanged}
                                             className='pl-3 col-span-2 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
@@ -235,7 +235,7 @@ const InfoCrawler = () => {
                                         subStepsLoading ? <SkewLoader size='10px' color={'#3A46A9'}/>
                                             :
                                             <select onChange={subStepSelected}
-                                                    className='col-span-2 pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'>
+                                                    className='col-span-2 pl-3 pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit mx-3'>
                                                 {
                                                     subSteps.length === 0 && !subStepsLoading ?
                                                         <option value={null}>Bitte wählen Sie erst einen
@@ -251,11 +251,11 @@ const InfoCrawler = () => {
                                     }
                                 </div>
                             </div>
-                            <Link to={'/mail-verlauf'}
-                                  className='px-6 w-fit h-fit float-right py-2 bg-mainBlue hover:bg-offWhite text-white hover:text-text rounded-md '>
-                                Mail Verlauf
-                            </Link>
                         </div>
+                        <Link to={'/mail-verlauf'}
+                              className='px-6 w-fit h-fit float-right py-2 bg-mainBlue hover:bg-offWhite text-white hover:text-text rounded-md '>
+                            Mail Verlauf
+                        </Link>
 
 
                         {
@@ -295,7 +295,7 @@ const InfoCrawler = () => {
                                                     {...register('remind1DGAPI')}
                                                     style={{border: errors.remind1DGAPI && '1px solid red'}}
                                                 />
-                                                An DGAPI
+                                                An DGAPI AMS
                                             </label>
                                         </div>
                                         <div className='lg:w-3/12 grid grid-cols-2 gap-6 my-2'>
@@ -305,7 +305,7 @@ const InfoCrawler = () => {
                                                     {...register('remind1BD')}
                                                     style={{border: errors.remind1BD && '1px solid red'}}
                                                 />
-                                                cc BD
+                                                cc KBD
                                             </label>
                                             <label>
                                                 <input type='checkbox' className='mr-3'
@@ -385,7 +385,7 @@ const InfoCrawler = () => {
                                                     {...register('remind2DGAPI')}
                                                     style={{border: errors.remind2DGAPI && '1px solid red'}}
                                                 />
-                                                An DGAPI
+                                                An DGAPI AMS
                                             </label>
                                         </div>
                                         <div className='lg:w-3/12 grid grid-cols-2 gap-6 my-2'>
@@ -395,7 +395,7 @@ const InfoCrawler = () => {
                                                     {...register('remind2BD')}
                                                     style={{border: errors.remind2BD && '1px solid red'}}
                                                 />
-                                                cc BD
+                                                cc KBD
                                             </label>
                                             <label>
                                                 <input type='checkbox' className='mr-3'
@@ -475,7 +475,7 @@ const InfoCrawler = () => {
                                                     {...register('remind3DGAPI')}
                                                     style={{border: errors.remind3DGAPI && '1px solid red'}}
                                                 />
-                                                An DGAPI
+                                                An DGAPI AMS
                                             </label>
                                         </div>
                                         <div className='lg:w-3/12 grid grid-cols-2 gap-6 my-2'>
@@ -485,7 +485,7 @@ const InfoCrawler = () => {
                                                     {...register('remind3BD')}
                                                     style={{border: errors.remind1BD && '1px solid red'}}
                                                 />
-                                                cc BD
+                                                cc KBD
                                             </label>
                                             <label>
                                                 <input type='checkbox' className='mr-3'

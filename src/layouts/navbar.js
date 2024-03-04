@@ -15,6 +15,8 @@ const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
     const [loading, setLoading] = useState(false)
     const [isICAdmin, setIsICAdmin] = useState()
+    const [isIMAdmin, setIsIMAdmin] = useState()
+    const [isSAdmin, setIsSAdmin] = useState()
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path = useLocation()
@@ -36,6 +38,12 @@ const Navbar = () => {
         })
         Api().get(`/icAdminCheck/${user.ID}`).then(res => {
             setIsICAdmin(res.data)
+        })
+        Api().get(`/imAdminCheck/${user.ID}`).then(res => {
+            setIsIMAdmin(res.data)
+        })
+        Api().get(`/fn_checkSAdmin/${user.ID}`).then(res => {
+            setIsSAdmin(res.data)
         })
     }, []);
 
@@ -83,11 +91,14 @@ const Navbar = () => {
                                 Firmenprojekte <i className="dropdown-icon">▼</i>
                             </li>
                             <div className="dropdown-content">
-                                <Link to={'/storfalle'} onClick={toggleNav} >
-                                    <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'}  hover:text-mainBlue`}>
-                                        Störfälle
-                                    </li>
-                                </Link>
+                                {user?.role === 'Controlling' || user?.role === 'External' && (
+                                    <Link to={'/storfalle'} onClick={toggleNav} >
+                                        <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                            Störfälle
+                                        </li>
+                                    </Link>
+                                    )}
+
                                 <Link to={'/neu'} onClick={toggleNav}>
                                     <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                         Neu
@@ -136,13 +147,24 @@ const Navbar = () => {
                                         </li>
                                     </Link>
                                 )}
-                                {/*{user?.role === 'Internal' && (*/}
-                                {/*    <Link to={'/mail-verlauf'} onClick={toggleNav}>*/}
-                                {/*        <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>*/}
-                                {/*            InfoMail*/}
-                                {/*        </li>*/}
-                                {/*    </Link>*/}
-                                {/*)}*/}
+                                {user?.role === 'Internal' && isIMAdmin === 1 && (
+                                    <Link to={'/info-mail'} onClick={toggleNav}>
+                                        <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                            InfoMail
+                                        </li>
+                                    </Link>
+                                )}
+                                {(user?.role === 'Internal' && isSAdmin === 1) && (
+                                    <Link
+                                        to={{
+                                            pathname: '/admin-edit',
+                                            state: { data: isSAdmin },
+                                        }}>
+                                        <li className={`items ${path.pathname === '/admin-edit' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                            Admin Edit
+                                        </li>
+                                    </Link>
+                                )}
                             </div>
                         </div>
                         <li className='userInfo cursor-pointer'>

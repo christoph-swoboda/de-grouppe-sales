@@ -1,33 +1,48 @@
 import * as React from 'react';
-import {useEffect, useState} from "react";
+import {useEffect, useState} from 'react';
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {formatDate} from "../../helper/formatDate";
 import {IoArrowBackSharp} from 'react-icons/io5';
-import {Link, useNavigate} from "react-router-dom";
-import {BeatLoader, ClipLoader, SkewLoader} from "react-spinners";
+import {useLocation, useNavigate} from "react-router-dom";
+import {ClipLoader} from "react-spinners";
+import {AES, enc} from "crypto-js";
+import {useStateValue} from "../../states/StateProvider";
 
 const MailHistory = () => {
 
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate();
+    const location = useLocation();
+    const [{secretKey}, dispatch] = useStateValue();
 
     useEffect(() => {
-        Api().get('/sp_getICMails').then(res => {
-            setLoading(false)
-            setData(res.data)
-        }).catch(e => {
-            toast.error('etwas ist schief gelaufen!')
-        })
+        try {
+            const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
+            const User = JSON.parse(decryptedBytes.toString(enc.Utf8))
+            if (User.role !== 'Internal') {
+                location.replace('/')
+            } else {
+                Api().get('/sp_getICMails').then(res => {
+                    setLoading(false)
+                    setData(res.data)
+                }).catch(e => {
+                    toast.error('etwas ist schief gelaufen!')
+                })
+            }
+        } catch (e) {
+            window.location.replace('/anmeldung')
+        }
     }, []);
+
 
     return (
         <div className='dashboardContainer'>
             <h2 className='text-center text-3xl mt-3 font-bold border border-b-0 border-x-0 border-t-0 border-white'>Mail
                 Verlauf</h2>
             <div className='float-right'>
-                <a title='vorherige Seite' onClick={()=>navigate(-1)} className='cursor-pointer'>
+                <a title='vorherige Seite' onClick={() => navigate(-1)} className='cursor-pointer'>
                     <IoArrowBackSharp size={'30px'}/>
                 </a>
             </div>

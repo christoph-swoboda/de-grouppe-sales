@@ -61,17 +61,18 @@ const AddUsers = () => {
 
                 <section className='flex flex-col text-left text-grey text-sm'>
                     <label className='py-2'>Passwort *</label>
-                    <input placeholder='Passwort'
-                           type='text'
-                           {...register('password', {
-                               required: 'Ihr Passwort ist erforderlich',
-                               pattern: {
-                                   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                                   message: 'Mindestens acht Zeichen, mindestens ein Großbuchstabe, ein Kleinbuchstabe und eine Zahl',
-                               },
-                           })}
-                           required
-                           style={{border: errors.password && '1px solid red'}}
+                    <input
+                        placeholder='Passwort'
+                        type='text'
+                        {...register('password', {
+                            required: 'Ihr Passwort ist erforderlich',
+                            pattern: {
+                                value: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+                                message: 'Mindestens acht Zeichen, mindestens ein Großbuchstabe, ein Kleinbuchstabe und eine Zahl',
+                            },
+                        })}
+                        required
+                        style={{border: errors.password && '1px solid red'}}
                     />
                     {errors.password && touchedFields && <p>{errors.password.message}</p>}
                 </section>

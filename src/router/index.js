@@ -8,6 +8,8 @@ import Documents from "../pages/documents";
 import InfoCrawler from "../pages/infoCrawler";
 import MailHistory from "../pages/icMailHistory";
 import Storfalle from "../pages/Storfalle";
+import InfoMail from "../pages/infoMail";
+import AdminEdit from "../pages/adminEdit";
 
 
 export const RouteData = [
@@ -88,5 +90,18 @@ export const RouteData = [
         component: <Storfalle/>,
         redirection: '/anmeldung'
     },
-
+    {
+        id: 10,
+        path: 'info-mail',
+        name: 'infomail',
+        component: <InfoMail/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 10,
+        path: 'admin-edit',
+        name: 'adminEdit',
+        component: <AdminEdit/>,
+        redirection: '/anmeldung'
+    },
 ]

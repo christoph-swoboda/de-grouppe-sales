@@ -9,7 +9,7 @@ const Form = ({name, dropdown, role}) => {
     const [bank, setBank] = useState(dropdown[0]?.Bank)
 
     const {
-        register, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
+        register, watch, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
     const {isValid} = formState;
@@ -29,8 +29,11 @@ const Form = ({name, dropdown, role}) => {
     };
 
     useEffect(() => {
-        setValue('berater', name)
+        setValue('Ersteller', name)
+        setValue('berater', dropdown?.filter(d => d.Bank === bank)[0]?.Berater)
         setValue('blz', dropdown?.filter(d => d.Bank === bank)[0]?.BLZ)
+        setValue('fkb_bank', dropdown?.filter(d => d.Bank === bank)[0]?.FKBBank)
+        setValue('dgapi', dropdown?.filter(d => d.Bank === bank)[0]?.DGAPIKAM)
     }, [bank, dropdown, name]);
 
     useEffect(() => {
@@ -40,24 +43,40 @@ const Form = ({name, dropdown, role}) => {
     function setBankValue(e) {
         setBank(e)
         setValue('bank', e)
+        setValue('berater', dropdown?.filter(d => d.Bank === bank)[0]?.Berater)
         setValue('blz', dropdown?.filter(d => d.Bank === bank)[0]?.BLZ)
+        setValue('fkb_bank', dropdown?.filter(d => d.Bank === bank)[0]?.FKBBank)
+        setValue('dgapi', dropdown?.filter(d => d.Bank === bank)[0]?.DGAPIKAM)
     }
 
     return (
         <div className='bg-white rounded-lg'>
-            <form onSubmit={handleSubmit(onSubmit)} className='mb-10 p-10'>
+            <form onSubmit={handleSubmit(onSubmit)} className='mb-8 p-10'>
                 {/*// className='lg:grid lg:grid-cols-5 gap-6 sm:grid-cols-1 gap-6 mb-10 p-10'*/}
-                <h2 className='text-lg text-mainBlue text-left mb-6'><span className='text-grey'>Berater:</span> {name}
-                </h2>
-
+                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0 mb-8'>
+                    <section
+                        className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:-ml-2 lg:-ml-0'>
+                        <label>Ersteller</label>
+                        <input{...register('ersteller', {required: false})}
+                              disabled
+                              value={name}
+                        />
+                    </section>
+                    <section
+                        className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-3 2xl:-ml-2 lg:-ml-0'>
+                        <label>Berater *</label>
+                        <input{...register('berater', {required: true})}
+                              placeholder='Nachname, Vorname'
+                              style={{border: !watch('berater') && '1px solid red'}}
+                        />
+                        {!watch('berater') && touchedFields && <p>Berater Feld ist erforderlich</p>}
+                    </section>
+                </div>
                 {/*first 6 section*/}
                 {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start gap-3 flex-wrap'>*/}
                 <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0'>
-                    <section className='hidden'>
-                        <input{...register('berater', {required: false})} value={name}/>
-                    </section>
-
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:-ml-2 lg:-ml-0'>
+                    <section
+                        className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:-ml-2 lg:-ml-0'>
                         <label>Bank *</label>
                         <select onClick={(e) => setBankValue(e.target.value)}
                                 className='p-3 bg-transparent border border-whiteDark rounded-lg'
@@ -76,6 +95,7 @@ const Form = ({name, dropdown, role}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:mr-14 lg:mr-0'>
                         <label>BLZ</label>
                         <input placeholder='BLZ...'
+                               disabled
                                value={dropdown?.filter(d => d.Bank === bank)[0]?.BLZ}
                                {...register('blz', {required: false})}
                                style={{border: errors.blz && '1px solid red'}}
@@ -83,7 +103,8 @@ const Form = ({name, dropdown, role}) => {
                         {errors.blz && touchedFields && <p>BLZ Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-14 lg:mr-0 lg:-ml-0'>
+                    <section
+                        className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-14 lg:mr-0 lg:-ml-0'>
                         <label>Region </label>
                         <input placeholder='Region...'
                                {...register('region', {required: false})}
@@ -92,31 +113,31 @@ const Form = ({name, dropdown, role}) => {
                         {errors.region && touchedFields && <p>Region Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
+                    <section
+                        className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
                         <label>FKB Bank *</label>
                         <input placeholder='FKB Bank...'
                                {...register('fkb_bank', {required: true})}
-                               style={{border: errors.fkb_bank && '1px solid red'}}
+                               style={{border: !watch('fkb_bank') && '1px solid red'}}
                         />
-                        {errors.fkb_bank && touchedFields && <p>FKB Bank Feld ist erforderlich</p>}
+                        {!watch('fkb_bank') && touchedFields && <p>FKB Bank Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
-                        <label>DGAPI KAM </label>
-                        <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
-                                {...register('dgapi', {required: false})}
-                                style={{border: errors.dgapi && '1px solid red'}}
-                        >
-                            <option value={''}>Option wählen</option>
-                            <option value={'Neuhoff, Bernd'}>Neuhoff, Bernd</option>
-                            <option value={'Bader, Josef'}> Bader, Josef</option>
-                            <option value={'nicht bekannt<'}> nicht bekannt</option>
-                        </select>
+                    <section
+                        className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
+                        <label>DGAPI KAM</label>
+                        <input placeholder='DGAPI KAM'
+                               disabled
+                               value={dropdown?.filter(d => d.Bank === bank)[0]?.DGAPIKAM}
+                               {...register('dgapi', {required: false})}
+                               style={{border: errors.dgapi && '1px solid red'}}
+                        />
                         {errors.dgapi && touchedFields && <p>DGAPI KAM Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
-                        <label>Bestands/Neukunde*</label>
+                    <section
+                        className='flex flex-col text-left text-grey text-sm mt-2 2xl:mr-40 2xl:-ml-40 lg:mr-0 lg:-ml-0'>
+                        <label>Bestands/Neukunde *</label>
                         <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
                                 {...register('bestands', {required: true})}
                                 style={{border: errors.bestands && '1px solid red'}}
@@ -132,8 +153,9 @@ const Form = ({name, dropdown, role}) => {
                 {/*second 9 section*/}
 
                 {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start md:gap-3 2xl:gap-4 lg:gap-1 flex-wrap'>*/}
-                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-12'>
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:col-span-4 lg:col-span-5 md:col-span-2'>
+                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-8'>
+                    <section
+                        className='flex flex-col text-left text-grey text-sm mt-2 2xl:col-span-4 lg:col-span-5 md:col-span-2'>
                         <label>Firma *</label>
                         <input placeholder='Firma...'
                                {...register('firma', {required: true})}
@@ -230,7 +252,7 @@ const Form = ({name, dropdown, role}) => {
 
                 {/*third 10 section*/}
 
-                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-10'>
+                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-8'>
                     <section className='flex flex-col text-left text-grey text-sm'>
                         <label> Anrede *</label>
                         <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
@@ -339,9 +361,9 @@ const Form = ({name, dropdown, role}) => {
 
                 <p className='text-sm text-grey text-left font-extralight mb-6 mt-5'>* Pflichtfeld</p>
                 {
-                    role!=='Controller' &&
+                    role !== 'Controller' &&
                     <input
-                        className={isValid? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' :'disabled'}
+                        className={isValid ? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' : 'disabled'}
                         disabled={!isValid}
                         type="submit"
                         value={(!loading) ? 'Anlegen' : 'sparen...'}

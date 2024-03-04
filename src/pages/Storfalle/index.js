@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
@@ -7,32 +7,36 @@ import {StorfalleHeaders} from "../../staticData/storfalleHeaders";
 import StrofalleTable from "./partial/strofalleTable";
 import {useStateValue} from "../../states/StateProvider";
 import {formatDate} from '../../helper/formatDate'
-import ExcelExport from "../firmenprojekte/partial/excelFormat";
-import {AiTwotonePrinter} from "react-icons/ai";
-import {IoMdArrowDropdown} from "react-icons/io";
+import {AES, enc} from "crypto-js";
+import {useLocation} from "react-router-dom";
 
 const Storfalle = () => {
 
-    try {
-        let user = localStorage.user
-    } catch (e) {
-        window.location.replace('/anmeldung')
-    }
-
     const searChableFields = []
     const sortableFields = []
-    const [loading, setLoading]=useState(true)
-    const [data, setData]=useState([])
-    const [{sortColumn, sortMethod}, dispatch] = useStateValue();
+    const [loading, setLoading] = useState(true)
+    const [data, setData] = useState([])
+    const [{sortColumn, sortMethod, secretKey}, dispatch] = useStateValue();
+    const location =useLocation()
 
     useEffect(() => {
-        Api().get('sp_getDataStoerfaelle').then(res => {
-            setData(res.data)
-            setLoading(false)
-        }).catch(e => {
-            toast.error('Etwas ist schief gelaufen!!')
-            setLoading(false)
-        })
+        try {
+            const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
+            const User = JSON.parse(decryptedBytes.toString(enc.Utf8))
+            if (User.role === 'External' || User.role === 'Controlling') {
+                Api().get(`sp_getDataStoerfaelle/${User.ID}`).then(res => {
+                    setData(res.data)
+                    setLoading(false)
+                }).catch(e => {
+                    toast.error('Etwas ist schief gelaufen!!')
+                    setLoading(false)
+                })
+            } else {
+                location.replace('/')
+            }
+        } catch (e) {
+            window.location.replace('/anmeldung')
+        }
     }, []);
 
     function ascSort(id) {
@@ -83,7 +87,7 @@ const Storfalle = () => {
                                                             {header.title}
                                                         </span>
                                                         <span
-                                                              className={`${!(sortableFields.includes(header.id)) && 'opacity-0'}`}>
+                                                            className={`${!(sortableFields.includes(header.id)) && 'opacity-0'}`}>
                                                             <p className={`cursor-pointer ${sortColumn === header.id && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
                                                                onClick={() => ascSort(header.id)}
                                                             >
@@ -100,8 +104,8 @@ const Storfalle = () => {
                                                         className={`${!(searChableFields.includes(header.id)) && 'hideDiv'}`}>
                                                         <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
                                                                maxLength="50"
-                                                               // value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : header.id === 6 ? filter.f : filter.g}
-                                                               // onChange={(e) => enableFilter(header.id, e.target.value)}
+                                                            // value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : header.id === 6 ? filter.f : filter.g}
+                                                            // onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />
                                                     </span>
@@ -128,23 +132,23 @@ const Storfalle = () => {
                                         </tr>
                                     }
                                     {
-                                            data?.map((u, index) => (
-                                                <StrofalleTable
-                                                    key={index}
-                                                    FirmaKurz={u.FirmaKurz}
-                                                    Firma={u.Firma}
-                                                    FirmaID={u.FP_ID}
-                                                    ZustFKB={u.ZustFKB}
-                                                    Bank={u.Bank}
-                                                    MA={u.MA}
-                                                    PStatus={u.PStatus}
-                                                    Bemerkung={u.Bemerkung}
-                                                    PDatum={formatDate(u.PDatum, false)}
-                                                    StorfallDatum={formatDate(u.StörfallDatum, false)}
-                                                    sortColumn={sortColumn}
-                                                    sortMethod={sortMethod}
-                                                />
-                                            ))
+                                        data?.map((u, index) => (
+                                            <StrofalleTable
+                                                key={index}
+                                                FirmaKurz={u.FirmaKurz}
+                                                Firma={u.Firma}
+                                                FirmaID={u.FP_ID}
+                                                ZustFKB={u.ZustFKB}
+                                                Bank={u.Bank}
+                                                MA={u.MA}
+                                                PStatus={u.PStatus}
+                                                Bemerkung={u.Bemerkung}
+                                                PDatum={formatDate(u.PDatum, false)}
+                                                StorfallDatum={formatDate(u.StörfallDatum, false)}
+                                                sortColumn={sortColumn}
+                                                sortMethod={sortMethod}
+                                            />
+                                        ))
                                     }
                                     </tbody>
                                 </table>
