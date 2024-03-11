@@ -80,12 +80,7 @@ const Dashboard = () => {
                             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                                 <div className="h-36 overflow-auto">
                                     <h2 className='text-center text-xl text-white font-bold bg-cancel w-full px-10 opacity-90'>
-                                        {
-                                            user?.role === 'Controlling' || user?.role === 'External' ?
-                                                <Link to={'storfalle'}>Störfälle</Link>
-                                                :
-                                                <p>Störfälle</p>
-                                        }
+                                        <Link to={'storfalle'}>Störfälle</Link>
                                     </h2>
                                     <hr/>
                                     <table className="min-w-full text-left text-sm font-light">
@@ -100,7 +95,7 @@ const Dashboard = () => {
                                         <tbody>
                                         {
                                             strofalles.length > 0 ?
-                                                strofalles.slice(0,4).map(str => (
+                                                strofalles.slice(0, 5).map(str => (
                                                     <tr className="border-b border-whiteDark" key={str.FP_ID}>
                                                         {/*<td className="whitespace-nowrap px-6 py-1 font-medium">1</td>*/}
                                                         <td className="px-2 py-1 text-mainBlue">
@@ -113,7 +108,7 @@ const Dashboard = () => {
                                                     </tr>
                                                 )) : !loadingStrofalle &&
                                                 <tr className='centerItemsRelative border-b border-whiteDark'>
-                                                    <td className='px-2 py-1 text-mainBlue'> </td>
+                                                    <td className='px-2 py-1 text-mainBlue'></td>
                                                     <td className='px-2 py-1 text-mainBlue'>No Data</td>
                                                 </tr>
                                         }

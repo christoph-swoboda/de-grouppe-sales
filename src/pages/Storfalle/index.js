@@ -17,23 +17,19 @@ const Storfalle = () => {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([])
     const [{sortColumn, sortMethod, secretKey}, dispatch] = useStateValue();
-    const location =useLocation()
+    const location = useLocation()
 
     useEffect(() => {
         try {
             const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
             const User = JSON.parse(decryptedBytes.toString(enc.Utf8))
-            if (User.role === 'External' || User.role === 'Controlling') {
-                Api().get(`sp_getDataStoerfaelle/${User.ID}`).then(res => {
-                    setData(res.data)
-                    setLoading(false)
-                }).catch(e => {
-                    toast.error('Etwas ist schief gelaufen!!')
-                    setLoading(false)
-                })
-            } else {
-                location.replace('/')
-            }
+            Api().get(`sp_getDataStoerfaelle/${User.ID}`).then(res => {
+                setData(res.data)
+                setLoading(false)
+            }).catch(e => {
+                toast.error('Etwas ist schief gelaufen!!')
+                setLoading(false)
+            })
         } catch (e) {
             window.location.replace('/anmeldung')
         }
