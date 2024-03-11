@@ -75,29 +75,28 @@ const Navbar = () => {
     }
 
     return (
-        <nav className='shadow-lg shadow-whiteDark' style={{ zIndex: '1' }} ref={modalRef} hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren') || location.pathname.includes('reset-password')}>
+        <nav className='shadow-lg shadow-whiteDark' style={{zIndex: '1'}} ref={modalRef}
+             hidden={location.pathname.includes('anmeldung') || location.pathname.includes('registrieren') || location.pathname.includes('reset-password')}>
             <ul className="list">
                 <li className='logo'>Projektportal</li>
                 <li className='text-red mr-8 border border-y-0 border-l-0 pr-3 border-r-1 border-r-graph'> {version}</li>
-                <li className='time' />
+                <li className='time'/>
                 {(toggleMenu || screenWidth > 1200) && (
                     <>
                         <Link to={'/'} onClick={toggleNav}>
                             <li className={`items ${path.pathname === '/' && 'text-mainBlue'}  hover:text-mainBlue`}>Dashboard</li>
                         </Link>
                         <div className="dropdown">
-                            <li className={`items ${ (path.pathname === '/neu' || path.pathname === '/firmenprojekte-liste' 
+                            <li className={`items ${(path.pathname === '/neu' || path.pathname === '/firmenprojekte-liste'
                                 || path.pathname === '/storfalle') && 'text-mainBlue'}  hover:text-mainBlue`}>
                                 Firmenprojekte <i className="dropdown-icon">▼</i>
                             </li>
                             <div className="dropdown-content">
-                                {user?.role === 'Controlling' || user?.role === 'External' && (
-                                    <Link to={'/storfalle'} onClick={toggleNav} >
-                                        <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'}  hover:text-mainBlue`}>
-                                            Störfälle
-                                        </li>
-                                    </Link>
-                                    )}
+                                <Link to={'/storfalle'} onClick={toggleNav}>
+                                    <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                        Störfälle
+                                    </li>
+                                </Link>
 
                                 <Link to={'/neu'} onClick={toggleNav}>
                                     <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'}  hover:text-mainBlue`}>
@@ -118,8 +117,14 @@ const Navbar = () => {
                                 </li>
                             </Link>
                         )}
-                        <div className="dropdown" style={{marginLeft:'20px'}}>
-                            <li className='items hover:text-mainBlue'>Administratives <i className="dropdown-icon">▼</i></li>
+                        <div className="dropdown" style={{marginLeft: '20px'}}>
+                            {
+                               ( user?.role === 'Internal' || user?.isUserAdmin === '1' || isICAdmin === 1 || isIMAdmin === 1 || isSAdmin === 1) &&
+                                <li className='items hover:text-mainBlue'>
+                                    Administratives <i className="dropdown-icon">▼</i>
+                                </li>
+                            }
+
                             <div className="dropdown-content">
                                 {user?.role === 'Internal' && user?.isUserAdmin === '1' ? (
                                     <Link to={'/benutzerverwaltung'}>
@@ -140,7 +145,7 @@ const Navbar = () => {
                                     <Link
                                         to={{
                                             pathname: '/info-crawler',
-                                            state: { data: isICAdmin },
+                                            state: {data: isICAdmin},
                                         }}>
                                         <li className={`items ${path.pathname === '/info-crawler' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             InfoCrawler
@@ -158,10 +163,10 @@ const Navbar = () => {
                                     <Link
                                         to={{
                                             pathname: '/admin-edit',
-                                            state: { data: isSAdmin },
+                                            state: {data: isSAdmin},
                                         }}>
                                         <li className={`items ${path.pathname === '/admin-edit' && 'text-mainBlue'}  hover:text-mainBlue`}>
-                                            Admin Edit
+                                            MS Verwaltung
                                         </li>
                                     </Link>
                                 )}
@@ -169,13 +174,13 @@ const Navbar = () => {
                         </div>
                         <li className='userInfo cursor-pointer'>
                             {user?.role === 'Internal' ? (
-                                <GrUserAdmin size={'30px'} color={'#565c8c'} />
+                                <GrUserAdmin size={'30px'} color={'#565c8c'}/>
                             ) : user?.role === 'External' ? (
-                                <MdSupervisorAccount size={'35px'} color={'#3A46A9'} />
+                                <MdSupervisorAccount size={'35px'} color={'#3A46A9'}/>
                             ) : user?.role === 'Supervisor' ? (
-                                <FaUser size={'30px'} color={'#565c8c'} />
+                                <FaUser size={'30px'} color={'#565c8c'}/>
                             ) : (
-                                user && <FaUserSecret size={'30px'} color={'#565c8c'} />
+                                user && <FaUserSecret size={'30px'} color={'#565c8c'}/>
                             )}
                             <div>
                                 <p className='pl-1' onClick={() => setModal(!modal)}>
@@ -186,22 +191,22 @@ const Navbar = () => {
                                 </p>
                             </div>
                             <p className='cursor-pointer m-1'>
-                                <AiOutlineDown onClick={() => setModal(!modal)} />
+                                <AiOutlineDown onClick={() => setModal(!modal)}/>
                             </p>
                         </li>
                     </>
                 )}
             </ul>
             <div className={modal ? 'modal-logout' : 'hidden'}>
-                <ChangePass />
+                <ChangePass/>
                 <button
                     onClick={logout}
                     className='text-left p-1 hover:text-red'
                 >
-                    {!loading ? 'Ausloggen' : <BeatLoader size={10} color={'#000000'} />}
+                    {!loading ? 'Ausloggen' : <BeatLoader size={10} color={'#000000'}/>}
                 </button>
             </div>
-            <button onClick={toggleNav} className="btn"><AiOutlineMenu /></button>
+            <button onClick={toggleNav} className="btn"><AiOutlineMenu/></button>
         </nav>
     )
 }

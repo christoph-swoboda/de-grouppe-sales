@@ -31,3 +31,7 @@ X
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
+]
+-src/pages/Storfalle/partial/strofalleTable.js,b\2\b2277a26ab96f2cfa79c1d0aceda33b2875a2be3
+L
+src/pages/adminEdit/index.js,7\3\730dbb46c578887c61c2e6858e11f66e7f9471f5

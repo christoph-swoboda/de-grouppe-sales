@@ -30,7 +30,7 @@ const Form = ({name, dropdown, role}) => {
 
     useEffect(() => {
         setValue('Ersteller', name)
-        setValue('berater', dropdown?.filter(d => d.Bank === bank)[0]?.Berater)
+        setValue('berater', name)
         setValue('blz', dropdown?.filter(d => d.Bank === bank)[0]?.BLZ)
         setValue('fkb_bank', dropdown?.filter(d => d.Bank === bank)[0]?.FKBBank)
         setValue('dgapi', dropdown?.filter(d => d.Bank === bank)[0]?.DGAPIKAM)
@@ -53,7 +53,7 @@ const Form = ({name, dropdown, role}) => {
         <div className='bg-white rounded-lg'>
             <form onSubmit={handleSubmit(onSubmit)} className='mb-8 p-10'>
                 {/*// className='lg:grid lg:grid-cols-5 gap-6 sm:grid-cols-1 gap-6 mb-10 p-10'*/}
-                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0 mb-8'>
+                <div className='grid 2xl:grid-cols-14 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0 mb-8'>
                     <section
                         className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:-ml-2 lg:-ml-0'>
                         <label>Ersteller</label>
@@ -74,7 +74,7 @@ const Form = ({name, dropdown, role}) => {
                 </div>
                 {/*first 6 section*/}
                 {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start gap-3 flex-wrap'>*/}
-                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0'>
+                <div className='grid 2xl:grid-cols-14 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0'>
                     <section
                         className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2 2xl:-ml-2 lg:-ml-0'>
                         <label>Bank *</label>
@@ -153,9 +153,9 @@ const Form = ({name, dropdown, role}) => {
                 {/*second 9 section*/}
 
                 {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start md:gap-3 2xl:gap-4 lg:gap-1 flex-wrap'>*/}
-                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-8'>
+                <div className='grid 2xl:grid-cols-14 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-8'>
                     <section
-                        className='flex flex-col text-left text-grey text-sm mt-2 2xl:col-span-4 lg:col-span-5 md:col-span-2'>
+                        className='flex flex-col 2xl:-mr-6 text-left text-grey text-sm mt-2 2xl:col-span-4 lg:col-span-5 md:col-span-2'>
                         <label>Firma *</label>
                         <input placeholder='Firma...'
                                {...register('firma', {required: true})}
@@ -164,7 +164,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.firma && touchedFields && <p>Firma Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                    <section className='flex flex-col 2xl:ml-6 2xl:-mr-6 text-left text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Straße *</label>
                         <input placeholder='Straße...'
                                {...register('strabe', {required: true})}
@@ -173,7 +173,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.strabe && touchedFields && <p>Straße Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2'>
+                    <section className='flex flex-col text-left 2xl:ml-6 2xl:-mr-6 text-grey text-sm mt-2'>
                         <label>PLZ *</label>
                         <input placeholder='PLZ...'
                                {...register('plz', {required: true})}
@@ -182,7 +182,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.plz && touchedFields && <p>PLZ Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                    <section className='flex flex-col text-left 2xl:ml-6 2xl:-mr-6 text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Stadt *</label>
                         <input placeholder='Stadt...'
                                {...register('stadt', {required: true})}
@@ -191,10 +191,10 @@ const Form = ({name, dropdown, role}) => {
                         {errors.stadt && touchedFields && <p>Stadt Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm col-span-2 2xl:block md:hidden'>
+                    <section className='flex flex-col text-left text-grey text-sm col-span-2 2xl:hidden md:hidden'>
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:col-span-2 lg:col-span-3'>
+                    <section className='flex flex-col 2xl:-mr-6 text-left text-grey text-sm mt-2 2xl:col-span-2 lg:col-span-3'>
                         <label>Firma Kurzname *</label>
                         <input placeholder='Firma Kurzname...'
                                {...register('firmaKruz', {required: true})}
@@ -203,7 +203,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.firmaKruz && touchedFields && <p>Firma Kurzname Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                    <section className='flex flex-col text-left 2xl:ml-6 2xl:-mr-6 text-grey text-sm mt-2 lg:col-span-2'>
                         <label>Telefon zentrale *</label>
                         <input placeholder='Telefon zentrale...'
                                {...register('telefon', {required: true})}
@@ -212,7 +212,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.telefon && touchedFields && <p>Telefon zentrale Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                    <section className='flex flex-col text-left text-grey 2xl:ml-6 2xl:-mr-6 text-sm mt-2 lg:col-span-2'>
                         <label>Umsatzsteuer ID </label>
                         <input placeholder='Umsatzsteuer ID...'
                                {...register('umsatzsteuer', {required: false})}
@@ -221,7 +221,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.umsatzsteuer && touchedFields && <p>Umsatzsteuer ID Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm mt-2 lg:col-span-2'>
+                    <section className='flex flex-col text-left text-grey 2xl:ml-6 2xl:-mr-6 text-sm mt-2 lg:col-span-2'>
                         <label>Internetadresse * </label>
                         <input placeholder='Internetadresse...'
                                {...register('internetadresse', {required: true})}
@@ -230,7 +230,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.internetadresse && touchedFields && <p>Internetadresse Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col mb-10 text-left text-grey text-sm mt-2'>
+                    <section className='flex flex-col mb-10 text-left 2xl:ml-6 2xl:-mr-6 text-grey text-sm mt-2'>
                         <label>MA-Anzahl *</label>
                         <input placeholder='MA-Anzahl...'
                                type="number"
@@ -252,10 +252,10 @@ const Form = ({name, dropdown, role}) => {
 
                 {/*third 10 section*/}
 
-                <div className='grid 2xl:grid-cols-12 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-8'>
+                <div className='grid 2xl:grid-cols-14 lg:grid-cols-10 md:grid-cols-2 gap-3 mt-8'>
                     <section className='flex flex-col text-left text-grey text-sm'>
                         <label> Anrede *</label>
-                        <select className='p-3 bg-transparent border border-whiteDark rounded-lg'
+                        <select className='p-3 bg-transparent 2xl:-mr-6 border border-whiteDark rounded-lg'
                                 {...register('anrede', {required: true})}
                                 style={{border: errors.bank && '1px solid red'}}
                         >
@@ -265,7 +265,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.anrede && touchedFields && <p>Anrede Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm 2xl:col-span-1 lg:col-span-2'>
+                    <section className='flex flex-col text-left 2xl:ml-6 2xl:-mr-6 text-grey text-sm 2xl:col-span-1 lg:col-span-2'>
                         <label> Titel</label>
                         <input placeholder='Titel...'
                                {...register('titel', {required: false})}
@@ -274,7 +274,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.titel && touchedFields && <p>Titel Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm'>
+                    <section className='flex flex-col 2xl:ml-6 2xl:-mr-6 text-left text-grey text-sm'>
                         <label>Vorname *</label>
                         <input placeholder='Vorname...'
                                {...register('vorname', {required: true})}
@@ -283,7 +283,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.vorname && touchedFields && <p>Vorname Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm'>
+                    <section className='flex flex-col 2xl:ml-6 2xl:-mr-6 text-left text-grey text-sm'>
                         <label>Nachname *</label>
                         <input placeholder='Nachname...'
                                {...register('nachname', {required: true})}
@@ -292,7 +292,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.nachname && touchedFields && <p>Nachname Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-2'>
+                    <section className='flex flex-col 2xl:ml-6 2xl:-mr-6 text-left text-grey text-sm lg:col-span-2'>
                         <label> Position *</label>
                         <input placeholder='Position...'
                                {...register('position', {required: true})}
@@ -301,7 +301,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.position && touchedFields && <p>Position Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-3'>
+                    <section className='flex flex-col 2xl:ml-6 2xl:-mr-6 text-left text-grey text-sm lg:col-span-3'>
                         <label>E-Mail</label>
                         <input placeholder='E-Mail'
                                {...register('email', {
@@ -317,10 +317,10 @@ const Form = ({name, dropdown, role}) => {
                         {errors.email && touchedFields && <p>{errors.email.message}</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm col-span-2 2xl:block md:hidden'>
+                    <section className='flex flex-col text-left text-grey text-sm col-span-2 2xl:hidden md:hidden'>
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-2'>
+                    <section className='flex flex-col 2xl:-mr-6 text-left text-grey text-sm lg:col-span-2'>
                         <label>Durchwahl </label>
                         <input placeholder='Durchwahl...'
                                {...register('durchwahl', {required: false})}
@@ -329,7 +329,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.durchwahl && touchedFields && <p>Durchwahl Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-2'>
+                    <section className='flex flex-col 2xl:ml-6 2xl:-mr-6 text-left text-grey text-sm lg:col-span-2'>
                         <label> Mobil </label>
                         <input placeholder='Mobil...'
                                {...register('mobil', {required: false})}
@@ -338,7 +338,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.mobil && touchedFields && <p>Mobil Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-2'>
+                    <section className='flex flex-col 2xl:ml-6 2xl:-mr-6 text-left text-grey text-sm lg:col-span-2'>
                         <label>Fax</label>
                         <input placeholder='Fax...'
                                {...register('fax', {required: false})}
@@ -347,7 +347,7 @@ const Form = ({name, dropdown, role}) => {
                         {errors.fax && touchedFields && <p>Fax Feld ist erforderlich</p>}
                     </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm lg:col-span-4 2xl:col-span-3'>
+                    <section className='flex flex-col 2xl:ml-6 2xl:-mr-6 text-left text-grey text-sm lg:col-span-4 2xl:col-span-3'>
                         <label> Privat</label>
                         <input placeholder='Privat...'
                                {...register('privat', {required: false})}
