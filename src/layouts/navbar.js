@@ -48,6 +48,8 @@ const Navbar = () => {
     }, []);
 
     useEffect(() => {
+
+        console.log('user', user)
         const changeWidth = () => {
             setScreenWidth(window.innerWidth);
         }
@@ -175,9 +177,9 @@ const Navbar = () => {
                         <li className='userInfo cursor-pointer'>
                             {user?.role === 'Internal' ? (
                                 <GrUserAdmin size={'30px'} color={'#565c8c'}/>
-                            ) : user?.role === 'External' ? (
+                            ) : user?.role === 'extDGG' || user?.role === 'extRUV' ? (
                                 <MdSupervisorAccount size={'35px'} color={'#3A46A9'}/>
-                            ) : user?.role === 'Supervisor' ? (
+                            ) : user?.role === 'ManDGG' || user?.role === 'ManRUV' ? (
                                 <FaUser size={'30px'} color={'#565c8c'}/>
                             ) : (
                                 user && <FaUserSecret size={'30px'} color={'#565c8c'}/>

@@ -35,3 +35,9 @@ E
 -src/pages/Storfalle/partial/strofalleTable.js,b\2\b2277a26ab96f2cfa79c1d0aceda33b2875a2be3
 L
 src/pages/adminEdit/index.js,7\3\730dbb46c578887c61c2e6858e11f66e7f9471f5
+]
+-src/pages/adminEdit/partial/adminEditTable.js,c\0\c0d0d78be26e6017c744b0594198d8146e486fef
+P
+ src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
+H
+src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
