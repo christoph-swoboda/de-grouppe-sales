@@ -18,6 +18,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     const [partnerNr, setPartnerNo] = useState(prtnrNo)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
+    const [subRoles, setSubRoles] = useState([])
     const [verified, setVerified] = useState(Number(valid) === 1)
     const [{userValidated, secretKey}, dispatch] = useStateValue();
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
@@ -75,34 +76,34 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
         data.append('userID', Number(id))
         setLoadingName(true)
         Api().post('/getName', data).then(res => {
-            setFirstName(res.data[0]?.firstname)
-            setLastName(res.data[0]?.lastname)
+            setFirstName(res.data[0]?.[0]?.firstname)
+            setLastName(res.data[0]?.[0]?.lastname)
+            setSubRoles(res.data[1]?.[0])
             setLoadingName(false)
         })
     }
 
     return (
-        <>
-            <tbody
-                className={`${status === 'red' && (user.role === 'Internal' || role === 'Controller') ? 'bg-redLight' : status === 'yellow' && (user.role === 'Internal' || role === 'Controller') ? 'bg-yellowLight' : ''}`}>
-            <tr className={`${(deleteClicked) && 'overlay'}`}/>
-            <tr
-                className={`${(!edit || !deleteClicked) && 'hideDiv'} shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
-                <td>Wollen Sie den Benutzer ({firstName + ' ' + lastName}) wirklich löschen?</td>
-                <td className={`${deleting && 'hideDiv'} flex justify-start px-24 pt-5 text-sm text-md font-bold`}>
-                    <button onClick={() => removeUser(userID)}
-                            className='bg-green mr-3 text-white px-5 hover:bg-white hover:text-green py-2 rounded-xl'>Ja
-                    </button>
-                    <button onClick={() => setDeleteClicked(false)}
-                            className='bg-cancel hover:bg-white hover:text-cancel text-white px-5 py-2 rounded-xl'>Nein
-                    </button>
-                </td>
-                <td className='mx-auto'>
-                    {deleting && <ClipLoader size={10} color='#3A46A9'/>}
-                </td>
-            </tr>
-            <tr className={`${edit && 'bg-yellowLight'} border-y border-silver border-x-0`}>
-                <td hidden={edit} className={`px-6 py-2 whitespace-nowrap text-sm text-gray-900`}>
+        <tbody
+            className={`${status === 'red' && (user.role === 'Internal' || role === 'Controller') ? 'bg-redLight' : status === 'yellow' && (user.role === 'Internal' || role === 'Controller') ? 'bg-yellowLight' : ''}`}>
+        <tr className={`${(deleteClicked) && 'overlay'}`}/>
+        <tr
+            className={`${(!edit || !deleteClicked) && 'hideDiv'} shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
+            <td>Wollen Sie den Benutzer ({firstName + ' ' + lastName}) wirklich löschen?</td>
+            <td className={`${deleting && 'hideDiv'} flex justify-start px-24 pt-5 text-sm text-md font-bold`}>
+                <button onClick={() => removeUser(userID)}
+                        className='bg-green mr-3 text-white px-5 hover:bg-white hover:text-green py-2 rounded-xl'>Ja
+                </button>
+                <button onClick={() => setDeleteClicked(false)}
+                        className='bg-cancel hover:bg-white hover:text-cancel text-white px-5 py-2 rounded-xl'>Nein
+                </button>
+            </td>
+            <td className='mx-auto'>
+                {deleting && <ClipLoader size={10} color='#3A46A9'/>}
+            </td>
+        </tr>
+        <tr className={`${edit && 'bg-yellowLight'} border-y border-silver border-x-0`}>
+            <td hidden={edit} className={`px-6 py-2 whitespace-nowrap text-sm text-gray-900`}>
                     <span className='flex justify-start'>
                              {
                                  role === 'Internal' ?
@@ -115,90 +116,89 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                              }
                         <span className='ml-2'>{name ? name : 'N/A'}</span>
                     </span>
-                </td>
-                <td hidden={!edit}>
-                    <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap mt-1"
-                           type='text'
-                           placeholder='Nachname'
-                           value={lastName}
-                           onChange={(e) => setLastName(e.target.value)}
-                    />
-                    <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
-                           type='text'
-                           placeholder='Vorname'
-                           value={firstName}
-                           onChange={(e) => setFirstName(e.target.value)}
-                    />
-                </td>
-                <td className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
-                    {email}
-                </td>
+            </td>
+            <td hidden={!edit}>
+                <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap mt-1"
+                       type='text'
+                       placeholder='Nachname'
+                       value={lastName}
+                       onChange={(e) => setLastName(e.target.value)}
+                />
+                <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
+                       type='text'
+                       placeholder='Vorname'
+                       value={firstName}
+                       onChange={(e) => setFirstName(e.target.value)}
+                />
+            </td>
+            <td className="text-sm text-gray-900 normal-case font-light px-6 py-1 whitespace-nowrap">
+                {email}
+            </td>
 
-                <td hidden={edit}
-                    className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
-                    {prtnrNo}
-                </td>
-                <td hidden={!edit}>
-                    <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
-                           type='text'
-                           value={partnerNr}
-                           onChange={(e) => setPartnerNo(e.target.value)}
-                    />
-                </td>
+            <td hidden={edit}
+                className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+                {prtnrNo}
+            </td>
+            <td hidden={!edit}>
+                <input className="text-sm text-gray-900 font-light px-3 py-1 whitespace-nowrap"
+                       type='text'
+                       value={partnerNr}
+                       onChange={(e) => setPartnerNo(e.target.value)}
+                />
+            </td>
 
-                <td>
-                    <button disabled={!edit}
-                            onClick={() => setVerified(!verified)}
-                            className="text-sm text-gray-900 font-light px-6 py-0 whitespace-nowrap">
-                        {
-                            verified === true ?
-                                <FaToggleOn color={'#3A46A9'} style={{cursor: edit ? 'pointer' : 'default'}}
-                                            size='30px'/>
-                                : verified === false &&
-                                <GrCheckbox style={{cursor: edit ? 'pointer' : 'default', height: '30px'}}/>
-                        }
-                    </button>
-                </td>
-                <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{created}</td>
-                {/*<td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"/>*/}
-                <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{lastLogin}</td>
-                {/*<td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"></td>*/}
-                <td hidden={!edit} className="text-sm text-gray-900 font-light text-right whitespace-nowrap">
-                    <UpdateRole userID={userID} role={role}/>
-                </td>
-                <td hidden={!edit}
-                    className="text-sm text-gray-900 font-light text-right whitespace-nowrap">
-                    <button onClick={() => setDeleteClicked(true)}
-                            className='border mr-4 border-cancel bg-cancel rounded-3xl px-3 pt-1 pb-1 text-white text-center font-extrabold uppercase cursor-pointer'
-                    >
-                        LÖSCHEN
-                    </button>
-                    <button onClick={cancel}
-                            className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue text-center font-extrabold uppercase cursor-pointer'
-                    >
-                        Abbrechen
-                    </button>
-                </td>
-                <td hidden={edit || admin !== '1' || user.role === 'Controller'}
-                    className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
-                    <button onClick={() => setEditStates(userID)}
-                            className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'
-                    >
-                        Bearbeiten
-                    </button>
-                </td>
-                <td hidden={!edit}
-                    className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
-                    <button onClick={save}
-                            disabled={loadingName}
-                            className={`border border-mainBlue rounded-3xl px-3 py-1 bg-mainBlue ${loadingName && 'bg-grey'} text-white font-extrabold uppercase cursor-pointer`}
-                    >
-                        {loading ? 'Das Sparen...' : 'Speichern'}
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </>
+            <td>
+                <button disabled={!edit}
+                        onClick={() => setVerified(!verified)}
+                        className="text-sm text-gray-900 font-light px-6 py-0 whitespace-nowrap">
+                    {
+                        verified === true ?
+                            <FaToggleOn color={'#3A46A9'} style={{cursor: edit ? 'pointer' : 'default'}}
+                                        size='30px'/>
+                            : verified === false &&
+                            <GrCheckbox style={{cursor: edit ? 'pointer' : 'default', height: '30px'}}/>
+                    }
+                </button>
+            </td>
+            <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{created}</td>
+            {/*<td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"/>*/}
+            <td hidden={edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900">{lastLogin}</td>
+            {/*<td hidden={!edit} className="px-6 py-2 whitespace-nowrap text-sm text-gray-900"></td>*/}
+            <td hidden={!edit} className="text-sm text-gray-900 font-light text-right whitespace-nowrap">
+                <UpdateRole userID={userID} role={role} subRoles={subRoles}/>
+            </td>
+            <td hidden={!edit}
+                className="text-sm text-gray-900 font-light text-right whitespace-nowrap">
+                <button onClick={() => setDeleteClicked(true)}
+                        className='border mr-4 border-cancel bg-cancel rounded-3xl px-3 pt-1 pb-1 text-white text-center font-extrabold uppercase cursor-pointer'
+                >
+                    LÖSCHEN
+                </button>
+                <button onClick={cancel}
+                        className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue text-center font-extrabold uppercase cursor-pointer'
+                >
+                    Abbrechen
+                </button>
+            </td>
+            <td hidden={edit || admin !== '1' || user.role === 'Controller'}
+                className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+                <button onClick={() => setEditStates(userID)}
+                        className='border border-mainBlue rounded-3xl px-3 pt-1 pb-1 text-mainBlue font-extrabold text-center uppercase cursor-pointer'
+                >
+                    Bearbeiten
+                </button>
+            </td>
+            <td hidden={!edit}
+                className="text-sm text-gray-900 font-light px-6 py-1 whitespace-nowrap">
+                <button onClick={save}
+                        disabled={loadingName}
+                        className={`border border-mainBlue rounded-3xl px-3 py-1 bg-mainBlue ${loadingName && 'bg-grey'} text-white font-extrabold uppercase cursor-pointer`}
+                >
+                    {loading ? 'Das Sparen...' : 'Speichern'}
+                </button>
+            </td>
+        </tr>
+        </tbody>
     )
 }
 

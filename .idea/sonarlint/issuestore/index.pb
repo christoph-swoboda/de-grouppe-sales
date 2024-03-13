@@ -41,3 +41,11 @@ P
  src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 H
 src/pages/login/index.js,4\4\442b30620d7a58c45b32ff08031b087a331d8551
+Y
+)src/pages/userManagement/partial/table.js,c\1\c19bf54fb53b26b80726e9e122dad6f1534f8d20
+N
+src/card/userManagementCard.js,1\b\1bb6f9b1a3bc93148f9d156b48dee51b9ebb9c89
+]
+-src/pages/userManagement/partial/adminView.js,3\3\338460fe4bb175dc59a602405b1eaed0b36b627f
+R
+"src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
