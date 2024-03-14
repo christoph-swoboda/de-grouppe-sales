@@ -49,3 +49,5 @@ N
 -src/pages/userManagement/partial/adminView.js,3\3\338460fe4bb175dc59a602405b1eaed0b36b627f
 R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
+N
+src/pages/infoCrawler/index.js,6\5\65b36b16aecd92c8cf064b585e75cc8ea053db43

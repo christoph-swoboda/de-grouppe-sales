@@ -232,7 +232,7 @@ const UserManagement = () => {
                 <div ref={modalRef}
                      className={`${!modal && 'hidden'} absolute w-72 max-h-80 ml-9 bg-offWhite p-5 z-10 -mt-6 overflow-y-scroll`}>
                     {
-                        searchResults.map((res, i) => (
+                        searchResults?.map((res, i) => (
                             <input type='button' key={i} onClick={setUpModal}
                                    className='cursor-pointer flex flex-col text-mainBlue text-sm text-left border-none underline hover:text-red p-2'
                                    value={res.email}

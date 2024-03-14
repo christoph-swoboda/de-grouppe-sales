@@ -11,6 +11,7 @@ import {useNavigate} from "react-router";
 const InfoMail = () => {
 
     const [{ICSaved, secretKey}, dispatch] = useStateValue();
+    const [portal, setPortal] = useState('dgg')
     const [milestones, setMilestones] = useState([])
     const [subStepsLoading, setSubStepsLoading] = useState(false)
     const [triggerSubStepsLoading, setTriggerSubStepsLoading] = useState(false)
@@ -25,25 +26,26 @@ const InfoMail = () => {
     const [SubStepSelected, setSubStepSelected] = useState()
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
-    const [isICAdmin, setIsICAdmin] = useState(0)
     const navigate = useNavigate()
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
     } = useForm({mode: "onChange"});
 
     useEffect(() => {
-        Api().get(`/imAdminCheck/${user.ID}`).then(res => {
-            if (res.data === 0) {
-                navigate('/')
-            }
-            setIsICAdmin(res.data)
-        })
-        Api().get('sp_getDataIMddMS').then(res => {
+        if (user.isICAdmin === '0') {
+            navigate('/')
+        }
+
+        reset()
+
+        Api().get(`sp_getDataIMddMS/${portal}`).then(res => {
             setMilestones(res.data)
             setLoading(false)
+        }).then(r=>{
+            getGrid(milestoneSelected, SubStepSelected, true)
         })
 
-    }, [ICSaved]);
+    }, [ICSaved, portal]);
 
 
     const milestoneChanged = (e) => {
@@ -51,7 +53,7 @@ const InfoMail = () => {
         setSubStepsLoading(true)
         seMilestoneSelected(e.target.value)
         setSubSteps([])
-        Api().get(`sp_getDataIMddSS/${e.target.value}`).then(res => {
+        Api().get(`sp_getDataIMddSS/${portal}/${e.target.value}`).then(res => {
             setSubSteps(res.data)
             setSubStepSelected(res.data[0]?.substepID)
             setSubStepsLoading(false)
@@ -68,7 +70,7 @@ const InfoMail = () => {
 
     const getGrid = (milestone, subStep, isLoading) => {
         setLoadingGrid(isLoading)
-        Api().get(`sp_getDataIM/${milestone}/${subStep}`).then(res => {
+        Api().get(`sp_getDataIM/${portal}/${milestone}/${subStep}`).then(res => {
             res.data.map(r => {
                 Object.keys(r).forEach((key) => {
                     if (key.includes('informFKB') || key.includes('informVA') || key.includes('informMail') || key.includes('informDGAPIAMS') || key.includes('informDGAPIKAM') || key.includes('informKBD') || key.includes('informVBLF') || key.includes('informCCText')) {
@@ -97,6 +99,7 @@ const InfoMail = () => {
             ...data,
             milestoneID: milestoneSelected,
             subStepID: SubStepSelected,
+            portal: portal,
         };
 
         Api().post('/sp_putIM', modifiedData).then(res => {
@@ -156,12 +159,16 @@ const InfoMail = () => {
         }
     }
 
+    function portalSelect(e) {
+        setPortal(e.target.value)
+    }
+
     return (
         <div className={`dashboardContainer`}>
             {
                 loading ?
                     <SkewLoader size='10px'/>
-                    : isICAdmin === 1 &&
+                    : user.isICAdmin === '1' &&
                     <div className={`bg-white rounded-xl text-left px-14 py-8`}>
                         <div
                             className={`${(!deleteClicked) && 'hideDiv'} shadow shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
@@ -180,6 +187,17 @@ const InfoMail = () => {
                         </div>
                         <div className='centerItemsRelative flex-wrap'>
                             <div className='lg:w-fit'>
+                                <div className='flex justify-start items-center w-fit'>
+                                    <p className='w-fit mr-6'>Portal </p>
+                                    <select
+                                        className='pl-3 col-span-2 text-center mx-auto pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'
+                                        onChange={portalSelect}
+                                        value={portal}
+                                    >
+                                        <option selected value='dgg'>DGG</option>
+                                        <option value='r+v'>R+V</option>
+                                    </select>
+                                </div>
                                 <div className='lg:grid grid-cols-7 items-center my-2'>
                                     <p className='w-fit col-span-1'>Einstellungen für: </p>
                                     <select onChange={milestoneChanged}
@@ -190,7 +208,7 @@ const InfoMail = () => {
                                         {
                                             milestones.map((m, i) => (
                                                 <option
-                                                    className={m.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
+                                                    className={m.hasIM === '1' ? 'bg-lightBlue my-2 text-white' : ''}
                                                     value={m.milestoneID} key={i}>{m.milestoneLabel}</option>
                                             ))
                                         }
@@ -207,7 +225,7 @@ const InfoMail = () => {
                                                         </option> :
                                                         subSteps.map((s, i) => (
                                                             <option
-                                                                className={s.hasIC === '1' ? 'bg-lightBlue my-2 text-white' : ''}
+                                                                className={s.hasIM === '1' ? 'bg-lightBlue my-2 text-white' : ''}
                                                                 value={s.substepID} key={i}>{s.stepName}</option>
                                                         ))
                                                 }

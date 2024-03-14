@@ -129,15 +129,19 @@ const UserManagementTable = ({users, pageSize, loading, total, role, filterIDUM,
                             </div>
                         }
 
-                        <div className='centerItemsRelative mt-3 mb-2'>
-                            <Pagination
-                                className="pagination-bar"
-                                currentPage={page}
-                                totalCount={total}
-                                pageSize={PageSize}
-                                onPageChange={pageNo => dispatch({type: "SET_PAGE", item: pageNo})}
-                            />
-                        </div>
+                        {
+                            !loading &&
+                            <div className='centerItemsRelative mt-3 mb-2'>
+                                <Pagination
+                                    className="pagination-bar"
+                                    currentPage={page}
+                                    totalCount={total}
+                                    pageSize={PageSize}
+                                    onPageChange={pageNo => dispatch({type: "SET_PAGE", item: pageNo})}
+                                />
+                            </div>
+                        }
+
                     </div>
                 </div>
             </div>
