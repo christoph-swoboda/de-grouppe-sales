@@ -51,7 +51,7 @@ const StrofalleTable = ({
             <td className="w-32 font-light text-gray-900 pr-3">
                 {StorfallDatum}
             </td>
-            <td className="w-16 tooltip text-gray-900 font-light ml-10 float-right">
+            <td className="w-16 tooltip text-gray-900 font-light ml-10">
                 <BsChatLeftText size='16px'/>
                 <span className={`${Bemerkung ? 'tooltiptextFixed' : 'hidden'}`}>
                     {Bemerkung}
