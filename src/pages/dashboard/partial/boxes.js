@@ -24,7 +24,7 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
                         <p className='mt-2 text-sm'>{data[0]?.Label}
                             <span className='tracking-wider bg-silver text-lg px-2 py-1 ml-2 rounded-full'
                                   style={{color: col}}>
-                        {Number(data[0]?.FP)}
+                        {Number(data[0]?.FP).toLocaleString()}
                     </span>
                         </p>
                 }
@@ -50,7 +50,7 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
                         <p className='float-right text-sm'>{data[1]?.Label}
                             <span className='tracking-wider text-lg bg-silver px-2 py-1 rounded-full ml-2'
                                   style={{color: col}}>
-                            {Number(data[1]?.FP)}
+                            {Number(data[1]?.FP).toLocaleString()}
                         </span>
                         </p>
                     </div>

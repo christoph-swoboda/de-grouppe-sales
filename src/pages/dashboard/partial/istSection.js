@@ -7,18 +7,24 @@ const ISTSection = ({project, data, loading, dataEmp}) => {
     const [valuesEmp, setValuesEmp] = useState([])
 
     useEffect(() => {
-        let arr = []
-        let arr2 = []
-        data?.map(d => {
-            arr.push(Number(d.summe))
-        })
-        dataEmp?.map(d => {
-            arr2.push(Number(d.summe))
-        })
-        setValues(arr)
-        setValuesEmp(arr2)
-    }, [data,dataEmp]);
+        let arr = [];
+        let arr2 = [];
 
+        data?.forEach(d => {
+            arr.push(Number(d.summe));
+        });
+
+        dataEmp?.forEach(d => {
+            arr2.push(Number(d.summe));
+        });
+
+        const formattedValues = arr.map(value => value.toLocaleString());
+        const formattedValuesEmp = arr2.map(value => value.toLocaleString());
+
+        setValues(formattedValues);
+        setValuesEmp(formattedValuesEmp);
+
+    }, [data, dataEmp]);
     return (
         <div className='flex justify-start '>
             <div className='mt-2 lg:w-3/12 md:w-screen '>

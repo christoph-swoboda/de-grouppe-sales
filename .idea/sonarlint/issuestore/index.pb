@@ -51,3 +51,9 @@ R
 "src/components/modal/updateRole.js,c\4\c41321fbf35766bed514a2a782ed418388b3e2d8
 N
 src/pages/infoCrawler/index.js,6\5\65b36b16aecd92c8cf064b585e75cc8ea053db43
+T
+$src/pages/dashboard/partial/graph.js,7\3\7392f2a0ad32f84494ec2261ace956f01c94369a
+Y
+)src/pages/dashboard/partial/istSection.js,7\5\759eb2ff432b14d57fc4c1b399e3f8c4faf571a8
+J
+src/components/barChart.js,6\b\6bf3702dbb7129b977af217f074af48792261860
