@@ -165,6 +165,7 @@ const InfoMail = () => {
 
     return (
         <div className={`dashboardContainer`}>
+            <h2 className='text-2xl lg:text-left pb-5'>InfoMail</h2>
             {
                 loading ?
                     <SkewLoader size='10px'/>

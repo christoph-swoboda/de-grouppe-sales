@@ -120,8 +120,7 @@ const BestantList = () => {
             })
             dispatch({type: "SET_SORTBESTANDCOLUMN", item: 11})
             dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
-        }
-        else{
+        } else {
             dispatch({type: "SET_SORTBESTANDCOLUMN", item: 7})
             dispatch({type: "SET_SORTBESTANDMETHOD", item: 'asc'})
         }
@@ -195,58 +194,57 @@ const BestantList = () => {
     };
 
     return (
-        <>
-            <div className={`dashboardContainer`}>
-                <h2 className='text-2xl lg:text-left pb-5'>Firmenprojekt</h2>
-                <div className='bg-white'>
-                    <BestandListDataSection
-                        views={views}
-                        rows={rows}
-                        setPrintStte={setPrintState}
-                        hasFilter={hasFilter}
-                        clearFilters={clearFilters}
-                        setViewName={setViewName}
-                        dropdownRef={dropdownRef}
-                        toggleDropdown={toggleDropdown}
-                        isOpen={isOpen}
-                        user={user}
-                        url={url}
-                        loadingViews={loadingViews}
-                        users={users}
-                        loading={loading}
-                        printPDFRef={componentRef}
-                        headers={viewName === 'Firmenprojekte' ? BestandViewHeaders : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
-                        count={viewName === 'Firmenprojekte' ? BestandViewHeaders.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
-                        printing={printing}
-                        sortColumn={sortColumn}
-                        sortMethod={sortMethod}
-                        total={total}
-                        PageSize={PageSize}
-                        filterID={filterID}
-                        filter={filter}
-                        view={viewName}
-                    />
-                    <div
-                        className={`${loading ? 'hideDiv' : ''} absolute ${viewName === 'Firmenprojekte' ? 'right-0' : 'right-0'}  ${viewName === 'Firmenprojekte' ? '-mt-16' : '-mt-18'} -mt-14 pb-9 mx-10`}>
-                        <div className='flex justify-center'>
-                            <p className={`${(users?.length === 0) && 'hideDiv'} mr-2 text-sm text-grey mt-2`}>
-                                {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users?.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Einträge
-                            </p>
-                            <h2 className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey mt-2 ml-10`}>
-                                Einträge anzeigen:
-                                <span>
+
+        <div className={`dashboardContainer`}>
+            <h2 className='text-2xl lg:text-left pb-5'>Firmenprojekt</h2>
+            <div className='bg-white'>
+                <BestandListDataSection
+                    views={views}
+                    rows={rows}
+                    setPrintStte={setPrintState}
+                    hasFilter={hasFilter}
+                    clearFilters={clearFilters}
+                    setViewName={setViewName}
+                    dropdownRef={dropdownRef}
+                    toggleDropdown={toggleDropdown}
+                    isOpen={isOpen}
+                    user={user}
+                    url={url}
+                    loadingViews={loadingViews}
+                    users={users}
+                    loading={loading}
+                    printPDFRef={componentRef}
+                    headers={viewName === 'Firmenprojekte' ? BestandViewHeaders : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
+                    count={viewName === 'Firmenprojekte' ? BestandViewHeaders.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
+                    printing={printing}
+                    sortColumn={sortColumn}
+                    sortMethod={sortMethod}
+                    total={total}
+                    PageSize={PageSize}
+                    filterID={filterID}
+                    filter={filter}
+                    view={viewName}
+                />
+                <div
+                    className={`${loading ? 'hideDiv' : ''} absolute ${viewName === 'Firmenprojekte' ? 'right-0' : 'right-0'}  ${viewName === 'Firmenprojekte' ? '-mt-16' : '-mt-18'} -mt-14 pb-9 mx-10`}>
+                    <div className='flex justify-center'>
+                        <p className={`${(users?.length === 0) && 'hideDiv'} mr-2 text-sm text-grey mt-2`}>
+                            {pageBestand === 1 ? pageBestand : (1 + (Number(rows) * pageBestand)) - Number(rows)} bis {(users?.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * pageBestand) - Number(rows) : total : (Number(rows) + (Number(rows) * pageBestand)) - Number(rows)} von {total} Einträge
+                        </p>
+                        <h2 className={`${(users?.length === 0) && 'hideDiv'}  text-sm text-grey mt-2 ml-10`}>
+                            Einträge anzeigen:
+                            <span>
                                 <select onChange={setPageStates} className={` bg-transparent text-mainBlue`}>
                                     <option value={'10'}>{10}</option>
                                     <option value={'25'}>{25}</option>
                                     <option value={'10000'}>Alle</option>
                                 </select>
                             </span>
-                            </h2>
-                        </div>
+                        </h2>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

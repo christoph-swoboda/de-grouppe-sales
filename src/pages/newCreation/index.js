@@ -30,7 +30,7 @@ const NewCreation = () => {
         try {
             const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
             const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
-            if (user && user.role !== 'ExtDGG' && user.role !== 'ExtRUV') {
+            if ((user && user.role !== 'ExtDGG' && user.role !== 'ExtRUV') && (user.role!=='Internal' && user.isSAdmin!=='1')) {
                 navigate('/');
             }
             setUser(user)

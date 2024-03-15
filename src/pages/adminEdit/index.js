@@ -44,9 +44,9 @@ const AdminEdit = () => {
     };
 
     return (
-        <div className='py-10 px-10 min-h-screen'>
-            <h2 className='mt-16 text-2xl text-left font-light'>MS Verwaltung</h2>
-            <div className='bg-white rounded-md my-5 px-5 pt-4 pb-10 min-h-screen'>
+        <div className='dashboardContainer'>
+            <h2 className='text-2xl lg:text-left pb-5'>MS Verwaltung</h2>
+            <div className='bg-white rounded-md mb-5 px-5 pt-4 pb-10 min-h-screen'>
                 <section className='flex flex-col text-left text-grey text-sm mt-3 mb-7 pb-4 py-2 rounded-lg'>
                     <label className='py-2'>Bitte wählen Sie zuerst einen Meilenstein</label>
                     <select placeholder='Milestone'

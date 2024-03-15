@@ -87,7 +87,7 @@ const Navbar = () => {
                                 </Link>
 
                                 {
-                                    user.role==='ExtDGG' || user.role ==='ExtRUV' &&
+                                    user.role==='ExtDGG' || user.role ==='ExtRUV' || (user.role==='Internal' && user.isSAdmin==='1') &&
                                     <Link to={'/neu'} onClick={toggleNav}>
                                         <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             Neu

@@ -201,6 +201,7 @@ const InfoCrawler = () => {
 
     return (
         <div className={`dashboardContainer`}>
+            <h2 className='text-2xl lg:text-left pb-5'>InfoCrawler</h2>
             {
                 loading ?
                     <SkewLoader size='10px'/>
