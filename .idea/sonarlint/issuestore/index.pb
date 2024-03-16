@@ -57,3 +57,17 @@ Y
 )src/pages/dashboard/partial/istSection.js,7\5\759eb2ff432b14d57fc4c1b399e3f8c4faf571a8
 J
 src/components/barChart.js,6\b\6bf3702dbb7129b977af217f074af48792261860
+j
+:src/pages/firmenprojekte/partial/bestandListDataSection.js,a\b\ab188e93cf4991ee5fa429a99be03b25fea9d46d
+H
+src/helper/formatDate.js,c\d\cde269cd0a9e8682353fe5e58a0a7da860799b16
+K
+src/states/StateProvider.js,c\a\ca2b8db9b50a6d317ad5ea40979a36494a172b8c
+_
+/src/pages/firmenprojekte/partial/excelFormat.js,7\0\70dbfe05fcca62c0dee52151615b78c7113ae2f3
+X
+(src/pages/newCreation/partial/formDGG.js,4\c\4c827af0aa3fc08ce56e13a54bb4176022174b5e
+X
+(src/pages/newCreation/partial/formRUV.js,f\9\f96e2c84232092e1458943b9a78b2ef4d6df1b6e
+Y
+)src/pages/newCreation/partial/roleChek.js,5\4\5451f96857d78760b7ec06c0353d27cda7bc0bbe

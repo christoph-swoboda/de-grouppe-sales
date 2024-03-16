@@ -1,19 +1,24 @@
 import React, {useEffect, useState} from "react";
-import Form from "./partial/form";
+import FormRUV from "./partial/formRUV";
 import Api from "../../Api/api";
 import {BeatLoader} from "react-spinners";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
 import {AES, enc} from "crypto-js";
 import {useNavigate} from "react-router";
+import FormDGG from "./partial/formDGG";
+import RoleCheck from "./partial/roleChek";
 
 const NewCreation = () => {
     const [name, setName] = useState('')
     const [user, setUser] = useState('')
+    const [superAdmin, setSuperAdmin] = useState('dgg')
+    const [role, setRole] = useState('')
     const [loading, setLoading] = useState(true)
     const [dropdownData, setDropdownData] = useState([])
     const [{secretKey}, dispatch] = useStateValue();
     const navigate = useNavigate()
+    const [portal, setPortal] = useState('')
 
     useEffect(() => {
         if(user){
@@ -40,22 +45,43 @@ const NewCreation = () => {
         }
     }, []);
 
+    useEffect(() => {
+        setSuperAdmin(user.isSAdmin)
+        setRole(user.role)
+    }, [user]);
+
+
+
+    function portalSelect(e) {
+        setPortal(e.target.value)
+    }
 
 
     return (
         <div className='dashboardContainer'>
             <h2 className='text-2xl lg:text-left pb-5'>Neues Firmenprojekt</h2>
             {
-                !loading && <Form name={name} role={user?.role} dropdown={dropdownData}/>
+                superAdmin==='1' ?
+                <div className='flex justify-start items-center w-fit'>
+                    <p className='w-fit mr-6'>Portal </p>
+                    <select
+                        className='pl-3 col-span-2 text-center mx-auto pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'
+                        onChange={portalSelect}
+                        value={portal}
+                    >
+                        <option selected value='dgg'>DGG</option>
+                        <option value='r+v'>R+V</option>
+                    </select>
+                </div>:''
             }
-            {
-                loading &&
-                <div className='h-full bg-white'>
-                    <div className='centerItemsAbsolute'>
-                        <BeatLoader size={10} color={'black'}/>
-                    </div>
-                </div>
-            }
+            <RoleCheck
+                name={name}
+                role={role}
+                dropdown={dropdownData}
+                loading={loading}
+                isSAdmin={superAdmin}
+                portal={portal}
+            />
         </div>
     )
 }
