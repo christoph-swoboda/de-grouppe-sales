@@ -24,6 +24,8 @@ const BestantList = () => {
     const [rows, setRows] = useState('10');
     const [url, setUrl] = useState('getBestands');
     const [viewName, setViewName] = useState('Firmenprojekte');
+    const [superAdmin, setSuperAdmin] = useState('')
+    const [portal, setPortal] = useState('dgg')
     const [views, setViews] = useState([]);
     let PageSize = rows;
     const [{pageBestand, sortColumn, sortMethod, filterID, filter, dateFilter, secretKey}, dispatch] = useStateValue();
@@ -34,7 +36,19 @@ const BestantList = () => {
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const userID = user.ID
-    const role = user.role === 'Internal' ? 'i' : user.role === 'External' ? 'e' : user.role === 'Controller' ? 'c' : 's'
+    const role = user.role === 'Internal' ? 'i' : user.role === 'ExtRuv' ? 'er' : user.role === 'ExtDgg' ? 'ed' : user.role === 'ManRuv' ? 'cr': user.role === 'ManDgg' ? 'md' : 's'
+
+    useEffect(() => {
+        if(user){
+            setSuperAdmin(user.isSAdmin)
+            if(user.role==='ExtDGG'){
+                setPortal('dgg')
+            }else if(user.role==='ExtRUV'){
+                setPortal('r+v')
+            }
+            console.log(portal, role)
+        }
+    }, [user]);
 
     useEffect(() => {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -193,9 +207,29 @@ const BestantList = () => {
         setIsOpen(!isOpen);
     };
 
+    function portalSelect(e) {
+        setPortal(e.target.value)
+    }
+
     return (
         <div className={`dashboardContainer`}>
-            <h2 className='text-2xl lg:text-left pb-5'>Firmenprojekt</h2>
+            <div className='flex justify-between'>
+                <h2 className='text-2xl lg:text-left pb-5'> Firmenprojekt</h2>
+                {
+                    superAdmin === '1' &&
+                    <div className='flex justify-start items-center w-fit'>
+                        <p className='w-fit mr-6'>Portal </p>
+                        <select
+                            className='pl-3 col-span-2 text-center mx-auto pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit px-12'
+                            onChange={portalSelect}
+                            value={portal}
+                        >
+                            <option selected value='dgg'>DGG</option>
+                            <option value='r+v'>R+V</option>
+                        </select>
+                    </div>
+                }
+            </div>
             <div className='bg-white'>
                 <BestandListDataSection
                     views={views}

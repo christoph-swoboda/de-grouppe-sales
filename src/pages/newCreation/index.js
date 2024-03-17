@@ -12,13 +12,13 @@ import RoleCheck from "./partial/roleChek";
 const NewCreation = () => {
     const [name, setName] = useState('')
     const [user, setUser] = useState('')
-    const [superAdmin, setSuperAdmin] = useState('dgg')
+    const [superAdmin, setSuperAdmin] = useState('')
     const [role, setRole] = useState('')
     const [loading, setLoading] = useState(true)
     const [dropdownData, setDropdownData] = useState([])
     const [{secretKey}, dispatch] = useStateValue();
     const navigate = useNavigate()
-    const [portal, setPortal] = useState('')
+    const [portal, setPortal] = useState('dgg')
 
     useEffect(() => {
         try {
@@ -54,8 +54,6 @@ const NewCreation = () => {
             setPortal('dgg')
         }else if(user.role==='ExtRUV'){
             setPortal('r+v')
-        }else{
-            setPortal('dgg')
         }
     }, [user]);
 
