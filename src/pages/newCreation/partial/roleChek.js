@@ -7,24 +7,22 @@ import FormRUV from "./formRUV";
 const RoleCheck = ({name, dropdown, role, isSAdmin, loading, portal}) => {
 
     useEffect(() => {
-        console.log(role,portal )
-    }, []);
+        console.log(role, portal)
+    }, [portal, role]);
 
     return (
         <div className='bg-white rounded-lg'>
-            { !loading &&
-                (role === 'ExtDGG' || portal==='dgg') ?
-                    <FormDGG name={name} role={role} isSAdmin={isSAdmin} dropdown={dropdown}/>
-                    :
-                    <FormRUV name={name} role={role} isSAdmin={isSAdmin} dropdown={dropdown}/>
-            }
             {
-                loading &&
-                <div className='h-full bg-white'>
-                    <div className='centerItemsAbsolute'>
-                        <BeatLoader size={10} color={'black'}/>
-                    </div>
-                </div>
+                loading ?
+                    <div className='h-full bg-white'>
+                        <div className='centerItemsAbsolute'>
+                            <BeatLoader size={10} color={'black'}/>
+                        </div>
+                    </div> :
+                    (portal === 'dgg') ?
+                        <FormDGG name={name} role={role} isSAdmin={isSAdmin} dropdown={dropdown}/>
+                        : portal === 'r+v' &&
+                        <FormRUV name={name} role={role} isSAdmin={isSAdmin} dropdown={dropdown}/>
             }
         </div>
     )

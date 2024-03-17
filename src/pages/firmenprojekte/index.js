@@ -194,7 +194,6 @@ const BestantList = () => {
     };
 
     return (
-
         <div className={`dashboardContainer`}>
             <h2 className='text-2xl lg:text-left pb-5'>Firmenprojekt</h2>
             <div className='bg-white'>
