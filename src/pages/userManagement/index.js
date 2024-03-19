@@ -101,7 +101,7 @@ const UserManagement = () => {
     }, [userValidated]);
 
     function getUsers(src) {
-        if (role === 'External') {
+        if (role === 'ExtDGG' || role === 'ExtRUV') {
             navigate('/')
         }
         setLoading(true)
@@ -243,10 +243,10 @@ const UserManagement = () => {
                 </div>
                 <div>
                     {
-                        (role === 'Internal' || role === 'Controller') ?
+                        (role === 'Internal' || role === 'Controlling') ?
                             <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading}
                                        filterUM={filterUM} filterIDUM={filterIDUM}/>
-                            : role === 'Supervisor' &&
+                            : (role === 'ManDGG' || role === 'ManRUV') &&
                             <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}
                                              filterUM={filterUM} filterIDUM={filterIDUM}/>
                     }

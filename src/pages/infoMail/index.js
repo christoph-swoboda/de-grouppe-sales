@@ -20,6 +20,7 @@ const InfoMail = () => {
     const [loading, setLoading] = useState(true)
     const [loadingGrid, setLoadingGrid] = useState(false)
     const [deleteClicked, setDeleteClicked] = useState(false)
+    const [deleteDone, setDeleteDone] = useState(false)
     const [loadingSave, setLoadingSave] = useState(false)
     const [milestoneSelected, seMilestoneSelected] = useState()
     const [TriggerMilestoneSelected, setTriggerMilestoneSelected] = useState()
@@ -42,22 +43,28 @@ const InfoMail = () => {
             setMilestones(res.data)
             setLoading(false)
         }).then(r=>{
+            GetSubSteps(milestoneSelected)
+        }).then(r=>{
             getGrid(milestoneSelected, SubStepSelected, true)
         })
 
-    }, [ICSaved, portal]);
+    }, [ICSaved, portal, deleteDone]);
 
 
     const milestoneChanged = (e) => {
         reset()
         setSubStepsLoading(true)
         seMilestoneSelected(e.target.value)
+        GetSubSteps(e.target.value)
+    }
+
+    function GetSubSteps(milestone){
         setSubSteps([])
-        Api().get(`sp_getDataIMddSS/${portal}/${e.target.value}`).then(res => {
+        Api().get(`sp_getDataIMddSS/${portal}/${milestone}`).then(res => {
             setSubSteps(res.data)
             setSubStepSelected(res.data[0]?.substepID)
             setSubStepsLoading(false)
-            getGrid(e.target.value, res.data[0].substepID, true)
+            getGrid(milestone, res.data[0].substepID, true)
         })
     }
 
@@ -121,7 +128,7 @@ const InfoMail = () => {
     };
 
     const deleteIC = () => {
-        Api().post(`sp_deleteIC/${milestoneSelected}/${SubStepSelected}`).then(res => {
+        Api().post(`sp_deleteIM/${portal}/${milestoneSelected}/${SubStepSelected}`).then(res => {
             if (res.data === 1) {
                 toast.success('Erfolgreich gelöscht')
                 setDeleteClicked(false)
@@ -131,6 +138,7 @@ const InfoMail = () => {
         }).catch(e => {
             toast.error('etwas ist schief gelaufen!')
         })
+        setDeleteDone(!deleteDone)
         getGrid(milestoneSelected, SubStepSelected, true)
         handleReset()
     }
@@ -356,13 +364,12 @@ const InfoMail = () => {
                                                     value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
                                                 />
                                         }
-                                        {/*<input*/}
-                                        {/*    className={`${milestoneSelected && SubStepSelected ? 'bg-cancel cursor-pointer' : 'bg-grey cursor-no-drop '} float-right mt-4 text-white w-44 hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md mr-1`}*/}
-                                        {/*    disabled={!milestoneSelected && !SubStepSelected}*/}
-                                        {/*    onClick={() => setDeleteClicked(true)}*/}
-                                        {/*    onChange={() => console.log('deleting')}*/}
-                                        {/*    value='Löschen'*/}
-                                        {/*/>*/}
+                                        <input
+                                            className={`${milestoneSelected && SubStepSelected ? 'bg-cancel cursor-pointer' : 'bg-grey cursor-no-drop '} float-right mt-4 text-white w-44 hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md mr-1`}
+                                            disabled={!milestoneSelected && !SubStepSelected}
+                                            onClick={() => setDeleteClicked(true)}
+                                            value='Löschen'
+                                        />
                                     </form>
                                 </div>
                         }

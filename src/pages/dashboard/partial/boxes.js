@@ -2,7 +2,7 @@ import React from "react";
 import {ClipLoader, SkewLoader} from "react-spinners";
 import {FiRotateCcw, FiRotateCw} from "react-icons/fi";
 
-const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
+const Boxes = ({icon, data, col, title, toggleState, rotate, loading}) => {
 
     const handleClick = () => {
         toggleState(); // Call the function to update the state in the main component
@@ -18,7 +18,7 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
                 </div>
                 <p className='opacity-0'>gap</p>
                 {
-                    data.length === 0 ?
+                    loading ?
                         <ClipLoader color={'#dcdcdc'}/>
                         :
                         <p className='mt-2 text-sm'>{data[0]?.Label}
@@ -31,7 +31,7 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
             </div>
             <hr className='h-px border-0 mt-4 mb-2 bg-whiteDark'/>
             {
-                data.length === 0 ?
+                loading ?
                     <SkewLoader size='5px' color={'#dcdcdc'}/>
                     :
                     <div className='flex justify-between'>

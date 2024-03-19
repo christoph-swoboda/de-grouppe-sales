@@ -26,8 +26,8 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     const admin = user.isUserAdmin
 
     useEffect(() => {
-        console.log(valid, verified)
-    }, [valid]);
+        console.log(valid, verified, role)
+    }, [valid, role]);
 
 
     function save() {
@@ -85,7 +85,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
 
     return (
         <tbody
-            className={`${status === 'red' && (user.role === 'Internal' || role === 'Controller') ? 'bg-redLight' : status === 'yellow' && (user.role === 'Internal' || role === 'Controller') ? 'bg-yellowLight' : ''}`}>
+            className={`${status === 'red' && (user.role === 'Internal' || role === 'Controlling') ? 'bg-redLight' : status === 'yellow' && (user.role === 'Internal' || role === 'Controlling') ? 'bg-yellowLight' : ''}`}>
         <tr className={`${(deleteClicked) && 'overlay'}`}/>
         <tr
             className={`${(!edit || !deleteClicked) && 'hideDiv'} shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
@@ -108,9 +108,9 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                              {
                                  role === 'Internal' ?
                                      <GrUserAdmin size={'20px'} color={'#565c8c'}/>
-                                     : role === 'Supervisor' ?
+                                     : (role === 'ManDGG' || role==='ManRUV') ?
                                          <FaUser size={'20px'} color={'#3A46A9'}/>
-                                         : role === 'External' ?
+                                         : (role === 'ExtDGG' || role === 'ExtRUV') ?
                                              <MdSupervisorAccount size={'20px'} color={'#565c8c'}/>
                                              : role && <FaUserSecret size={'20px'} color={'#565c8c'}/>
                              }

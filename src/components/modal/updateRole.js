@@ -8,6 +8,7 @@ import {AES, enc} from "crypto-js";
 
 const UpdateRole = ({userID, role, subRoles}) => {
     const [showModal, setShowModal] = useState(false);
+    const [roleShort, setRoleShort]=useState('')
     const [loading, setLoading] = useState(false);
     const [{userValidated, secretKey}, dispatch] = useStateValue();
 
@@ -17,7 +18,21 @@ const UpdateRole = ({userID, role, subRoles}) => {
     const {isValid} = formState;
 
     useEffect(() => {
-        setValue('role', role[0].toLowerCase())
+        if(role==='ExtDGG'){
+            setRoleShort('ed')
+        }else if(role==='ExtRUV'){
+            setRoleShort('er')
+        }else if(role==='ManDGG'){
+            setRoleShort('md')
+        }else if(role==='ManRUV'){
+            setRoleShort('mr')
+        }else if(role==='Controlling'){
+            setRoleShort('c')
+        }else if(role==='Internal'){
+            setRoleShort('i')
+        }
+
+        setValue('role', roleShort)
         setValue('isSAdmin', subRoles.isSAdmin === '1')
         setValue('isIMAdmin', subRoles.isIMAdmin === '1')
         setValue('isICAdmin', subRoles.isICAdmin === '1')
@@ -88,7 +103,7 @@ const UpdateRole = ({userID, role, subRoles}) => {
                                 >
                                     <h2 className='text-2xl mb-3'>Rolle ändern</h2>
                                     <input value={userID} {...register('userID')} hidden/>
-                                    <input value={role[0].toLowerCase()} {...register('oldRole')} hidden/>
+                                    <input value={roleShort} {...register('oldRole')} hidden/>
                                     <section className='flex flex-col text-left text-grey text-sm'>
                                         <label className='py-2'>Rolle auswählen *</label>
                                         <select {...register('role', {
@@ -99,8 +114,10 @@ const UpdateRole = ({userID, role, subRoles}) => {
                                                 className='px-4 py-2 rounded-md bg-offWhite cursor-pointer mb-7'
                                         >
                                             <option value='i'>Innendienst</option>
-                                            <option value='e'>FKB</option>
-                                            <option value='s'>Management</option>
+                                            <option value='er'>FKB</option>
+                                            <option value='ed'>VP</option>
+                                            <option value='mr'>Management</option>
+                                            <option value='md'>Struktur </option>
                                             <option value='c'>Controlling</option>
                                         </select>
                                         {errors.role && touchedFields &&

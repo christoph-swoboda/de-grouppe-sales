@@ -20,6 +20,7 @@ const InfoCrawler = () => {
     const [loading, setLoading] = useState(true)
     const [loadingGrid, setLoadingGrid] = useState(false)
     const [deleteClicked, setDeleteClicked] = useState(false)
+    const [deleteDone, setDeleteDone] = useState(false)
     const [loadingSave, setLoadingSave] = useState(false)
     const [milestoneSelected, seMilestoneSelected] = useState()
     const [TriggerMilestoneSelected, setTriggerMilestoneSelected] = useState()
@@ -41,10 +42,11 @@ const InfoCrawler = () => {
         Api().get(`getMilestoneCrawler/${portal}`).then(res => {
             setMilestones(res.data)
             setLoading(false)
-        }).then(r => {
+        }).then(r=>{
+            GetSubSteps(milestoneSelected)
+        }).then(r=>{
             getGrid(milestoneSelected, SubStepSelected, true)
         })
-
     }, [ICSaved, portal]);
 
     useEffect(() => {
@@ -64,12 +66,16 @@ const InfoCrawler = () => {
         reset()
         setSubStepsLoading(true)
         seMilestoneSelected(e.target.value)
+        GetSubSteps(e.target.value)
+    }
+
+    function GetSubSteps(milestone){
         setSubSteps([])
-        Api().get(`getSubStepsCrawler/${portal}/${e.target.value}`).then(res => {
+        Api().get(`getSubStepsCrawler/${portal}/${milestone}`).then(res => {
             setSubSteps(res.data)
             setSubStepSelected(res.data[0]?.substepID)
             setSubStepsLoading(false)
-            getGrid(e.target.value, res.data[0].substepID, true)
+            getGrid(milestone, res.data[0].substepID, true)
         })
     }
 
@@ -181,6 +187,7 @@ const InfoCrawler = () => {
         }).catch(e => {
             toast.error('etwas ist schief gelaufen!')
         })
+        setDeleteDone(!deleteDone)
         getGrid(milestoneSelected, SubStepSelected, true)
         handleReset()
     }
@@ -324,14 +331,14 @@ const InfoCrawler = () => {
                                                     {...register('remind1BD')}
                                                     style={{border: errors.remind1BD && '1px solid red'}}
                                                 />
-                                                cc KBD
+                                                cc {portal==='dgg'? 'KMS' : 'KBD'}
                                             </label>
                                             <label>
                                                 <input type='checkbox' className='mr-3'
                                                        {...register('remind1VBLF')}
                                                        style={{border: errors.remind1VBLF && '1px solid red'}}
                                                 />
-                                                cc VBLF
+                                                cc {portal==='dgg'? 'ADM' : 'VBLF'}
                                             </label>
                                         </div>
                                         <div className='flex justify-start my-2'>
