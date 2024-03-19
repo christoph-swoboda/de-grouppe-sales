@@ -18,12 +18,18 @@ const Storfalle = () => {
     const [data, setData] = useState([])
     const [{sortColumn, sortMethod, secretKey}, dispatch] = useStateValue();
     const location = useLocation()
+    const [portal, setPortal] = useState('dgg')
+    const [superAdmin, setSuperAdmin] = useState('')
+
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
+    const userID = user.ID
+    const role = user.role === 'Internal' ? 'i' : user.role === 'ExtRuv' ? 'er' : user.role === 'ExtDgg' ? 'ed' : user.role === 'ManRuv' ? 'cr': user.role === 'ManDgg' ? 'md' : 's'
+
 
     useEffect(() => {
         try {
-            const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
-            const User = JSON.parse(decryptedBytes.toString(enc.Utf8))
-            Api().get(`sp_getDataStoerfaelle/${User.ID}`).then(res => {
+            Api().get(`sp_getDataStoerfaelle/${portal}/${userID}`).then(res => {
                 setData(res.data)
                 setLoading(false)
             }).catch(e => {
@@ -33,7 +39,19 @@ const Storfalle = () => {
         } catch (e) {
             window.location.replace('/anmeldung')
         }
-    }, []);
+    }, [portal]);
+
+    useEffect(() => {
+        if(user){
+            setSuperAdmin(user.isSAdmin)
+            if(user.role==='ExtDGG'){
+                setPortal('dgg')
+            }else if(user.role==='ExtRUV'){
+                setPortal('r+v')
+            }
+            console.log(portal, role)
+        }
+    }, [user]);
 
     function ascSort(id) {
         dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
@@ -45,9 +63,29 @@ const Storfalle = () => {
         dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
     }
 
+    function portalSelect(e) {
+        setPortal(e.target.value)
+    }
+
     return (
         <div className='dashboardContainer'>
-            <h2 className='text-2xl lg:text-left mb-3'>Störfälle</h2>
+            <div className='flex justify-between'>
+                <h2 className='text-2xl lg:text-left pb-5'> Störfälle</h2>
+                {
+                    superAdmin === '1' &&
+                    <div className='flex justify-start items-center w-fit'>
+                        <p className='w-fit mr-6'>Portal </p>
+                        <select
+                            className='pl-3 col-span-2 text-center mx-auto pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit px-12'
+                            onChange={portalSelect}
+                            value={portal}
+                        >
+                            <option selected value='dgg'>DGG</option>
+                            <option value='r+v'>R+V</option>
+                        </select>
+                    </div>
+                }
+            </div>
             {/*<div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>*/}
             {/*</div>*/}
             <div className="flex flex-col p-10 bg-white">
