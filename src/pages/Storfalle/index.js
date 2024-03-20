@@ -18,39 +18,42 @@ const Storfalle = () => {
     const [data, setData] = useState([])
     const [{sortColumn, sortMethod, secretKey}, dispatch] = useStateValue();
     const location = useLocation()
-    const [portal, setPortal] = useState('dgg')
+    const [portal, setPortal] = useState('')
     const [superAdmin, setSuperAdmin] = useState('')
 
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const userID = user.ID
-    const role = user.role === 'Internal' ? 'i' : user.role === 'ExtRuv' ? 'er' : user.role === 'ExtDgg' ? 'ed' : user.role === 'ManRuv' ? 'cr': user.role === 'ManDgg' ? 'md' : 's'
+    const role = user.role === 'Internal' ? 'i' : user.role === 'ExtRUV' ? 'er' : user.role === 'ExtDGG' ? 'ed' : user.role === 'ManRUV' ? 'mr' : user.role === 'ManDGG' ? 'md' : 'c'
 
 
     useEffect(() => {
-        try {
-            Api().get(`sp_getDataStoerfaelle/${portal}/${userID}`).then(res => {
-                setData(res.data)
-                setLoading(false)
-            }).catch(e => {
-                toast.error('Etwas ist schief gelaufen!!')
-                setLoading(false)
-            })
-        } catch (e) {
-            window.location.replace('/anmeldung')
+        if (portal) {
+            try {
+                Api().get(`sp_getDataStoerfaelle/${portal}/${userID}`).then(res => {
+                    setData(res.data)
+                    setLoading(false)
+                }).catch(e => {
+                    toast.error('Etwas ist schief gelaufen!!')
+                    setLoading(false)
+                })
+
+            } catch (e) {
+                window.location.replace('/anmeldung')
+            }
         }
     }, [portal]);
 
     useEffect(() => {
-        if(user){
             setSuperAdmin(user.isSAdmin)
-            if(user.role==='ExtDGG'){
+            if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
                 setPortal('dgg')
-            }else if(user.role==='ExtRUV'){
+            } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
                 setPortal('r+v')
+            } else {
+                setPortal('dgg')
             }
-        }
-    }, [user]);
+    }, []);
 
     function ascSort(id) {
         dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
@@ -71,7 +74,7 @@ const Storfalle = () => {
             <div className='flex justify-between'>
                 <h2 className='text-2xl lg:text-left pb-5'> Störfälle</h2>
                 {
-                    (superAdmin === '1' || role==='i' || role ==='s') &&
+                    (superAdmin === '1' || role === 'i' || role === 'c') &&
                     <div className='flex justify-start items-center w-fit'>
                         <p className='w-fit mr-6'>Portal </p>
                         <select

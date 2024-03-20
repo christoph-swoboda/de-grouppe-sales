@@ -25,7 +25,7 @@ const BestantList = () => {
     const [url, setUrl] = useState('getBestands');
     const [viewName, setViewName] = useState('Firmenprojekte');
     const [superAdmin, setSuperAdmin] = useState('')
-    const [portal, setPortal] = useState('dgg')
+    const [portal, setPortal] = useState('')
     const [views, setViews] = useState([]);
     let PageSize = rows;
     const [{pageBestand, sortColumn, sortMethod, filterID, filter, dateFilter, secretKey}, dispatch] = useStateValue();
@@ -36,19 +36,19 @@ const BestantList = () => {
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const userID = user.ID
-    const role = user.role === 'Internal' ? 'i' : user.role === 'ExtRuv' ? 'er' : user.role === 'ExtDgg' ? 'ed' : user.role === 'ManRuv' ? 'cr': user.role === 'ManDgg' ? 'md' : 's'
+    const role = user.role === 'Internal' ? 'i' : user.role === 'ExtRUV' ? 'er' : user.role === 'ExtDGG' ? 'ed' : user.role === 'ManRUV' ? 'mr' : user.role === 'ManDGG' ? 'md' : 'c'
+
 
     useEffect(() => {
-        if(user){
             setSuperAdmin(user.isSAdmin)
-            if(user.role==='ExtDGG'){
+            if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
                 setPortal('dgg')
-            }else if(user.role==='ExtRUV'){
+            } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
                 setPortal('r+v')
+            }else{
+                setPortal('dgg')
             }
-            console.log(portal, role)
-        }
-    }, [user]);
+    }, []);
 
     useEffect(() => {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -66,48 +66,51 @@ const BestantList = () => {
     }, [])
 
     useEffect(() => {
-        if (viewName === 'Firmenprojekte') {
-            setUrl('getBestands')
-        } else if (viewName === 'Projekt-Tafel') {
-            setUrl('getBestands2')
-        } else if (viewName === 'Auswertung Vertrieb') {
-            setUrl('getBestands3')
-        } else if (viewName === 'Auswertung DGAPI') {
-            setUrl('getBestands4')
-        } else if (viewName === 'Auswertung Beratung') {
-            setUrl('getBestands5')
+        if (portal) {
+            if (viewName === 'Firmenprojekte') {
+                setUrl('getBestands')
+            } else if (viewName === 'Projekt-Tafel') {
+                setUrl('getBestands2')
+            } else if (viewName === 'Auswertung Vertrieb') {
+                setUrl('getBestands3')
+            } else if (viewName === 'Auswertung DGAPI') {
+                setUrl('getBestands4')
+            } else if (viewName === 'Auswertung Beratung') {
+                setUrl('getBestands5')
+            }
+
+            const delayQuery = setTimeout(async () => {
+                setLoading(true)
+                let data = new FormData()
+                data.append('portal', portal)
+                data.append('userID', userID)
+                data.append('rows', rows)
+                data.append('page', pageBestand)
+                data.append('sortColumn', sortColumn)
+                data.append('sortMethod', sortMethod)
+                data.append('filterID', JSON.stringify(filterID))
+                data.append('filter', JSON.stringify(filter))
+                data.append('dateFilter', JSON.stringify(dateFilter))
+
+                Api().post(url, data).then(res => {
+                    setUsers(res.data.bestands)
+                    setTotal(Number(res.data?.bestands[0]?.totalCustomers))
+                    setLoading(false)
+                    if (printing && users?.length > 0 && rows === '10000') {
+                        setTimeout(() => handlePrint(), 1);
+                        setTimeout(() => setPrinting(false), 1);
+                        setRows('10')
+                    }
+                }).catch(e => {
+                    setLoading(false)
+                    toast.error('Etwas ist schief gelaufen!!')
+                })
+            }, filter || dateFilter ? 800 : 0)
+
+            return () => clearTimeout(delayQuery)
         }
 
-        const delayQuery = setTimeout(async () => {
-            setLoading(true)
-            let data = new FormData()
-            data.append('portal', portal)
-            data.append('userID', userID)
-            data.append('rows', rows)
-            data.append('page', pageBestand)
-            data.append('sortColumn', sortColumn)
-            data.append('sortMethod', sortMethod)
-            data.append('filterID', JSON.stringify(filterID))
-            data.append('filter', JSON.stringify(filter))
-            data.append('dateFilter', JSON.stringify(dateFilter))
-
-            Api().post(url, data).then(res => {
-                setUsers(res.data.bestands)
-                setTotal(Number(res.data?.bestands[0]?.totalCustomers))
-                setLoading(false)
-                if (printing && users?.length > 0 && rows === '10000') {
-                    setTimeout(() => handlePrint(), 1);
-                    setTimeout(() => setPrinting(false), 1);
-                    setRows('10')
-                }
-            }).catch(e => {
-                setLoading(false)
-                toast.error('Etwas ist schief gelaufen!!')
-            })
-        }, filter || dateFilter ? 800 : 0)
-
-        return () => clearTimeout(delayQuery)
-    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, dateFilter ,portal])
+    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, dateFilter, portal])
 
     useEffect(() => {
         setLoading(true)
@@ -217,7 +220,7 @@ const BestantList = () => {
             <div className='flex justify-between'>
                 <h2 className='text-2xl lg:text-left pb-5'> Firmenprojekt</h2>
                 {
-                    (superAdmin === '1' || role==='Internal' || role ==='Controlling') &&
+                    (superAdmin === '1' || role === 'i' || role === 'c') &&
                     <div className='flex justify-start items-center w-fit'>
                         <p className='w-fit mr-6'>Portal </p>
                         <select
@@ -248,8 +251,8 @@ const BestantList = () => {
                     users={users}
                     loading={loading}
                     printPDFRef={componentRef}
-                    headers={(viewName === 'Firmenprojekte' && portal==='r+v') ? BestandViewHeaders:(viewName === 'Firmenprojekte' && portal==='dgg') ? BestandViewHeadersDGG : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
-                    count={viewName === (viewName === 'Firmenprojekte' && portal==='r+v') ? BestandViewHeaders.length - 2 : (viewName === 'Firmenprojekte' && portal==='dgg') ? BestandViewHeadersDGG.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
+                    headers={(viewName === 'Firmenprojekte' && portal === 'r+v') ? BestandViewHeaders : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
+                    count={viewName === (viewName === 'Firmenprojekte' && portal === 'r+v') ? BestandViewHeaders.length - 2 : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
                     printing={printing}
                     sortColumn={sortColumn}
                     sortMethod={sortMethod}

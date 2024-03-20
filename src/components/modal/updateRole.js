@@ -26,7 +26,7 @@ const UpdateRole = ({userID, role, subRoles}) => {
             setRoleShort('md')
         }else if(role==='ManRUV'){
             setRoleShort('mr')
-        }else if(role==='Controlling'){
+        }else if(role==='Controller'){
             setRoleShort('c')
         }else if(role==='Internal'){
             setRoleShort('i')

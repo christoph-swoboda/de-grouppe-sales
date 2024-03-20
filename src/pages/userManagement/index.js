@@ -158,7 +158,7 @@ const UserManagement = () => {
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between pt-2 sm:block'>
                 <h2 className='text-2xl lg:text-left'>{admin === '0' ? 'Benutzerübersicht' : 'Benutzerverwaltung'}</h2>
-                <div className={admin === '0' || user.role === 'Controller' ? 'hidden' : ''}>
+                <div className={admin === '0' || user.role === 'Controlling' ? 'hidden' : ''}>
                     <p className={`px-3 py-2 shadow shadow-md shadow-mainBlue rounded-2xl hover:bg-white hover:text-mainBlue bg-mainBlue text-sm text-white ml-2 cursor-pointer`}
                        onClick={toggleAddUsersModal}>
                         Neuen Benutzer anlegen
@@ -267,7 +267,7 @@ const UserManagement = () => {
                 </div>
                 <div>
                     {
-                        (role === 'Internal' || role === 'Controlling') ?
+                        (role === 'Internal' || role === 'Controller') ?
                             <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading}
                                        filterUM={filterUM} filterIDUM={filterIDUM}/>
                             : (role === 'ManDGG' || role === 'ManRUV') &&

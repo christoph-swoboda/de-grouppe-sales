@@ -56,7 +56,7 @@ const Status = ({notes, company, loadingNotes, count, role, companyID, portal}) 
                     <button
                         className='px-3 py-2 mx-2 mb-2 hover:bg-lightBlue rounded-3xl bg-mainBlue text-white text-sm'
                         onClick={() => setToggle(!toggle)}
-                        hidden={role === 'Supervisor' || role === 'Controller'}
+                        hidden={(role === 'ManDGG' ||role === 'ManRUV' || role === 'Controller')}
                     >
                         {!toggle ? 'Neue Bemerkung' : 'Abbrechen'}
                     </button>
@@ -66,10 +66,10 @@ const Status = ({notes, company, loadingNotes, count, role, companyID, portal}) 
                               onChange={(e) => setNote(e.target.value)}
                     />
                     <button
-                        className={`${!note || !note.replace(/\s/g, '').length ? 'bg-whiteDark cursor-no-drop' : 'bg-mainBlue text-white hover:bg-complete hover:text-text'} px-3 py-2 m-2 rounded-3xl text-sm`}
+                        className={`${!note || !note.replace(/\s/g, '').length || (role === 'ManRUV' || role === 'ManDGG') ? 'bg-whiteDark cursor-no-drop' : 'bg-mainBlue text-white hover:bg-complete hover:text-text'} px-3 py-2 m-2 rounded-3xl text-sm`}
                         onClick={save}
                         hidden={!toggle}
-                        disabled={!note || !note.replace(/\s/g, '').length}
+                        disabled={!note || !note.replace(/\s/g, '').length || (role === 'ManRUV' || role === 'ManDGG')}
                     >
                         {!loading ? 'Senden' : 'Senden...'}
                     </button>

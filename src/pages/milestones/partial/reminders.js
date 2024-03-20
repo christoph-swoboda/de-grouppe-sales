@@ -182,7 +182,7 @@ const Reminders = ({id, userID, role, portal}) => {
                                                         cssClass={'datePicker'}
                                                         isClearable
                                                         className={'border-none'}
-                                                        readOnly={false}
+                                                        readOnly={(role === 'ManRUV' || role === 'ManDGG')}
                                                         />
                                                     <div
                                                         className={`absolute ${getValues('date') && 'mr-6'} right-1.5`}
@@ -196,7 +196,7 @@ const Reminders = ({id, userID, role, portal}) => {
                                     <input
                                         className={`bg-mainBlue rounded-2xl col-span-2 px-3 py-2 mt-2 text-white cursor-pointer text-sm ${(!watch('date')) || watch('message') === 'Wähle eine Option' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
                                         type="submit"
-                                        disabled={(!watch('date')) || watch('message') === 'Wähle eine Option'}
+                                        disabled={(!watch('date')) || watch('message') === 'Wähle eine Option' || (role === 'ManRUV' || role === 'ManDGG')}
                                         value={`${!loading ? 'Speichern' : 'sparen...'}`}
                                     />
                                     <input

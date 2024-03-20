@@ -111,29 +111,30 @@ const Navbar = () => {
                         )}
                         <div className="dropdown" style={{marginLeft: '20px'}}>
                             {
-                               ( user?.role === 'Internal' || user?.isUserAdmin === '1' || user.isICAdmin === '1' || user.isIMAdmin === '1' || user.isSAdmin === '1') &&
+                               ( user?.role === 'Internal' || user.isUserAdmin === '1' || user.isICAdmin === '1' || user.isIMAdmin === '1' || user.isSAdmin === '1') &&
                                 <li className='items hover:text-mainBlue'>
                                     Administratives <i className="dropdown-icon">▼</i>
                                 </li>
                             }
 
                             <div className="dropdown-content">
-                                {user?.role === 'Internal' && user?.isUserAdmin === '1' ? (
+                                {user?.role === 'Internal' && user?.isUserAdmin === '1' && (
                                     <Link to={'/benutzerverwaltung'}>
                                         <li className={`items ${path.pathname === '/benutzerverwaltung' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             Benutzerverwaltung
                                         </li>
                                     </Link>
-                                ) : (
-                                    user?.role !== 'External' && (
-                                        <Link to={'/benutzerubersicht'}>
-                                            <li className={`items ${path.pathname === '/benutzerubersicht' && 'text-mainBlue'}  hover:text-mainBlue`}>
-                                                Benutzerübersicht
-                                            </li>
-                                        </Link>
-                                    )
+                                // )
+                                //     : (
+                                //     (user?.role !== 'ExtDGG' || user?.role !== 'ExtRUV') && (
+                                //         <Link to={'/benutzerubersicht'}>
+                                //             <li className={`items ${path.pathname === '/benutzerubersicht' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                //                 Benutzerübersicht
+                                //             </li>
+                                //         </Link>
+                                //     )
                                 )}
-                                {user.isICAdmin === '1' && (
+                                {user?.role === 'Internal' && user.isICAdmin === '1' && (
                                     <Link
                                         to={{
                                             pathname: '/info-crawler',

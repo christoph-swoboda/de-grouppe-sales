@@ -181,14 +181,14 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                        })
                                    }}
                                    // className={`${Number(currentMilestone) !== lastIndex && !getValues(data[data?.length-1]?.stepName) ? '' : 'hideDiv'} ${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
-                                   className={`${Number(currentMilestone) !== lastIndex ? '' : 'hideDiv'} ${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                                   className={`${Number(currentMilestone) !== lastIndex ? '' : 'hideDiv'} ${(role === 'ManDGG' || role === 'ManRUV' || role === 'Controller') && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
                                >
                                    P-Schritt überspringen
                                </button>
                                <button
                                    onClick={() => ref.current?.click()}
                                    disabled={!isValid}
-                                   className={`${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                                   className={`${(role === 'ManDGG' || role === 'ManRUV'  || role === 'Controller') && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
                                >
                                    {Loading ? 'Sparen...' : 'Speichern'}
                                </button>
@@ -275,7 +275,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                     isClearable
                                                                     className={'border-none'}
                                                                     open={isDatePickerOpen[index]}
-                                                                    readOnly={role === 'Supervisor'}
+                                                                    readOnly={(role === 'ManRUV' || role === 'ManDGG')}
                                                                 />
                                                                 <div
                                                                     className={`absolute ${getValues(val.stepName) && 'mr-6'} right-1.5`}
@@ -327,7 +327,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                 >
                                                     <label className='text-sm text-grey label'>{val.stepName}</label>
                                                     <input placeholder='Text Input'
-                                                           disabled={role === 'Supervisor'}
+                                                           disabled={(role === 'ManDGG' || role === 'ManRUV')}
                                                            className={`subStepInput w-full p-2 md:w-full
                                                        ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
                                                            {...register(`${val.substepID}`)}

@@ -13,13 +13,11 @@ import {formatDate} from "../../helper/formatDate";
 import {BeatLoader, ClipLoader, SkewLoader} from "react-spinners";
 
 const Dashboard = () => {
-    const [user, setUser] = useState([])
     const [total, setTotal] = useState([])
     const [strofalles, setStrofalles] = useState([])
     const [done, setDone] = useState([])
-    const [portal, setPortal] = useState('dgg')
+    const [portal, setPortal] = useState('')
     const [superAdmin, setSuperAdmin] = useState('')
-    const [role, setRole] = useState('')
     const [toggle, setToggle] = useState(false)
     const [loadingBoxes, setLoadingBoxes] = useState(true)
     const [loadingStrofalle, setLoadingStrofalle] = useState(true)
@@ -31,57 +29,39 @@ const Dashboard = () => {
         setToggle((prevState) => !prevState);
     };
 
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
+    const role = user.role
 
     useEffect(() => {
-        try {
-            const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
-            const User = JSON.parse(decryptedBytes.toString(enc.Utf8))
-            setUser(User)
+        if (portal) {
+
             setLoadingBoxes(true)
             setLoadingStrofalle(true)
-            if(portal==='r+v'){
-                Api().get(`/getDashboardCounts/${portal}/${User.ID}`).then(res => {
-                    setTotal(res.data.slice(0, 2))
-                    setDone(res.data.slice(2, 4))
-                    setCanceled(res.data.slice(4, 6))
-                    setLoadingBoxes(false)
-                }).then(res => {
-                    Api().get(`/sp_getDataDashStoerfaelle/${portal}/${User.ID}`).then(res => {
-                        setStrofalles(res.data)
-                    })
-                    setLoadingStrofalle(false)
+            Api().get(`/getDashboardCounts/${portal}/${user.ID}`).then(res => {
+                setTotal(res.data.slice(0, 2))
+                setDone(res.data.slice(2, 4))
+                setCanceled(res.data.slice(4, 6))
+                setLoadingBoxes(false)
+            }).then(res => {
+                Api().get(`/sp_getDataDashStoerfaelle/${portal}/${user.ID}`).then(res => {
+                    setStrofalles(res.data)
                 })
-            }else{
-                Api().get(`/getDashboardCounts/${portal}/${User.ID}`).then(res => {
-                    setTotal(res.data.slice(0, 2))
-                    setDone(res.data.slice(2, 4))
-                    setCanceled(res.data.slice(4, 6))
-                    setLoadingBoxes(false)
-                }).then(res => {
-                    Api().get(`/sp_getDataDashStoerfaelle/${portal}/${User.ID}`).then(res => {
-                        setStrofalles(res.data)
-                    })
-                    setLoadingStrofalle(false)
-                })
-            }
-
-        } catch (e) {
-            window.location.replace('/anmeldung')
+                setLoadingStrofalle(false)
+            })
         }
     }, [portal]);
 
     useEffect(() => {
-        if(user){
             setSuperAdmin(user.isSAdmin)
-            setRole(user.role)
-            if((user.role==='ExtDGG' || user.role==='ManDGG')){
+            if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
                 setPortal('dgg')
-            }else if((user.role==='ExtRUV' || user.role==='ManRUV')){
+            } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
                 setPortal('r+v')
+            } else {
+                setPortal('dgg')
             }
-            console.log(portal)
-        }
-    }, [user]);
+    }, []);
 
     function portalSelect(e) {
         setPortal(e.target.value)
@@ -94,7 +74,7 @@ const Dashboard = () => {
                 <div className='flex justify-between'>
                     <h2 className='text-2xl lg:text-left opacity-0'> Dashboard</h2>
                     {
-                        (superAdmin === '1' || role==='Internal' || role ==='Controlling') &&
+                        (superAdmin === '1' || role === 'Internal' || role === 'Controlling') &&
                         <div className='flex justify-start items-center w-fit'>
                             <p className='w-fit mr-6'>Portal </p>
                             <select
@@ -110,14 +90,17 @@ const Dashboard = () => {
                 </div>
                 <div
                     className='grid lg:grid-cols-10 md:grid-cols-2 sm:grid-cols-1 gap-3 items-center content-center mb-10'>
-                    <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'} data={total}
+                    <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'}
+                           data={total}
                            icon={<SiVirustotal color={'#ffffff'} size='27px'/>} title={'Alle Projekte'}/>
                     {
                         toggle.toString() === 'false' ?
-                            <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'} data={done}
+                            <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'}
+                                   data={done}
                                    icon={<MdDone color={'#ffffff'} size='30px'/>} title={'Abgeschlossen'}/>
                             :
-                            <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'} data={canceled}
+                            <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'}
+                                   data={canceled}
                                    icon={<AiOutlineClose color={'#ffffff'} size='30px'/>} title={'Abgesagt'}/>
                     }
                     <div className="flex flex-col col-span-4 rounded-md shadow-lg px-4">
