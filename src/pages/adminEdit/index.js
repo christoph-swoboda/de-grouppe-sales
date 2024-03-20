@@ -12,7 +12,7 @@ const AdminEdit = () => {
     const [milestones, setMilestones] = useState([])
     const [tableData, setTableData] = useState([])
     const [loading, setLoading] = useState(false)
-    const [milestoneID, setMilestoneID] = useState()
+    const [milestoneID, setMilestoneID] = useState('')
     const [portal, setPortal] = useState('')
     const [superAdmin, setSuperAdmin] = useState('')
 
@@ -28,14 +28,15 @@ const AdminEdit = () => {
     const {isValid} = formState;
 
     useEffect(() => {
-        Api().get(`/getDataAdminMilestones/${portal}`).then(res => {
-                setMilestones(res.data)
-            }
-        ).catch(e => {
-            toast.error('Etwas ist schief gelaufen!!')
-        })
+        if(portal){
+            Api().get(`/getDataAdminMilestones/${portal}`).then(res => {
+                    setMilestones(res.data)
+                }
+            ).catch(e => {
+                toast.error('Etwas ist schief gelaufen!!')
+            })
+        }
     }, [portal]);
-
 
     const handleSelectChange = (e) => {
         setMilestoneID(e.target.value)
@@ -50,13 +51,6 @@ const AdminEdit = () => {
         })
     };
 
-    // useEffect(() => {
-    //     if(milestoneID){
-    //         handleSelectChange(milestoneID)
-    //     }
-    // }, [portal]);
-
-
     useEffect(() => {
         setSuperAdmin(user.isSAdmin)
         if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
@@ -70,6 +64,8 @@ const AdminEdit = () => {
 
     function portalSelect(e) {
         setPortal(e.target.value)
+        setMilestones([])
+        setTableData([])
     }
 
 
@@ -96,7 +92,7 @@ const AdminEdit = () => {
                 <section className='flex flex-col text-left text-grey text-sm mt-3 mb-7 pb-4 py-2 rounded-lg'>
                     <label className='py-2'>Bitte wählen Sie zuerst einen Meilenstein</label>
                     <select placeholder='Milestone'
-                            className='p-3 bg-transparent border border-whiteDark rounded-lg w-fit'
+                            className='p-3 bg-transparent border border-whiteDark rounded-lg w-72'
                             onChange={handleSelectChange}
                     >
                         <option value=''>Wähle eine Option</option>
