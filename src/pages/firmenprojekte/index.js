@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {BestandViewHeaders} from "../../staticData/bestandViewHeaders";
+import {BestandViewHeaders, BestandViewHeadersDGG} from "../../staticData/bestandViewHeaders";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {useStateValue} from "../../states/StateProvider";
@@ -81,6 +81,7 @@ const BestantList = () => {
         const delayQuery = setTimeout(async () => {
             setLoading(true)
             let data = new FormData()
+            data.append('portal', portal)
             data.append('userID', userID)
             data.append('rows', rows)
             data.append('page', pageBestand)
@@ -106,7 +107,7 @@ const BestantList = () => {
         }, filter || dateFilter ? 800 : 0)
 
         return () => clearTimeout(delayQuery)
-    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, dateFilter])
+    }, [rows, userID, pageBestand, sortColumn, sortMethod, filter, viewName, dateFilter ,portal])
 
     useEffect(() => {
         setLoading(true)
@@ -216,7 +217,7 @@ const BestantList = () => {
             <div className='flex justify-between'>
                 <h2 className='text-2xl lg:text-left pb-5'> Firmenprojekt</h2>
                 {
-                    superAdmin === '1' &&
+                    (superAdmin === '1' || role==='Internal' || role ==='Controlling') &&
                     <div className='flex justify-start items-center w-fit'>
                         <p className='w-fit mr-6'>Portal </p>
                         <select
@@ -247,8 +248,8 @@ const BestantList = () => {
                     users={users}
                     loading={loading}
                     printPDFRef={componentRef}
-                    headers={viewName === 'Firmenprojekte' ? BestandViewHeaders : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
-                    count={viewName === 'Firmenprojekte' ? BestandViewHeaders.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
+                    headers={(viewName === 'Firmenprojekte' && portal==='r+v') ? BestandViewHeaders:(viewName === 'Firmenprojekte' && portal==='dgg') ? BestandViewHeadersDGG : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
+                    count={viewName === (viewName === 'Firmenprojekte' && portal==='r+v') ? BestandViewHeaders.length - 2 : (viewName === 'Firmenprojekte' && portal==='dgg') ? BestandViewHeadersDGG.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
                     printing={printing}
                     sortColumn={sortColumn}
                     sortMethod={sortMethod}

@@ -87,3 +87,5 @@ O
 src/components/bestantStatus.js,5\c\5ca8ca76a5fdebd573b7bbb085fd2e7c3c5f505d
 J
 src/components/allNotes.js,2\5\2548fc89f9e4dba934290b135234b123d7e2bbc5
+T
+$src/staticData/bestandViewHeaders.js,5\f\5fa22ac894cbc5d929bfdcecdf7897f9cce51290

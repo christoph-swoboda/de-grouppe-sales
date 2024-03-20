@@ -37,3 +37,39 @@ export const BestandViewHeaders=[
         mouseOver: 'Bemerkung'
     },
 ]
+
+export const BestandViewHeadersDGG=[
+    {
+        id:1,
+        title:'Firma Kurz'
+    },
+    {
+        id:2,
+        title:'Firma'
+    },
+    {
+        id:6,
+        title:'MA'
+    },
+    {
+        id:3,
+        title:'Zust. VP'
+    },
+    {
+        id:4,
+        title:'Zust. ADM'
+    },
+    {
+        id:5,
+        title:'P-Status'
+    },
+    {
+        id:8,
+        title:'P-Datum'
+    },
+    {
+        id:17,
+        title: 'Bemerk',
+        mouseOver: 'Bemerkung'
+    },
+]
