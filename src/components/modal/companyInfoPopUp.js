@@ -16,25 +16,25 @@ const CompanyInfoPopUp = ({company, Info}) => {
     const [email, setEmail] = useState('')
 
     const line1=info?.Zeile1
-    const line2=info?.Zeile2.replaceAll(/Anschrift:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line3=info?.Zeile3.replaceAll(/Kurz:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line4=info?.Zeile4.replaceAll(/US-Id:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line5=info?.Zeile5.replaceAll(/Tel. Zentrale:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line2=info?.Zeile2?.replaceAll(/Anschrift:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line3=info?.Zeile3?.replaceAll(/Kurz:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line4=info?.Zeile4?.replaceAll(/US-Id:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line5=info?.Zeile5?.replaceAll(/Tel. Zentrale:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line7=info?.Zeile7
-    const line8=info?.Zeile8.replaceAll(/Koop-Bank: /gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line8=info?.Zeile8?.replaceAll(/Koop-Bank: /gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line9=info?.Zeile9
     const line10=info?.Zeile10
-    const line11=info?.Zeile11.replaceAll(/KVD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line12=info?.Zeile12.replaceAll(/KFD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line13=info?.Zeile13.replaceAll(/KBD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line11=info?.Zeile11?.replaceAll(/KVD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line12=info?.Zeile12?.replaceAll(/KFD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line13=info?.Zeile13?.replaceAll(/KBD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line14=info?.Zeile14
     const line15=info?.Zeile15
-    const line16=info?.Zeile16.replaceAll(/Name:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line17=info?.Zeile17.replaceAll(/Brief-Anrede:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line18=info?.Zeile18.replaceAll(/Tel. Direkt:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line19=info?.Zeile19.replaceAll(/Mobil:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line20=info?.Zeile20.replaceAll(/Privat:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line21=info?.Zeile21.replaceAll(/Fax:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line16=info?.Zeile16?.replaceAll(/Name:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line17=info?.Zeile17?.replaceAll(/Brief-Anrede:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line18=info?.Zeile18?.replaceAll(/Tel. Direkt:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line19=info?.Zeile19?.replaceAll(/Mobil:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line20=info?.Zeile20?.replaceAll(/Privat:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line21=info?.Zeile21?.replaceAll(/Fax:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const Email = email?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, match => `<span style="color: #3A46A9; text-decoration: underline">${match} </span>`);
     const Web = info?.Zeile6?.replace('Web:', '');
 

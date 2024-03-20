@@ -27,6 +27,7 @@ const Bestant = () => {
     const [loadingNotes, setLoadingNotes] = useState(false)
     const [stepsLoading, setStepsLoading] = useState(true)
     const [info, setInfo] = useState(null)
+    const [infoLoading, setInfoLoading] = useState(false)
     const [notes, setNotes] = useState([])
     const [subSteps, setSubSteps] = useState([])
     const [filtered, setFiltered] = useState([])
@@ -74,11 +75,13 @@ const Bestant = () => {
 
     useEffect(() => {
         setStepsLoading(true)
+        setInfoLoading(true)
         Api().get(`/customerDetails/${param.id}`).then(res => {
             setInfo(res.data[0])
         }).catch(e => {
             toast.error('Firmendetails konnten nicht geladen werden!')
         })
+        setInfoLoading(false)
     }, []);
 
     useEffect(() => {
@@ -182,6 +185,7 @@ const Bestant = () => {
             <CompanyData info={info}
                          company={companyName}
                          companyID={param.id}
+                         loading={infoLoading}
                          toggle={toggleCompanyInfoModal}
             />
 

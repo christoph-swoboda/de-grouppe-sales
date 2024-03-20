@@ -71,3 +71,19 @@ X
 (src/pages/newCreation/partial/formRUV.js,f\9\f96e2c84232092e1458943b9a78b2ef4d6df1b6e
 Y
 )src/pages/newCreation/partial/roleChek.js,5\4\5451f96857d78760b7ec06c0353d27cda7bc0bbe
+I
+src/card/milestoneTabs.js,7\f\7f8eea39b10420a9d723a3c8cd1bd3ddc8ddc07b
+X
+(src/pages/milestones/partial/subSteps.js,b\8\b8121536daabe6e2c8b69f06491e109d99d5b045
+V
+&src/pages/milestones/partial/status.js,3\8\38242a0eb5edebeae0825fc9bd32b3184eaf6098
+Y
+)src/pages/milestones/partial/reminders.js,4\2\4243b7be8bd5fbe5582fb18fc02419643f5dabba
+G
+src/hooks/modalSmall.js,b\e\be182c0baf9998f1e037a5a8a8d3fb25e701bab2
+^
+.src/pages/milestones/partial/fields/options.js,c\1\c128a83c56e4f9ebb01ef97f189675c2d4ee9ff3
+O
+src/components/bestantStatus.js,5\c\5ca8ca76a5fdebd573b7bbb085fd2e7c3c5f505d
+J
+src/components/allNotes.js,2\5\2548fc89f9e4dba934290b135234b123d7e2bbc5

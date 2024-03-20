@@ -6,13 +6,13 @@ import ButtonMailto from "../../../helper/mailToButton";
 import {SkewLoader} from "react-spinners";
 import {Link} from "react-router-dom";
 
-const CompanyData = ({toggle, company, info}) => {
+const CompanyData = ({toggle, company, info, loading}) => {
 
     const [{collapse1}] = useStateValue()
     const [email, setEmail] = useState('')
-    const line1 = info?.Zeile1.replaceAll(/Tel.|\|+|Ref-Kd.|\|+|DGAPI-KAM:|\|+|FKB:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
-    const line2 = info?.Zeile2.replaceAll(/BANK:|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
-    let line3 = info?.Zeile3.replaceAll(/BANK:|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
+    const line1 = info?.Zeile1?.replaceAll(/Tel.|\|+|Ref-Kd.|\|+|DGAPI-KAM:|\|+|FKB:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
+    const line2 = info?.Zeile2?.replaceAll(/BANK:|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
+    let line3 = info?.Zeile3?.replaceAll(/BANK:|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     // let line4 = info?.Zeile4.replaceAll(/Link B4Y-Portal|\|+|FKB-Bank:|Regio:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);
     const onlyMail = line2?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, '');
     const withoutMail = onlyMail?.replaceAll(/Anspr.:|\|+| Mob.:| Email:| Tel.:/gi, match => `<span style="color: #a1a1a1">${match} </span>`);

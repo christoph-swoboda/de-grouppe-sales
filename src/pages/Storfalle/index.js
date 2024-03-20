@@ -49,7 +49,6 @@ const Storfalle = () => {
             }else if(user.role==='ExtRUV'){
                 setPortal('r+v')
             }
-            console.log(portal, role)
         }
     }, [user]);
 
@@ -72,7 +71,7 @@ const Storfalle = () => {
             <div className='flex justify-between'>
                 <h2 className='text-2xl lg:text-left pb-5'> Störfälle</h2>
                 {
-                    superAdmin === '1' &&
+                    (superAdmin === '1' || role==='i' || role ==='s') &&
                     <div className='flex justify-start items-center w-fit'>
                         <p className='w-fit mr-6'>Portal </p>
                         <select
