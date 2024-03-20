@@ -14,7 +14,7 @@ import {AES, enc} from "crypto-js";
 
 registerLocale("de", de);
 
-const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, title, lastIndex}) => {
+const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, title, lastIndex, portal}) => {
 
     const [Loading, setLoading] = useState(false)
     const initialState = [];
@@ -134,6 +134,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const onSubmit = async (Data) => {
         const key = 'id';
         const unique = [...new Map(update?.map(item => [item[key], item])).values()]
+        unique[0].portal=portal
 
         if (unique?.length >0) {
             setLoading(true)

@@ -13,6 +13,7 @@ const BeratungView = ({
                           ZustandigerFKB,
                           BD,
                           FD,
+                          portal,
                           DGAPIKAM,
                           FP_Freischaltung,
                           FP_Briefing_erfolgt,

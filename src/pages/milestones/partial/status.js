@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 import Reminders from "./reminders";
 import {AES, enc} from "crypto-js";
 
-const Status = ({notes, company, loadingNotes, count, role, companyID}) => {
+const Status = ({notes, company, loadingNotes, count, role, companyID, portal}) => {
     const [toggle, setToggle] = useState(false)
     const [loading, setLoading] = useState(false)
     const [note, setNote] = useState('')
@@ -25,6 +25,7 @@ const Status = ({notes, company, loadingNotes, count, role, companyID}) => {
         data.append('note', note)
         data.append('userID', userID)
         data.append('firma', companyID)
+        data.append('portal', portal)
 
         Api().post('/sendNote', data).then(res => {
             setNote('')
@@ -49,7 +50,7 @@ const Status = ({notes, company, loadingNotes, count, role, companyID}) => {
 
     return (
         <>
-            <Reminders id={companyID} userID={userID} role={role}/>
+            <Reminders id={companyID} userID={userID} role={role} portal={portal}/>
             <div className='flex justify-between bg-white mt-5'>
                 <div className='text-left sm:mt-5 lg:mt-0'>
                     <button
@@ -97,7 +98,7 @@ const Status = ({notes, company, loadingNotes, count, role, companyID}) => {
             </div>
             {
                 (count > 8 && !loadingNotes && noteRows === 8) &&
-                <Link to={`/alle-notizen/${companyID}`} target={'_blank'}>
+                <Link to={`/alle-notizen/${portal}/${companyID}`} target={'_blank'}>
                     <button className='bg-mainBlue text-white rounded-2xl px-3 py-2 mt-2 text-sm'> Alles sehen</button>
                 </Link>
             }

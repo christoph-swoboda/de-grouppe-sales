@@ -9,7 +9,7 @@ import ButtonMailto from "../../helper/mailToButton";
 import {BeatLoader, HashLoader, ScaleLoader} from "react-spinners";
 import CompanyData from "../../pages/milestones/partial/companyData";
 
-const CompanyInfoPopUp = ({company, Info}) => {
+const CompanyInfoPopUp = ({company, Info, portal}) => {
     const [{companyInfoModal,sendMail}, dispatch] = useStateValue()
     const [stepsLoading, setStepsLoading] = useState(true)
     const [info, setInfo] = useState(null)
@@ -41,7 +41,7 @@ const CompanyInfoPopUp = ({company, Info}) => {
     useEffect(() => {
         dispatch({type:'SET_SENDMAIL', item:false})
         setStepsLoading(true)
-        Api().get(`/customerDetailsAll/${company}`).then(res => {
+        Api().get(`/customerDetailsAll/${portal}/${company}`).then(res => {
             setInfo(res.data[0])
             setStepsLoading(false)
         })

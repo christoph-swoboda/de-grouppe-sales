@@ -12,6 +12,7 @@ const ProjectTafelView = ({
                               printing,
                               ZustandigerFKB,
                               BD,
+                              portal,
                               FD,
                               DGAPIKAM,
                               Auftrag_DL_Paket,

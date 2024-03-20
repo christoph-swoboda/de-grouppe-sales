@@ -13,6 +13,7 @@ const VertriebView = ({
                           ZustandigerFKB,
                           BD,
                           FD,
+                          portal,
                           DGAPIKAM,
                           Ersttermin,
                           Überl_R_V,

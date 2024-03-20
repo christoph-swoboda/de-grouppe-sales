@@ -18,6 +18,7 @@ const BestandListDataSection = ({
                                     loading,
                                     printPDFRef,
                                     headers,
+                                    portal,
                                     printing,
                                     sortColumn,
                                     sortMethod,
@@ -42,16 +43,15 @@ const BestandListDataSection = ({
                                 }) => {
     const [{pageBestand, dateFilter}, dispatch] = useStateValue();
     const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
-    const checkboxFields = (view === 'Firmenprojekte' || view==='Projekt-Tafel')? [] :view==='Auswertung Vertrieb'? [8, 9, 10, 11, 12, 13, 14]:view==='Auswertung DGAPI'?[8, 9, 10, 11, 12, 13, 14]:[8, 9, 10, 11]
+    const checkboxFields = (view === 'Firmenprojekte' || view === 'Projekt-Tafel') ? [] : view === 'Auswertung Vertrieb' ? [8, 9, 10, 11, 12, 13, 14] : view === 'Auswertung DGAPI' ? [8, 9, 10, 11, 12, 13, 14] : [8, 9, 10, 11]
     const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
     useEffect(() => {
-        if(filter.h===null){
+        if (filter.h === null) {
             dispatch({type: "SET_SORTBESTANDFILTER", item: {...filter, h: 1}})
             dispatch({type: "SET_SORTBESTANDFILTERID", item: {...filterID, h: 111}})
         }
     }, [filter]);
-
 
 
     function ascSort(id) {
@@ -107,8 +107,8 @@ const BestandListDataSection = ({
         }
     }
 
-    function enableDateFilter(id, value){
-        dispatch({type: "SET_DATEFILTER", item: {id:id, value: value}})
+    function enableDateFilter(id, value) {
+        dispatch({type: "SET_DATEFILTER", item: {id: id, value: value}})
         dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
         dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
     }
@@ -116,8 +116,10 @@ const BestandListDataSection = ({
     return (
         <div>
             <div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>
-                <ExcelExport all url={url} count={count} rows={rows} title={'Excel Export'} loading={loading} len={users?.length}/>
-                <ExcelExport Gesamt url={url} count={count} rows={rows} title={'Excel Export Gesamt'} loading={loading} len={users?.length}/>
+                <ExcelExport all url={url} count={count} rows={rows} title={'Excel Export'} loading={loading}
+                             len={users?.length}/>
+                <ExcelExport Gesamt url={url} count={count} rows={rows} title={'Excel Export Gesamt'} loading={loading}
+                             len={users?.length}/>
                 {/*<CsvExport Gesamt title={'Csv Export Gesamt'} loading={loading} len={users?.length}/>*/}
                 {/*<CsvExport all title={'Csv Export'} loading={loading} len={users?.length}/>*/}
                 <div
@@ -181,7 +183,7 @@ const BestandListDataSection = ({
                                             name="beendete"
                                             className="mr-2"
                                             disabled={loading}
-                                            checked={filter.i===1}
+                                            checked={filter.i === 1}
                                             onChange={(e) => enableFilter(112, e.target.checked ? 1 : 0)}
                                         />
                                         beendete Projekte
@@ -192,7 +194,7 @@ const BestandListDataSection = ({
                                             name="abgesagte"
                                             className="mr-2"
                                             disabled={loading}
-                                            checked={filter.j===1}
+                                            checked={filter.j === 1}
                                             onChange={(e) => enableFilter(113, e.target.checked ? 1 : 0)}
                                         />
                                         abgesagte Projekte
@@ -266,11 +268,11 @@ const BestandListDataSection = ({
                                                         className={`${!(checkboxFields.includes(header.id)) && 'hideDiv'} cursor-pointer`}>
                                                             <input className='w-full mb-4' type='radio'
                                                                    hidden={printing}
-                                                                   checked={dateFilter.id===header.id && dateFilter.value}
+                                                                   checked={dateFilter.id === header.id && dateFilter.value}
                                                                    onChange={(e) => enableDateFilter(header.id, e.target.checked)}
                                                             />
                                                     </span>
-                                                    <span  className={`${header.title==='MA' && 'opacity-0'}`}>
+                                                    <span className={`${header.title === 'MA' && 'opacity-0'}`}>
                                                       <input className='w-full mb-4 opacity-0' type='text'
                                                       />
                                                     </span>
@@ -306,6 +308,7 @@ const BestandListDataSection = ({
                                                     Note={u.Note}
                                                     date={u.Datum}
                                                     printing={printing}
+                                                    portal={portal}
                                                 />
                                             ))
                                             : (!loading && view === 'Projekt-Tafel') ?
@@ -331,6 +334,7 @@ const BestandListDataSection = ({
                                                         MAB_fertig={u.MAB_fertig}
                                                         Note={u.Note}
                                                         printing={printing}
+                                                        portal={portal}
                                                     />
                                                 )) : (!loading && view === 'Auswertung DGAPI') ?
                                                     users?.map((u, index) => (
@@ -353,6 +357,7 @@ const BestandListDataSection = ({
                                                             FP_Freischaltung={u.FP_Freischltg}
                                                             Note={u.Note}
                                                             printing={printing}
+                                                            portal={portal}
                                                         />
                                                     )) : (!loading && view === 'Auswertung Beratung') ?
                                                         users?.map((u, index) => (
@@ -372,6 +377,7 @@ const BestandListDataSection = ({
                                                                 FP_Abschluss_Umsetzung={u.FP_Abschluss_Umsetzung}
                                                                 Note={u.Note}
                                                                 printing={printing}
+                                                                portal={portal}
                                                             />
                                                         ))
                                                         : (!loading && view === 'Auswertung Vertrieb') &&
@@ -395,6 +401,7 @@ const BestandListDataSection = ({
                                                                 iForm_Termin={u.iForm_Termin}
                                                                 Note={u.Note}
                                                                 printing={printing}
+                                                                portal={portal}
                                                             />
                                                         ))
                                     }

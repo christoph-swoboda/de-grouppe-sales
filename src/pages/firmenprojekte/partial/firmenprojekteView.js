@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {BsChatLeftText} from "react-icons/bs";
+import {AES} from "crypto-js";
+import {useStateValue} from "../../../states/StateProvider";
 
-const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PStatus,Note, printing, date, FirmaID}) => {
+const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,PStatus,Note, printing, date, FirmaID, portal}) => {
 
     String.prototype.allReplace = function(obj) {
         let retStr = this;
@@ -12,10 +14,16 @@ const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,
         return retStr;
     };
 
+    const [{secretKey}] = useStateValue();
+
     return (
         <tr className="border-y border-silver border-x-0 text-sm">
             <td className="w-40 text-sm text-mainBlue underline font-light pr-3">
-                <Link to={`/firmenprojekte/${FirmaID}`} target="_blank">
+                <Link
+                    to={{
+                        pathname: `/firmenprojekte/${portal}/${FirmaID}`,
+                    }}
+                >
                     {FirmaKurz}
                 </Link>
             </td>

@@ -13,6 +13,7 @@ const ProjectTafelView = ({
                               ZustandigerFKB,
                               BD,
                               FD,
+                              portal,
                               DGAPIKAM,
                               DL_Kzl_vollst,
                               Projtd_vollst,

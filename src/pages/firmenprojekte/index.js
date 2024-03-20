@@ -258,6 +258,7 @@ const BestantList = () => {
                     filterID={filterID}
                     filter={filter}
                     view={viewName}
+                    portal={portal}
                 />
                 <div
                     className={`${loading ? 'hideDiv' : ''} absolute ${viewName === 'Firmenprojekte' ? 'right-0' : 'right-0'}  ${viewName === 'Firmenprojekte' ? '-mt-16' : '-mt-18'} -mt-14 pb-9 mx-10`}>
