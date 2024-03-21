@@ -35,7 +35,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (portal) {
-
             setLoadingBoxes(true)
             setLoadingStrofalle(true)
             Api().get(`/getDashboardCounts/${portal}/${user.ID}`).then(res => {
@@ -46,10 +45,13 @@ const Dashboard = () => {
             }).then(res => {
                 Api().get(`/sp_getDataDashStoerfaelle/${portal}/${user.ID}`).then(res => {
                     setStrofalles(res.data)
+                    setLoadingStrofalle(false)
+                }).catch(e=>{
+                    setLoadingStrofalle(false)
                 })
+            }).catch(e=>{
+                setLoadingBoxes(false)
             })
-            setLoadingBoxes(false)
-            setLoadingStrofalle(false)
         }
     }, [portal]);
 
@@ -89,24 +91,6 @@ const Dashboard = () => {
                 }
             </div>
             <div className='bg-white rounded-xl text-left p-8'>
-                {/*<div className='flex justify-start items-center content-center pb-5'>*/}
-                {/*    <h2 className='text-2xl lg:text-left'>Dashboard</h2>*/}
-                {/*    {*/}
-                {/*        (superAdmin === '1' || role === 'Internal' || role === 'Controller') &&*/}
-                {/*        <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>*/}
-                {/*            <p className='w-fit mr-2 text-grey'>Portal:  </p>*/}
-                {/*            <select*/}
-                {/*                className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'*/}
-                {/*                onChange={portalSelect}*/}
-                {/*                value={portal}*/}
-                {/*            >*/}
-                {/*                <option selected value='dgg'>DGG</option>*/}
-                {/*                <option value='r+v'>R+V</option>*/}
-                {/*            </select>*/}
-                {/*        </div>*/}
-                {/*    }*/}
-                {/*</div>*/}
-
                 <div
                     className='grid lg:grid-cols-10 md:grid-cols-2 sm:grid-cols-1 gap-3 items-center content-center mb-10'>
                     <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'}

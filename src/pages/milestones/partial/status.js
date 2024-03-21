@@ -8,13 +8,14 @@ import {BeatLoader, ClipLoader} from "react-spinners";
 import {Link} from "react-router-dom";
 import Reminders from "./reminders";
 import {AES, enc} from "crypto-js";
+import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 
 const Status = ({notes, company, loadingNotes, count, role, companyID, portal}) => {
     const [toggle, setToggle] = useState(false)
     const [loading, setLoading] = useState(false)
     const [note, setNote] = useState('')
     const [{secretKey, noteSent, noteRows}, dispatch] = useStateValue();
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const userID = user.ID
     const [{collapse2}] = useStateValue();
@@ -56,7 +57,7 @@ const Status = ({notes, company, loadingNotes, count, role, companyID, portal}) 
                     <button
                         className='px-3 py-2 mx-2 mb-2 hover:bg-lightBlue rounded-3xl bg-mainBlue text-white text-sm'
                         onClick={() => setToggle(!toggle)}
-                        hidden={(role === 'ManDGG' ||role === 'ManRUV' || role === 'Controller')}
+                        hidden={(role === 'ManDGG' || role === 'ManRUV' || role === 'Controller')}
                     >
                         {!toggle ? 'Neue Bemerkung' : 'Abbrechen'}
                     </button>
@@ -75,11 +76,32 @@ const Status = ({notes, company, loadingNotes, count, role, companyID, portal}) 
                     </button>
                 </div>
 
-                <div onClick={()=>dispatch({type: "SET_NOTEROWS", item: 10})}>
-                {
-                    count > 8 && <CollapseExpand show={collapse2} id={2}/>
-                }
+                <div onClick={() => dispatch({type: "SET_NOTEROWS", item: 10})}>
+                    {
+                        (count > 10 && noteRows !== 10) &&
+                        <div className='px-5 pb-5 cursor-pointer sm:mt-5 lg:mt-0'
+                        >
+                            <div className='tooltip'>
+                                <IoIosArrowDown size='25px'/>
+                                <span className='tooltiptextInstant'>Erweitern</span>
+                            </div>
+                        </div>
+                    }
                 </div>
+                {
+                    (count > 10 && noteRows === 10) &&
+                    <div onClick={() => dispatch({type: "SET_NOTEROWS", item: 3})}>
+
+                        <div className='px-5 pb-5 cursor-pointer sm:mt-5 lg:mt-0'
+                        >
+                            <div className='tooltip'>
+                                <IoIosArrowUp size='25px'/>
+                                <span className='tooltiptextInstant'>Erweitern</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+
             </div>
             <div>
                 {loadingNotes && <div className='centerItemsRelative'><ClipLoader color={'#757575'}/></div>}
@@ -94,10 +116,10 @@ const Status = ({notes, company, loadingNotes, count, role, companyID, portal}) 
                         />
                     ))
                 }
-                {(loadingNotes && noteRows === 8) && <BeatLoader size={10}/>}
+                {(loadingNotes && noteRows === 10) && <BeatLoader size={10}/>}
             </div>
             {
-                (count > 8 && !loadingNotes && noteRows === 8) &&
+                (count > 10 && !loadingNotes && noteRows === 10) &&
                 <Link to={`/alle-notizen/${portal}/${companyID}`} target={'_blank'}>
                     <button className='bg-mainBlue text-white rounded-2xl px-3 py-2 mt-2 text-sm'> Alles sehen</button>
                 </Link>

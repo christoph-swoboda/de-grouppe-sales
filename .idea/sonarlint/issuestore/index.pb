@@ -104,3 +104,5 @@ e
 src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 c
 3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
+W
+'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
