@@ -168,10 +168,14 @@ const Navbar = () => {
                         <li className='userInfo cursor-pointer'>
                             {user?.role === 'Internal' ? (
                                 <GrUserAdmin size={'30px'} color={'#565c8c'}/>
-                            ) : user?.role === 'ExtDGG' || user?.role === 'ExtRUV' ? (
+                            ) : user?.role === 'ExtRUV' ? (
                                 <MdSupervisorAccount size={'35px'} color={'#3A46A9'}/>
-                            ) : user?.role === 'ManDGG' || user?.role === 'ManRUV' ? (
+                            )  : user?.role === 'ExtDGG' ? (
+                                <MdSupervisorAccount size={'35px'} color={'#0a523f'}/>
+                            ) : user?.role === 'ManRUV' ? (
                                 <FaUser size={'30px'} color={'#565c8c'}/>
+                            )  : user?.role === 'ManDGG'? (
+                                <FaUser size={'30px'} color={'#0a523f'}/>
                             ) : (
                                 user && <FaUserSecret size={'30px'} color={'#565c8c'}/>
                             )}
