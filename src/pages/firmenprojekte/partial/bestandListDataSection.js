@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
 import FirmenprojekteView from "./firmenprojekteView";
@@ -39,12 +39,14 @@ const BestandListDataSection = ({
                                     user,
                                     url,
                                     count,
-                                    rows
+                                    rows,
+                                    portalChanged
                                 }) => {
     const [{pageBestand, dateFilter}, dispatch] = useStateValue();
     const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
     const checkboxFields = (view === 'Firmenprojekte' || view === 'Projekt-Tafel') ? [] : view === 'Auswertung Vertrieb' ? [8, 9, 10, 11, 12, 13, 14] : view === 'Auswertung DGAPI' ? [8, 9, 10, 11, 12, 13, 14] : [8, 9, 10, 11]
     const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    const [selectedView, setSelectedView] = useState(views[0].viewName);
 
     useEffect(() => {
         if (filter.h === null) {
@@ -113,6 +115,18 @@ const BestandListDataSection = ({
         dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
     }
 
+    useEffect(() => {
+        portalChanged()
+        if (portal === 'dgg') {
+            setSelectedView(views[0].viewName);
+        }
+    }, [portal, views, portalChanged]);
+
+    const handleViewChange = (e) => {
+        setSelectedView(e.target.value);
+        setViewName(e.target.value)
+    };
+
     return (
         <div>
             <div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>
@@ -129,11 +143,12 @@ const BestandListDataSection = ({
                     <span className='mr-1 mb-2 text-grey text-sm'>Drucken</span>
                 </div>
                 <div className={`flex m-auto justify-center ml-64`}>
-                    <select disabled={loading} onChange={(e) => setViewName(e.target.value)}
+                    <select disabled={loading}
+                            value={selectedView} onChange={handleViewChange}
                             className={`${(user?.role !== 'Internal' && user?.role !== 'Controller') && 'hideDiv'} ${loadingViews ? 'hideDiv' : ''} justify-center w-fit rounded-md border border-offWhite shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
                         {
                             views.map((v, i) => (
-                                <option key={i} disabled={i > 4} value={v.viewName}>
+                                <option key={i} disabled={portal === 'dgg' ? i > 0 : i > 4} value={v.viewName}>
                                     {v.viewName}
                                 </option>
                             ))

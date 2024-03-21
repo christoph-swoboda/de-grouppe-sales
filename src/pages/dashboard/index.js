@@ -47,8 +47,9 @@ const Dashboard = () => {
                 Api().get(`/sp_getDataDashStoerfaelle/${portal}/${user.ID}`).then(res => {
                     setStrofalles(res.data)
                 })
-                setLoadingStrofalle(false)
             })
+            setLoadingBoxes(false)
+            setLoadingStrofalle(false)
         }
     }, [portal]);
 

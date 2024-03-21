@@ -23,6 +23,7 @@ const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,
                     to={{
                         pathname: `/firmenprojekte/${portal}/${FirmaID}`,
                     }}
+                    target='_blank'
                 >
                     {FirmaKurz}
                 </Link>

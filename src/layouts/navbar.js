@@ -102,7 +102,7 @@ const Navbar = () => {
                                 </Link>
                             </div>
                         </div>
-                        {user?.role === 'Internal' && (
+                        {(user?.role === 'Internal' || user?.role === 'Controller') && (
                             <Link to={'/mail-verlauf'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                     Mailverlauf
@@ -111,7 +111,7 @@ const Navbar = () => {
                         )}
                         <div className="dropdown" style={{marginLeft: '20px'}}>
                             {
-                               ( user?.role === 'Internal' || user.isUserAdmin === '1' || user.isICAdmin === '1' || user.isIMAdmin === '1' || user.isSAdmin === '1') &&
+                               ( (user?.role === 'Internal' && user.isUserAdmin === '1' ) || user.isICAdmin === '1' || user.isIMAdmin === '1' || user.isSAdmin === '1') &&
                                 <li className='items hover:text-mainBlue'>
                                     Administratives <i className="dropdown-icon">▼</i>
                                 </li>

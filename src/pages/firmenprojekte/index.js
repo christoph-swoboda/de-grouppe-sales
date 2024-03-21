@@ -215,6 +215,12 @@ const BestantList = () => {
         setPortal(e.target.value)
     }
 
+    function onPortalChanged(){
+        if(portal==='dgg'){
+            setViewName('Firmenprojekte')
+        }
+    }
+
     return (
         <div className={`dashboardContainer`}>
             <div className='flex justify-between'>
@@ -261,6 +267,7 @@ const BestantList = () => {
                     filterID={filterID}
                     filter={filter}
                     view={viewName}
+                    portalChanged={onPortalChanged}
                     portal={portal}
                 />
                 <div
