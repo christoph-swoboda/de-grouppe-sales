@@ -111,7 +111,7 @@ const FormDGG = ({name, dropdown, role}) => {
                 </div>
                 {/*first 6 section*/}
                 {/*<div className='flex 2xl:justify-start lg:justify-start md:justify-items-start gap-3 flex-wrap'>*/}
-                <div className='grid 2xl:grid-cols-14 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0'>
+                <div className='grid 2xl:grid-cols-14 -mt-12 lg:grid-cols-10 md:grid-cols-2 gap-3 2xl:pl-2 lg:pl-0'>
                     <section
                         className='flex flex-col text-left text-grey text-sm mt-2 col-span-2 lg:mr-0 lg:-ml-0'>
                         <label>Bestands/Neukunde *</label>

@@ -65,21 +65,21 @@ const NewCreation = () => {
 
     return (
         <div className='dashboardContainer'>
-            <div className='flex justify-between'>
-                <h2 className='text-2xl lg:text-left pb-5'>Neues Firmenprojekt</h2>
+            <div className='flex justify-start items-center content-center pb-5'>
+                <h2 className='text-2xl lg:text-left'> Neues Firmenprojekt</h2>
                 {
-                    superAdmin === '1' &&
-                        <div className='flex justify-start items-center w-fit'>
-                            <p className='w-fit mr-6'>Portal </p>
-                            <select
-                                className='pl-3 col-span-2 text-center mx-auto pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit px-12'
-                                onChange={portalSelect}
-                                value={portal}
-                            >
-                                <option selected value='dgg'>DGG</option>
-                                <option value='r+v'>R+V</option>
-                            </select>
-                        </div>
+                    (superAdmin === '1' || user.role === 'Internal' || user.role === 'Controller') &&
+                    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
+                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <select
+                            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
+                            onChange={portalSelect}
+                            value={portal}
+                        >
+                            <option selected value='dgg'>DGG</option>
+                            <option value='r+v'>R+V</option>
+                        </select>
+                    </div>
                 }
             </div>
             <RoleCheck

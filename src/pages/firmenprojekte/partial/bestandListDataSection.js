@@ -46,7 +46,7 @@ const BestandListDataSection = ({
     const searChableFields = view === 'Firmenprojekte' ? [1, 2, 3, 4, 5, 7] : [1, 2, 4, 5, 6, 7]
     const checkboxFields = (view === 'Firmenprojekte' || view === 'Projekt-Tafel') ? [] : view === 'Auswertung Vertrieb' ? [8, 9, 10, 11, 12, 13, 14] : view === 'Auswertung DGAPI' ? [8, 9, 10, 11, 12, 13, 14] : [8, 9, 10, 11]
     const sortableFields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    const [selectedView, setSelectedView] = useState(views[0].viewName);
+    const [selectedView, setSelectedView] = useState(views[0]?.viewName);
 
     useEffect(() => {
         if (filter.h === null) {
@@ -118,7 +118,7 @@ const BestandListDataSection = ({
     useEffect(() => {
         portalChanged()
         if (portal === 'dgg') {
-            setSelectedView(views[0].viewName);
+            setSelectedView(views[0]?.viewName);
         }
     }, [portal, views, portalChanged]);
 
@@ -131,9 +131,9 @@ const BestandListDataSection = ({
         <div>
             <div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>
                 <ExcelExport all url={url} count={count} rows={rows} title={'Excel Export'} loading={loading}
-                             len={users?.length}/>
+                             len={users?.length} portal={portal}/>
                 <ExcelExport Gesamt url={url} count={count} rows={rows} title={'Excel Export Gesamt'} loading={loading}
-                             len={users?.length}/>
+                             len={users?.length} portal={portal}/>
                 {/*<CsvExport Gesamt title={'Csv Export Gesamt'} loading={loading} len={users?.length}/>*/}
                 {/*<CsvExport all title={'Csv Export'} loading={loading} len={users?.length}/>*/}
                 <div
@@ -308,7 +308,7 @@ const BestandListDataSection = ({
                                         </tr>
                                     }
                                     {
-                                        (!loading && view === 'Firmenprojekte') ?
+                                        (!loading && view === 'Firmenprojekte' && portal==='r+v') ?
                                             users?.map((u, index) => (
                                                 <FirmenprojekteView
                                                     key={index}
@@ -322,6 +322,24 @@ const BestandListDataSection = ({
                                                     PStatus={u.PStatus}
                                                     Note={u.Note}
                                                     date={u.Datum}
+                                                    printing={printing}
+                                                    portal={portal}
+                                                />
+                                            ))   :
+                                            (!loading && view === 'Firmenprojekte' && portal==='dgg') ?
+                                            users?.map((u, index) => (
+                                                <FirmenprojekteView
+                                                    key={index}
+                                                    FirmaKurz={u.FirmaKurz}
+                                                    FirmaID={u.FP_ID}
+                                                    FBKBank={u.ZustADM}
+                                                    ZustBerater={u.Firma}
+                                                    Bank={u.MA}
+                                                    RegioBereich={u.ZustVP}
+                                                    MA={u.PStatus}
+                                                    PStatus={u.Datum}
+                                                    Note={u.Note}
+                                                    date={null}
                                                     printing={printing}
                                                     portal={portal}
                                                 />

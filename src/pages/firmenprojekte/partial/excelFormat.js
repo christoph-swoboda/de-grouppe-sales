@@ -8,7 +8,7 @@ import {AES, enc} from "crypto-js";
 import {useStateValue} from "../../../states/StateProvider";
 
 
-const ExcelExport = ({Gesamt, title, loading, all, len, rows, url, count}) => {
+const ExcelExport = ({Gesamt, title, loading, all, len, rows, url, count, portal}) => {
     const workbook = new excelJS.Workbook();
     workbook.creator = "test";
     workbook.lastModifiedBy = "test";
@@ -54,6 +54,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len, rows, url, count}) => {
         data.append('rows', rows)
         data.append('page', pageBestand)
         data.append('sortColumn', sortColumn)
+        data.append('portal', portal)
         data.append('sortMethod', sortMethod)
         data.append('filterID', JSON.stringify(filterID))
         data.append('filter', JSON.stringify(filter))
@@ -61,6 +62,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len, rows, url, count}) => {
 
         let Data = new FormData()
         Data.append('userID', userID)
+        Data.append('portal', portal)
 
         if (all) {
             await prepareData('Firmenprojekte excel daten', url, data)

@@ -28,10 +28,10 @@ const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,
                     {FirmaKurz}
                 </Link>
             </td>
-            <td className="w-40 text-gray-900 font-light pr-3">
+            <td className={`${portal==='dgg'? 'w-72': 'w-40'} text-gray-900 font-light pr-3`}>
                 {ZustBerater}
             </td>
-            <td className="w-40 text-gray-900 font-light pr-3 ">
+            <td className={`${portal==='dgg'? 'w-16': 'w-40'} text-gray-900 font-light pr-3`}>
                 {Bank}
             </td>
             <td className="w-40 text-gray-900 font-light pr-3">
@@ -46,9 +46,12 @@ const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,
             <td className="w-40 text-gray-900 font-light pr-3 ">
                 {PStatus}
             </td>
-            <td className="w-24 font-light text-gray-900 pr-3">
-                {date}
-            </td>
+            {
+                portal==='r+v' &&
+                <td className="w-24 font-light text-gray-900 pr-3">
+                    {date}
+                </td>
+            }
             <td hidden={printing} className="w-16 tooltip text-gray-900 font-light pr-3">
                 <BsChatLeftText size='16px'/>
                 <span className={`${Note ? 'tooltiptext' : 'hidden'}`}>
