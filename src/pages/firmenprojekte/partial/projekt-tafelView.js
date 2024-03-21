@@ -13,6 +13,7 @@ const ProjectTafelView = ({
                               ZustandigerFKB,
                               BD,
                               FD,
+                              portal,
                               DGAPIKAM,
                               DL_Kzl_vollst,
                               Projtd_vollst,
@@ -37,7 +38,7 @@ const ProjectTafelView = ({
         <tr className="border-y border-silver border-x-0 text-sm">
             <td className="w-40 text-sm text-mainBlue underline font-light px-6">
                 {/*add firmaID here*/}
-                <Link to={`/firmenprojekte/${FirmaID}`} target="_blank">
+                <Link to={`/firmenprojekte/${portal}/${FirmaID}`} target="_blank">
                     {FirmaKurz}
                 </Link>
             </td>

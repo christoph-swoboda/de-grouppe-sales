@@ -6,7 +6,7 @@ const BankManagerView = ({users, pageSize, loading, total, role, filterIDUM, fil
 
     const navigate=useNavigate()
     useEffect(() => {
-        if(role!=='Supervisor'){
+        if(role!=='ManDGG' && role!=='ManRUV'){
             navigate('/')
         }
     }, []);

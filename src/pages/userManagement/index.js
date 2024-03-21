@@ -18,7 +18,7 @@ const UserManagement = () => {
     const [search, setSearch] = useState('')
     const [searchKey, setSearchKey] = useState('')
     const [users, setUsers] = useState([])
-    const [roleFilter, setRoleFilter] = useState({i: true, e: true, m: true, c: true})
+    const [roleFilter, setRoleFilter] = useState({i: true, er: true, ed: true, mr: true, md: true, c: true})
     const [searchResults, setSearchResults] = useState([])
     const [{
         secretKey, userValidated,
@@ -101,7 +101,7 @@ const UserManagement = () => {
     }, [userValidated]);
 
     function getUsers(src) {
-        if (role === 'External') {
+        if (role === 'ExtDGG' || role === 'ExtRUV') {
             navigate('/')
         }
         setLoading(true)
@@ -112,11 +112,13 @@ const UserManagement = () => {
         data.append('search', src)
         data.append('sortColumn', sortUserColum)
         data.append('sortMethod', sortUserMethod)
-        data.append('I', roleFilter.i ? '1' : '0')
-        data.append('E', roleFilter.e ? '1' : '0')
-        data.append('M', roleFilter.m ? '1' : '0')
-        data.append('C', roleFilter.c ? '1' : '0')
         data.append('vp', filterUM.c)
+        data.append('I', roleFilter.i ? '1' : '0')
+        data.append('C', roleFilter.c ? '1' : '0')
+        data.append('ER', roleFilter.er ? '1' : '0')
+        data.append('MR', roleFilter.mr ? '1' : '0')
+        data.append('ED', roleFilter.ed ? '1' : '0')
+        data.append('MD', roleFilter.md ? '1' : '0')
 
         Api().post('/getUsers', data).then(res => {
 
@@ -156,7 +158,7 @@ const UserManagement = () => {
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between pt-2 sm:block'>
                 <h2 className='text-2xl lg:text-left'>{admin === '0' ? 'Benutzerübersicht' : 'Benutzerverwaltung'}</h2>
-                <div className={admin === '0' || user.role === 'Controller' ? 'hidden' : ''}>
+                <div className={admin === '0' || user.role === 'Controlling' ? 'hidden' : ''}>
                     <p className={`px-3 py-2 shadow shadow-md shadow-mainBlue rounded-2xl hover:bg-white hover:text-mainBlue bg-mainBlue text-sm text-white ml-2 cursor-pointer`}
                        onClick={toggleAddUsersModal}>
                         Neuen Benutzer anlegen
@@ -174,43 +176,65 @@ const UserManagement = () => {
                         />
                         <input type="submit" value="Submit" hidden/>
                     </form>
-                    <div className='flex justify-between sm:mb-6 lg:ml-24 mt-2 text-grey'>
-                        <div
-                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.c ? 'border border-offWhite' : 'opacity-50'}`}
-                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                                ...roleFilter,
-                                c: !roleFilter.c
-                            })}>
-                            <FaUserSecret size={'17px'} color={'#565c8c'}/> <span
-                            className='ml-1 mr-6 text-sm'>Controlling</span>
-                        </div>
-                        <div
-                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.i ? 'border border-offWhite' : 'opacity-50'}`}
-                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                                ...roleFilter,
-                                i: !roleFilter.i
-                            })}>
-                            <GrUserAdmin size={'17px'} color={'#565c8c'}/> <span
-                            className='ml-1 mr-6 text-sm'>Innendienst</span>
-                        </div>
-                        <div
-                            className={`flex justify-between cursor-pointer mr-2 pl-1 ${roleFilter.e ? 'border border-offWhite' : 'opacity-50'}`}
-                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                                ...roleFilter,
-                                e: !roleFilter.e
-                            })}>
-                            <MdSupervisorAccount size={'17px'} color={'#3A46A9'}/><span
-                            className='ml-1 mr-6 text-sm'>FKB </span>
-                        </div>
-                        <div
-                            className={`flex justify-between cursor-pointer pl-1 ${roleFilter.m ? 'border border-offWhite' : 'opacity-50'}`}
-                            onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                                ...roleFilter,
-                                m: !roleFilter.m
-                            })}>
-                            <FaUser size={'17px'} color={'#565c8c'}/> <span
-                            className='ml-1 mr-6 text-sm'>Management</span>
-                        </div>
+                    <div className='flex justify-center sm:mb-6 lg:ml-40 lg:-mt-2 mt-2 text-grey'>
+                   <div>
+                       <div
+                           className={`flex w-32 justify-start cursor-pointer my-2  mr-2 pl-1 ${roleFilter.i ? 'border border-offWhite' : 'opacity-50'}`}
+                           onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                               ...roleFilter,
+                               i: !roleFilter.i
+                           })}>
+                           <GrUserAdmin size={'17px'} color={'#565c8c'}/> <span
+                           className='ml-1 mr-6 text-sm'>Innendienst</span>
+                       </div>
+                       <div
+                           className={`flex w-32 justify-start cursor-pointer my-2  mr-2 pl-1 ${roleFilter.er ? 'border border-offWhite' : 'opacity-50'}`}
+                           onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                               ...roleFilter,
+                               er: !roleFilter.er
+                           })}>
+                           <MdSupervisorAccount size={'17px'} color={'#3A46A9'}/><span
+                           className='ml-1 mr-6 text-sm'>FKB </span>
+                       </div>
+                       <div
+                           className={`flex w-32 justify-start cursor-pointer mt-2  mr-2 pl-1 ${roleFilter.ed ? 'border border-offWhite' : 'opacity-50'}`}
+                           onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                               ...roleFilter,
+                               ed: !roleFilter.ed
+                           })}>
+                           <MdSupervisorAccount size={'17px'} color={'#0a523f'}/><span
+                           className='ml-1 mr-6 text-sm'>VP </span>
+                       </div>
+                   </div>
+                     <div>
+                         <div
+                             className={`flex w-32 justify-start cursor-pointer my-2 mr-2 pl-1 ${roleFilter.c ? 'border border-offWhite' : 'opacity-50'}`}
+                             onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                 ...roleFilter,
+                                 c: !roleFilter.c
+                             })}>
+                             <FaUserSecret size={'17px'} color={'#565c8c'}/> <span
+                             className='ml-1 mr-6 text-sm'>Controlling</span>
+                         </div>
+                         <div
+                             className={`flex w-32 justify-start cursor-pointer my-2  pl-1 ${roleFilter.mr ? 'border border-offWhite' : 'opacity-50'}`}
+                             onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                 ...roleFilter,
+                                 mr: !roleFilter.mr
+                             })}>
+                             <FaUser size={'17px'} color={'#565c8c'}/> <span
+                             className='ml-1 mr-6 text-sm'>Management</span>
+                         </div>
+                         <div
+                             className={`flex w-32 justify-start cursor-pointer mt-2  pl-1 ${roleFilter.md ? 'border border-offWhite' : 'opacity-50'}`}
+                             onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                 ...roleFilter,
+                                 md: !roleFilter.md
+                             })}>
+                             <FaUser size={'17px'} color={'#0a523f'}/> <span
+                             className='ml-1 mr-6 text-sm'>Struktur</span>
+                         </div>
+                     </div>
                     </div>
                     <p className='text-sm text-grey ml-auto mt-2'>
                         {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Einträge
@@ -232,7 +256,7 @@ const UserManagement = () => {
                 <div ref={modalRef}
                      className={`${!modal && 'hidden'} absolute w-72 max-h-80 ml-9 bg-offWhite p-5 z-10 -mt-6 overflow-y-scroll`}>
                     {
-                        searchResults.map((res, i) => (
+                        searchResults?.map((res, i) => (
                             <input type='button' key={i} onClick={setUpModal}
                                    className='cursor-pointer flex flex-col text-mainBlue text-sm text-left border-none underline hover:text-red p-2'
                                    value={res.email}
@@ -246,7 +270,7 @@ const UserManagement = () => {
                         (role === 'Internal' || role === 'Controller') ?
                             <AdminView role={role} users={users} pageSize={rows} total={total} loading={loading}
                                        filterUM={filterUM} filterIDUM={filterIDUM}/>
-                            : role === 'Supervisor' &&
+                            : (role === 'ManDGG' || role === 'ManRUV') &&
                             <BankManagerView role={role} users={users} pageSize={rows} total={total} loading={loading}
                                              filterUM={filterUM} filterIDUM={filterIDUM}/>
                     }

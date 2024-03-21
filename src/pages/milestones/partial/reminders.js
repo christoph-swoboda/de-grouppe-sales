@@ -15,7 +15,7 @@ import ModalSmall from "../../../hooks/modalSmall";
 import {GoCalendar} from "react-icons/go";
 import {AES, enc} from "crypto-js";
 
-const Reminders = ({id, userID, role}) => {
+const Reminders = ({id, userID, role, portal}) => {
 
     const [loading, setLoading] = useState(false)
     const [loadingData, setLoadingData] = useState(false)
@@ -47,7 +47,7 @@ const Reminders = ({id, userID, role}) => {
 
     useEffect(() => {
         setLoadingData(true)
-        Api().get(`/reminderOptions/${id}`).then(res => {
+        Api().get(`/reminderOptions/${portal}/${id}`).then(res => {
             setOptions(res.data.options)
             setAuthor(res.data.author)
             setExists(res.data.exists)
@@ -57,6 +57,8 @@ const Reminders = ({id, userID, role}) => {
 
     const onSubmit = (Data) => {
         setLoading(true)
+        Data.portal=portal
+
         Api().post('/saveReminders', Data).then(res => {
             toast.success('Erinnerung erfolgreich gespeichert')
             setLoading(false)
@@ -71,7 +73,7 @@ const Reminders = ({id, userID, role}) => {
 
     function deleteReminder() {
         confirm('Diese Erinnerung löschen?') &&
-        Api().get(`/deleteReminders/${id}`).then(res => {
+        Api().get(`/deleteReminders/${portal}/${id}`).then(res => {
             setUpdated(updated + 1)
             toast.success('Erfolgreich gelöscht')
             setValue('message', 'Wähle eine Option')
@@ -180,7 +182,7 @@ const Reminders = ({id, userID, role}) => {
                                                         cssClass={'datePicker'}
                                                         isClearable
                                                         className={'border-none'}
-                                                        readOnly={false}
+                                                        readOnly={(role === 'ManRUV' || role === 'ManDGG')}
                                                         />
                                                     <div
                                                         className={`absolute ${getValues('date') && 'mr-6'} right-1.5`}
@@ -194,7 +196,7 @@ const Reminders = ({id, userID, role}) => {
                                     <input
                                         className={`bg-mainBlue rounded-2xl col-span-2 px-3 py-2 mt-2 text-white cursor-pointer text-sm ${(!watch('date')) || watch('message') === 'Wähle eine Option' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
                                         type="submit"
-                                        disabled={(!watch('date')) || watch('message') === 'Wähle eine Option'}
+                                        disabled={(!watch('date')) || watch('message') === 'Wähle eine Option' || (role === 'ManRUV' || role === 'ManDGG')}
                                         value={`${!loading ? 'Speichern' : 'sparen...'}`}
                                     />
                                     <input

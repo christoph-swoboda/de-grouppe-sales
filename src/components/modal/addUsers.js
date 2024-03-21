@@ -95,35 +95,37 @@ const AddUsers = () => {
                     {errors.confirm_password && touchedFields && <p>{errors.confirm_password.message}</p>}
                 </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label className='py-2'>Vorname </label>
-                    <input placeholder='Vorname'
-                           type='text'
-                           {...register('vorname', {
-                               pattern: {
-                                   value: /^.{1,50}$/,
-                                   message: 'maximal 50 Zeichen erlaubt',
-                               },
-                           })}
-                           style={{border: errors.vorname && '1px solid red'}}
-                    />
-                    {errors.vorname && touchedFields && <p>{errors.vorname.message}</p>}
-                </section>
+                {/*<section className='flex justify-between gap-1'>*/}
+                    <section className='flex flex-col text-left text-grey text-sm'>
+                        <label className='py-2'>Vorname </label>
+                        <input placeholder='Vorname'
+                               type='text'
+                               {...register('vorname', {
+                                   pattern: {
+                                       value: /^.{1,50}$/,
+                                       message: 'maximal 50 Zeichen erlaubt',
+                                   },
+                               })}
+                               style={{border: errors.vorname && '1px solid red'}}
+                        />
+                        {errors.vorname && touchedFields && <p>{errors.vorname.message}</p>}
+                    </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label className='py-2'>Nachname </label>
-                    <input placeholder='Nachname'
-                           type='text'
-                           {...register('nachname', {
-                               pattern: {
-                                   value: /^.{1,50}$/,
-                                   message: 'maximal 50 Zeichen erlaubt',
-                               },
-                           })}
-                           style={{border: errors.nachname && '1px solid red'}}
-                    />
-                    {errors.nachname && touchedFields && <p>{errors.nachname.message}</p>}
-                </section>
+                    <section className='flex flex-col text-left text-grey text-sm'>
+                        <label className='py-2'>Nachname </label>
+                        <input placeholder='Nachname'
+                               type='text'
+                               {...register('nachname', {
+                                   pattern: {
+                                       value: /^.{1,50}$/,
+                                       message: 'maximal 50 Zeichen erlaubt',
+                                   },
+                               })}
+                               style={{border: errors.nachname && '1px solid red'}}
+                        />
+                        {errors.nachname && touchedFields && <p>{errors.nachname.message}</p>}
+                    </section>
+                {/*</section>*/}
 
                 <section className='flex flex-col text-left text-grey text-sm py-2'>
                     <label className='pb-2'>VP-Nummer * </label>
@@ -151,44 +153,68 @@ const AddUsers = () => {
                     <span className='mx-1 text-sm text-grey'> Aktiv</span>
                 </label>
 
-                <section className='text-sm text-text py-3'>
-                    <label htmlFor="field-role">
-                        <input
-                            {...register("role")}
-                            type="radio"
-                            value="1"
-                            id="field-role"
-                        />
-                        <span className='mr-8 ml-1'>Innendienst</span>
-                    </label>
-                    <label htmlFor="field-role">
-                        <input
-                            {...register("role")}
-                            type="radio"
-                            defaultChecked
-                            value="2"
-                            id="field-role"
-                        />
-                        <span className='mr-8'> FKB</span>
-                    </label>
-                    <label htmlFor="field-role">
-                        <input
-                            {...register("role")}
-                            type="radio"
-                            value="3"
-                            id="field-role"
-                        />
-                        <span className='mr-8'> Management </span>
-                    </label>
-                    <label htmlFor="field-role">
-                        <input
-                            {...register("role")}
-                            type="radio"
-                            value="4"
-                            id="field-role"
-                        />
-                        <span className='mr-1'> Controlling </span>
-                    </label>
+                <section className=' text-sm text-text py-3'>
+                   <div>
+                       <label htmlFor="field-role">
+                           <input
+                               {...register("role")}
+                               type="radio"
+                               value="1"
+                               id="field-role"
+                           />
+                           <span className='mr-8 ml-1'>Innendienst</span>
+                       </label>
+                       <label htmlFor="field-role">
+                           <input
+                               {...register("role")}
+                               type="radio"
+                               defaultChecked
+                               value="2"
+                               id="field-role"
+                           />
+                           <span className='mr-8'> FKB</span>
+                       </label>
+                       <label htmlFor="field-role">
+                           <input
+                               {...register("role")}
+                               type="radio"
+                               value="3"
+                               id="field-role"
+                           />
+                           <span className='mr-8'> VP </span>
+                       </label>
+                       <label htmlFor="field-role">
+                           <input
+                               {...register("role")}
+                               type="radio"
+                               value="4"
+                               id="field-role"
+                           />
+                           <span className='mr-1'> Management </span>
+                       </label>
+                   </div>
+                   <div className='mt-4'>
+                       <label htmlFor="field-role">
+                           <input
+                               {...register("role")}
+                               type="radio"
+                               value="5"
+                               id="field-role"
+                           />
+                           <span className='mr-8'> Struktur </span>
+                       </label>
+                       <label htmlFor="field-role">
+                           <input
+                               {...register("role")}
+                               type="radio"
+                               value="6"
+                               id="field-role"
+                           />
+                           <span className='mr-8'> Controlling </span>
+                       </label>
+
+                   </div>
+
                 </section>
 
                 {/*<section className='flex flex-col text-left text-grey text-sm'>*/}

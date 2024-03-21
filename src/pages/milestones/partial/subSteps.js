@@ -14,7 +14,7 @@ import {AES, enc} from "crypto-js";
 
 registerLocale("de", de);
 
-const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, title, lastIndex}) => {
+const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, title, lastIndex, portal}) => {
 
     const [Loading, setLoading] = useState(false)
     const initialState = [];
@@ -30,19 +30,22 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
-    const [update, setUpdated] = useState((localStorage.data && user.ID===JSON.parse(localStorage.data)[0]?.user )? JSON.parse(localStorage.data): [])
+    // const [update, setUpdated] = useState((localStorage.data && user.ID===JSON.parse(localStorage.data)[0]?.user )? JSON.parse(localStorage.data): [])
+    const [update, setUpdated] = useState([])
+
 
 
     useEffect(() => {
         let key = 'id';
         const unique = [...new Map(update?.map(item => [item[key], item])).values()];
         const handleBeforeUnload = (event) => {
-            const confirmationMessage = 'Sind Sie sicher, dass Sie diese Seite verlassen möchten?';
-            event.preventDefault();
-            event.returnValue = confirmationMessage;
-            // if (unique.length > 0) {
-                localStorage.setItem('data', JSON.stringify(unique));
-            // }
+            // const confirmationMessage = 'Sind Sie sicher, dass Sie diese Seite verlassen möchten?';
+            // event.preventDefault();
+            // event.returnValue = confirmationMessage;
+            // // if (unique.length > 0) {
+            // //     localStorage.setItem('data', JSON.stringify(unique));
+            // // }
+            //     localStorage.setItem('data', JSON.stringify(unique));
         };
         window.addEventListener('beforeunload', handleBeforeUnload);
 
@@ -134,6 +137,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const onSubmit = async (Data) => {
         const key = 'id';
         const unique = [...new Map(update?.map(item => [item[key], item])).values()]
+        unique[0].portal=portal
 
         if (unique?.length >0) {
             setLoading(true)
@@ -180,14 +184,14 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                        })
                                    }}
                                    // className={`${Number(currentMilestone) !== lastIndex && !getValues(data[data?.length-1]?.stepName) ? '' : 'hideDiv'} ${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
-                                   className={`${Number(currentMilestone) !== lastIndex ? '' : 'hideDiv'} ${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                                   className={`${Number(currentMilestone) !== lastIndex ? '' : 'hideDiv'} ${(role === 'ManDGG' || role === 'ManRUV' || role === 'Controller') && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
                                >
                                    P-Schritt überspringen
                                </button>
                                <button
                                    onClick={() => ref.current?.click()}
                                    disabled={!isValid}
-                                   className={`${role === 'Supervisor' || role === 'Controller' && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
+                                   className={`${(role === 'ManDGG' || role === 'ManRUV'  || role === 'Controller') && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
                                >
                                    {Loading ? 'Sparen...' : 'Speichern'}
                                </button>
@@ -274,7 +278,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                                     isClearable
                                                                     className={'border-none'}
                                                                     open={isDatePickerOpen[index]}
-                                                                    readOnly={role === 'Supervisor'}
+                                                                    readOnly={(role === 'ManRUV' || role === 'ManDGG')}
                                                                 />
                                                                 <div
                                                                     className={`absolute ${getValues(val.stepName) && 'mr-6'} right-1.5`}
@@ -326,7 +330,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                 >
                                                     <label className='text-sm text-grey label'>{val.stepName}</label>
                                                     <input placeholder='Text Input'
-                                                           disabled={role === 'Supervisor'}
+                                                           disabled={(role === 'ManDGG' || role === 'ManRUV')}
                                                            className={`subStepInput w-full p-2 md:w-full
                                                        ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
                                                            {...register(`${val.substepID}`)}

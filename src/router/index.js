@@ -50,7 +50,7 @@ export const RouteData = [
     },
     {
         id: 5,
-        path: 'firmenprojekte/:id',
+        path: 'firmenprojekte/:portal/:id',
         name: 'bestand',
         component: <FirmenprojekteListe/>,
         redirection: '/anmeldung'
@@ -64,7 +64,7 @@ export const RouteData = [
     },
     {
         id: 7,
-        path: 'alle-notizen/:company',
+        path: 'alle-notizen/:portal/:company',
         name: 'allNotes',
         component: <AllNotes/>,
         redirection: '/anmeldung'

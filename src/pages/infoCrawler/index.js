@@ -12,6 +12,7 @@ const InfoCrawler = () => {
 
     const [{ICSaved, secretKey}, dispatch] = useStateValue();
     const [milestones, setMilestones] = useState([])
+    const [portal, setPortal] = useState('dgg')
     const [subStepsLoading, setSubStepsLoading] = useState(false)
     const [triggerSubStepsLoading, setTriggerSubStepsLoading] = useState(false)
     const [subSteps, setSubSteps] = useState([])
@@ -19,38 +20,41 @@ const InfoCrawler = () => {
     const [loading, setLoading] = useState(true)
     const [loadingGrid, setLoadingGrid] = useState(false)
     const [deleteClicked, setDeleteClicked] = useState(false)
+    const [deleteDone, setDeleteDone] = useState(false)
     const [loadingSave, setLoadingSave] = useState(false)
     const [milestoneSelected, seMilestoneSelected] = useState()
     const [TriggerMilestoneSelected, setTriggerMilestoneSelected] = useState()
     const [SubStepSelected, setSubStepSelected] = useState()
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
-    const [isICAdmin, setIsICAdmin] = useState(0)
     const navigate = useNavigate()
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
     } = useForm({mode: "onChange"});
 
     useEffect(() => {
-        Api().get(`/icAdminCheck/${user.ID}`).then(res => {
-            if (res.data === 0) {
-                navigate('/')
-            }
-            setIsICAdmin(res.data)
-        })
-        Api().get('getMilestoneCrawler').then(res => {
+        if (user.isICAdmin === '0') {
+            navigate('/')
+        }
+
+        reset()
+
+        Api().get(`getMilestoneCrawler/${portal}`).then(res => {
             setMilestones(res.data)
             setLoading(false)
+        }).then(r=>{
+            GetSubSteps(milestoneSelected)
+        }).then(r=>{
+            getGrid(milestoneSelected, SubStepSelected, true)
         })
-
-    }, [ICSaved]);
+    }, [ICSaved, portal]);
 
     useEffect(() => {
         const triggerMilestoneID = getValues('triggerMilestoneID');
         if (triggerMilestoneID && triggerMilestoneID !== 'Wählen Sie einen Meilenstein aus') {
             setTriggerSubSteps([]);
             setTriggerSubStepsLoading(true);
-            Api().get(`getSubStepsCrawler/${triggerMilestoneID}`)
+            Api().get(`getSubStepsCrawler/${portal}/${triggerMilestoneID}`)
                 .then(res => {
                     setTriggerSubSteps(res.data);
                     setTriggerSubStepsLoading(false);
@@ -62,12 +66,16 @@ const InfoCrawler = () => {
         reset()
         setSubStepsLoading(true)
         seMilestoneSelected(e.target.value)
+        GetSubSteps(e.target.value)
+    }
+
+    function GetSubSteps(milestone){
         setSubSteps([])
-        Api().get(`getSubStepsCrawler/${e.target.value}`).then(res => {
+        Api().get(`getSubStepsCrawler/${portal}/${milestone}`).then(res => {
             setSubSteps(res.data)
             setSubStepSelected(res.data[0]?.substepID)
             setSubStepsLoading(false)
-            getGrid(e.target.value, res.data[0].substepID, true)
+            getGrid(milestone, res.data[0].substepID, true)
         })
     }
 
@@ -77,7 +85,7 @@ const InfoCrawler = () => {
         setTriggerSubSteps([]);
         setValue('triggerMilestoneID', e.target.value)
         setValue('triggerSubstepID', '1');
-        Api().get(`getSubStepsCrawler/${e.target.value}`).then(res => {
+        Api().get(`getSubStepsCrawler/${portal}/${e.target.value}`).then(res => {
             setTriggerSubSteps(res.data);
             setValue('triggerSubstepID', '1');
             setTriggerSubStepsLoading(false);
@@ -129,6 +137,7 @@ const InfoCrawler = () => {
             ...data,
             milestoneID: milestoneSelected,
             subStepID: SubStepSelected,
+            portal: portal,
         };
         // console.log(modifiedData)
 
@@ -168,7 +177,7 @@ const InfoCrawler = () => {
     };
 
     const deleteIC = () => {
-        Api().post(`sp_deleteIC/${milestoneSelected}/${SubStepSelected}`).then(res => {
+        Api().post(`sp_deleteIC/${portal}/${milestoneSelected}/${SubStepSelected}`).then(res => {
             if (res.data === 1) {
                 toast.success('Erfolgreich gelöscht')
                 setDeleteClicked(false)
@@ -178,6 +187,7 @@ const InfoCrawler = () => {
         }).catch(e => {
             toast.error('etwas ist schief gelaufen!')
         })
+        setDeleteDone(!deleteDone)
         getGrid(milestoneSelected, SubStepSelected, true)
         handleReset()
     }
@@ -192,12 +202,17 @@ const InfoCrawler = () => {
         reset(updatedValues);
     };
 
+    function portalSelect(e) {
+        setPortal(e.target.value)
+    }
+
     return (
         <div className={`dashboardContainer`}>
+            <h2 className='text-2xl lg:text-left pb-5'>InfoCrawler</h2>
             {
                 loading ?
                     <SkewLoader size='10px'/>
-                    : isICAdmin === 1 &&
+                    : user.isICAdmin === '1' &&
                     <div className={`bg-white rounded-xl text-left px-14 py-8`}>
                         <div
                             className={`${(!deleteClicked) && 'hideDiv'} shadow shadow-xl md:w-96 w-11/12 shadow-text text-lg px-6 py-6  flex flex-col rounded-lg z-10 absolute bg-offWhite centerItemsAbsolute`}>
@@ -216,6 +231,17 @@ const InfoCrawler = () => {
                         </div>
                         <div className='centerItemsRelative flex-wrap'>
                             <div className='lg:w-fit'>
+                                <div className='flex justify-start items-center w-fit'>
+                                    <p className='w-fit mr-6'>Portal </p>
+                                    <select
+                                        className='pl-3 col-span-2 text-center mx-auto pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'
+                                        onChange={portalSelect}
+                                        value={portal}
+                                    >
+                                        <option selected value='dgg'>DGG</option>
+                                        <option value='r+v'>R+V</option>
+                                    </select>
+                                </div>
                                 <div className='lg:grid grid-cols-7 items-center my-2'>
                                     <p className='w-fit col-span-1'>Einstellungen für: </p>
                                     <select onChange={milestoneChanged}
@@ -305,14 +331,14 @@ const InfoCrawler = () => {
                                                     {...register('remind1BD')}
                                                     style={{border: errors.remind1BD && '1px solid red'}}
                                                 />
-                                                cc KBD
+                                                cc {portal==='dgg'? 'KMS' : 'KBD'}
                                             </label>
                                             <label>
                                                 <input type='checkbox' className='mr-3'
                                                        {...register('remind1VBLF')}
                                                        style={{border: errors.remind1VBLF && '1px solid red'}}
                                                 />
-                                                cc VBLF
+                                                cc {portal==='dgg'? 'ADM' : 'VBLF'}
                                             </label>
                                         </div>
                                         <div className='flex justify-start my-2'>

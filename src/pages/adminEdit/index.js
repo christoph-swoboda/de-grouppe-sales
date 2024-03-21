@@ -1,16 +1,25 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
 import {BeatLoader} from "react-spinners";
 import AdminEditTable from "./partial/adminEditTable";
+import {AES, enc} from "crypto-js";
+import {useStateValue} from "../../states/StateProvider";
 
 const AdminEdit = () => {
 
     const [milestones, setMilestones] = useState([])
     const [tableData, setTableData] = useState([])
     const [loading, setLoading] = useState(false)
-    const [milestoneID, setMilestoneID] = useState()
+    const [milestoneID, setMilestoneID] = useState('')
+    const [portal, setPortal] = useState('')
+    const [superAdmin, setSuperAdmin] = useState('')
+
+    const [{secretKey}, dispatch] = useStateValue();
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
+    const role = user.role
 
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
@@ -19,21 +28,20 @@ const AdminEdit = () => {
     const {isValid} = formState;
 
     useEffect(() => {
-        Api().get('/getDataAdminMilestones').then(res => {
-                setMilestones(res.data)
-            }
-        ).catch(e => {
-            toast.error('Etwas ist schief gelaufen!!')
-        })
-    }, []);
+        if(portal){
+            Api().get(`/getDataAdminMilestones/${portal}`).then(res => {
+                    setMilestones(res.data)
+                }
+            ).catch(e => {
+                toast.error('Etwas ist schief gelaufen!!')
+            })
+        }
+    }, [portal]);
 
-    const onSubmit = async (data) => {
-        console.log('data', data)
-    };
     const handleSelectChange = (e) => {
         setMilestoneID(e.target.value)
         setLoading(true)
-        Api().get(`/getDataAdminMSSubsteps/${e.target.value}`).then(res => {
+        Api().get(`/getDataAdminMSSubsteps/${portal}/${e.target.value}`).then(res => {
                 setTableData(res.data)
                 setLoading(false)
             }
@@ -43,14 +51,47 @@ const AdminEdit = () => {
         })
     };
 
+    useEffect(() => {
+        setSuperAdmin(user.isSAdmin)
+        if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
+            setPortal('dgg')
+        } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
+            setPortal('r+v')
+        } else {
+            setPortal('dgg')
+        }
+    }, []);
+
+    function portalSelect(e) {
+        setPortal(e.target.value)
+        setMilestones([])
+        setTableData([])
+    }
+
+
     return (
-        <div className='py-10 px-10 min-h-screen'>
-            <h2 className='mt-16 text-2xl text-left font-light'>MS Verwaltung</h2>
-            <div className='bg-white rounded-md my-5 px-5 pt-4 pb-10 min-h-screen'>
+        <div className='dashboardContainer'>
+            <div className='flex justify-start items-center content-center pb-5'>
+                <h2 className='text-2xl lg:text-left'> MS Verwaltung</h2>
+                {
+                    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
+                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <select
+                            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
+                            onChange={portalSelect}
+                            value={portal}
+                        >
+                            <option selected value='dgg'>DGG</option>
+                            <option value='r+v'>R+V</option>
+                        </select>
+                    </div>
+                }
+            </div>
+            <div className='bg-white rounded-md mb-5 px-5 pt-4 pb-10 min-h-screen'>
                 <section className='flex flex-col text-left text-grey text-sm mt-3 mb-7 pb-4 py-2 rounded-lg'>
                     <label className='py-2'>Bitte wählen Sie zuerst einen Meilenstein</label>
                     <select placeholder='Milestone'
-                            className='p-3 bg-transparent border border-whiteDark rounded-lg w-fit'
+                            className='p-3 bg-transparent border border-whiteDark rounded-lg w-72'
                             onChange={handleSelectChange}
                     >
                         <option value=''>Wähle eine Option</option>

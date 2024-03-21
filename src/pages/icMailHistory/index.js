@@ -39,8 +39,7 @@ const MailHistory = () => {
 
     return (
         <div className='dashboardContainer'>
-            <h2 className='text-center text-3xl mt-3 font-bold border border-b-0 border-x-0 border-t-0 border-white'>Mail
-                Verlauf</h2>
+            <h2 className='text-2xl lg:text-left'> Mail Verlauf</h2>
             <div className='float-right'>
                 <a title='vorherige Seite' onClick={() => navigate(-1)} className='cursor-pointer'>
                     <IoArrowBackSharp size={'30px'}/>
@@ -52,7 +51,7 @@ const MailHistory = () => {
                         <ClipLoader size={'40px'} color={'black'}/>
                     </div>
                     :
-                    <table className='min-w-full text-left bg-white'>
+                    <table className='min-w-full text-left bg-white rounded-xl'>
                         <thead className="whitespace-nowrap border-y border-silver border-x-0">
                         <tr className='text-sm text-grey pl-1.5'>
                             <td>Empfänger</td>

@@ -2,7 +2,7 @@ import React from "react";
 import {ClipLoader, SkewLoader} from "react-spinners";
 import {FiRotateCcw, FiRotateCw} from "react-icons/fi";
 
-const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
+const Boxes = ({icon, data, col, title, toggleState, rotate, loading}) => {
 
     const handleClick = () => {
         toggleState(); // Call the function to update the state in the main component
@@ -18,20 +18,20 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
                 </div>
                 <p className='opacity-0'>gap</p>
                 {
-                    data.length === 0 ?
+                    loading ?
                         <ClipLoader color={'#dcdcdc'}/>
                         :
                         <p className='mt-2 text-sm'>{data[0]?.Label}
                             <span className='tracking-wider bg-silver text-lg px-2 py-1 ml-2 rounded-full'
                                   style={{color: col}}>
-                        {Number(data[0]?.FP)}
+                        {Number(data[0]?.FP).toLocaleString()}
                     </span>
                         </p>
                 }
             </div>
             <hr className='h-px border-0 mt-4 mb-2 bg-whiteDark'/>
             {
-                data.length === 0 ?
+                loading ?
                     <SkewLoader size='5px' color={'#dcdcdc'}/>
                     :
                     <div className='flex justify-between'>
@@ -50,7 +50,7 @@ const Boxes = ({icon, data, col, title, toggleState, rotate}) => {
                         <p className='float-right text-sm'>{data[1]?.Label}
                             <span className='tracking-wider text-lg bg-silver px-2 py-1 rounded-full ml-2'
                                   style={{color: col}}>
-                            {Number(data[1]?.FP)}
+                            {Number(data[1]?.FP).toLocaleString()}
                         </span>
                         </p>
                     </div>

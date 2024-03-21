@@ -14,9 +14,6 @@ import {useStateValue} from "../states/StateProvider";
 const Navbar = () => {
     const [toggleMenu, setToggleMenu] = useState(false)
     const [loading, setLoading] = useState(false)
-    const [isICAdmin, setIsICAdmin] = useState()
-    const [isIMAdmin, setIsIMAdmin] = useState()
-    const [isSAdmin, setIsSAdmin] = useState()
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const path = useLocation()
@@ -35,15 +32,6 @@ const Navbar = () => {
     useEffect(() => {
         Api().get('/version').then(res => {
             setVersion(Object.values(res.data[0])[0])
-        })
-        Api().get(`/icAdminCheck/${user.ID}`).then(res => {
-            setIsICAdmin(res.data)
-        })
-        Api().get(`/imAdminCheck/${user.ID}`).then(res => {
-            setIsIMAdmin(res.data)
-        })
-        Api().get(`/fn_checkSAdmin/${user.ID}`).then(res => {
-            setIsSAdmin(res.data)
         })
     }, []);
 
@@ -98,11 +86,15 @@ const Navbar = () => {
                                     </li>
                                 </Link>
 
-                                <Link to={'/neu'} onClick={toggleNav}>
-                                    <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'}  hover:text-mainBlue`}>
-                                        Neu
-                                    </li>
-                                </Link>
+                                {
+                                    (user.role==='ExtDGG' || user.role ==='ExtRUV' || (user.role==='Internal' && user.isSAdmin==='1')) &&
+                                    <Link to={'/neu'} onClick={toggleNav}>
+                                        <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                            Neu
+                                        </li>
+                                    </Link>
+                                }
+
                                 <Link to={'/firmenprojekte-liste'} onClick={toggleNav}>
                                     <li className={`items ${path.pathname === '/firmenprojekte-liste' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                         Firmenprojekte
@@ -110,7 +102,7 @@ const Navbar = () => {
                                 </Link>
                             </div>
                         </div>
-                        {user?.role === 'Internal' && (
+                        {(user?.role === 'Internal' || user?.role === 'Controller') && (
                             <Link to={'/mail-verlauf'} onClick={toggleNav}>
                                 <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                     Mailverlauf
@@ -119,51 +111,52 @@ const Navbar = () => {
                         )}
                         <div className="dropdown" style={{marginLeft: '20px'}}>
                             {
-                               ( user?.role === 'Internal' || user?.isUserAdmin === '1' || isICAdmin === 1 || isIMAdmin === 1 || isSAdmin === 1) &&
+                               ( (user?.role === 'Internal' && user.isUserAdmin === '1' ) || user.isICAdmin === '1' || user.isIMAdmin === '1' || user.isSAdmin === '1') &&
                                 <li className='items hover:text-mainBlue'>
                                     Administratives <i className="dropdown-icon">▼</i>
                                 </li>
                             }
 
                             <div className="dropdown-content">
-                                {user?.role === 'Internal' && user?.isUserAdmin === '1' ? (
+                                {user?.role === 'Internal' && user?.isUserAdmin === '1' && (
                                     <Link to={'/benutzerverwaltung'}>
                                         <li className={`items ${path.pathname === '/benutzerverwaltung' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             Benutzerverwaltung
                                         </li>
                                     </Link>
-                                ) : (
-                                    user?.role !== 'External' && (
-                                        <Link to={'/benutzerubersicht'}>
-                                            <li className={`items ${path.pathname === '/benutzerubersicht' && 'text-mainBlue'}  hover:text-mainBlue`}>
-                                                Benutzerübersicht
-                                            </li>
-                                        </Link>
-                                    )
+                                // )
+                                //     : (
+                                //     (user?.role !== 'ExtDGG' || user?.role !== 'ExtRUV') && (
+                                //         <Link to={'/benutzerubersicht'}>
+                                //             <li className={`items ${path.pathname === '/benutzerubersicht' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                //                 Benutzerübersicht
+                                //             </li>
+                                //         </Link>
+                                //     )
                                 )}
-                                {isICAdmin === 1 && (
+                                {user?.role === 'Internal' && user.isICAdmin === '1' && (
                                     <Link
                                         to={{
                                             pathname: '/info-crawler',
-                                            state: {data: isICAdmin},
+                                            state: {data: user.isICAdmin},
                                         }}>
                                         <li className={`items ${path.pathname === '/info-crawler' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             InfoCrawler
                                         </li>
                                     </Link>
                                 )}
-                                {user?.role === 'Internal' && isIMAdmin === 1 && (
+                                {user?.role === 'Internal' && user.isIMAdmin === '1' && (
                                     <Link to={'/info-mail'} onClick={toggleNav}>
                                         <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             InfoMail
                                         </li>
                                     </Link>
                                 )}
-                                {(user?.role === 'Internal' && isSAdmin === 1) && (
+                                {(user?.role === 'Internal' && user.isSAdmin === '1') && (
                                     <Link
                                         to={{
                                             pathname: '/admin-edit',
-                                            state: {data: isSAdmin},
+                                            state: {data: user.isSAdmin},
                                         }}>
                                         <li className={`items ${path.pathname === '/admin-edit' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             MS Verwaltung
@@ -175,10 +168,14 @@ const Navbar = () => {
                         <li className='userInfo cursor-pointer'>
                             {user?.role === 'Internal' ? (
                                 <GrUserAdmin size={'30px'} color={'#565c8c'}/>
-                            ) : user?.role === 'External' ? (
+                            ) : user?.role === 'ExtRUV' ? (
                                 <MdSupervisorAccount size={'35px'} color={'#3A46A9'}/>
-                            ) : user?.role === 'Supervisor' ? (
+                            )  : user?.role === 'ExtDGG' ? (
+                                <MdSupervisorAccount size={'35px'} color={'#0a523f'}/>
+                            ) : user?.role === 'ManRUV' ? (
                                 <FaUser size={'30px'} color={'#565c8c'}/>
+                            )  : user?.role === 'ManDGG'? (
+                                <FaUser size={'30px'} color={'#0a523f'}/>
                             ) : (
                                 user && <FaUserSecret size={'30px'} color={'#565c8c'}/>
                             )}

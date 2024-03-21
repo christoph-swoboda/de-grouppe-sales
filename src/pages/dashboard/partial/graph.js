@@ -4,7 +4,7 @@ import SummerySection from "./summerySection";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
-export const Graph = ({header, IST, User}) => {
+export const Graph = ({header, IST, User, portal}) => {
 
     const [project, setProject] = useState(true)
     const [user, setUser] = useState(false)
@@ -13,28 +13,30 @@ export const Graph = ({header, IST, User}) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        let url1 = 'getFunnel'
-        let url2 = 'getFunnelEmp'
-        if (user) {
-            url1 = 'getMilestoneDashboard'
-            url2 = 'getMilestoneUsersDashboard'
-        }
-        if (User?.ID && IST) {
-            setLoading(true)
-            Api().get(`/${url1}/${User?.ID}`).then(res => {
-                setMilestones(res.data)
-            }).catch(e => {
-                toast.error('etwas ist schief gelaufen!')
-            })
+        if(portal){
+            let url1 = 'getFunnel'
+            let url2 = 'getFunnelEmp'
+            if (user) {
+                url1 = 'getMilestoneDashboard'
+                url2 = 'getMilestoneUsersDashboard'
+            }
+            if (User?.ID && IST) {
+                setLoading(true)
+                Api().get(`/${url1}/${portal}/${User?.ID}`).then(res => {
+                    setMilestones(res.data)
+                }).catch(e => {
+                    toast.error('etwas ist schief gelaufen!')
+                })
 
-            Api().get(`/${url2}/${User?.ID}`).then(res => {
-                setMilestonesEmp(res.data)
-                setLoading(false)
-            }).catch(e => {
-                toast.error('etwas ist schief gelaufen!')
-            })
+                Api().get(`/${url2}/${portal}/${User?.ID}`).then(res => {
+                    setMilestonesEmp(res.data)
+                    setLoading(false)
+                }).catch(e => {
+                    toast.error('etwas ist schief gelaufen!')
+                })
+            }
         }
-    }, [project, User]);
+    }, [project, portal]);
 
 
     function projectClicked() {

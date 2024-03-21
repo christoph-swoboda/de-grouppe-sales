@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
@@ -19,13 +19,13 @@ const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addresse
         data.append('mouseOverText', MouseOverText)
 
         Api().post(`/putAdminMSSubstep`, data).then(res => {
-                toast.success('Daten erfolgreich gespeichert')
+                toast.success('Update erfolgreich')
                 setMouseOverEdit(false)
                 setStepNameEdit(false)
                 setLoading(false)
             }
         ).catch(e => {
-            toast.error('Etwas ist schief gelaufen!!')
+            toast.error('Update konnte nicht durchgeführt werden!')
             setLoading(false)
         })
     }
@@ -34,8 +34,8 @@ const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addresse
         <>
             <tbody>
             <tr>
-                <td>{substepID}</td>
-                <td onClick={() => setStepNameEdit(true)}>
+                <td style={{textTransform: 'none'}}>{substepID}</td>
+                <td style={{textTransform: 'none'}} onClick={() => setStepNameEdit(true)}>
                     {
                         !stepNameEdit && StepName
                     }
@@ -47,7 +47,7 @@ const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addresse
                                   placeholder='Step Name'/>
                     }
                 </td>
-                <td onClick={() => setMouseOverEdit(true)}>
+                <td style={{textTransform: 'none'}} onClick={() => setMouseOverEdit(true)}>
                     {
                         !mouseOverEdit && MouseOverText
                     }
@@ -59,11 +59,11 @@ const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addresse
                                   placeholder='new mouseover text'/>
                     }
                 </td>
-                <td>{fieldType}</td>
-                <td>{addressesField}</td>
+                <td style={{textTransform: 'none'}}>{fieldType}</td>
+                <td style={{textTransform: 'none'}}>{addressesField}</td>
                 <td onClick={save}>
                     <button className='px-3 py-1 bg-mainBlue text-white rounded rounded-md'>
-                        {loading? 'sparen...': 'Speichern'}
+                        {loading ? 'sparen...' : 'Speichern'}
                     </button>
                 </td>
             </tr>

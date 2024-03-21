@@ -13,11 +13,13 @@ import {formatDate} from "../../helper/formatDate";
 import {BeatLoader, ClipLoader, SkewLoader} from "react-spinners";
 
 const Dashboard = () => {
-    const [user, setUser] = useState([])
     const [total, setTotal] = useState([])
     const [strofalles, setStrofalles] = useState([])
     const [done, setDone] = useState([])
+    const [portal, setPortal] = useState('')
+    const [superAdmin, setSuperAdmin] = useState('')
     const [toggle, setToggle] = useState(false)
+    const [loadingBoxes, setLoadingBoxes] = useState(true)
     const [loadingStrofalle, setLoadingStrofalle] = useState(true)
     const [canceled, setCanceled] = useState([])
     const [{secretKey}, dispatch] = useStateValue();
@@ -27,52 +29,81 @@ const Dashboard = () => {
         setToggle((prevState) => !prevState);
     };
 
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
+    const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
+    const role = user.role
+
     useEffect(() => {
-        try {
-            const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
-            const User = JSON.parse(decryptedBytes.toString(enc.Utf8))
-            setUser(User)
-            Api().get(`/getDashboardCounts/${User.ID}`).then(res => {
+        if (portal) {
+            setLoadingBoxes(true)
+            setLoadingStrofalle(true)
+            Api().get(`/getDashboardCounts/${portal}/${user.ID}`).then(res => {
                 setTotal(res.data.slice(0, 2))
                 setDone(res.data.slice(2, 4))
                 setCanceled(res.data.slice(4, 6))
+                setLoadingBoxes(false)
             }).then(res => {
-                Api().get(`/sp_getDataDashStoerfaelle/${User.ID}`).then(res => {
+                Api().get(`/sp_getDataDashStoerfaelle/${portal}/${user.ID}`).then(res => {
                     setStrofalles(res.data)
+                    setLoadingStrofalle(false)
+                }).catch(e=>{
+                    setLoadingStrofalle(false)
                 })
-                setLoadingStrofalle(false)
+            }).catch(e=>{
+                setLoadingBoxes(false)
             })
-        } catch (e) {
-            window.location.replace('/anmeldung')
         }
-    }, []);
+    }, [portal]);
 
     useEffect(() => {
-        try {
-            const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
-            const User = JSON.parse(decryptedBytes.toString(enc.Utf8))
-            Api().get(`/sp_getDataDashStoerfaelle/${User.ID}`).then(res => {
-                setStrofalles(res.data)
-                console.log(res.data)
-            })
-        } catch (e) {
-            window.location.replace('/anmeldung')
-        }
+            setSuperAdmin(user.isSAdmin)
+            if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
+                setPortal('dgg')
+            } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
+                setPortal('r+v')
+            } else {
+                setPortal('dgg')
+            }
     }, []);
+
+    function portalSelect(e) {
+        setPortal(e.target.value)
+    }
+
 
     return (
         <div className='dashboardContainer'>
+            <div className='flex justify-start items-center content-center pb-5'>
+                <h2 className='text-2xl lg:text-left'>Dashboard</h2>
+                {
+                    (superAdmin === '1' || role === 'Internal' || role === 'Controller') &&
+                    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
+                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <select
+                            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
+                            onChange={portalSelect}
+                            value={portal}
+                        >
+                            <option selected value='dgg'>DGG</option>
+                            <option value='r+v'>R+V</option>
+                        </select>
+                    </div>
+                }
+            </div>
             <div className='bg-white rounded-xl text-left p-8'>
                 <div
                     className='grid lg:grid-cols-10 md:grid-cols-2 sm:grid-cols-1 gap-3 items-center content-center mb-10'>
-                    <Boxes rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'} data={total}
+                    <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'}
+                           data={total}
                            icon={<SiVirustotal color={'#ffffff'} size='27px'/>} title={'Alle Projekte'}/>
                     {
                         toggle.toString() === 'false' ?
-                            <Boxes rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'} data={done}
+                            <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'}
+                                   data={done}
                                    icon={<MdDone color={'#ffffff'} size='30px'/>} title={'Abgeschlossen'}/>
                             :
-                            <Boxes rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'} data={canceled}
+                            <Boxes loading={loadingBoxes} rotate={toggle} toggleState={updateMainState} col={'#2f2f2f'}
+                                   data={canceled}
                                    icon={<AiOutlineClose color={'#ffffff'} size='30px'/>} title={'Abgesagt'}/>
                     }
                     <div className="flex flex-col col-span-4 rounded-md shadow-lg px-4">
@@ -125,7 +156,7 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                <Graph User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>
+                <Graph portal={portal} User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>
             </div>
         </div>
     )

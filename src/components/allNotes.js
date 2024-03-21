@@ -18,6 +18,7 @@ const AllNotes = () => {
     useEffect(() => {
         let data = new FormData()
         data.append('firma', param.company)
+        data.append('portal', param.portal)
         Api().post('/getAllNotes', data).then(res => {
                 setNotes(res.data.notes)
                 setName(res.data.name)

@@ -6,7 +6,7 @@ const AdminView = ({users, pageSize, loading, total, role, filterIDUM, filterUM}
 
     const navigate = useNavigate()
     useEffect(() => {
-        if (role === 'External' || role === 'Supervisor') {
+        if (role === 'ExtRUV' || role === 'ExtDGG' || role === 'ManDGG' || role === 'ManRUV') {
             navigate('/')
         }
     }, []);
