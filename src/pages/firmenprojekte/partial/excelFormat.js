@@ -140,7 +140,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len, rows, url, count, portal
 
     return (
         <div
-            className={`${loading || loadingAll ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer ${(len === 0 && title !== 'Excel Export Gesamt') && 'hideDiv'} `}
+            className={`${loading || loadingAll ? 'opacity-50' : ''} flex justify-center m-1 cursor-pointer ${(!loading && len === 0 && title !== 'Excel Export Gesamt') && 'hideDiv'} `}
             onClick={printXl}
         >
             <RiFileExcel2Fill className='mr-1' size='25px' color={'#388E3C'}/>

@@ -13,6 +13,7 @@ import {useParams} from "react-router";
 import {toast} from "react-toastify";
 import {AES, enc} from "crypto-js";
 import {useLocation} from "react-router-dom";
+import CompanyInfoPopUpDGG from "../../components/modal/companyInfoPopUpDGG";
 
 const Bestant = () => {
     const [{
@@ -96,16 +97,16 @@ const Bestant = () => {
                     setStepsLoading(false)
                 }
 
-                const unsaved = localStorage.data ? JSON.parse(localStorage.data):[]
+                const unsaved = localStorage.data ? JSON.parse(localStorage.data) : []
                 if (unsaved?.length > 0) {
                     res.data.grid.map(r => {
                         unsaved?.map(u => {
-                            if (currentMilestone === u.milestone && r.stepID === u.id && Number(param.id) === Number(u.firma) && user.ID===u.user) {
+                            if (currentMilestone === u.milestone && r.stepID === u.id && Number(param.id) === Number(u.firma) && user.ID === u.user) {
                                 const formatted = formatDate(u.value);
-                                if (u.type === 'date' && u.value!==null) {
+                                if (u.type === 'date' && u.value !== null) {
                                     r.fieldValue = formatted
                                 } else {
-                                    if(u.value!==null){
+                                    if (u.value !== null) {
                                         r.fieldValue = u.value
                                     }
                                 }
@@ -227,7 +228,7 @@ const Bestant = () => {
                                         options={options}
                                         grid={grid}
                                         lastIndex={lastIndex}
-                                        title={milestoneTabs[Number(currentMilestone-1)]?.milestoneLabel.substring(subString)}
+                                        title={milestoneTabs[Number(currentMilestone - 1)]?.milestoneLabel.substring(subString)}
                                         firma={param.id}
                                         portal={param.portal}
                                     />
@@ -248,7 +249,11 @@ const Bestant = () => {
 
             <Modal toggle={toggleCompanyInfoModal}
                    visible={companyInfoModal}
-                   component={<CompanyInfoPopUp portal={param.portal} Info={info} company={param.id}/>}
+                   component={param.portal === 'dgg' ?
+                       <CompanyInfoPopUpDGG portal={param.portal} Info={info} company={param.id}/>
+                       :
+                       <CompanyInfoPopUp portal={param.portal} Info={info} company={param.id}/>
+                   }
             />
         </div>
     )

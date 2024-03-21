@@ -106,3 +106,5 @@ c
 3src/pages/userManagement/partial/bankManagerView.js,2\f\2f7f8253b4bb0ed415481b6a08246e5f0d99a2ad
 W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
+[
++src/components/modal/companyInfoPopUpDGG.js,9\2\923c70cb5c614e869a79abe25a5d9cab00ff3f48

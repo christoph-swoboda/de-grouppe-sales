@@ -21,18 +21,18 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
     const line4=info?.Zeile4?.replaceAll(/US-Id:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line5=info?.Zeile5?.replaceAll(/Tel. Zentrale:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line7=info?.Zeile7
-    const line8=info?.Zeile8?.replaceAll(/Koop-Bank: /gi, match => `<span style="color: #000000; border: 2px solid #3A46A9; padding: 5px 10px;font-size: 15px;margin-right: 5px; font-weight: bold">${match} </span>`)
-    const line9=info?.Zeile9
-    const line10=info?.Zeile10
+    const line8=info?.Zeile8
+    const line9=info?.Zeile9?.replaceAll(/KGS: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line10=info?.Zeile10?.replaceAll(/ADM: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line11=info?.Zeile11?.replaceAll(/KVD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line12=info?.Zeile12?.replaceAll(/KFD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line13=info?.Zeile13?.replaceAll(/KBD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line14=info?.Zeile14
-    const line15=info?.Zeile15
-    const line16=info?.Zeile16?.replaceAll(/Name:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line17=info?.Zeile17?.replaceAll(/Brief-Anrede:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line18=info?.Zeile18?.replaceAll(/Tel. Direkt:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line19=info?.Zeile19?.replaceAll(/Mobil:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line12=info?.Zeile12
+    const line13=info?.Zeile13?.replaceAll(/Name: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line14=info?.Zeile14?.replaceAll(/Brief-Anrede:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line15=info?.Zeile15?.replaceAll(/Tel. Direkt:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line16=info?.Zeile16?.replaceAll(/Mobil:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line17=info?.Zeile17?.replaceAll(/Privat:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line18=info?.Zeile18?.replaceAll(/Fax:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line19=info?.Zeile19?.replaceAll(/E-Mail:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line20=info?.Zeile20?.replaceAll(/Privat:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line21=info?.Zeile21?.replaceAll(/Fax:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const Email = email?.replaceAll(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi, match => `<span style="color: #3A46A9; text-decoration: underline">${match} </span>`);
@@ -49,8 +49,8 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
 
 
     useEffect(() => {
-        if (info?.Zeile15) {
-            let mail = extractEmails(info?.Zeile15)
+        if (info?.Zeile19) {
+            let mail = extractEmails(info?.Zeile19)
             if (mail) {
                 setEmail(mail[0])
             } else {
@@ -77,6 +77,7 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
                                  onClick={() => dispatch({type: "SET_COMPANYINFO_MODAL", item: !companyInfoModal})} size='24px'/>
                         <div className='mt-24'>
                             {/*<CompanyData info={Info}/>*/}
+                            {/*<p style={{color:'#a1a1a1'}}>{line1}</p>*/}
                             <p style={{color:'#000000'}} className='font-bold my-2 border-2 border-mainBlue w-fit px-3 py-1'>Firmenprojekt</p>
                             <div dangerouslySetInnerHTML={{__html: line1}}/>
                             <div dangerouslySetInnerHTML={{__html: line2}}/>
@@ -91,21 +92,21 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
                                     {Web}
                                 </p>
                             </div>
-                            <p style={{color:'#a1a1a1'}} className='my-4'>{line7}</p>
-                            <div dangerouslySetInnerHTML={{__html: line8}}/>
+                            {/*<p style={{color:'#a1a1a1'}} className='mt-4'>{line7}</p>*/}
+                            <p style={{color:'#000000'}} className='my-2 font-bold border-2 border-mainBlue w-fit px-3 py-1'>{line8}</p>
                             <div dangerouslySetInnerHTML={{__html: line9}}/>
-                            <p style={{color:'#000000'}} className='mt-3 mb-1 font-bold border-2 border-mainBlue w-fit px-3 py-1'>{line10}</p>
+                            <div dangerouslySetInnerHTML={{__html: line10}}/>
                             <div dangerouslySetInnerHTML={{__html: line11}}/>
-                            <div dangerouslySetInnerHTML={{__html: line12}}/>
+                            <p style={{color:'#000000'}} className='my-2 font-bold border-mainBlue border-2 w-fit px-3 py-1'>{line12}</p>
                             <div dangerouslySetInnerHTML={{__html: line13}}/>
-                            <p style={{color:'#a1a1a1'}}>{line14}</p>
-                            <p style={{color:'#000000'}} className='my-2 font-bold border-2 border-mainBlue w-fit px-3 py-1'>{line15}</p>
+                            <div dangerouslySetInnerHTML={{__html: line14}}/>
+                            <div dangerouslySetInnerHTML={{__html: line15}}/>
                             <div dangerouslySetInnerHTML={{__html: line16}}/>
                             <div dangerouslySetInnerHTML={{__html: line17}}/>
                             <div dangerouslySetInnerHTML={{__html: line18}}/>
-                            <div dangerouslySetInnerHTML={{__html: line19}}/>
-                            <div dangerouslySetInnerHTML={{__html: line20}}/>
-                            <div dangerouslySetInnerHTML={{__html: line21}}/>
+                            {/*<div dangerouslySetInnerHTML={{__html: line19}}/>*/}
+                            {/*<div dangerouslySetInnerHTML={{__html: line20}}/>*/}
+                            {/*<div dangerouslySetInnerHTML={{__html: line21}}/>*/}
                             <div className='flex justify-start'>
                                 <p style={{color:'#a1a1a1'}} className='mr-1'>Email: </p>
                                 <div className='cursor-pointer' onClick={()=>dispatch({type:'SET_SENDMAIL', item:true})} dangerouslySetInnerHTML={{__html: Email}}/>

@@ -56,7 +56,7 @@ const CompanyData = ({toggle, company, info, loading}) => {
                     <ButtonMailto label={`Email: ${email}`} mailto={`mailto:${email}`}/>
                 </div>
                 <div className='flex justify-start'>
-                    <p style={{color:'#a1a1a1'}} className='mr-1'>B4Y-Portal: </p>
+                    {/*<p style={{color:'#a1a1a1'}} className='mr-1'>B4Y-Portal: </p>*/}
                     <p onClick={()=>window.open(Web, '_blank')} style={{color:'#3A46A9'}}
                        className='underline cursor-pointer'
                     >

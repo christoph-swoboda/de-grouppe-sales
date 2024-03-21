@@ -30,19 +30,22 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
-    const [update, setUpdated] = useState((localStorage.data && user.ID===JSON.parse(localStorage.data)[0]?.user )? JSON.parse(localStorage.data): [])
+    // const [update, setUpdated] = useState((localStorage.data && user.ID===JSON.parse(localStorage.data)[0]?.user )? JSON.parse(localStorage.data): [])
+    const [update, setUpdated] = useState([])
+
 
 
     useEffect(() => {
         let key = 'id';
         const unique = [...new Map(update?.map(item => [item[key], item])).values()];
         const handleBeforeUnload = (event) => {
-            const confirmationMessage = 'Sind Sie sicher, dass Sie diese Seite verlassen möchten?';
-            event.preventDefault();
-            event.returnValue = confirmationMessage;
-            // if (unique.length > 0) {
-                localStorage.setItem('data', JSON.stringify(unique));
-            // }
+            // const confirmationMessage = 'Sind Sie sicher, dass Sie diese Seite verlassen möchten?';
+            // event.preventDefault();
+            // event.returnValue = confirmationMessage;
+            // // if (unique.length > 0) {
+            // //     localStorage.setItem('data', JSON.stringify(unique));
+            // // }
+            //     localStorage.setItem('data', JSON.stringify(unique));
         };
         window.addEventListener('beforeunload', handleBeforeUnload);
 
