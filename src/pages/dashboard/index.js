@@ -60,7 +60,7 @@ const Dashboard = () => {
             if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
                 setPortal('dgg')
             } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
-                setPortal('r+v')
+                setPortal('ruv')
             } else {
                 setPortal('dgg')
             }
@@ -85,7 +85,7 @@ const Dashboard = () => {
                             value={portal}
                         >
                             <option selected value='dgg'>DGG</option>
-                            <option value='r+v'>R+V</option>
+                            <option value='ruv'>R+V</option>
                         </select>
                     </div>
                 }

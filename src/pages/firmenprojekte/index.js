@@ -44,7 +44,7 @@ const BestantList = () => {
             if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
                 setPortal('dgg')
             } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
-                setPortal('r+v')
+                setPortal('ruv')
             }else{
                 setPortal('dgg')
             }
@@ -235,7 +235,7 @@ const BestantList = () => {
                             value={portal}
                         >
                             <option selected value='dgg'>DGG</option>
-                            <option value='r+v'>R+V</option>
+                            <option value='ruv'>R+V</option>
                         </select>
                     </div>
                 }
@@ -257,8 +257,8 @@ const BestantList = () => {
                     users={users}
                     loading={loading}
                     printPDFRef={componentRef}
-                    headers={(viewName === 'Firmenprojekte' && portal === 'r+v') ? BestandViewHeaders : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
-                    count={viewName === (viewName === 'Firmenprojekte' && portal === 'r+v') ? BestandViewHeaders.length - 2 : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
+                    headers={(viewName === 'Firmenprojekte' && portal === 'ruv') ? BestandViewHeaders : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
+                    count={viewName === (viewName === 'Firmenprojekte' && portal === 'ruv') ? BestandViewHeaders.length - 2 : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
                     printing={printing}
                     sortColumn={sortColumn}
                     sortMethod={sortMethod}

@@ -308,7 +308,7 @@ const BestandListDataSection = ({
                                         </tr>
                                     }
                                     {
-                                        (!loading && view === 'Firmenprojekte' && portal==='r+v') ?
+                                        (!loading && view === 'Firmenprojekte' && portal==='ruv') ?
                                             users?.map((u, index) => (
                                                 <FirmenprojekteView
                                                     key={index}
