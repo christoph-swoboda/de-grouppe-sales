@@ -108,3 +108,7 @@ W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
 [
 +src/components/modal/companyInfoPopUpDGG.js,9\2\923c70cb5c614e869a79abe25a5d9cab00ff3f48
+B
+src/hooks/modal.js,8\c\8c52ed482e84771557442efe64121ae46db5a2e0
+E
+src/styles/modal.scss,5\7\5717eb6756a2d1efc602719efb956068cbe2dc7b
