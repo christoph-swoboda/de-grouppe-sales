@@ -47,7 +47,7 @@ const FirmenprojekteView = ({FirmaKurz,ZustBerater,Bank,RegioBereich,FBKBank,MA,
                 {PStatus}
             </td>
             {
-                portal==='r+v' &&
+                portal==='ruv' &&
                 <td className="w-24 font-light text-gray-900 pr-3">
                     {date}
                 </td>

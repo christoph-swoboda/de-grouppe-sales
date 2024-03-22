@@ -53,7 +53,7 @@ const NewCreation = () => {
         if(user.role==='ExtDGG'){
             setPortal('dgg')
         }else if(user.role==='ExtRUV'){
-            setPortal('r+v')
+            setPortal('ruv')
         }
     }, [user]);
 
@@ -77,7 +77,7 @@ const NewCreation = () => {
                             value={portal}
                         >
                             <option selected value='dgg'>DGG</option>
-                            <option value='r+v'>R+V</option>
+                            <option value='ruv'>R+V</option>
                         </select>
                     </div>
                 }

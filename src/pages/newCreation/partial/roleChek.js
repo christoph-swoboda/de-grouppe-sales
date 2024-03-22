@@ -21,7 +21,7 @@ const RoleCheck = ({name, dropdown, role, isSAdmin, loading, portal}) => {
                     </div> :
                     (portal === 'dgg') ?
                         <FormDGG name={name} role={role} isSAdmin={isSAdmin} dropdown={dropdown}/>
-                        : portal === 'r+v' &&
+                        : portal === 'ruv' &&
                         <FormRUV name={name} role={role} isSAdmin={isSAdmin} dropdown={dropdown}/>
             }
         </div>

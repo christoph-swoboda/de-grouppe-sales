@@ -239,7 +239,7 @@ const InfoCrawler = () => {
                                         value={portal}
                                     >
                                         <option selected value='dgg'>DGG</option>
-                                        <option value='r+v'>R+V</option>
+                                        <option value='ruv'>R+V</option>
                                     </select>
                                 </div>
                                 <div className='lg:grid grid-cols-7 items-center my-2'>
