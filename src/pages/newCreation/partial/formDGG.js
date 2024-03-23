@@ -18,6 +18,9 @@ const FormDGG = ({name, dropdown, role}) => {
         Api().post('/sp_createNewDGGCustomer', data).then(res => {
             toast.success('Das neue Firmenprojekt wurde angelegt.')
             reset()
+            setValue('Ersteller', name)
+            setValue('berater', name)
+            setValue('vpberater', dropdown?.filter(d => d.Bank === bank)[0]?.BeraterVPN)
             setLoading(false)
         }).catch(e => {
             toast.error('Etwas ist schief gelaufen!')
@@ -67,7 +70,6 @@ const FormDGG = ({name, dropdown, role}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:mr-14 lg:mr-0'>
                         <label>VP-Nummer *</label>
                         <input placeholder='VP-Nummer..'
-                               disabled
                                {...register('vpberater', {required: true})}
                                style={{border: errors.blz && '1px solid red'}}
                         />
@@ -96,7 +98,6 @@ const FormDGG = ({name, dropdown, role}) => {
                         <label>ADM </label>
                         <input{...register('adm', {required: false})}
                               placeholder='Nachname, Vorname'
-                              style={{border: !watch('berater') && '1px solid red'}}
                         />
                         {errors.adm && touchedFields && <p>KGS Feld ist erforderlich</p>}
                     </section>
