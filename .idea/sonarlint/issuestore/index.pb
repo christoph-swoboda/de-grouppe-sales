@@ -114,3 +114,7 @@ E
 src/styles/modal.scss,5\7\5717eb6756a2d1efc602719efb956068cbe2dc7b
 E
 src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
+R
+"src/staticData/storfalleHeaders.js,6\8\687a0bc285c31274ae66ac520e478264969d2b9c
+U
+%src/staticData/storfalleHeadersDGG.js,6\d\6dd5da0daf93b2c7d83a3b622f6db63de101ca4b

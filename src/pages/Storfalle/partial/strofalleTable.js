@@ -12,7 +12,10 @@ const StrofalleTable = ({
                             StorfallDatum,
                             Bemerkung,
                             PDatum,
-                            FirmaID
+                            FirmaID,
+                            ZustBerater,
+                            DGAPIKAM,
+                            portal
                         }) => {
 
     String.prototype.allReplace = function (obj) {
@@ -33,15 +36,22 @@ const StrofalleTable = ({
             <td className="w-52 text-gray-900 font-light pr-3">
                 {Firma}
             </td>
-            <td className="w-40 text-gray-900 font-light pr-3">
-                {ZustFKB}
-            </td>
-            <td className="w-40 text-gray-900 font-light pr-3 ">
-                {Bank}
-            </td>
             <td className="w-16 text-gray-900 font-light pr-3">
                 {MA}
             </td>
+            <td className="w-40 text-gray-900 font-light pr-3">
+                {portal === 'dgg' ? ZustBerater : ZustFKB}
+            </td>
+            <td className="w-40 text-gray-900 font-light pr-3">
+                {DGAPIKAM}
+            </td>
+            {
+                portal === 'ruv' &&
+                <td className="w-40 text-gray-900 font-light pr-3 ">
+                    {Bank}
+                </td>
+            }
+
             <td className="w-48 text-gray-900 font-light pr-3 ">
                 {PStatus}
             </td>
