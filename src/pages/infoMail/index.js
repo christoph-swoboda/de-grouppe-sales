@@ -10,8 +10,7 @@ import {useNavigate} from "react-router";
 
 const InfoMail = () => {
 
-    const [{ICSaved, secretKey}, dispatch] = useStateValue();
-    const [portal, setPortal] = useState('dgg')
+    const [{ICSaved, secretKey, portal}, dispatch] = useStateValue();
     const [milestones, setMilestones] = useState([])
     const [subStepsLoading, setSubStepsLoading] = useState(false)
     const [triggerSubStepsLoading, setTriggerSubStepsLoading] = useState(false)
@@ -168,7 +167,8 @@ const InfoMail = () => {
     }
 
     function portalSelect(e) {
-        setPortal(e.target.value)
+        dispatch({type:'SET_PORTAL', item:e.target.value})
+        localStorage.setItem('portal', e.target.value)
     }
 
     return (

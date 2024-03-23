@@ -112,3 +112,5 @@ B
 src/hooks/modal.js,8\c\8c52ed482e84771557442efe64121ae46db5a2e0
 E
 src/styles/modal.scss,5\7\5717eb6756a2d1efc602719efb956068cbe2dc7b
+E
+src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8

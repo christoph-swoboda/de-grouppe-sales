@@ -13,10 +13,8 @@ const AdminEdit = () => {
     const [tableData, setTableData] = useState([])
     const [loading, setLoading] = useState(false)
     const [milestoneID, setMilestoneID] = useState('')
-    const [portal, setPortal] = useState('')
-    const [superAdmin, setSuperAdmin] = useState('')
 
-    const [{secretKey}, dispatch] = useStateValue();
+    const [{secretKey, portal}, dispatch] = useStateValue();
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const role = user.role
@@ -51,23 +49,12 @@ const AdminEdit = () => {
         })
     };
 
-    useEffect(() => {
-        setSuperAdmin(user.isSAdmin)
-        if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
-            setPortal('dgg')
-        } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
-            setPortal('r+v')
-        } else {
-            setPortal('dgg')
-        }
-    }, []);
-
     function portalSelect(e) {
-        setPortal(e.target.value)
+        dispatch({type:'SET_PORTAL', item:e.target.value})
+        localStorage.setItem('portal', e.target.value)
         setMilestones([])
         setTableData([])
     }
-
 
     return (
         <div className='dashboardContainer'>
@@ -82,7 +69,7 @@ const AdminEdit = () => {
                             value={portal}
                         >
                             <option selected value='dgg'>DGG</option>
-                            <option value='r+v'>R+V</option>
+                            <option value='ruv'>R+V</option>
                         </select>
                     </div>
                 }

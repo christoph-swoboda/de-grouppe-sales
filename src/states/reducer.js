@@ -17,6 +17,7 @@ export const initialState = {
     sortUserColum: 1,
     noteRows: 3,
     sortUserMethod: 'desc',
+    portal: localStorage.getItem('portal'),
     page: 1,
     pageBestand: 1,
     noteSent: true,
@@ -165,6 +166,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 subStepSaved: action.item
+            }
+            case "SET_PORTAL":
+            return {
+                ...state,
+                portal: action.item
             }
         default:
             return state;

@@ -10,9 +10,8 @@ import {useNavigate} from "react-router";
 
 const InfoCrawler = () => {
 
-    const [{ICSaved, secretKey}, dispatch] = useStateValue();
+    const [{ICSaved, secretKey, portal}, dispatch] = useStateValue();
     const [milestones, setMilestones] = useState([])
-    const [portal, setPortal] = useState('dgg')
     const [subStepsLoading, setSubStepsLoading] = useState(false)
     const [triggerSubStepsLoading, setTriggerSubStepsLoading] = useState(false)
     const [subSteps, setSubSteps] = useState([])
@@ -203,12 +202,28 @@ const InfoCrawler = () => {
     };
 
     function portalSelect(e) {
-        setPortal(e.target.value)
+        dispatch({type:'SET_PORTAL', item:e.target.value})
+        localStorage.setItem('portal', e.target.value)
     }
 
     return (
         <div className={`dashboardContainer`}>
-            <h2 className='text-2xl lg:text-left pb-5'>InfoCrawler</h2>
+            <div className='flex justify-start items-center content-center pb-5'>
+                <h2 className='text-2xl lg:text-left'> InfoCrawler</h2>
+                {
+                    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
+                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <select
+                            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
+                            onChange={portalSelect}
+                            value={portal}
+                        >
+                            <option selected value='dgg'>DGG</option>
+                            <option value='ruv'>R+V</option>
+                        </select>
+                    </div>
+                }
+            </div>
             {
                 loading ?
                     <SkewLoader size='10px'/>

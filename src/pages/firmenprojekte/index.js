@@ -25,10 +25,9 @@ const BestantList = () => {
     const [url, setUrl] = useState('getBestands');
     const [viewName, setViewName] = useState('Firmenprojekte');
     const [superAdmin, setSuperAdmin] = useState('')
-    const [portal, setPortal] = useState('')
     const [views, setViews] = useState([]);
     let PageSize = rows;
-    const [{pageBestand, sortColumn, sortMethod, filterID, filter, dateFilter, secretKey}, dispatch] = useStateValue();
+    const [{pageBestand, sortColumn, sortMethod, filterID, filter, dateFilter, secretKey, portal}, dispatch] = useStateValue();
     const [users, setUsers] = useState([]);
     const [total, setTotal] = useState(0);
     const componentRef = useRef();
@@ -40,15 +39,22 @@ const BestantList = () => {
 
 
     useEffect(() => {
-            setSuperAdmin(user.isSAdmin)
-            if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
-                setPortal('dgg')
-            } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
-                setPortal('ruv')
+        setSuperAdmin(user.isSAdmin)
+        if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
+            dispatch({type:'SET_PORTAL', item:'dgg'})
+            localStorage.setItem('portal', 'dgg')
+        } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
+            dispatch({type:'SET_PORTAL', item:'ruv'})
+            localStorage.setItem('portal', 'ruv')
+        } else {
+            if(localStorage.getItem('portal')){
+                dispatch({type:'SET_PORTAL', item:localStorage.getItem('portal')})
             }else{
-                setPortal('dgg')
+                dispatch({type:'SET_PORTAL', item:'dgg'})
             }
+        }
     }, []);
+
 
     useEffect(() => {
         dispatch({type: "SET_PAGE_BESTAND", item: 1})
@@ -212,7 +218,8 @@ const BestantList = () => {
     };
 
     function portalSelect(e) {
-        setPortal(e.target.value)
+        dispatch({type:'SET_PORTAL', item:e.target.value})
+        localStorage.setItem('portal', e.target.value)
     }
 
     function onPortalChanged(){

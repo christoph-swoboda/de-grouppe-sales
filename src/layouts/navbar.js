@@ -58,6 +58,7 @@ const Navbar = () => {
         setModal(!modal)
         localStorage.removeItem('user')
         localStorage.removeItem('admin')
+        localStorage.removeItem('portal')
         setLoading(false)
         window.location.reload()
     }
