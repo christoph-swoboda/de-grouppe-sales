@@ -12,7 +12,7 @@ ChartJS.register(
     Legend
 );
 
-const BarChartComponent = ({project, values, loading, left}) => {
+const BarChartComponent = ({project, values, loading, left, formattedValues}) => {
 
      const options = {
         indexAxis: 'y',
@@ -39,7 +39,7 @@ const BarChartComponent = ({project, values, loading, left}) => {
         },
     };
 
-    const labels =  Object.values([values][0])
+    const labels =  Object.values([formattedValues][0])
     const array = {
         labels,
         datasets: [

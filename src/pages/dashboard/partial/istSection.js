@@ -3,6 +3,8 @@ import BarChartComponent from "../../../components/barChart";
 
 const ISTSection = ({project, data, loading, dataEmp}) => {
 
+    const [formattedValuesString, setFormattedValuesString] = useState([])
+    const [formattedValuesEmpString, setFormattedValuesEmpString] = useState([])
     const [values, setValues] = useState([])
     const [valuesEmp, setValuesEmp] = useState([])
 
@@ -18,11 +20,11 @@ const ISTSection = ({project, data, loading, dataEmp}) => {
             arr2.push(Number(d.summe));
         });
 
-        const formattedValues = arr.map(value => value.toLocaleString());
-        const formattedValuesEmp = arr2.map(value => value.toLocaleString());
+        setFormattedValuesString(arr.map(value => value.toLocaleString()))
+        setFormattedValuesEmpString(arr2.map(value => value.toLocaleString()))
 
-        setValues(formattedValues);
-        setValuesEmp(formattedValuesEmp);
+        setValues(arr);
+        setValuesEmp(arr2);
 
     }, [data, dataEmp]);
     return (
@@ -38,8 +40,8 @@ const ISTSection = ({project, data, loading, dataEmp}) => {
                 }
             </div>
             <div className='flex  text-left'>
-                <BarChartComponent left loading={loading} values={values} project={project}/>
-                <BarChartComponent loading={loading} values={valuesEmp} project={project}/>
+                <BarChartComponent left loading={loading} values={values} formattedValues={formattedValuesString} project={project}/>
+                <BarChartComponent loading={loading} values={valuesEmp} formattedValues={formattedValuesEmpString} project={project}/>
             </div>
         </div>
     )
