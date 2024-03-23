@@ -136,18 +136,18 @@ const BestandListDataSection = ({
                              len={users?.length} portal={portal}/>
                 {/*<CsvExport Gesamt title={'Csv Export Gesamt'} loading={loading} len={users?.length}/>*/}
                 {/*<CsvExport all title={'Csv Export'} loading={loading} len={users?.length}/>*/}
-                <div
-                    className={`${loading ? 'opacity-50' : 'opacity-0'} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}
-                    onClick={setPrintState}>
-                    <AiTwotonePrinter className='mr-1' size='25px' color={'#DB2955'}/>
-                    <span className='mr-1 mb-2 text-grey text-sm'>Drucken</span>
-                </div>
+                {/*<div*/}
+                {/*    className={`${loading ? 'opacity-50' : 'opacity-100'} ${(users?.length === 0) && 'hideDiv'} flex justify-center m-1 cursor-pointer`}*/}
+                {/*    onClick={setPrintState}>*/}
+                {/*    <AiTwotonePrinter className='mr-1' size='25px' color={'#DB2955'}/>*/}
+                {/*    <span className='mr-1 mb-2 text-grey text-sm'>Drucken</span>*/}
+                {/*</div>*/}
                 <div className={`flex m-auto justify-center ml-64`}>
                     <select disabled={loading}
                             value={selectedView} onChange={handleViewChange}
                             className={`${(user?.role !== 'Internal' && user?.role !== 'Controller') && 'hideDiv'} ${loadingViews ? 'hideDiv' : ''} justify-center w-fit rounded-md border border-offWhite shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}>
                         {
-                            views.map((v, i) => (
+                            views?.map((v, i) => (
                                 <option key={i} disabled={portal === 'dgg' ? i > 0 : i > 4} value={v.viewName}>
                                     {v.viewName}
                                 </option>

@@ -85,6 +85,7 @@ const Dashboard = () => {
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
                         <p className='w-fit mr-2 text-grey'>Portal:  </p>
                         <select
+                            disabled={loadingBoxes || loadingStrofalle}
                             className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
                             onChange={portalSelect}
                             value={portal}
