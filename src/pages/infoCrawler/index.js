@@ -247,17 +247,6 @@ const InfoCrawler = () => {
                         </div>
                         <div className='centerItemsRelative flex-wrap'>
                             <div className='lg:w-fit'>
-                                <div className='flex justify-start items-center w-fit'>
-                                    <p className='w-fit mr-6'>Portal </p>
-                                    <select
-                                        className='pl-3 col-span-2 text-center mx-auto pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'
-                                        onChange={portalSelect}
-                                        value={portal}
-                                    >
-                                        <option selected value='dgg'>DGG</option>
-                                        <option value='ruv'>R+V</option>
-                                    </select>
-                                </div>
                                 <div className='lg:grid grid-cols-7 items-center my-2'>
                                     <p className='w-fit col-span-1'>Einstellungen für: </p>
                                     <select onChange={milestoneChanged}
