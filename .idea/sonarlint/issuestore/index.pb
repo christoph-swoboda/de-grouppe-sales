@@ -108,3 +108,13 @@ W
 'src/components/collapseExpandSection.js,7\5\75d291639e6a6dc1467aa4257b786b2c95aa1f20
 [
 +src/components/modal/companyInfoPopUpDGG.js,9\2\923c70cb5c614e869a79abe25a5d9cab00ff3f48
+B
+src/hooks/modal.js,8\c\8c52ed482e84771557442efe64121ae46db5a2e0
+E
+src/styles/modal.scss,5\7\5717eb6756a2d1efc602719efb956068cbe2dc7b
+E
+src/states/reducer.js,5\7\57cdcda4539878040a682b2766ad7b660d1634f8
+R
+"src/staticData/storfalleHeaders.js,6\8\687a0bc285c31274ae66ac520e478264969d2b9c
+U
+%src/staticData/storfalleHeadersDGG.js,6\d\6dd5da0daf93b2c7d83a3b622f6db63de101ca4b

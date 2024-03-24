@@ -21,12 +21,12 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
     const line4=info?.Zeile4?.replaceAll(/US-Id:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line5=info?.Zeile5?.replaceAll(/Tel. Zentrale:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line7=info?.Zeile7
-    const line8=info?.Zeile8?.replaceAll(/Koop-Bank: /gi, match => `<span style="color: #000000; border: 2px solid #3A46A9; padding: 5px 10px;font-size: 15px;margin-right: 5px; font-weight: bold">${match} </span>`)
+    const line8=info?.Zeile8?.replaceAll(/Koop-Bank: /gi, match => `<span style="color: #000000; font-size: 15px;margin-right: 5px; font-weight: bold">${match} </span>`)
     const line9=info?.Zeile9
     const line10=info?.Zeile10
-    const line11=info?.Zeile11?.replaceAll(/KVD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line12=info?.Zeile12?.replaceAll(/KFD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
-    const line13=info?.Zeile13?.replaceAll(/KBD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line11=info?.Zeile11?.replaceAll(/KVD:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line12=info?.Zeile12?.replaceAll(/KFD:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line13=info?.Zeile13?.replaceAll(/KBD:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line14=info?.Zeile14
     const line15=info?.Zeile15
     const line16=info?.Zeile16?.replaceAll(/Name:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
@@ -72,12 +72,12 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
                     </div>
 
                     :
-                    <div>
+                    <div className='px-5'>
                         <GrClose className='cursor-pointer float-right -mt-10 mr-4'
                                  onClick={() => dispatch({type: "SET_COMPANYINFO_MODAL", item: !companyInfoModal})} size='24px'/>
                         <div className='mt-24'>
                             {/*<CompanyData info={Info}/>*/}
-                            <p style={{color:'#000000'}} className='font-bold my-2 border-2 border-mainBlue w-fit px-3 py-1'>Firmenprojekt</p>
+                            <p style={{color:'#000000'}} className='font-bold my-2 w-fit py-1'>Firmenprojekt</p>
                             <div dangerouslySetInnerHTML={{__html: line1}}/>
                             <div dangerouslySetInnerHTML={{__html: line2}}/>
                             <div dangerouslySetInnerHTML={{__html: line3}}/>
@@ -94,12 +94,12 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
                             <p style={{color:'#a1a1a1'}} className='my-4'>{line7}</p>
                             <div dangerouslySetInnerHTML={{__html: line8}}/>
                             <div dangerouslySetInnerHTML={{__html: line9}}/>
-                            <p style={{color:'#000000'}} className='mt-3 mb-1 font-bold border-2 border-mainBlue w-fit px-3 py-1'>{line10}</p>
+                            <p style={{color:'#000000'}} className='mt-3 mb-1 font-bold w-fit py-1'>{line10}</p>
                             <div dangerouslySetInnerHTML={{__html: line11}}/>
                             <div dangerouslySetInnerHTML={{__html: line12}}/>
                             <div dangerouslySetInnerHTML={{__html: line13}}/>
                             <p style={{color:'#a1a1a1'}}>{line14}</p>
-                            <p style={{color:'#000000'}} className='my-2 font-bold border-2 border-mainBlue w-fit px-3 py-1'>{line15}</p>
+                            <p style={{color:'#000000'}} className='my-2 font-bold w-fit py-1'>{line15}</p>
                             <div dangerouslySetInnerHTML={{__html: line16}}/>
                             <div dangerouslySetInnerHTML={{__html: line17}}/>
                             <div dangerouslySetInnerHTML={{__html: line18}}/>

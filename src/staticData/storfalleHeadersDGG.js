@@ -1,4 +1,4 @@
-export const StorfalleHeaders = [
+export const StorfalleHeadersDGG = [
     {
         id: 1,
         title: 'Firma Kurz'
@@ -13,15 +13,11 @@ export const StorfalleHeaders = [
     },
     {
         id: 4,
-        title: 'Zust. FKB'
+        title: 'Zust. Berater'
     },
     {
         id: 5,
         title: 'DGAPI KAM'
-    },
-    {
-        id: 6,
-        title: 'Bank'
     },
     {
         id: 7,

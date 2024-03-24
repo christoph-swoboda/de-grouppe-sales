@@ -58,6 +58,7 @@ const Navbar = () => {
         setModal(!modal)
         localStorage.removeItem('user')
         localStorage.removeItem('admin')
+        localStorage.removeItem('portal')
         setLoading(false)
         window.location.reload()
     }
@@ -118,7 +119,7 @@ const Navbar = () => {
                             }
 
                             <div className="dropdown-content">
-                                {user?.role === 'Internal' && user?.isUserAdmin === '1' && (
+                                {(user?.role === 'Internal' && user?.isUserAdmin === '1' || user.isSAdmin==='1') && (
                                     <Link to={'/benutzerverwaltung'}>
                                         <li className={`items ${path.pathname === '/benutzerverwaltung' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             Benutzerverwaltung
@@ -134,7 +135,7 @@ const Navbar = () => {
                                 //         </Link>
                                 //     )
                                 )}
-                                {user?.role === 'Internal' && user.isICAdmin === '1' && (
+                                {(user?.role === 'Internal' && user.isICAdmin === '1' || user.isSAdmin==='1')  && (
                                     <Link
                                         to={{
                                             pathname: '/info-crawler',
@@ -145,7 +146,7 @@ const Navbar = () => {
                                         </li>
                                     </Link>
                                 )}
-                                {user?.role === 'Internal' && user.isIMAdmin === '1' && (
+                                {(user?.role === 'Internal' && user.isIMAdmin === '1' || user.isSAdmin==='1' ) && (
                                     <Link to={'/info-mail'} onClick={toggleNav}>
                                         <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             InfoMail

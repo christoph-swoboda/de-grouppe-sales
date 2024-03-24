@@ -26,7 +26,7 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
     const line10=info?.Zeile10?.replaceAll(/ADM: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line11=info?.Zeile11?.replaceAll(/KVD: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line12=info?.Zeile12
-    const line13=info?.Zeile13?.replaceAll(/Name: |/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
+    const line13=info?.Zeile13?.replaceAll(/Name:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line14=info?.Zeile14?.replaceAll(/Brief-Anrede:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line15=info?.Zeile15?.replaceAll(/Tel. Direkt:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
     const line16=info?.Zeile16?.replaceAll(/Mobil:/gi, match => `<span style="color: #a1a1a1">${match} </span>`)
@@ -72,13 +72,13 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
                     </div>
 
                     :
-                    <div>
+                    <div className='px-5'>
                         <GrClose className='cursor-pointer float-right -mt-10 mr-4'
                                  onClick={() => dispatch({type: "SET_COMPANYINFO_MODAL", item: !companyInfoModal})} size='24px'/>
                         <div className='mt-24'>
                             {/*<CompanyData info={Info}/>*/}
                             {/*<p style={{color:'#a1a1a1'}}>{line1}</p>*/}
-                            <p style={{color:'#000000'}} className='font-bold my-2 border-2 border-mainBlue w-fit px-3 py-1'>Firmenprojekt</p>
+                            <p style={{color:'#000000'}} className='font-bold my-2 w-fi py-1'>Firmenprojekt</p>
                             <div dangerouslySetInnerHTML={{__html: line1}}/>
                             <div dangerouslySetInnerHTML={{__html: line2}}/>
                             <div dangerouslySetInnerHTML={{__html: line3}}/>
@@ -93,11 +93,11 @@ const CompanyInfoPopUp = ({company, Info, portal}) => {
                                 </p>
                             </div>
                             {/*<p style={{color:'#a1a1a1'}} className='mt-4'>{line7}</p>*/}
-                            <p style={{color:'#000000'}} className='my-2 font-bold border-2 border-mainBlue w-fit px-3 py-1'>{line8}</p>
+                            <p style={{color:'#000000'}} className='my-2 font-bold w-fit py-1'>{line8}</p>
                             <div dangerouslySetInnerHTML={{__html: line9}}/>
                             <div dangerouslySetInnerHTML={{__html: line10}}/>
                             <div dangerouslySetInnerHTML={{__html: line11}}/>
-                            <p style={{color:'#000000'}} className='my-2 font-bold border-mainBlue border-2 w-fit px-3 py-1'>{line12}</p>
+                            <p style={{color:'#000000'}} className='my-2 font-bold w-fit py-1'>{line12}</p>
                             <div dangerouslySetInnerHTML={{__html: line13}}/>
                             <div dangerouslySetInnerHTML={{__html: line14}}/>
                             <div dangerouslySetInnerHTML={{__html: line15}}/>

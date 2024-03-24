@@ -20,6 +20,11 @@ const FormRUV = ({name, dropdown, role}) => {
         Api().post('/saveNeu', data).then(res => {
             toast.success('Das neue Firmenprojekt wurde angelegt.')
             reset()
+            setValue('Ersteller', name)
+            setValue('berater', name)
+            setValue('blz', dropdown?.filter(d => d.Bank === bank)[0]?.BLZ)
+            setValue('fkb_bank', dropdown?.filter(d => d.Bank === bank)[0]?.FKBBank)
+            setValue('dgapi', dropdown?.filter(d => d.Bank === bank)[0]?.DGAPIKAM)
             setLoading(false)
         }).catch(e => {
             toast.error('Etwas ist schief gelaufen!!')
@@ -95,7 +100,6 @@ const FormRUV = ({name, dropdown, role}) => {
                     <section className='flex flex-col text-left text-grey text-sm mt-2 2xl:ml-3 2xl:mr-14 lg:mr-0'>
                         <label>BLZ</label>
                         <input placeholder='BLZ...'
-                               disabled
                                value={dropdown?.filter(d => d.Bank === bank)[0]?.BLZ}
                                {...register('blz', {required: false})}
                                style={{border: errors.blz && '1px solid red'}}

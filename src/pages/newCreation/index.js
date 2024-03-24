@@ -16,9 +16,8 @@ const NewCreation = () => {
     const [role, setRole] = useState('')
     const [loading, setLoading] = useState(true)
     const [dropdownData, setDropdownData] = useState([])
-    const [{secretKey}, dispatch] = useStateValue();
+    const [{secretKey, portal}, dispatch] = useStateValue();
     const navigate = useNavigate()
-    const [portal, setPortal] = useState('dgg')
 
     useEffect(() => {
         try {
@@ -50,16 +49,24 @@ const NewCreation = () => {
     useEffect(() => {
         setSuperAdmin(user.isSAdmin)
         setRole(user.role)
-        if(user.role==='ExtDGG'){
-            setPortal('dgg')
-        }else if(user.role==='ExtRUV'){
-            setPortal('ruv')
+        if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
+            dispatch({type:'SET_PORTAL', item:'dgg'})
+            localStorage.setItem('portal', 'dgg')
+        } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
+            dispatch({type:'SET_PORTAL', item:'ruv'})
+            localStorage.setItem('portal', 'ruv')
+        } else {
+            if(localStorage.getItem('portal')){
+                dispatch({type:'SET_PORTAL', item:localStorage.getItem('portal')})
+            }else{
+                dispatch({type:'SET_PORTAL', item:'dgg'})
+            }
         }
-    }, [user]);
-
+    }, []);
 
     function portalSelect(e) {
-        setPortal(e.target.value)
+        dispatch({type:'SET_PORTAL', item:e.target.value})
+        localStorage.setItem('portal', e.target.value)
     }
 
 
@@ -72,6 +79,7 @@ const NewCreation = () => {
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
                         <p className='w-fit mr-2 text-grey'>Portal:  </p>
                         <select
+                            disabled={loading}
                             className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
                             onChange={portalSelect}
                             value={portal}

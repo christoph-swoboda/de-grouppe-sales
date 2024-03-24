@@ -96,35 +96,35 @@ const AddUsers = () => {
                 </section>
 
                 {/*<section className='flex justify-between gap-1'>*/}
-                    <section className='flex flex-col text-left text-grey text-sm'>
-                        <label className='py-2'>Vorname </label>
-                        <input placeholder='Vorname'
-                               type='text'
-                               {...register('vorname', {
-                                   pattern: {
-                                       value: /^.{1,50}$/,
-                                       message: 'maximal 50 Zeichen erlaubt',
-                                   },
-                               })}
-                               style={{border: errors.vorname && '1px solid red'}}
-                        />
-                        {errors.vorname && touchedFields && <p>{errors.vorname.message}</p>}
-                    </section>
+                <section className='flex flex-col text-left text-grey text-sm'>
+                    <label className='py-2'>Vorname </label>
+                    <input placeholder='Vorname'
+                           type='text'
+                           {...register('vorname', {
+                               pattern: {
+                                   value: /^.{1,50}$/,
+                                   message: 'maximal 50 Zeichen erlaubt',
+                               },
+                           })}
+                           style={{border: errors.vorname && '1px solid red'}}
+                    />
+                    {errors.vorname && touchedFields && <p>{errors.vorname.message}</p>}
+                </section>
 
-                    <section className='flex flex-col text-left text-grey text-sm'>
-                        <label className='py-2'>Nachname </label>
-                        <input placeholder='Nachname'
-                               type='text'
-                               {...register('nachname', {
-                                   pattern: {
-                                       value: /^.{1,50}$/,
-                                       message: 'maximal 50 Zeichen erlaubt',
-                                   },
-                               })}
-                               style={{border: errors.nachname && '1px solid red'}}
-                        />
-                        {errors.nachname && touchedFields && <p>{errors.nachname.message}</p>}
-                    </section>
+                <section className='flex flex-col text-left text-grey text-sm'>
+                    <label className='py-2'>Nachname </label>
+                    <input placeholder='Nachname'
+                           type='text'
+                           {...register('nachname', {
+                               pattern: {
+                                   value: /^.{1,50}$/,
+                                   message: 'maximal 50 Zeichen erlaubt',
+                               },
+                           })}
+                           style={{border: errors.nachname && '1px solid red'}}
+                    />
+                    {errors.nachname && touchedFields && <p>{errors.nachname.message}</p>}
+                </section>
                 {/*</section>*/}
 
                 <section className='flex flex-col text-left text-grey text-sm py-2'>
@@ -154,88 +154,106 @@ const AddUsers = () => {
                 </label>
 
                 <section className=' text-sm text-text py-3'>
-                   <div>
-                       <label htmlFor="field-role">
-                           <input
-                               {...register("role")}
-                               type="radio"
-                               value="1"
-                               id="field-role"
-                           />
-                           <span className='mr-8 ml-1'>Innendienst</span>
-                       </label>
-                       <label htmlFor="field-role">
-                           <input
-                               {...register("role")}
-                               type="radio"
-                               defaultChecked
-                               value="2"
-                               id="field-role"
-                           />
-                           <span className='mr-8'> FKB</span>
-                       </label>
-                       <label htmlFor="field-role">
-                           <input
-                               {...register("role")}
-                               type="radio"
-                               value="3"
-                               id="field-role"
-                           />
-                           <span className='mr-8'> VP </span>
-                       </label>
-                       <label htmlFor="field-role">
-                           <input
-                               {...register("role")}
-                               type="radio"
-                               value="4"
-                               id="field-role"
-                           />
-                           <span className='mr-1'> Management </span>
-                       </label>
-                   </div>
-                   <div className='mt-4'>
-                       <label htmlFor="field-role">
-                           <input
-                               {...register("role")}
-                               type="radio"
-                               value="5"
-                               id="field-role"
-                           />
-                           <span className='mr-8'> Struktur </span>
-                       </label>
-                       <label htmlFor="field-role">
-                           <input
-                               {...register("role")}
-                               type="radio"
-                               value="6"
-                               id="field-role"
-                           />
-                           <span className='mr-8'> Controlling </span>
-                       </label>
+                    <div>
+                        <label htmlFor="field-role">
+                            <input
+                                {...register("role")}
+                                type="radio"
+                                value="1"
+                                id="field-role"
+                            />
+                            <span className='mr-8 ml-1'>Innendienst</span>
+                        </label>
+                        <label htmlFor="field-role">
+                            <input
+                                {...register("role")}
+                                type="radio"
+                                defaultChecked
+                                value="2"
+                                id="field-role"
+                            />
+                            <span className='mr-8'> FKB</span>
+                        </label>
+                        <label htmlFor="field-role">
+                            <input
+                                {...register("role")}
+                                type="radio"
+                                value="3"
+                                id="field-role"
+                            />
+                            <span className='mr-8'> VP </span>
+                        </label>
+                        <label htmlFor="field-role">
+                            <input
+                                {...register("role")}
+                                type="radio"
+                                value="4"
+                                id="field-role"
+                            />
+                            <span className='mr-1'> Management </span>
+                        </label>
+                    </div>
+                    <div className='mt-4'>
+                        <label htmlFor="field-role">
+                            <input
+                                {...register("role")}
+                                type="radio"
+                                value="5"
+                                id="field-role"
+                            />
+                            <span className='mr-8'> Struktur </span>
+                        </label>
+                        <label htmlFor="field-role">
+                            <input
+                                {...register("role")}
+                                type="radio"
+                                value="6"
+                                id="field-role"
+                            />
+                            <span className='mr-8'> Controlling </span>
+                        </label>
 
-                   </div>
+                    </div>
 
                 </section>
 
                 {/*<section className='flex flex-col text-left text-grey text-sm'>*/}
-                <label htmlFor="field-aktiv" className='mt-0' hidden={watch('role') !== '1'}>
-                    <input
-                        className='mr-1'
-                        {...register("admin")}
-                        type="checkbox"
-                        id="field-aktiv"
-                    />
-                    <span className='mx-1 text-sm text-grey'> Darf Benutzer verwalten</span>
-                </label>
-                <label htmlFor="field-aktiv" className='mt-1' hidden={watch('role') !== '1'}>
-                    <input
-                        className='ml-10'
-                        {...register("icAdmin")}
-                        type="checkbox"
-                        id="field-aktiv"
-                    />
-                    <span className='mx-1 text-sm text-grey'> Darf InfoCrawler verwalten</span>
-                </label>
+                <div className='grid grid-cols-2 gap-1'>
+                    <label htmlFor="field-aktiv" className='mt-0' hidden={watch('role') !== '1'}>
+                        <input
+                            className='mr-1'
+                            {...register("admin")}
+                            type="checkbox"
+                            id="field-aktiv"
+                        />
+                        <span className='mx-1 text-sm text-grey'> Darf Benutzer verwalten</span>
+                    </label>
+                    <label htmlFor="field-aktiv" className='mt-1' hidden={watch('role') !== '1'}>
+                        <input
+                            {...register("icAdmin")}
+                            type="checkbox"
+                            id="field-aktiv"
+                        />
+                        <span className='mx-1 text-sm text-grey'> Darf InfoCrawler verwalten</span>
+                    </label>
+                    <label htmlFor="field-aktiv" className='mt-1' hidden={watch('role') !== '1'}>
+                        <input
+                            {...register("imAdmin")}
+                            type="checkbox"
+                            id="field-aktiv"
+                        />
+                        <span className='mx-1 text-sm text-grey'> Darf InfoMail verwalten</span>
+                    </label>
+                    <label htmlFor="field-aktiv" className='mt-1' hidden={watch('role') !== '1'}>
+                        <input
+                            {...register("isSAdmin")}
+                            type="checkbox"
+                            id="field-aktiv"
+                        />
+                        <span className='mx-1 text-sm text-grey'> Ist SuperAdmin</span>
+                    </label>
+                </div>
+
                 {/*</section>*/}
 
                 <section className='flex flex-col text-left text-grey text-sm'>

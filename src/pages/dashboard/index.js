@@ -16,13 +16,12 @@ const Dashboard = () => {
     const [total, setTotal] = useState([])
     const [strofalles, setStrofalles] = useState([])
     const [done, setDone] = useState([])
-    const [portal, setPortal] = useState('')
     const [superAdmin, setSuperAdmin] = useState('')
     const [toggle, setToggle] = useState(false)
     const [loadingBoxes, setLoadingBoxes] = useState(true)
     const [loadingStrofalle, setLoadingStrofalle] = useState(true)
     const [canceled, setCanceled] = useState([])
-    const [{secretKey}, dispatch] = useStateValue();
+    const [{secretKey, portal}, dispatch] = useStateValue();
 
     // Function to update the state
     const updateMainState = (newValue) => {
@@ -56,20 +55,26 @@ const Dashboard = () => {
     }, [portal]);
 
     useEffect(() => {
-            setSuperAdmin(user.isSAdmin)
-            if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
-                setPortal('dgg')
-            } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
-                setPortal('ruv')
-            } else {
-                setPortal('dgg')
+        setSuperAdmin(user.isSAdmin)
+        if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
+            dispatch({type:'SET_PORTAL', item:'dgg'})
+            localStorage.setItem('portal', 'dgg')
+        } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
+            dispatch({type:'SET_PORTAL', item:'ruv'})
+            localStorage.setItem('portal', 'ruv')
+        } else {
+            if(localStorage.getItem('portal')){
+                dispatch({type:'SET_PORTAL', item:localStorage.getItem('portal')})
+            }else{
+                dispatch({type:'SET_PORTAL', item:'dgg'})
             }
+        }
     }, []);
 
     function portalSelect(e) {
-        setPortal(e.target.value)
+        dispatch({type:'SET_PORTAL', item:e.target.value})
+        localStorage.setItem('portal', e.target.value)
     }
-
 
     return (
         <div className='dashboardContainer'>
@@ -80,6 +85,7 @@ const Dashboard = () => {
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
                         <p className='w-fit mr-2 text-grey'>Portal:  </p>
                         <select
+                            disabled={loadingBoxes || loadingStrofalle}
                             className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
                             onChange={portalSelect}
                             value={portal}

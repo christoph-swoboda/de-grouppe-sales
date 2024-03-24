@@ -9,16 +9,16 @@ import {useStateValue} from "../../states/StateProvider";
 import {formatDate} from '../../helper/formatDate'
 import {AES, enc} from "crypto-js";
 import {useLocation} from "react-router-dom";
+import {StorfalleHeadersDGG} from "../../staticData/storfalleHeadersDGG";
 
 const Storfalle = () => {
 
     const searChableFields = []
     const sortableFields = []
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
-    const [{sortColumn, sortMethod, secretKey}, dispatch] = useStateValue();
-    const location = useLocation()
-    const [portal, setPortal] = useState('')
+    const [headers, setHeaders] = useState([])
+    const [{sortColumn, sortMethod, secretKey, portal}, dispatch] = useStateValue();
     const [superAdmin, setSuperAdmin] = useState('')
 
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
@@ -28,7 +28,14 @@ const Storfalle = () => {
 
 
     useEffect(() => {
+        setLoading(true)
+        setData([])
         if (portal) {
+            if (portal === 'dgg') {
+                setHeaders(StorfalleHeadersDGG)
+            } else if (portal === 'ruv') {
+                setHeaders(StorfalleHeaders)
+            }
             try {
                 Api().get(`sp_getDataStoerfaelle/${portal}/${userID}`).then(res => {
                     setData(res.data)
@@ -45,15 +52,26 @@ const Storfalle = () => {
     }, [portal]);
 
     useEffect(() => {
-            setSuperAdmin(user.isSAdmin)
-            if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
-                setPortal('dgg')
-            } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
-                setPortal('ruv')
+        setSuperAdmin(user.isSAdmin)
+        if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
+            dispatch({type: 'SET_PORTAL', item: 'dgg'})
+            localStorage.setItem('portal', 'dgg')
+        } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
+            dispatch({type: 'SET_PORTAL', item: 'ruv'})
+            localStorage.setItem('portal', 'ruv')
+        } else {
+            if (localStorage.getItem('portal')) {
+                dispatch({type: 'SET_PORTAL', item: localStorage.getItem('portal')})
             } else {
-                setPortal('dgg')
+                dispatch({type: 'SET_PORTAL', item: 'dgg'})
             }
+        }
     }, []);
+
+    function portalSelect(e) {
+        dispatch({type: 'SET_PORTAL', item: e.target.value})
+        localStorage.setItem('portal', e.target.value)
+    }
 
     function ascSort(id) {
         dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
@@ -65,10 +83,6 @@ const Storfalle = () => {
         dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
     }
 
-    function portalSelect(e) {
-        setPortal(e.target.value)
-    }
-
     return (
         <div className='dashboardContainer'>
             <div className='flex justify-start items-center content-center pb-5'>
@@ -76,8 +90,9 @@ const Storfalle = () => {
                 {
                     (superAdmin === '1' || role === 'i' || role === 'c') &&
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
-                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <p className='w-fit mr-2 text-grey'>Portal: </p>
                         <select
+                            disabled={loading}
                             className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
                             onChange={portalSelect}
                             value={portal}
@@ -111,7 +126,7 @@ const Storfalle = () => {
                                     <tr>
                                         {
                                             !loading &&
-                                            StorfalleHeaders.map(header => (
+                                            headers?.map(header => (
                                                 <th key={header.id} scope="col"
                                                     className="text-sm text-grey pl-1.5 tooltip"
                                                     style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
@@ -168,13 +183,16 @@ const Storfalle = () => {
                                         </tr>
                                     }
                                     {
-                                        data?.map((u, index) => (
+                                        data?.map((u) => (
                                             <StrofalleTable
-                                                key={index}
+                                                key={u.FP_ID}
+                                                portal={portal}
                                                 FirmaKurz={u.FirmaKurz}
                                                 Firma={u.Firma}
                                                 FirmaID={u.FP_ID}
                                                 ZustFKB={u.ZustFKB}
+                                                ZustBerater={u.ZustBerater}
+                                                DGAPIKAM={u.DGAPIKAM}
                                                 Bank={u.Bank}
                                                 MA={u.MA}
                                                 PStatus={u.PStatus}

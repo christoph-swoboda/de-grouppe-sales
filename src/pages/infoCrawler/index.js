@@ -10,9 +10,8 @@ import {useNavigate} from "react-router";
 
 const InfoCrawler = () => {
 
-    const [{ICSaved, secretKey}, dispatch] = useStateValue();
+    const [{ICSaved, secretKey, portal}, dispatch] = useStateValue();
     const [milestones, setMilestones] = useState([])
-    const [portal, setPortal] = useState('dgg')
     const [subStepsLoading, setSubStepsLoading] = useState(false)
     const [triggerSubStepsLoading, setTriggerSubStepsLoading] = useState(false)
     const [subSteps, setSubSteps] = useState([])
@@ -203,12 +202,29 @@ const InfoCrawler = () => {
     };
 
     function portalSelect(e) {
-        setPortal(e.target.value)
+        dispatch({type:'SET_PORTAL', item:e.target.value})
+        localStorage.setItem('portal', e.target.value)
     }
 
     return (
         <div className={`dashboardContainer`}>
-            <h2 className='text-2xl lg:text-left pb-5'>InfoCrawler</h2>
+            <div className='flex justify-start items-center content-center pb-5'>
+                <h2 className='text-2xl lg:text-left'> InfoCrawler</h2>
+                {
+                    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
+                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <select
+                            disabled={loading || loadingSave || loadingGrid}
+                            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
+                            onChange={portalSelect}
+                            value={portal}
+                        >
+                            <option selected value='dgg'>DGG</option>
+                            <option value='ruv'>R+V</option>
+                        </select>
+                    </div>
+                }
+            </div>
             {
                 loading ?
                     <SkewLoader size='10px'/>
@@ -231,17 +247,6 @@ const InfoCrawler = () => {
                         </div>
                         <div className='centerItemsRelative flex-wrap'>
                             <div className='lg:w-fit'>
-                                <div className='flex justify-start items-center w-fit'>
-                                    <p className='w-fit mr-6'>Portal </p>
-                                    <select
-                                        className='pl-3 col-span-2 text-center mx-auto pr-1 py-2 bg-white border border-offWhite rounded-sm lg:w-fit'
-                                        onChange={portalSelect}
-                                        value={portal}
-                                    >
-                                        <option selected value='dgg'>DGG</option>
-                                        <option value='ruv'>R+V</option>
-                                    </select>
-                                </div>
                                 <div className='lg:grid grid-cols-7 items-center my-2'>
                                     <p className='w-fit col-span-1'>Einstellungen für: </p>
                                     <select onChange={milestoneChanged}
