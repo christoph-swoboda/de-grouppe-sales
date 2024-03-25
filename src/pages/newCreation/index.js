@@ -62,7 +62,7 @@ const NewCreation = () => {
                 dispatch({type:'SET_PORTAL', item:'dgg'})
             }
         }
-    }, []);
+    }, [user]);
 
     function portalSelect(e) {
         dispatch({type:'SET_PORTAL', item:e.target.value})

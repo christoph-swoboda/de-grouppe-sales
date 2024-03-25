@@ -6,7 +6,6 @@ import {toast} from "react-toastify";
 const FormDGG = ({name, dropdown, role}) => {
     const [loading, setLoading] = useState(false)
     const [bank, setBank] = useState(dropdown[0]?.Bank)
-
     const {
         register, watch, getValues, setValue, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
