@@ -136,7 +136,7 @@ const Dashboard = () => {
                                                     <tr className="border-b border-whiteDark" key={str.FP_ID}>
                                                         {/*<td className="whitespace-nowrap px-6 py-1 font-medium">1</td>*/}
                                                         <td className="px-2 py-1 text-mainBlue">
-                                                            <Link to={`firmenprojekte/${str.FP_ID}`}
+                                                            <Link to={`firmenprojekte/${portal}/${str.FP_ID}`}
                                                                   target='_blank'>{str.FirmaKurz}
                                                             </Link>
                                                         </td>
