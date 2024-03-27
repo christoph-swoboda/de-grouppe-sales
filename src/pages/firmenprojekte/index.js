@@ -73,6 +73,7 @@ const BestantList = () => {
 
     useEffect(() => {
         if (portal) {
+            setLoading(true)
             if (viewName === 'Firmenprojekte') {
                 setUrl('getBestands')
             } else if (viewName === 'Projekt-Tafel') {
@@ -86,7 +87,6 @@ const BestantList = () => {
             }
 
             const delayQuery = setTimeout(async () => {
-                setLoading(true)
                 let data = new FormData()
                 data.append('portal', portal)
                 data.append('userID', userID)
