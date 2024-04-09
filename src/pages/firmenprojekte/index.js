@@ -111,7 +111,7 @@ const BestantList = () => {
                     setLoading(false)
                     toast.error('Etwas ist schief gelaufen!!')
                 })
-            }, filter || dateFilter ? 800 : 0)
+            }, filter || dateFilter ? 1000 : 0)
 
             return () => clearTimeout(delayQuery)
         }

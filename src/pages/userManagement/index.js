@@ -46,7 +46,7 @@ const UserManagement = () => {
     useEffect(() => {
         const delayQuery = setTimeout(async () => {
             getUsers(searchKey)
-        }, filterUM ? 800 : 0)
+        }, filterUM ? 1000 : 0)
 
         return () => clearTimeout(delayQuery)
 
@@ -69,7 +69,7 @@ const UserManagement = () => {
                     toast.error('HOPPLA! etwas ist schief gelaufen')
                 })
             }
-        }, search ? 400 : 0)
+        }, search ? 1000 : 0)
 
         return () => clearTimeout(delayQuery)
     }, [search])
