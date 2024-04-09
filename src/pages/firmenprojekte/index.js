@@ -73,7 +73,6 @@ const BestantList = () => {
 
     useEffect(() => {
         if (portal) {
-            setLoading(true)
             if (viewName === 'Firmenprojekte') {
                 setUrl('getBestands')
             } else if (viewName === 'Projekt-Tafel') {
@@ -87,6 +86,7 @@ const BestantList = () => {
             }
 
             const delayQuery = setTimeout(async () => {
+                setLoading(true)
                 let data = new FormData()
                 data.append('portal', portal)
                 data.append('userID', userID)
@@ -111,7 +111,7 @@ const BestantList = () => {
                     setLoading(false)
                     toast.error('Etwas ist schief gelaufen!!')
                 })
-            }, filter || dateFilter ? 800 : 0)
+            }, filter || dateFilter ? 1500 : 0)
 
             return () => clearTimeout(delayQuery)
         }
