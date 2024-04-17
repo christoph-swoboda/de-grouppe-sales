@@ -1,13 +1,13 @@
-import React, {useState, useEffect, useCallback} from "react";
-import Api from "../../Api/api";
+import React, {useEffect, useState} from "react";
+import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 import {useForm} from "react-hook-form";
 import {BeatLoader} from "react-spinners";
-import AdminEditTable from "./partial/adminEditTable";
+import AdminEditSubstepsTable from "./table";
 import {AES, enc} from "crypto-js";
-import {useStateValue} from "../../states/StateProvider";
+import {useStateValue} from "../../../states/StateProvider";
 
-const AdminEdit = () => {
+const AdminEditSubsteps = () => {
 
     const [milestones, setMilestones] = useState([])
     const [tableData, setTableData] = useState([])
@@ -26,7 +26,7 @@ const AdminEdit = () => {
     const {isValid} = formState;
 
     useEffect(() => {
-        if(portal){
+        if (portal) {
             Api().get(`/getDataAdminMilestones/${portal}`).then(res => {
                     setMilestones(res.data)
                 }
@@ -50,7 +50,7 @@ const AdminEdit = () => {
     };
 
     function portalSelect(e) {
-        dispatch({type:'SET_PORTAL', item:e.target.value})
+        dispatch({type: 'SET_PORTAL', item: e.target.value})
         localStorage.setItem('portal', e.target.value)
         setMilestones([])
         setTableData([])
@@ -62,7 +62,7 @@ const AdminEdit = () => {
                 <h2 className='text-2xl lg:text-left'> MS Verwaltung</h2>
                 {
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
-                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <p className='w-fit mr-2 text-grey'>Portal: </p>
                         <select
                             disabled={loading}
                             className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
@@ -103,24 +103,24 @@ const AdminEdit = () => {
                         <thead className="whitespace-nowrap border-y border-silver border-x-0">
                         <tr>
                             <th className="text-sm text-grey pl-1.5" scope="col">SubStep ID</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col">SubStep Bezeichnung </th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"> Mouseover Text </th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"> Typ </th>
+                            <th className="text-sm text-grey pl-1.5" scope="col">SubStep Bezeichnung</th>
+                            <th className="text-sm text-grey pl-1.5" scope="col"> Mouseover Text</th>
+                            <th className="text-sm text-grey pl-1.5" scope="col"> Typ</th>
                             <th className="text-sm text-grey pl-1.5" scope="col">Feld in Cobra</th>
                             <th className="text-sm text-grey pl-1.5" scope="col"></th>
                         </tr>
                         </thead>
                         {
                             tableData?.map((td, i) => (
-                               <AdminEditTable
-                                   key={i}
-                                   addressesField={td.addressesField}
-                                   stepName={td.stepName}
-                                   substepID={td.substepID}
-                                   milestoneID={milestoneID}
-                                   mouseoverText={td.mouseoverText}
-                                   fieldType={td.fieldType}
-                               />
+                                <AdminEditSubstepsTable
+                                    key={i}
+                                    addressesField={td.addressesField}
+                                    stepName={td.stepName}
+                                    substepID={td.substepID}
+                                    milestoneID={milestoneID}
+                                    mouseoverText={td.mouseoverText}
+                                    fieldType={td.fieldType}
+                                />
                             ))
                         }
                     </table>
@@ -131,4 +131,4 @@ const AdminEdit = () => {
     )
 }
 
-export default AdminEdit
+export default AdminEditSubsteps

@@ -114,3 +114,15 @@ R
 "src/staticData/storfalleHeaders.js,6\8\687a0bc285c31274ae66ac520e478264969d2b9c
 U
 %src/staticData/storfalleHeadersDGG.js,6\d\6dd5da0daf93b2c7d83a3b622f6db63de101ca4b
+E
+src/styles/navbar.css,8\7\870532a357527efab182ecc05dc62605b766a8ca
+[
++src/pages/adminEdit/adminEditNotes/index.js,3\9\398d0e256bc482c585e3eef9d14976c58fa34d8f
+[
++src/pages/adminEdit/adminEditNotes/table.js,b\b\bb794816963db8175725b83d5a3d68e222bb2f1a
+^
+.src/pages/adminEdit/adminEditSubsteps/index.js,f\8\f82a9d253a33d9c57205902bb30e5f86ba655b4c
+g
+7src/pages/adminEdit/adminEditSubsteps/adminEditTable.js,3\8\380adacca9714636b564d38f8e3e31666c8ff040
+^
+.src/pages/adminEdit/adminEditSubsteps/table.js,2\f\2fe7d39ba8a1a48ebc50e0f858d6b16d510d2f0e

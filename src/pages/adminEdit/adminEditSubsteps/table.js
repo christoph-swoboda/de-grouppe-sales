@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
-const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addressesField, milestoneID}) => {
+const AdminEditSubstepsTable = ({substepID, stepName, mouseoverText, fieldType, addressesField, milestoneID}) => {
 
     const [loading, setLoading] = useState(false)
     const [mouseOverEdit, setMouseOverEdit] = useState(false)
@@ -73,4 +73,4 @@ const AdminEditTable = ({substepID, stepName, mouseoverText, fieldType, addresse
     )
 }
 
-export default AdminEditTable
+export default AdminEditSubstepsTable
