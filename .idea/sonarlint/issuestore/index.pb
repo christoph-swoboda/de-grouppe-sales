@@ -93,10 +93,6 @@ f
 6src/pages/firmenprojekte/partial/firmenprojekteView.js,3\6\36eb61ae19603e1c482d996dc66c40aee093d500
 e
 5src/pages/firmenprojekte/partial/projekt-tafelView.js,1\c\1c0e06ae73ab0ae5b4494e9ef6875b7377416139
-]
--src/pages/firmenprojekte/partial/dgapiView.js,0\e\0e58203a08aefdd3a665ec456bed5a6f8d9dd4db
-`
-0src/pages/firmenprojekte/partial/beratungView.js,f\1\f14e6b25c3b7235d0bddc45302819acb9770683f
 `
 0src/pages/firmenprojekte/partial/vertriebView.js,f\c\fcfbf63dd0b675c0709eca75780373f6352fbdff
 :

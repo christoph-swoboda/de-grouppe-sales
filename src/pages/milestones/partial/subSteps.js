@@ -329,7 +329,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                                     key={index} className='tooltip flex grid grid-cols-2 gap-1 mt-0 rounded-lg'
                                                 >
                                                     <label className='text-sm text-grey label'>{val.stepName}</label>
-                                                    <input placeholder='Text Input'
+                                                    <input placeholder='Text/Wert eingeben'
                                                            disabled={(role === 'ManDGG' || role === 'ManRUV')}
                                                            className={`subStepInput w-full p-2 md:w-full
                                                        ${Number(currentMilestone) < Number(lastDoneIndex) + 1 ? 'completed' : 'bg-white'}`}
