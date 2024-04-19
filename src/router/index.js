@@ -12,6 +12,7 @@ import InfoMail from "../pages/infoMail";
 import AdminEdit from "../pages/adminEdit/adminEditSubsteps";
 import AdminEditSubsteps from "../pages/adminEdit/adminEditSubsteps";
 import AdminEditNotes from "../pages/adminEdit/adminEditNotes";
+import AdminEditLabels from "../pages/adminEdit/adminEditLabels";
 
 
 export const RouteData = [
@@ -110,7 +111,7 @@ export const RouteData = [
         id: 13,
         path: 'admin-edit-label',
         name: 'adminEditLabel',
-        component: <AdminEdit/>,
+        component: <AdminEditLabels/>,
         redirection: '/anmeldung'
     },
     {

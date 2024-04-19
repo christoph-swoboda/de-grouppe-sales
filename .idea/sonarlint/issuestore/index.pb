@@ -33,10 +33,6 @@ E
 src/layouts/footer.js,1\8\18e2d91abbf5b303ae6c8ab55aefebfe56822133
 ]
 -src/pages/Storfalle/partial/strofalleTable.js,b\2\b2277a26ab96f2cfa79c1d0aceda33b2875a2be3
-L
-src/pages/adminEdit/index.js,7\3\730dbb46c578887c61c2e6858e11f66e7f9471f5
-]
--src/pages/adminEdit/partial/adminEditTable.js,c\0\c0d0d78be26e6017c744b0594198d8146e486fef
 P
  src/components/modal/addUsers.js,a\c\ac78f3956ada78e52e2891c77f626a7d678cebd6
 H
@@ -122,7 +118,9 @@ E
 +src/pages/adminEdit/adminEditNotes/table.js,b\b\bb794816963db8175725b83d5a3d68e222bb2f1a
 ^
 .src/pages/adminEdit/adminEditSubsteps/index.js,f\8\f82a9d253a33d9c57205902bb30e5f86ba655b4c
-g
-7src/pages/adminEdit/adminEditSubsteps/adminEditTable.js,3\8\380adacca9714636b564d38f8e3e31666c8ff040
 ^
 .src/pages/adminEdit/adminEditSubsteps/table.js,2\f\2fe7d39ba8a1a48ebc50e0f858d6b16d510d2f0e
+\
+,src/pages/adminEdit/adminEditLabels/index.js,0\9\09697e8cc70fd051f65feac7a286234fdbbdff16
+\
+,src/pages/adminEdit/adminEditLabels/table.js,6\0\60eef1352ae3096a31b6f992e358233d894890ce

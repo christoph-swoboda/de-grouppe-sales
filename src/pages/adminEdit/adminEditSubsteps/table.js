@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
-const AdminEditSubstepsTable = ({substepID, stepName, mouseoverText, fieldType, addressesField, milestoneID}) => {
+const AdminEditSubstepsTable = ({substepID, stepName, mouseoverText, fieldType, addressesField, milestoneID, portal}) => {
 
     const [loading, setLoading] = useState(false)
     const [mouseOverEdit, setMouseOverEdit] = useState(false)
@@ -16,6 +16,7 @@ const AdminEditSubstepsTable = ({substepID, stepName, mouseoverText, fieldType, 
         data.append('milestoneID', milestoneID)
         data.append('substepID', substepID)
         data.append('stepName', StepName)
+        data.append('portal', portal)
         data.append('mouseOverText', MouseOverText)
 
         Api().post(`/putAdminMSSubstep`, data).then(res => {

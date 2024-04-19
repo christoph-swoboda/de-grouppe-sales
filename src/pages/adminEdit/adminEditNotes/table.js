@@ -29,7 +29,7 @@ const AdminEditNotesTable = ({title, id, portal}) => {
     return (
         <tbody>
         <tr>
-            <td style={{textTransform: 'none'}}>{id}</td>
+            {/*<td style={{textTransform: 'none'}}>{id}</td>*/}
             <td style={{textTransform: 'none'}} onClick={() => setStepNameEdit(true)}>
                 {
                     !stepNameEdit && rmTitle
