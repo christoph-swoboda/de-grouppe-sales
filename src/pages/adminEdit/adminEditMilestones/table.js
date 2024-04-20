@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
-const AdminEditNotesTable = ({label, id, portal, name}) => {
+const AdminEditMilestonesTable = ({label, id, portal, name, index}) => {
 
     const [loading, setLoading] = useState(false)
     const [stepNameEdit, setStepNameEdit] = useState(false)
@@ -32,7 +32,7 @@ const AdminEditNotesTable = ({label, id, portal, name}) => {
 
     return (
         <tbody>
-        <tr>
+        <tr className={index % 2 === 1 ? 'bg-white' : 'bg-offWhite'}>
             <td style={{textTransform: 'none'}}>{id}</td>
             <td style={{textTransform: 'none'}} onClick={() => setStepLabelEdit(true)}>
                 {
@@ -68,4 +68,4 @@ const AdminEditNotesTable = ({label, id, portal, name}) => {
     )
 }
 
-export default AdminEditNotesTable
+export default AdminEditMilestonesTable

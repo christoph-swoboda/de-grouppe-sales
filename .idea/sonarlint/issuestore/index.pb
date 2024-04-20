@@ -120,7 +120,7 @@ E
 .src/pages/adminEdit/adminEditSubsteps/index.js,f\8\f82a9d253a33d9c57205902bb30e5f86ba655b4c
 ^
 .src/pages/adminEdit/adminEditSubsteps/table.js,2\f\2fe7d39ba8a1a48ebc50e0f858d6b16d510d2f0e
-\
-,src/pages/adminEdit/adminEditLabels/index.js,0\9\09697e8cc70fd051f65feac7a286234fdbbdff16
-\
-,src/pages/adminEdit/adminEditLabels/table.js,6\0\60eef1352ae3096a31b6f992e358233d894890ce
+`
+0src/pages/adminEdit/adminEditMilestones/index.js,4\8\48aba2fb40b42288c684da8fc8497fd540976866
+`
+0src/pages/adminEdit/adminEditMilestones/table.js,2\c\2c23f1abc4650e2c9fbc26e336bc5725758d1eb4

@@ -189,10 +189,10 @@ const Navbar = () => {
                                                     </Link>
                                                     <Link
                                                         to={{
-                                                            pathname: '/admin-edit-label',
+                                                            pathname: '/admin-edit-milestones',
                                                             state: {data: user.isSAdmin},
                                                         }}>
-                                                        <li className={`items ${path.pathname === '/admin-edit-label' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                                        <li className={`items ${path.pathname === '/admin-edit-milestones' && 'text-mainBlue'} hover:text-mainBlue`}>
                                                             Meilensteine
                                                         </li>
                                                     </Link>

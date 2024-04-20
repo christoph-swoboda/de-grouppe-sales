@@ -93,18 +93,19 @@ const AdminEditNotes = () => {
                 }
                 {
                     !loading && tableData.length > 0 &&
-                    <table className='min-w-full text-left px-10'>
+                    <table className='min-w-full text-left px-10 border border-offWhite'>
                         <thead className="whitespace-nowrap border-y border-silver border-x-0">
-                        <tr>
-                            {/*<th className="text-sm text-grey pl-1.5" scope="col">Reminder ID</th>*/}
-                            <th className="text-sm text-grey pl-1.5" scope="col">"Wiedervorlage" (WV)</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"></th>
+                        <tr className='text-lg'>
+                            <th className="text-grey pl-1.5" scope="col"></th>
+                            <th className="text-grey pl-1.5" scope="col">"Wiedervorlage" (WV)</th>
+                            <th className="text-grey pl-1.5" scope="col"></th>
                         </tr>
                         </thead>
                         {
-                            tableData?.map((td) => (
+                            tableData?.map((td, i) => (
                                 <AdminEditNotesTable
                                     key={td.rmID}
+                                    index={i}
                                     title={td.rmTitle}
                                     id={td.rmID}
                                     portal={portal}

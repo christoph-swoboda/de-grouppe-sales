@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
-const AdminEditNotesTable = ({title, id, portal}) => {
+const AdminEditNotesTable = ({title, id, portal, index}) => {
 
     const [loading, setLoading] = useState(false)
     const [stepNameEdit, setStepNameEdit] = useState(false)
@@ -28,11 +28,11 @@ const AdminEditNotesTable = ({title, id, portal}) => {
 
     return (
         <tbody>
-        <tr>
-            {/*<td style={{textTransform: 'none'}}>{id}</td>*/}
-            <td style={{textTransform: 'none'}} onClick={() => setStepNameEdit(true)}>
+        <tr className={index % 2 === 1 ? 'bg-white' : 'bg-offWhite'}>
+            <td ></td>
+            <td style={{textTransform: 'none',color:rmTitle?'#1c1c1c': '#a6a6a6'}} onClick={() => setStepNameEdit(true)}>
                 {
-                    !stepNameEdit && rmTitle
+                    !stepNameEdit && rmTitle? rmTitle :!stepNameEdit && 'Hier ist noch eine leere Option'
                 }
                 {
                     stepNameEdit &&

@@ -99,7 +99,7 @@ const InfoCrawler = () => {
 
     const getGrid = (milestone, subStep, isLoading) => {
         setLoadingGrid(isLoading)
-        Api().get(`sp_getDataIC/${milestone}/${subStep}`).then(res => {
+        Api().get(`sp_getDataIC/${portal}/${milestone}/${subStep}`).then(res => {
             res.data.map(r => {
                 Object.keys(r).forEach((key) => {
                     if (key.includes('FKB') || key.includes('DGAPI') || key.includes('BD') || key.includes('VBLF') || key.includes('cc')) {

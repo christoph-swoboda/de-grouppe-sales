@@ -5,12 +5,12 @@ import {BeatLoader} from "react-spinners";
 import AdminEditNotesTable from "./table";
 import {AES, enc} from "crypto-js";
 import {useStateValue} from "../../../states/StateProvider";
+import AdminEditMilestonesTable from "./table";
 
-const AdminEditNotes = () => {
+const AdminEditMilestones = () => {
 
     const [tableData, setTableData] = useState([])
     const [loading, setLoading] = useState(true)
-    const [loadingSave, setLoadingSave] = useState(false)
 
     const [{secretKey, portal}, dispatch] = useStateValue();
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
@@ -64,19 +64,20 @@ const AdminEditNotes = () => {
                 }
                 {
                     !loading && tableData?.length > 0 &&
-                    <table className='min-w-full text-left px-10'>
+                    <table className='min-w-full text-left px-10 border border-offWhite'>
                         <thead className="whitespace-nowrap border-y border-silver border-x-0">
-                        <tr>
-                            <th className="text-sm text-grey pl-1.5" scope="col">Milestone ID</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col">Milestone Label</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col">Milestone Name</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"></th>
+                        <tr className='text-lg'>
+                            <th className="text-grey pl-1.5" scope="col">Milestone ID</th>
+                            <th className="text-grey pl-1.5" scope="col">Milestone Label</th>
+                            <th className="text-grey pl-1.5" scope="col">Milestone Name</th>
+                            <th className="text-grey pl-1.5" scope="col"></th>
                         </tr>
                         </thead>
                         {
-                            tableData?.map((td) => (
-                                <AdminEditNotesTable
+                            tableData?.map((td, i) => (
+                                <AdminEditMilestonesTable
                                     key={td.rmID}
+                                    index={i}
                                     label={td.milestoneLabel}
                                     name={td.milestoneName}
                                     id={td.milestoneID}
@@ -91,4 +92,4 @@ const AdminEditNotes = () => {
     )
 }
 
-export default AdminEditNotes
+export default AdminEditMilestones

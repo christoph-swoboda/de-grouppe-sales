@@ -2,7 +2,16 @@ import React, {useState} from "react";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
-const AdminEditSubstepsTable = ({substepID, stepName, mouseoverText, fieldType, addressesField, milestoneID, portal}) => {
+const AdminEditSubstepsTable = ({
+                                    substepID,
+                                    index,
+                                    stepName,
+                                    mouseoverText,
+                                    fieldType,
+                                    addressesField,
+                                    milestoneID,
+                                    portal
+                                }) => {
 
     const [loading, setLoading] = useState(false)
     const [mouseOverEdit, setMouseOverEdit] = useState(false)
@@ -32,45 +41,42 @@ const AdminEditSubstepsTable = ({substepID, stepName, mouseoverText, fieldType, 
     }
 
     return (
-        <>
-            <tbody>
-            <tr>
-                <td style={{textTransform: 'none'}}>{substepID}</td>
-                <td style={{textTransform: 'none'}} onClick={() => setStepNameEdit(true)}>
-                    {
-                        !stepNameEdit && StepName
-                    }
-                    {
-                        stepNameEdit &&
-                        <textarea value={StepName}
-                                  style={{width: '100%', backgroundColor: 'whitesmoke', padding: '10px 5px'}}
-                                  onChange={(e) => setStepName(e.target.value)}
-                                  placeholder='Step Name'/>
-                    }
-                </td>
-                <td style={{textTransform: 'none'}} onClick={() => setMouseOverEdit(true)}>
-                    {
-                        !mouseOverEdit && MouseOverText
-                    }
-                    {
-                        mouseOverEdit &&
-                        <textarea value={MouseOverText}
-                                  style={{width: '100%', backgroundColor: 'whitesmoke', padding: '10px 5px'}}
-                                  onChange={(e) => setMouseOverText(e.target.value)}
-                                  placeholder='new mouseover text'/>
-                    }
-                </td>
-                <td style={{textTransform: 'none'}}>{fieldType}</td>
-                <td style={{textTransform: 'none'}}>{addressesField}</td>
-                <td onClick={save}>
-                    <button className='px-3 py-1 bg-mainBlue text-white rounded rounded-md'>
-                        {loading ? 'sparen...' : 'Speichern'}
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-
-        </>
+        <tbody>
+        <tr className={index % 2 === 1 ? 'bg-white' : 'bg-offWhite'}>
+            <td style={{textTransform: 'none'}}>{substepID}</td>
+            <td style={{textTransform: 'none'}} onClick={() => setStepNameEdit(true)}>
+                {
+                    !stepNameEdit && StepName
+                }
+                {
+                    stepNameEdit &&
+                    <textarea value={StepName}
+                              style={{width: '100%', backgroundColor: 'whitesmoke', padding: '10px 5px'}}
+                              onChange={(e) => setStepName(e.target.value)}
+                              placeholder='Step Name'/>
+                }
+            </td>
+            <td style={{textTransform: 'none'}} onClick={() => setMouseOverEdit(true)}>
+                {
+                    !mouseOverEdit && MouseOverText
+                }
+                {
+                    mouseOverEdit &&
+                    <textarea value={MouseOverText}
+                              style={{width: '100%', backgroundColor: 'whitesmoke', padding: '10px 5px'}}
+                              onChange={(e) => setMouseOverText(e.target.value)}
+                              placeholder='new mouseover text'/>
+                }
+            </td>
+            <td style={{textTransform: 'none'}}>{fieldType}</td>
+            <td style={{textTransform: 'none'}}>{addressesField}</td>
+            <td onClick={save}>
+                <button className='px-3 py-1 bg-mainBlue text-white rounded rounded-md'>
+                    {loading ? 'sparen...' : 'Speichern'}
+                </button>
+            </td>
+        </tr>
+        </tbody>
     )
 }
 

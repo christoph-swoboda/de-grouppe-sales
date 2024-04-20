@@ -99,21 +99,22 @@ const AdminEditSubsteps = () => {
                 }
                 {
                     !loading && tableData.length > 0 &&
-                    <table className='min-w-full text-left px-10'>
+                    <table className='min-w-full text-left px-10 border border-offWhite'>
                         <thead className="whitespace-nowrap border-y border-silver border-x-0">
-                        <tr>
-                            <th className="text-sm text-grey pl-1.5" scope="col">SubStep ID</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col">SubStep Bezeichnung</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"> Mouseover Text</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"> Typ</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col">Feld in Cobra</th>
-                            <th className="text-sm text-grey pl-1.5" scope="col"></th>
+                        <tr className=''>
+                            <th className="text-grey pl-1.5" scope="col">SubStep ID</th>
+                            <th className="text-grey pl-1.5" scope="col">SubStep Bezeichnung</th>
+                            <th className="text-grey pl-1.5" scope="col"> Mouseover Text</th>
+                            <th className="text-grey pl-1.5" scope="col"> Type</th>
+                            <th className="text-grey pl-1.5" scope="col">Feld in Cobra</th>
+                            <th className="text-grey pl-1.5" scope="col"></th>
                         </tr>
                         </thead>
                         {
                             tableData?.map((td, i) => (
                                 <AdminEditSubstepsTable
-                                    key={i}
+                                    key={td.subStepID}
+                                    index={i}
                                     addressesField={td.addressesField}
                                     stepName={td.stepName}
                                     substepID={td.substepID}
