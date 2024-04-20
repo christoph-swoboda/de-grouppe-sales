@@ -178,15 +178,15 @@ const Navbar = () => {
                                                             MS Schritte
                                                         </li>
                                                     </Link>
-                                                    <Link
-                                                        to={{
-                                                            pathname: '/admin-edit-footer',
-                                                            state: {data: user.isSAdmin},
-                                                        }}>
-                                                        <li className={`items ${path.pathname === '/admin-edit-footer' && 'text-mainBlue'} hover:text-mainBlue`}>
-                                                            Footerzeile
-                                                        </li>
-                                                    </Link>
+                                                    {/*<Link*/}
+                                                    {/*    to={{*/}
+                                                    {/*        pathname: '/admin-edit-footer',*/}
+                                                    {/*        state: {data: user.isSAdmin},*/}
+                                                    {/*    }}>*/}
+                                                    {/*    <li className={`items ${path.pathname === '/admin-edit-footer' && 'text-mainBlue'} hover:text-mainBlue`}>*/}
+                                                    {/*        Footerzeile*/}
+                                                    {/*    </li>*/}
+                                                    {/*</Link>*/}
                                                     <Link
                                                         to={{
                                                             pathname: '/admin-edit-milestones',

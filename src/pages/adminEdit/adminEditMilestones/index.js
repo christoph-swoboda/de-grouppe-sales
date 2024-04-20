@@ -67,9 +67,9 @@ const AdminEditMilestones = () => {
                     <table className='min-w-full text-left px-10 border border-offWhite'>
                         <thead className="whitespace-nowrap border-y border-silver border-x-0">
                         <tr className='text-lg'>
-                            <th className="text-grey pl-1.5" scope="col">Milestone ID</th>
-                            <th className="text-grey pl-1.5" scope="col">Milestone Label</th>
-                            <th className="text-grey pl-1.5" scope="col">Milestone Name</th>
+                            <th className="text-grey pl-1.5" scope="col">Meilenstein-ID</th>
+                            <th className="text-grey pl-1.5" scope="col">Meilenstein-Label</th>
+                            <th className="text-grey pl-1.5" scope="col">Meilensteinname</th>
                             <th className="text-grey pl-1.5" scope="col"></th>
                         </tr>
                         </thead>
