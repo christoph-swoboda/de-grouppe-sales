@@ -4,13 +4,10 @@ import DatePicker from "react-datepicker";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 import {formatDate} from "../../../helper/formatDate";
-import {AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
+import {AiFillCloseCircle, AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 import {SkewLoader} from "react-spinners";
-import CustomInput from "../../../helper/customInput";
-import Modal from "../../../hooks/modal";
 import useModal from "../../../hooks/useModal";
 import {useStateValue} from "../../../states/StateProvider";
-import {AiFillCloseCircle} from 'react-icons/ai';
 import ModalSmall from "../../../hooks/modalSmall";
 import {GoCalendar} from "react-icons/go";
 import {AES, enc} from "crypto-js";
@@ -26,15 +23,14 @@ const Reminders = ({id, userID, role, portal}) => {
     const [exists, setExists] = useState('0')
     const {toggleRemindersModal} = useModal();
     const [{remindersModal, secretKey}, dispatch] = useStateValue();
-    const decryptedBytes = localStorage.getItem('user')?AES.decrypt(localStorage.getItem('user'), secretKey):false;
+    const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const datePickerRef2 = useRef(null);
-    
+
     const {
         register, getValues, setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields},
         control
     } = useForm({mode: "onChange"});
-    
 
     function convertLocalToUTCDate(date) {
         if (!date) {
@@ -57,7 +53,7 @@ const Reminders = ({id, userID, role, portal}) => {
 
     const onSubmit = (Data) => {
         setLoading(true)
-        Data.portal=portal
+        Data.portal = portal
 
         Api().post('/saveReminders', Data).then(res => {
             toast.success('Erinnerung erfolgreich gespeichert')
@@ -158,8 +154,8 @@ const Reminders = ({id, userID, role, portal}) => {
                                                 Wähle eine Option
                                             </option>
                                             {
-                                                options?.map((op, index) => (
-                                                    <option key={index}>{op.optionText}</option>
+                                                options?.filter(o => o.rmTitle !==null).map((op, index) => (
+                                                    <option key={index}>{op.rmTitle}</option>
                                                 ))
                                             }
                                         </select>
@@ -183,7 +179,7 @@ const Reminders = ({id, userID, role, portal}) => {
                                                         isClearable
                                                         className={'border-none'}
                                                         readOnly={(role === 'ManRUV' || role === 'ManDGG')}
-                                                        />
+                                                    />
                                                     <div
                                                         className={`absolute ${getValues('date') && 'mr-6'} right-1.5`}
                                                         style={{pointerEvents: 'none'}}>

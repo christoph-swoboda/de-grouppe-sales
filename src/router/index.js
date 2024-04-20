@@ -9,7 +9,10 @@ import InfoCrawler from "../pages/infoCrawler";
 import MailHistory from "../pages/icMailHistory";
 import Storfalle from "../pages/Storfalle";
 import InfoMail from "../pages/infoMail";
-import AdminEdit from "../pages/adminEdit";
+import AdminEdit from "../pages/adminEdit/adminEditSubsteps";
+import AdminEditSubsteps from "../pages/adminEdit/adminEditSubsteps";
+import AdminEditNotes from "../pages/adminEdit/adminEditNotes";
+import AdminEditMilestones from "../pages/adminEdit/adminEditMilestones";
 
 
 export const RouteData = [
@@ -91,17 +94,38 @@ export const RouteData = [
         redirection: '/anmeldung'
     },
     {
-        id: 10,
+        id: 11,
         path: 'info-mail',
         name: 'infomail',
         component: <InfoMail/>,
         redirection: '/anmeldung'
     },
     {
-        id: 10,
+        id: 12,
         path: 'admin-edit',
         name: 'adminEdit',
+        component: <AdminEditSubsteps/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 13,
+        path: 'admin-edit-milestones',
+        name: 'adminEditLabel',
+        component: <AdminEditMilestones/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 14,
+        path: 'admin-edit-footer',
+        name: 'adminEditFooter',
         component: <AdminEdit/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 15,
+        path: 'admin-edit-options',
+        name: 'adminEditOptions',
+        component: <AdminEditNotes/>,
         redirection: '/anmeldung'
     },
 ]
