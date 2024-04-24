@@ -17,7 +17,7 @@ const Footer = () => {
         <div className='flex bg-white justify-between p-5'
              style={{display: location.pathname.includes('anmeldung') || location.pathname.includes('registrieren') || location.pathname.includes('reset-password') ? 'none' : ''}}>
             <h1>@{new Date().getFullYear()} DG-Gruppe AG
-                <p className='text-left text-xs'>FE V3.0.2.3</p>
+                <p className='text-left text-xs'>FE V3.0.2.4</p>
             </h1>
             {errorText && <p className='text-red'>{errorText}</p>}
             <div className='flex justify-end text-sm'>
