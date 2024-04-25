@@ -31,10 +31,6 @@ const Navbar = () => {
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8));
 
     useEffect(() => {
-        console.log('showNestedDropdown', showNestedDropdown)
-    }, [showNestedDropdown]);
-
-    useEffect(() => {
         Api().get('/version').then(res => {
             setVersion(Object.values(res.data[0])[0]);
         });

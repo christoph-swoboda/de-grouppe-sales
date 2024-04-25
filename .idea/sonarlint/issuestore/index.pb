@@ -124,3 +124,7 @@ E
 0src/pages/adminEdit/adminEditMilestones/index.js,4\8\48aba2fb40b42288c684da8fc8497fd540976866
 `
 0src/pages/adminEdit/adminEditMilestones/table.js,2\c\2c23f1abc4650e2c9fbc26e336bc5725758d1eb4
+\
+,src/pages/adminEdit/adminEditFooter/index.js,7\6\76a33738bec644f054675a91c1263891055a17f2
+\
+,src/pages/adminEdit/adminEditFooter/table.js,1\7\172344f2e7bd452da67fb923fb55dc4642cd4c73

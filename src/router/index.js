@@ -9,10 +9,10 @@ import InfoCrawler from "../pages/infoCrawler";
 import MailHistory from "../pages/icMailHistory";
 import Storfalle from "../pages/Storfalle";
 import InfoMail from "../pages/infoMail";
-import AdminEdit from "../pages/adminEdit/adminEditSubsteps";
 import AdminEditSubsteps from "../pages/adminEdit/adminEditSubsteps";
 import AdminEditNotes from "../pages/adminEdit/adminEditNotes";
 import AdminEditMilestones from "../pages/adminEdit/adminEditMilestones";
+import AdminEditFooter from "../pages/adminEdit/adminEditFooter";
 
 
 export const RouteData = [
@@ -118,7 +118,7 @@ export const RouteData = [
         id: 14,
         path: 'admin-edit-footer',
         name: 'adminEditFooter',
-        component: <AdminEdit/>,
+        component: <AdminEditFooter/>,
         redirection: '/anmeldung'
     },
     {
