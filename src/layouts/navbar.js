@@ -60,6 +60,8 @@ const Navbar = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('admin');
         localStorage.removeItem('portal');
+        localStorage.removeItem('hmFilter');
+        localStorage.removeItem('dggFilter');
         setLoading(false);
         window.location.reload();
     }

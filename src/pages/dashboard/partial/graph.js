@@ -26,14 +26,16 @@ export const Graph = ({loadingBoxes, IST, User, portal, onChangeDgg, onChangeHm,
                     setMilestones(res.data)
                 }).catch(e => {
                     toast.error('etwas ist schief gelaufen!')
+                }).then(r=>{
+                    Api().get(`/${url2}/${portal}/${User?.ID}/${dggFilter}/${hmFilter}`).then(res => {
+                        setMilestonesEmp(res.data)
+                        setLoading(false)
+                    }).catch(e => {
+                        toast.error('etwas ist schief gelaufen!')
+                        setLoading(false)
+                    })
                 })
 
-                Api().get(`/${url2}/${portal}/${User?.ID}/${dggFilter}/${hmFilter}`).then(res => {
-                    setMilestonesEmp(res.data)
-                    setLoading(false)
-                }).catch(e => {
-                    toast.error('etwas ist schief gelaufen!')
-                })
             }
         }
     }, [project, portal, dggFilter, hmFilter]);

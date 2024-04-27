@@ -18,6 +18,8 @@ export const initialState = {
     noteRows: 3,
     sortUserMethod: 'desc',
     portal: localStorage.getItem('portal'),
+    dggFilter: localStorage.getItem('dggFilter')??true,
+    hmFilter: localStorage.getItem('hmFilter')??true,
     page: 1,
     pageBestand: 1,
     noteSent: true,
@@ -172,6 +174,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 portal: action.item
+            }
+        case "SET_DGG_FILTER":
+            return {
+                ...state,
+                dggFilter: action.item
+            }
+        case "SET_HM_FILTER":
+            return {
+                ...state,
+                hmFilter: action.item
             }
         case "SET_FOOTER_UPDATED":
             return {

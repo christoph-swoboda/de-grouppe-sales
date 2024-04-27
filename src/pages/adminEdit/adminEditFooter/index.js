@@ -57,9 +57,9 @@ const AdminEditFooter = () => {
                 {/*    </div>*/}
                 {/*}*/}
             </div>
-            <div className='bg-white rounded-md mb-5 px-5 pt-4 pb-10 min-h-screen'>
+            <div className='bg-white rounded-md mb-5 px-5 pt-4 pb-10 min-h-fit'>
                 {
-                    loading && <div className='centerItemsRelative h-72'><BeatLoader size='10px'/></div>
+                    loading && <div className='centerItemsRelative h-28'><BeatLoader size='10px'/></div>
                 }
                 {
                     !loading && tableData?.length > 0 &&

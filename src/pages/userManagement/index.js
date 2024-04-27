@@ -46,7 +46,7 @@ const UserManagement = () => {
     useEffect(() => {
         const delayQuery = setTimeout(async () => {
             getUsers(searchKey)
-        }, filterUM ? 2000 : 0)
+        }, Object.values(filterUM).filter(k => k !== null).length > 0 ? 2000 : 0)
 
         return () => clearTimeout(delayQuery)
 
@@ -131,7 +131,6 @@ const UserManagement = () => {
             setLoading(false)
 
         }).catch(e => {
-            console.log(e)
             setLoading(false)
             toast.error('etwas ist schief gelaufen!')
         })
@@ -177,64 +176,64 @@ const UserManagement = () => {
                         <input type="submit" value="Submit" hidden/>
                     </form>
                     <div className='flex justify-center sm:mb-6 lg:ml-40 lg:-mt-2 mt-2 text-grey'>
-                   <div>
-                       <div
-                           className={`flex w-32 justify-start cursor-pointer my-2  mr-2 pl-1 ${roleFilter.i ? 'border border-offWhite' : 'opacity-50'}`}
-                           onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                               ...roleFilter,
-                               i: !roleFilter.i
-                           })}>
-                           <GrUserAdmin size={'17px'} color={'#565c8c'}/> <span
-                           className='ml-1 mr-6 text-sm'>Innendienst</span>
-                       </div>
-                       <div
-                           className={`flex w-32 justify-start cursor-pointer my-2  mr-2 pl-1 ${roleFilter.er ? 'border border-offWhite' : 'opacity-50'}`}
-                           onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                               ...roleFilter,
-                               er: !roleFilter.er
-                           })}>
-                           <MdSupervisorAccount size={'17px'} color={'#3A46A9'}/><span
-                           className='ml-1 mr-6 text-sm'>FKB </span>
-                       </div>
-                       <div
-                           className={`flex w-32 justify-start cursor-pointer mt-2  mr-2 pl-1 ${roleFilter.ed ? 'border border-offWhite' : 'opacity-50'}`}
-                           onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                               ...roleFilter,
-                               ed: !roleFilter.ed
-                           })}>
-                           <MdSupervisorAccount size={'17px'} color={'#0a523f'}/><span
-                           className='ml-1 mr-6 text-sm'>VP </span>
-                       </div>
-                   </div>
-                     <div>
-                         <div
-                             className={`flex w-32 justify-start cursor-pointer my-2 mr-2 pl-1 ${roleFilter.c ? 'border border-offWhite' : 'opacity-50'}`}
-                             onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                                 ...roleFilter,
-                                 c: !roleFilter.c
-                             })}>
-                             <FaUserSecret size={'17px'} color={'#565c8c'}/> <span
-                             className='ml-1 mr-6 text-sm'>Controlling</span>
-                         </div>
-                         <div
-                             className={`flex w-32 justify-start cursor-pointer my-2  pl-1 ${roleFilter.mr ? 'border border-offWhite' : 'opacity-50'}`}
-                             onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                                 ...roleFilter,
-                                 mr: !roleFilter.mr
-                             })}>
-                             <FaUser size={'17px'} color={'#565c8c'}/> <span
-                             className='ml-1 mr-6 text-sm'>Management</span>
-                         </div>
-                         <div
-                             className={`flex w-32 justify-start cursor-pointer mt-2  pl-1 ${roleFilter.md ? 'border border-offWhite' : 'opacity-50'}`}
-                             onClick={() => user.isUserAdmin === '1' && setRoleFilter({
-                                 ...roleFilter,
-                                 md: !roleFilter.md
-                             })}>
-                             <FaUser size={'17px'} color={'#0a523f'}/> <span
-                             className='ml-1 mr-6 text-sm'>Struktur</span>
-                         </div>
-                     </div>
+                        <div>
+                            <div
+                                className={`flex w-32 justify-start cursor-pointer my-2  mr-2 pl-1 ${roleFilter.i ? 'border border-offWhite' : 'opacity-50'}`}
+                                onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                    ...roleFilter,
+                                    i: !roleFilter.i
+                                })}>
+                                <GrUserAdmin size={'17px'} color={'#565c8c'}/> <span
+                                className='ml-1 mr-6 text-sm'>Innendienst</span>
+                            </div>
+                            <div
+                                className={`flex w-32 justify-start cursor-pointer my-2  mr-2 pl-1 ${roleFilter.er ? 'border border-offWhite' : 'opacity-50'}`}
+                                onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                    ...roleFilter,
+                                    er: !roleFilter.er
+                                })}>
+                                <MdSupervisorAccount size={'17px'} color={'#3A46A9'}/><span
+                                className='ml-1 mr-6 text-sm'>FKB </span>
+                            </div>
+                            <div
+                                className={`flex w-32 justify-start cursor-pointer mt-2  mr-2 pl-1 ${roleFilter.ed ? 'border border-offWhite' : 'opacity-50'}`}
+                                onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                    ...roleFilter,
+                                    ed: !roleFilter.ed
+                                })}>
+                                <MdSupervisorAccount size={'17px'} color={'#0a523f'}/><span
+                                className='ml-1 mr-6 text-sm'>VP </span>
+                            </div>
+                        </div>
+                        <div>
+                            <div
+                                className={`flex w-32 justify-start cursor-pointer my-2 mr-2 pl-1 ${roleFilter.c ? 'border border-offWhite' : 'opacity-50'}`}
+                                onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                    ...roleFilter,
+                                    c: !roleFilter.c
+                                })}>
+                                <FaUserSecret size={'17px'} color={'#565c8c'}/> <span
+                                className='ml-1 mr-6 text-sm'>Controlling</span>
+                            </div>
+                            <div
+                                className={`flex w-32 justify-start cursor-pointer my-2  pl-1 ${roleFilter.mr ? 'border border-offWhite' : 'opacity-50'}`}
+                                onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                    ...roleFilter,
+                                    mr: !roleFilter.mr
+                                })}>
+                                <FaUser size={'17px'} color={'#565c8c'}/> <span
+                                className='ml-1 mr-6 text-sm'>Management</span>
+                            </div>
+                            <div
+                                className={`flex w-32 justify-start cursor-pointer mt-2  pl-1 ${roleFilter.md ? 'border border-offWhite' : 'opacity-50'}`}
+                                onClick={() => user.isUserAdmin === '1' && setRoleFilter({
+                                    ...roleFilter,
+                                    md: !roleFilter.md
+                                })}>
+                                <FaUser size={'17px'} color={'#0a523f'}/> <span
+                                className='ml-1 mr-6 text-sm'>Struktur</span>
+                            </div>
+                        </div>
                     </div>
                     <p className='text-sm text-grey ml-auto mt-2'>
                         {page === 1 ? page : (1 + (Number(rows) * page)) - Number(rows)} bis {(users.length < Number(rows)) ? users.length + Number(rows) < total ? users.length + (Number(rows) * page) - Number(rows) : total : (Number(rows) + (Number(rows) * page)) - Number(rows)} von {total} Einträge

@@ -132,3 +132,5 @@ I
 src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
 <
 src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
+P
+ src/pages/resetPassword/index.js,a\7\a7acc1a5fbaf5b8f8790e5caf2ec1f9b244fdf2f

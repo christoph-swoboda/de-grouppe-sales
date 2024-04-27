@@ -6,10 +6,6 @@ import FormRUV from "./formRUV";
 
 const RoleCheck = ({name, dropdown, role, isSAdmin, loading, portal}) => {
 
-    useEffect(() => {
-        console.log(role, portal)
-    }, [portal, role]);
-
     return (
         <div className='bg-white rounded-lg'>
             {

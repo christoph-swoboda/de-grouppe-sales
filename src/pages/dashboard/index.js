@@ -10,7 +10,7 @@ import {useStateValue} from "../../states/StateProvider";
 import {AiOutlineClose} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import {formatDate} from "../../helper/formatDate";
-import {BeatLoader, ClipLoader, SkewLoader} from "react-spinners";
+import {ClipLoader} from "react-spinners";
 
 const Dashboard = () => {
     const [total, setTotal] = useState([])
@@ -21,9 +21,7 @@ const Dashboard = () => {
     const [loadingBoxes, setLoadingBoxes] = useState(true)
     const [loadingStrofalle, setLoadingStrofalle] = useState(true)
     const [canceled, setCanceled] = useState([])
-    const [{secretKey, portal}, dispatch] = useStateValue();
-    const [dggFilter, setDggFilter] = useState(true)
-    const [hmFilter, sethmFilter] = useState(true)
+    const [{secretKey, portal, dggFilter, hmFilter}, dispatch] = useStateValue();
 
     // Function to update the state
     const updateMainState = (newValue) => {
@@ -47,10 +45,10 @@ const Dashboard = () => {
                 Api().get(`/sp_getDataDashStoerfaelle/${portal}/${user.ID}`).then(res => {
                     setStrofalles(res.data)
                     setLoadingStrofalle(false)
-                }).catch(e=>{
+                }).catch(e => {
                     setLoadingStrofalle(false)
                 })
-            }).catch(e=>{
+            }).catch(e => {
                 setLoadingBoxes(false)
             })
         }
@@ -59,30 +57,32 @@ const Dashboard = () => {
     useEffect(() => {
         setSuperAdmin(user.isSAdmin)
         if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
-            dispatch({type:'SET_PORTAL', item:'dgg'})
+            dispatch({type: 'SET_PORTAL', item: 'dgg'})
             localStorage.setItem('portal', 'dgg')
         } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
-            dispatch({type:'SET_PORTAL', item:'ruv'})
+            dispatch({type: 'SET_PORTAL', item: 'ruv'})
             localStorage.setItem('portal', 'ruv')
         } else {
-            if(localStorage.getItem('portal')){
-                dispatch({type:'SET_PORTAL', item:localStorage.getItem('portal')})
-            }else{
-                dispatch({type:'SET_PORTAL', item:'dgg'})
+            if (localStorage.getItem('portal')) {
+                dispatch({type: 'SET_PORTAL', item: localStorage.getItem('portal')})
+            } else {
+                dispatch({type: 'SET_PORTAL', item: 'dgg'})
             }
         }
     }, []);
 
     function portalSelect(e) {
-        dispatch({type:'SET_PORTAL', item:e.target.value})
+        dispatch({type: 'SET_PORTAL', item: e.target.value})
         localStorage.setItem('portal', e.target.value)
     }
 
-    const onChangeDgg=()=>{
-        setDggFilter(!dggFilter)
+    const onChangeDgg = () => {
+        dispatch({type: 'SET_DGG_FILTER', item: !dggFilter})
+        localStorage.setItem('dggFilter', dggFilter)
     }
-    const onChangeHm=()=>{
-        sethmFilter(!hmFilter)
+    const onChangeHm = () => {
+        dispatch({type: 'SET_HM_FILTER', item: !hmFilter})
+        localStorage.setItem('hmFilter', hmFilter)
     }
 
     return (
@@ -92,7 +92,7 @@ const Dashboard = () => {
                 {
                     (superAdmin === '1' || role === 'Internal' || role === 'Controller') &&
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
-                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <p className='w-fit mr-2 text-grey'>Portal: </p>
                         <select
                             disabled={loadingBoxes || loadingStrofalle}
                             className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'

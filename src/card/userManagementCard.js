@@ -25,11 +25,6 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const admin = user.isUserAdmin
 
-    useEffect(() => {
-        console.log(valid, verified, role)
-    }, [valid, role]);
-
-
     function save() {
         setLoading(true)
         let data = new FormData()

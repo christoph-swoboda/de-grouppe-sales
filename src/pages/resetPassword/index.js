@@ -15,7 +15,6 @@ const ResetPassword = () => {
             setLoading(false)
             toast.success('Wir haben Ihnen eine E-Mail mit dem Link zum Zurücksetzen gesendet')
         }).catch(e => {
-            console.log('e', e.response.status)
             if(e.response.status===520){
                 toast.error('Benutzer nicht gefunden!!')
             }

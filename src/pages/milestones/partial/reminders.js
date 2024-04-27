@@ -44,7 +44,6 @@ const Reminders = ({id, userID, role, portal}) => {
     useEffect(() => {
         setLoadingData(true)
         Api().get(`/reminderOptions/${portal}/${id}`).then(res => {
-            console.log('res', res.data)
             setOptions(res.data.options)
             setAuthor(res.data.author)
             setExists(res.data.exists)
