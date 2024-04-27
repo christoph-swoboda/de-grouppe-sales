@@ -41,21 +41,21 @@ const AdminEditFooter = () => {
     return (
         <div className='dashboardContainer'>
             <div className='flex justify-start items-center content-center pb-5'>
-                <h2 className='text-2xl lg:text-left'> Meilensteine</h2>
-                {
-                    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
-                        <p className='w-fit mr-2 text-grey'>Portal: </p>
-                        <select
-                            disabled={loading}
-                            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
-                            onChange={portalSelect}
-                            value={portal}
-                        >
-                            <option selected value='dgg'>DGG</option>
-                            <option value='ruv'>R+V</option>
-                        </select>
-                    </div>
-                }
+                <h2 className='text-2xl lg:text-left'> Footerzeile</h2>
+                {/*{*/}
+                {/*    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>*/}
+                {/*        <p className='w-fit mr-2 text-grey'>Portal: </p>*/}
+                {/*        <select*/}
+                {/*            disabled={loading}*/}
+                {/*            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'*/}
+                {/*            onChange={portalSelect}*/}
+                {/*            value={portal}*/}
+                {/*        >*/}
+                {/*            <option selected value='dgg'>DGG</option>*/}
+                {/*            <option value='ruv'>R+V</option>*/}
+                {/*        </select>*/}
+                {/*    </div>*/}
+                {/*}*/}
             </div>
             <div className='bg-white rounded-md mb-5 px-5 pt-4 pb-10 min-h-screen'>
                 {
