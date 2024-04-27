@@ -70,13 +70,13 @@ export const Graph = ({loadingBoxes, IST, User, portal, onChangeDgg, onChangeHm,
                     </button>
                 </div>
                 <span className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10 '>der Firmenprojekte</span>
-                <span className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10 '>
+                <span hidden={portal==='ruv'} className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10'>
                     <section>
                         <input disabled={loadingBoxes || loading} type='checkbox' checked={dggFilter} onChange={onChangeDgg}/>
                         <label> DG-Gruppe</label>
                     </section>
                 </span>
-                <span className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10 '>
+                <span  hidden={portal==='ruv'} className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10 '>
                     <section>
                         <input disabled={loadingBoxes || loading} type='checkbox' checked={hmFilter} onChange={onChangeHm}/>
                         <label> Helmsauer-Kunden</label>

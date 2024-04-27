@@ -140,31 +140,31 @@ const Dashboard = () => {
                                         </thead>
                                         <tbody>
                                         {
-                                            strofalles.length > 0 ?
-                                                strofalles.slice(0, 5).map(str => (
-                                                    <tr className="border-b border-whiteDark" key={str.FP_ID}>
-                                                        {/*<td className="whitespace-nowrap px-6 py-1 font-medium">1</td>*/}
-                                                        <td className="px-2 py-1 text-mainBlue">
-                                                            <Link to={`firmenprojekte/${portal}/${str.FP_ID}`}
-                                                                  target='_blank'>{str.FirmaKurz}
-                                                            </Link>
-                                                        </td>
-                                                        <td className="px-1 py-1">{str.Bemerkung}</td>
-                                                        <td className="px-1 py-1">{formatDate(str.StörfallDatum, false)}</td>
-                                                    </tr>
-                                                )) : !loadingStrofalle &&
-                                                <tr className='centerItemsRelative border-b border-whiteDark'>
-                                                    <td className='px-2 py-1 text-mainBlue'></td>
-                                                    <td className='px-2 py-1 text-mainBlue'>No Data</td>
+                                            !loadingStrofalle && strofalles.length > 0 &&
+                                            strofalles.slice(0, 5).map(str => (
+                                                <tr className="border-b border-whiteDark" key={str.FP_ID}>
+                                                    {/*<td className="whitespace-nowrap px-6 py-1 font-medium">1</td>*/}
+                                                    <td className="px-2 py-1 text-mainBlue">
+                                                        <Link to={`firmenprojekte/${portal}/${str.FP_ID}`}
+                                                              target='_blank'>{str.FirmaKurz}
+                                                        </Link>
+                                                    </td>
+                                                    <td className="px-1 py-1">{str.Bemerkung}</td>
+                                                    <td className="px-1 py-1">{formatDate(str.StörfallDatum, false)}</td>
                                                 </tr>
+                                            ))
                                         }
                                         </tbody>
                                     </table>
                                     {
-                                        loadingStrofalle &&
-                                        <div className='centerItemsRelative mt-2'>
-                                            <ClipLoader color='lightGrey'/>
-                                        </div>
+                                        loadingStrofalle ?
+                                            <div className='centerItemsRelative mt-2'>
+                                                <ClipLoader color='lightGrey'/>
+                                            </div> :
+                                            !loadingStrofalle && strofalles.length === 0 &&
+                                            <div className='centerItemsRelative border-b border-whiteDark mt-5 pb-5'>
+                                                <p className='px-2 py-1 text-mainBlue'>Es liegen keine Störfälle vor.</p>
+                                            </div>
                                     }
                                 </div>
                             </div>
