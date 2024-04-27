@@ -22,6 +22,8 @@ const Dashboard = () => {
     const [loadingStrofalle, setLoadingStrofalle] = useState(true)
     const [canceled, setCanceled] = useState([])
     const [{secretKey, portal}, dispatch] = useStateValue();
+    const [dggFilter, setDggFilter] = useState(true)
+    const [hmFilter, sethmFilter] = useState(true)
 
     // Function to update the state
     const updateMainState = (newValue) => {
@@ -36,7 +38,7 @@ const Dashboard = () => {
         if (portal) {
             setLoadingBoxes(true)
             setLoadingStrofalle(true)
-            Api().get(`/getDashboardCounts/${portal}/${user.ID}`).then(res => {
+            Api().get(`/getDashboardCounts/${portal}/${user.ID}/${dggFilter}/${hmFilter}`).then(res => {
                 setTotal(res.data.slice(0, 2))
                 setDone(res.data.slice(2, 4))
                 setCanceled(res.data.slice(4, 6))
@@ -52,7 +54,7 @@ const Dashboard = () => {
                 setLoadingBoxes(false)
             })
         }
-    }, [portal]);
+    }, [portal, dggFilter, hmFilter]);
 
     useEffect(() => {
         setSuperAdmin(user.isSAdmin)
@@ -74,6 +76,13 @@ const Dashboard = () => {
     function portalSelect(e) {
         dispatch({type:'SET_PORTAL', item:e.target.value})
         localStorage.setItem('portal', e.target.value)
+    }
+
+    const onChangeDgg=()=>{
+        setDggFilter(!dggFilter)
+    }
+    const onChangeHm=()=>{
+        sethmFilter(!hmFilter)
     }
 
     return (
@@ -162,7 +171,15 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-                <Graph portal={portal} User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>
+                <Graph portal={portal}
+                       User={user}
+                       IST header={'IST-Potenzial im jeweiligen Schritt'}
+                       dggFilter={dggFilter}
+                       hmFilter={hmFilter}
+                       onChangeDgg={onChangeDgg}
+                       onChangeHm={onChangeHm}
+                       loadingBoxes={loadingBoxes}
+                />
             </div>
         </div>
     )

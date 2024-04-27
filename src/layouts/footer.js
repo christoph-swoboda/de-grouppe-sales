@@ -18,7 +18,7 @@ const Footer = () => {
     }, [footerUpdated]);
 
     return (
-        <div className='flex bg-white justify-between p-5'
+        <div className='flex bg-white justify-between px-5 pt-3'
              style={{display: location.pathname.includes('anmeldung') || location.pathname.includes('registrieren') || location.pathname.includes('reset-password') ? 'none' : ''}}>
             <h1>
                 <span className='flex justify-start items-center'>

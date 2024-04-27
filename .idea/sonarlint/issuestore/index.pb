@@ -128,3 +128,7 @@ E
 ,src/pages/adminEdit/adminEditFooter/index.js,7\6\76a33738bec644f054675a91c1263891055a17f2
 \
 ,src/pages/adminEdit/adminEditFooter/table.js,1\7\172344f2e7bd452da67fb923fb55dc4642cd4c73
+I
+src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
+<
+src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
