@@ -28,7 +28,14 @@ const Reminders = ({id, userID, role, portal}) => {
     const datePickerRef2 = useRef(null);
 
     const {
-        register, getValues , setValue, watch, handleSubmit, formState, reset, formState: {errors, touchedFields,isValid},
+        register,
+        getValues,
+        setValue,
+        watch,
+        handleSubmit,
+        formState,
+        reset,
+        formState: {errors, touchedFields, isValid},
         control
     } = useForm({mode: "onChange"});
 
@@ -73,7 +80,7 @@ const Reminders = ({id, userID, role, portal}) => {
             setUpdated(updated + 1)
             toast.success('Erfolgreich gelöscht')
             setValue('rmTitle', 'Wähle eine Option')
-            setValue('date', null)
+            reset()
         }).catch(e => {
             toast.error('Etwas ist schief gelaufen!')
             setUpdated(updated + 1)
@@ -82,8 +89,14 @@ const Reminders = ({id, userID, role, portal}) => {
 
     function setEditStates() {
         setEditing(true)
-        setValue('rmTitle', author[0].wvText)
-        setValue('date', convertLocalToUTCDate(author[0].datum))
+        setValue('rmTitle', author[0].rmTitle)
+        setValue('rmText', author[0].rmText)
+        setValue('uEmail', author[0].rmMail1)
+        setValue('uEmail2', author[0].rmMail2)
+        setValue('uEmail3', author[0].rmMail3)
+        setValue('rmMailAMS', author[0].rmMailAMS === '1')
+        setValue('rmMailKAM', author[0].rmMailKAM === '1')
+        setValue('date', convertLocalToUTCDate(author[0].rmDate))
         dispatch({type: "SET_REMINDERS_MODAL", item: !remindersModal})
     }
 
@@ -119,22 +132,19 @@ const Reminders = ({id, userID, role, portal}) => {
                                     <h2 className='text-xl mb-2 font-bold'>Wiedervorlage</h2>
                                     <div className='flex items-center justify-between p-5'>
                                         <div className='text-sm text-grey'>
-                                            <p>Wiedervorlage von: {author[0].autor}</p>
-                                            <p>Wiedervorlage am: {formatDate(author[0].datum, false)}</p>
-                                            <p>Grund: {author[0].wvText}</p>
+                                            <p>Wiedervorlage von: {author[0].rmUser}</p>
+                                            <p>Wiedervorlage am: {formatDate(author[0].rmDate, false)}</p>
+                                            <p>Grund: {author[0].rmTitle}</p>
                                         </div>
-                                        {
-                                            author[0].autor === user.fullname &&
-                                            <div className='flex justify-between flex-wrap'>
-                                                <a title='bearbeiten' onClick={setEditStates}
-                                                   className='cursor-pointer'>
-                                                    <AiOutlineEdit color={'#1c3aa1'} size={'19px'}/>
-                                                </a>
-                                                <a title='löschen' onClick={deleteReminder} className='cursor-pointer'>
-                                                    <AiOutlineDelete color={'#987474'} size={'19px'}/>
-                                                </a>
-                                            </div>
-                                        }
+                                        <div className='flex justify-between flex-wrap'>
+                                            <a title='bearbeiten' onClick={setEditStates}
+                                               className='cursor-pointer'>
+                                                <AiOutlineEdit color={'#1c3aa1'} size={'19px'}/>
+                                            </a>
+                                            <a title='löschen' onClick={deleteReminder} className='cursor-pointer'>
+                                                <AiOutlineDelete color={'#987474'} size={'19px'}/>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                         }
@@ -169,33 +179,26 @@ const Reminders = ({id, userID, role, portal}) => {
                                        <textarea
                                            rows={1}
                                            className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect`}
-                                           placeholder='Text'
+                                           placeholder='zusätzliche Bermerkung'
                                            {...register('rmText', {required: false})}
                                        />
                                </section>
+                               <input
+                                   className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect`}
+                                   placeholder='Email an: '
+                                   type='email'
+                                   {...register('uEmail', {
+                                       required: 'Email is required',
+                                       pattern: {
+                                           value: /^\S+@\S+\.\S+$/,
+                                           message: 'Please enter a valid email address',
+                                       }
+                                   })}
+                                   style={{border: (!watch('uEmail')) && '1px solid red'}}
+                               />
+                               <section className='col-span-1'>
 
-
-                               <section className='flex justify-start text-grey items-center gap-2'>
-                                   <input
-                                       type='checkbox'
-                                       className={`cursor-pointer`}
-                                       placeholder='Mail an DG AMS'
-                                       {...register('rmMailAMS', {required: false})}
-                                   />
-                                   <label>Mail an DG AMS</label>
                                </section>
-
-                               <section className='flex justify-end text-grey items-center gap-2'>
-                                   <input
-                                       type='checkbox'
-                                       className={`cursor-pointer`}
-                                       placeholder='Mail an DG KAM'
-                                       {...register('rmMailKAM', {required: false})}
-
-                                   />
-                                   <label>Mail an DG KAM</label>
-                               </section>
-
                                <section className='col-span-1'>
                                    <input hidden {...register('uID')} value={userID}/>
                                    <input hidden {...register('fpID')} value={id}/>
@@ -225,20 +228,9 @@ const Reminders = ({id, userID, role, portal}) => {
                                        )}
                                    />
                                </section>
+                               <section className='col-span-1'>
 
-                               <input
-                                   className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect`}
-                                   placeholder='Email an: '
-                                   type='email'
-                                   {...register('uEmail', {
-                                       required: 'Email is required',
-                                       pattern: {
-                                           value: /^\S+@\S+\.\S+$/,
-                                           message: 'Please enter a valid email address',
-                                       }
-                                   })}
-                                   style={{ border: (!watch('uEmail')) && '1px solid red' }}
-                               />
+                               </section>
 
                                <input
                                    className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect`}
@@ -250,7 +242,7 @@ const Reminders = ({id, userID, role, portal}) => {
                                            message: 'Please enter a valid email address',
                                        }
                                    })}
-                                   style={{ border: errors.uEmail2 && '1px solid red' }}
+                                   style={{border: errors.uEmail2 && '1px solid red'}}
                                />
                                <input
                                    className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect`}
@@ -262,8 +254,38 @@ const Reminders = ({id, userID, role, portal}) => {
                                            message: 'Please enter a valid email address',
                                        }
                                    })}
-                                   style={{ border: errors.uEmail3 && '1px solid red' }}
+                                   style={{border: errors.uEmail3 && '1px solid red'}}
                                />
+
+                               <section className='flex justify-start text-grey items-center gap-2'>
+                                   <input
+                                       type='checkbox'
+                                       className={`cursor-pointer`}
+                                       placeholder='Mail an DG AMS'
+                                       {...register('rmMailAMS', {required: false})}
+                                   />
+                                   <label>Mail an DG AMS</label>
+                               </section>
+
+                               <section className='flex justify-start text-grey items-center gap-2'>
+                                   <input
+                                       type='checkbox'
+                                       className={`cursor-pointer`}
+                                       placeholder='Mail an DG KAM'
+                                       {...register('rmMailKAM', {required: false})}
+
+                                   />
+                                   <label>Mail an DG KAM</label>
+                               </section>
+                               <section className='flex justify-center text-grey items-center gap-2 col-span-2 text-sm'>
+                                   <input
+                                       type='checkbox'
+                                       className={`cursor-pointer`}
+                                       {...register('aaa', {required: false})}
+
+                                   />
+                                   <label>infomail in der Zwischenzeit pausieren</label>
+                               </section>
                                <input
                                    className={`bg-mainBlue rounded-2xl col-span-2 px-3 py-2 mt-2 text-white cursor-pointer text-sm ${(!watch('date')) || !isValid || watch('rmTitle') === 'Wähle eine Option' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
                                    type="submit"
