@@ -134,3 +134,5 @@ I
 src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
 P
  src/pages/resetPassword/index.js,a\7\a7acc1a5fbaf5b8f8790e5caf2ec1f9b244fdf2f
+_
+/src/pages/userManagement/partial/excelExport.js,2\a\2a7e643e86076c04d5ad3623a1e2dc898fd6d48a

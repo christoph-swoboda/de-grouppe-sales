@@ -13,11 +13,13 @@ import {MdSupervisorAccount} from "react-icons/md";
 import {FaUser, FaUserSecret} from "react-icons/fa";
 import {AES, enc} from "crypto-js";
 import AdminView from "./partial/adminView";
+import ExcelExportUsers from "./partial/excelExport";
 
 const UserManagement = () => {
     const [search, setSearch] = useState('')
     const [searchKey, setSearchKey] = useState('')
     const [users, setUsers] = useState([])
+    const [usersExport, setUsersExport] = useState([])
     const [roleFilter, setRoleFilter] = useState({i: true, er: true, ed: true, mr: true, md: true, c: true})
     const [searchResults, setSearchResults] = useState([])
     const [{
@@ -27,7 +29,7 @@ const UserManagement = () => {
         sortUserColum,
         sortUserMethod,
         filterIDUM, filterUM,
-        addUsersDone
+        addUsersDone,portal
     }, dispatch] = useStateValue();
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
@@ -37,6 +39,7 @@ const UserManagement = () => {
     const [rows, setRows] = useState('10');
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
+    const [loadingExport, setLoadingExport] = useState(false);
     const [loadingKeys, setLoadingKeys] = useState(false);
     const [modal, setModal] = useState(false)
     const navigate = useNavigate()
@@ -153,6 +156,13 @@ const UserManagement = () => {
         setRows(e.target.value)
     }
 
+    function excelExport() {
+        Api().get('sp_getDataUserAuswertung').then(res=>{
+            console.log('data', res.data)
+            setUsersExport(res.data)
+        })
+    }
+
     return (
         <div className='dashboardContainer'>
             <div className='lg:flex justify-between pt-2 sm:block'>
@@ -164,7 +174,6 @@ const UserManagement = () => {
                     </p>
                 </div>
             </div>
-
             <div className={`bg-white my-4`}>
                 <div className={`rounded-xl p-8 lg:flex sm:block`}>
                     <form onSubmit={searchSubmit} className=' xl:w-3/12 sm:w-full'>
@@ -175,6 +184,7 @@ const UserManagement = () => {
                         />
                         <input type="submit" value="Submit" hidden/>
                     </form>
+
                     <div className='flex justify-center sm:mb-6 lg:ml-40 lg:-mt-2 mt-2 text-grey'>
                         <div>
                             <div
@@ -249,11 +259,12 @@ const UserManagement = () => {
                         </span>
                     </h2>
                 </div>
-                <div className='text-left absolute ml-9 -mt-9'>
-                    {loadingKeys && <BeatLoader size='8'/>}
+                <div className='absolute ml-40 -mt-24'>
+                    {loadingKeys && <BeatLoader size='6'/>}
                 </div>
+
                 <div ref={modalRef}
-                     className={`${!modal && 'hidden'} absolute w-72 max-h-80 ml-9 bg-offWhite p-5 z-10 -mt-6 overflow-y-scroll`}>
+                     className={`${!modal && 'hidden'} absolute w-80 max-h-80 ml-8 bg-offWhite p-5 z-10 -mt-20 overflow-y-scroll`}>
                     {
                         searchResults?.map((res, i) => (
                             <input type='button' key={i} onClick={setUpModal}
@@ -262,8 +273,11 @@ const UserManagement = () => {
                             />
                         ))
                     }
-
                 </div>
+                <ExcelExportUsers url={'/sp_getDataUserAuswertung'}
+                                  title={'Excel Export'}
+                                  portal={portal}/>
+
                 <div>
                     {
                         (role === 'Internal' || role === 'Controller') ?
