@@ -266,7 +266,7 @@ const BestantList = () => {
                     loading={loading}
                     printPDFRef={componentRef}
                     headers={(viewName === 'Firmenprojekte' && portal === 'ruv') ? BestandViewHeaders : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG : viewName === 'Projekt-Tafel' ? BestandView2Headers : viewName === 'Auswertung Vertrieb' ? BestandView3Headers : viewName === 'Auswertung DGAPI' ? BestandView4Headers : BestandView5Headers}
-                    count={viewName === (viewName === 'Firmenprojekte' && portal === 'ruv') ? BestandViewHeaders.length - 2 : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG.length - 2 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 2 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 2 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 2 : BestandView5Headers.length - 2}
+                    count={viewName === (viewName === 'Firmenprojekte' && portal === 'ruv') ? BestandViewHeaders.length - 2 : (viewName === 'Firmenprojekte' && portal === 'dgg') ? BestandViewHeadersDGG.length - 1 : viewName === 'Projekt-Tafel' ? BestandView2Headers.length - 1 : viewName === 'Auswertung Vertrieb' ? BestandView3Headers.length - 1 : viewName === 'Auswertung DGAPI' ? BestandView4Headers.length - 1 : BestandView5Headers.length - 1}
                     printing={printing}
                     sortColumn={sortColumn}
                     sortMethod={sortMethod}

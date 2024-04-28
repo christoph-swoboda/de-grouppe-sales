@@ -47,15 +47,15 @@ const ResetPassword = () => {
                     {errors.email && touchedFields && <p>{errors.email.message}</p>}
                 </section>
 
-                <section className='flex flex-col text-left text-grey text-sm'>
-                    <label className='py-2'>VP-Nummer *</label>
-                    <input placeholder='VP-Nummer'
-                           type='text'
-                           {...register('vp', {required: 'Ihr Passwort ist erforderlich'})}
-                           style={{border: errors.vp && '1px solid red'}}
-                    />
-                    {errors.vp && touchedFields && <p>{errors.vp.message}</p>}
-                </section>
+                {/*<section className='flex flex-col text-left text-grey text-sm'>*/}
+                {/*    <label className='py-2'>VP-Nummer *</label>*/}
+                {/*    <input placeholder='VP-Nummer'*/}
+                {/*           type='text'*/}
+                {/*           {...register('vp', {required: 'Ihr Passwort ist erforderlich'})}*/}
+                {/*           style={{border: errors.vp && '1px solid red'}}*/}
+                {/*    />*/}
+                {/*    {errors.vp && touchedFields && <p>{errors.vp.message}</p>}*/}
+                {/*</section>*/}
 
                 <section className='flex flex-col text-left text-grey text-sm'>
                     <label className='opacity-0'>Passwort *</label>

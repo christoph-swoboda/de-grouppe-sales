@@ -79,7 +79,7 @@ const ExcelExport = ({Gesamt, title, loading, all, len, rows, url, count, portal
             if (all) {
                 let arr = []
                 Object.keys(res.data.bestands[0]).map(k => {
-                    if (k !== 'MA') {
+                    if (k !== 'Note' && k !== 'FP_ID' && k !== 'totalCustomers') {
                         arr.push(k)
                     }
                 })
@@ -107,14 +107,14 @@ const ExcelExport = ({Gesamt, title, loading, all, len, rows, url, count, portal
             Object.entries(res.data.bestands[0]).map(v => {
                 keys.push({
                     key: v[0],
-                    width: all && 30
+                    width: all && 25
                 })
             })
 
             if (all) {
                 let arr = []
                 keys.map(k => {
-                    if (k.key !== 'MA') {
+                    if (k.key !== 'Note' && k.key !== 'FP_ID' && k.key !== 'totalCustomers') {
                         arr.push(k)
                     }
                 })

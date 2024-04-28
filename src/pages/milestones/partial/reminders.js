@@ -96,6 +96,7 @@ const Reminders = ({id, userID, role, portal}) => {
         setValue('uEmail3', author[0].rmMail3)
         setValue('rmMailAMS', author[0].rmMailAMS === '1')
         setValue('rmMailKAM', author[0].rmMailKAM === '1')
+        setValue('pauseICIM', author[0].pauseICIM === '1')
         setValue('date', convertLocalToUTCDate(author[0].rmDate))
         dispatch({type: "SET_REMINDERS_MODAL", item: !remindersModal})
     }
@@ -130,7 +131,7 @@ const Reminders = ({id, userID, role, portal}) => {
                                 :
                                 <div>
                                     <h2 className='text-xl mb-2 font-bold'>Wiedervorlage</h2>
-                                    <div className='flex items-center justify-between p-5'>
+                                    <div className='flex items-center justify-between px-2 pt-2 pb-5'>
                                         <div className='text-sm text-grey'>
                                             <p>Wiedervorlage von: {author[0].rmUser}</p>
                                             <p>Wiedervorlage am: {formatDate(author[0].rmDate, false)}</p>
@@ -281,7 +282,7 @@ const Reminders = ({id, userID, role, portal}) => {
                                    <input
                                        type='checkbox'
                                        className={`cursor-pointer`}
-                                       {...register('aaa', {required: false})}
+                                       {...register('pauseICIM', {required: false})}
 
                                    />
                                    <label>infomail in der Zwischenzeit pausieren</label>
