@@ -124,3 +124,15 @@ E
 0src/pages/adminEdit/adminEditMilestones/index.js,4\8\48aba2fb40b42288c684da8fc8497fd540976866
 `
 0src/pages/adminEdit/adminEditMilestones/table.js,2\c\2c23f1abc4650e2c9fbc26e336bc5725758d1eb4
+\
+,src/pages/adminEdit/adminEditFooter/index.js,7\6\76a33738bec644f054675a91c1263891055a17f2
+\
+,src/pages/adminEdit/adminEditFooter/table.js,1\7\172344f2e7bd452da67fb923fb55dc4642cd4c73
+I
+src/styles/dashboard.scss,e\c\ecbd076785a5cdda68fe1c1863b708cd101e5084
+<
+src/App.scss,b\c\bcada58bc91793cb9a75454562c527c157dc0cd9
+P
+ src/pages/resetPassword/index.js,a\7\a7acc1a5fbaf5b8f8790e5caf2ec1f9b244fdf2f
+_
+/src/pages/userManagement/partial/excelExport.js,2\a\2a7e643e86076c04d5ad3623a1e2dc898fd6d48a

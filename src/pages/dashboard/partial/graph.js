@@ -4,7 +4,7 @@ import SummerySection from "./summerySection";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
 
-export const Graph = ({header, IST, User, portal}) => {
+export const Graph = ({loadingBoxes, IST, User, portal, onChangeDgg, onChangeHm, dggFilter, hmFilter}) => {
 
     const [project, setProject] = useState(true)
     const [user, setUser] = useState(false)
@@ -22,21 +22,23 @@ export const Graph = ({header, IST, User, portal}) => {
             }
             if (User?.ID && IST) {
                 setLoading(true)
-                Api().get(`/${url1}/${portal}/${User?.ID}`).then(res => {
+                Api().get(`/${url1}/${portal}/${User?.ID}/${dggFilter}/${hmFilter}`).then(res => {
                     setMilestones(res.data)
                 }).catch(e => {
                     toast.error('etwas ist schief gelaufen!')
+                }).then(r=>{
+                    Api().get(`/${url2}/${portal}/${User?.ID}/${dggFilter}/${hmFilter}`).then(res => {
+                        setMilestonesEmp(res.data)
+                        setLoading(false)
+                    }).catch(e => {
+                        toast.error('etwas ist schief gelaufen!')
+                        setLoading(false)
+                    })
                 })
 
-                Api().get(`/${url2}/${portal}/${User?.ID}`).then(res => {
-                    setMilestonesEmp(res.data)
-                    setLoading(false)
-                }).catch(e => {
-                    toast.error('etwas ist schief gelaufen!')
-                })
             }
         }
-    }, [project, portal]);
+    }, [project, portal, dggFilter, hmFilter]);
 
 
     function projectClicked() {
@@ -68,6 +70,18 @@ export const Graph = ({header, IST, User, portal}) => {
                     </button>
                 </div>
                 <span className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10 '>der Firmenprojekte</span>
+                <span hidden={portal==='ruv'} className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10'>
+                    <section>
+                        <input disabled={loadingBoxes || loading} type='checkbox' checked={dggFilter} onChange={onChangeDgg}/>
+                        <label> DG-Gruppe</label>
+                    </section>
+                </span>
+                <span  hidden={portal==='ruv'} className='my-3 py-2 px-3 text-sm border border-b-1 border-x-0 border-t-0 border-b-offWhite font-bold h-10 '>
+                    <section>
+                        <input disabled={loadingBoxes || loading} type='checkbox' checked={hmFilter} onChange={onChangeHm}/>
+                        <label> Helmsauer-Kunden</label>
+                    </section>
+                </span>
             </div>
             <IstSection loading={loading} data={milestones} dataEmp={milestonesEmp} project={project}/>
         </div>

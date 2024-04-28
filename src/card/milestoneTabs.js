@@ -2,19 +2,15 @@ import React, {useEffect} from "react";
 import {IoIosArrowForward} from "react-icons/io";
 import {useStateValue} from "../states/StateProvider";
 
-const MilestoneTabs = ({label, done, lastIndex, lastDoneIndex, id, loading}) => {
+const MilestoneTabs = ({label, done, lastIndex, id, loading}) => {
 
-    const [{currentMilestone,milestone3HasDate}, dispatch] = useStateValue();
+    const [{currentMilestone}, dispatch] = useStateValue();
 
     function setMilestone() {
         if (!loading) {
             dispatch({type: "SET_CURRENTMILESTONE", item: id})
         }
     }
-    //
-    // useEffect(() => {
-    //     console.log('milestone3HasDate',milestone3HasDate)
-    // }, [milestone3HasDate, currentMilestone]);
 
     return (
         <div onClick={setMilestone}>

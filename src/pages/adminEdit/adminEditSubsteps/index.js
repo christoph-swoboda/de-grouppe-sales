@@ -75,7 +75,7 @@ const AdminEditSubsteps = () => {
                     </div>
                 }
             </div>
-            <div className='bg-white rounded-md mb-5 px-5 pt-4 pb-10 min-h-screen'>
+            <div className='bg-white rounded-md mb-5 px-5 pt-4 pb-10  min-h-fit'>
                 <section className='flex flex-col text-left text-grey text-sm mt-3 mb-7 pb-4 py-2 rounded-lg'>
                     <label className='py-2'>Bitte wählen Sie zuerst einen Meilenstein</label>
                     <select placeholder='Milestone'

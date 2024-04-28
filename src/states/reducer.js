@@ -18,15 +18,18 @@ export const initialState = {
     noteRows: 3,
     sortUserMethod: 'desc',
     portal: localStorage.getItem('portal'),
+    dggFilter: localStorage.getItem('dggFilter')??true,
+    hmFilter: localStorage.getItem('hmFilter')??true,
     page: 1,
     pageBestand: 1,
     noteSent: true,
+    footerUpdated: false,
     sortColumn: 7,
     sortMethod: 'asc',
     ICSaved: false,
-    dateFilter: {id:null, value:null},
-    filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:null, i:null, j:null},
-    filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h:1, i:0, j:0},
+    dateFilter: {id: null, value: null},
+    filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null, i: null, j: null},
+    filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 1, i: 0, j: 0},
     filterIDUM: {a: null, c: null},
     filterUM: {a: null, c: null},
 };
@@ -137,7 +140,7 @@ const reducer = (state, action) => {
                 ...state,
                 filterID: action.item
             }
-            case "SET_SORTBESTANDFILTERUM":
+        case "SET_SORTBESTANDFILTERUM":
             return {
                 ...state,
                 filterUM: action.item
@@ -147,7 +150,7 @@ const reducer = (state, action) => {
                 ...state,
                 filterIDUM: action.item
             }
-            case "SET_DATEFILTER":
+        case "SET_DATEFILTER":
             return {
                 ...state,
                 dateFilter: action.item
@@ -167,10 +170,25 @@ const reducer = (state, action) => {
                 ...state,
                 subStepSaved: action.item
             }
-            case "SET_PORTAL":
+        case "SET_PORTAL":
             return {
                 ...state,
                 portal: action.item
+            }
+        case "SET_DGG_FILTER":
+            return {
+                ...state,
+                dggFilter: action.item
+            }
+        case "SET_HM_FILTER":
+            return {
+                ...state,
+                hmFilter: action.item
+            }
+        case "SET_FOOTER_UPDATED":
+            return {
+                ...state,
+                footerUpdated: action.item
             }
         default:
             return state;

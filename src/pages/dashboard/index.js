@@ -10,7 +10,7 @@ import {useStateValue} from "../../states/StateProvider";
 import {AiOutlineClose} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import {formatDate} from "../../helper/formatDate";
-import {BeatLoader, ClipLoader, SkewLoader} from "react-spinners";
+import {ClipLoader} from "react-spinners";
 
 const Dashboard = () => {
     const [total, setTotal] = useState([])
@@ -21,7 +21,7 @@ const Dashboard = () => {
     const [loadingBoxes, setLoadingBoxes] = useState(true)
     const [loadingStrofalle, setLoadingStrofalle] = useState(true)
     const [canceled, setCanceled] = useState([])
-    const [{secretKey, portal}, dispatch] = useStateValue();
+    const [{secretKey, portal, dggFilter, hmFilter}, dispatch] = useStateValue();
 
     // Function to update the state
     const updateMainState = (newValue) => {
@@ -36,7 +36,7 @@ const Dashboard = () => {
         if (portal) {
             setLoadingBoxes(true)
             setLoadingStrofalle(true)
-            Api().get(`/getDashboardCounts/${portal}/${user.ID}`).then(res => {
+            Api().get(`/getDashboardCounts/${portal}/${user.ID}/${dggFilter}/${hmFilter}`).then(res => {
                 setTotal(res.data.slice(0, 2))
                 setDone(res.data.slice(2, 4))
                 setCanceled(res.data.slice(4, 6))
@@ -45,35 +45,44 @@ const Dashboard = () => {
                 Api().get(`/sp_getDataDashStoerfaelle/${portal}/${user.ID}`).then(res => {
                     setStrofalles(res.data)
                     setLoadingStrofalle(false)
-                }).catch(e=>{
+                }).catch(e => {
                     setLoadingStrofalle(false)
                 })
-            }).catch(e=>{
+            }).catch(e => {
                 setLoadingBoxes(false)
             })
         }
-    }, [portal]);
+    }, [portal, dggFilter, hmFilter]);
 
     useEffect(() => {
         setSuperAdmin(user.isSAdmin)
         if ((user.role === 'ExtDGG' || user.role === 'ManDGG')) {
-            dispatch({type:'SET_PORTAL', item:'dgg'})
+            dispatch({type: 'SET_PORTAL', item: 'dgg'})
             localStorage.setItem('portal', 'dgg')
         } else if ((user.role === 'ExtRUV' || user.role === 'ManRUV')) {
-            dispatch({type:'SET_PORTAL', item:'ruv'})
+            dispatch({type: 'SET_PORTAL', item: 'ruv'})
             localStorage.setItem('portal', 'ruv')
         } else {
-            if(localStorage.getItem('portal')){
-                dispatch({type:'SET_PORTAL', item:localStorage.getItem('portal')})
-            }else{
-                dispatch({type:'SET_PORTAL', item:'dgg'})
+            if (localStorage.getItem('portal')) {
+                dispatch({type: 'SET_PORTAL', item: localStorage.getItem('portal')})
+            } else {
+                dispatch({type: 'SET_PORTAL', item: 'dgg'})
             }
         }
     }, []);
 
     function portalSelect(e) {
-        dispatch({type:'SET_PORTAL', item:e.target.value})
+        dispatch({type: 'SET_PORTAL', item: e.target.value})
         localStorage.setItem('portal', e.target.value)
+    }
+
+    const onChangeDgg = () => {
+        dispatch({type: 'SET_DGG_FILTER', item: !dggFilter})
+        localStorage.setItem('dggFilter', dggFilter)
+    }
+    const onChangeHm = () => {
+        dispatch({type: 'SET_HM_FILTER', item: !hmFilter})
+        localStorage.setItem('hmFilter', hmFilter)
     }
 
     return (
@@ -83,7 +92,7 @@ const Dashboard = () => {
                 {
                     (superAdmin === '1' || role === 'Internal' || role === 'Controller') &&
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
-                        <p className='w-fit mr-2 text-grey'>Portal:  </p>
+                        <p className='w-fit mr-2 text-grey'>Portal: </p>
                         <select
                             disabled={loadingBoxes || loadingStrofalle}
                             className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
@@ -131,38 +140,46 @@ const Dashboard = () => {
                                         </thead>
                                         <tbody>
                                         {
-                                            strofalles.length > 0 ?
-                                                strofalles.slice(0, 5).map(str => (
-                                                    <tr className="border-b border-whiteDark" key={str.FP_ID}>
-                                                        {/*<td className="whitespace-nowrap px-6 py-1 font-medium">1</td>*/}
-                                                        <td className="px-2 py-1 text-mainBlue">
-                                                            <Link to={`firmenprojekte/${portal}/${str.FP_ID}`}
-                                                                  target='_blank'>{str.FirmaKurz}
-                                                            </Link>
-                                                        </td>
-                                                        <td className="px-1 py-1">{str.Bemerkung}</td>
-                                                        <td className="px-1 py-1">{formatDate(str.StörfallDatum, false)}</td>
-                                                    </tr>
-                                                )) : !loadingStrofalle &&
-                                                <tr className='centerItemsRelative border-b border-whiteDark'>
-                                                    <td className='px-2 py-1 text-mainBlue'></td>
-                                                    <td className='px-2 py-1 text-mainBlue'>No Data</td>
+                                            !loadingStrofalle && strofalles.length > 0 &&
+                                            strofalles.slice(0, 5).map(str => (
+                                                <tr className="border-b border-whiteDark" key={str.FP_ID}>
+                                                    {/*<td className="whitespace-nowrap px-6 py-1 font-medium">1</td>*/}
+                                                    <td className="px-2 py-1 text-mainBlue">
+                                                        <Link to={`firmenprojekte/${portal}/${str.FP_ID}`}
+                                                              target='_blank'>{str.FirmaKurz}
+                                                        </Link>
+                                                    </td>
+                                                    <td className="px-1 py-1">{str.Bemerkung}</td>
+                                                    <td className="px-1 py-1">{formatDate(str.StörfallDatum, false)}</td>
                                                 </tr>
+                                            ))
                                         }
                                         </tbody>
                                     </table>
                                     {
-                                        loadingStrofalle &&
-                                        <div className='centerItemsRelative mt-2'>
-                                            <ClipLoader color='lightGrey'/>
-                                        </div>
+                                        loadingStrofalle ?
+                                            <div className='centerItemsRelative mt-2'>
+                                                <ClipLoader color='lightGrey'/>
+                                            </div> :
+                                            !loadingStrofalle && strofalles.length === 0 &&
+                                            <div className='centerItemsRelative border-b border-whiteDark mt-5 pb-5'>
+                                                <p className='px-2 py-1 text-mainBlue'>Es liegen keine Störfälle vor.</p>
+                                            </div>
                                     }
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <Graph portal={portal} User={user} IST header={'IST-Potenzial im jeweiligen Schritt'}/>
+                <Graph portal={portal}
+                       User={user}
+                       IST header={'IST-Potenzial im jeweiligen Schritt'}
+                       dggFilter={dggFilter}
+                       hmFilter={hmFilter}
+                       onChangeDgg={onChangeDgg}
+                       onChangeHm={onChangeHm}
+                       loadingBoxes={loadingBoxes}
+                />
             </div>
         </div>
     )

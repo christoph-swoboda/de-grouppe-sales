@@ -54,8 +54,8 @@ const Bestant = () => {
 
     useEffect(() => {
         // let index = (Object.keys(milestoneTabs).length) - 1
-        let index = (Object.keys(milestoneTabs).length)
-        setLastIndex(index)
+        // let index = (Object.keys(milestoneTabs).length)
+        setLastIndex(99)
     }, [milestoneTabs]);
 
     useEffect(() => {
@@ -213,7 +213,6 @@ const Bestant = () => {
                                             loading={stepsLoading}
                                             done={tab.milestoneDone}
                                             lastIndex={lastIndex}
-                                            lastDoneIndex={lastDoneIndex}
                                         />
                                     ))
                                 }

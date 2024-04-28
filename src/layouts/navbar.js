@@ -31,10 +31,6 @@ const Navbar = () => {
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8));
 
     useEffect(() => {
-        console.log('showNestedDropdown', showNestedDropdown)
-    }, [showNestedDropdown]);
-
-    useEffect(() => {
         Api().get('/version').then(res => {
             setVersion(Object.values(res.data[0])[0]);
         });
@@ -64,6 +60,8 @@ const Navbar = () => {
         localStorage.removeItem('user');
         localStorage.removeItem('admin');
         localStorage.removeItem('portal');
+        localStorage.removeItem('hmFilter');
+        localStorage.removeItem('dggFilter');
         setLoading(false);
         window.location.reload();
     }
@@ -178,15 +176,15 @@ const Navbar = () => {
                                                             MS Schritte
                                                         </li>
                                                     </Link>
-                                                    {/*<Link*/}
-                                                    {/*    to={{*/}
-                                                    {/*        pathname: '/admin-edit-footer',*/}
-                                                    {/*        state: {data: user.isSAdmin},*/}
-                                                    {/*    }}>*/}
-                                                    {/*    <li className={`items ${path.pathname === '/admin-edit-footer' && 'text-mainBlue'} hover:text-mainBlue`}>*/}
-                                                    {/*        Footerzeile*/}
-                                                    {/*    </li>*/}
-                                                    {/*</Link>*/}
+                                                    <Link
+                                                        to={{
+                                                            pathname: '/admin-edit-footer',
+                                                            state: {data: user.isSAdmin},
+                                                        }}>
+                                                        <li className={`items ${path.pathname === '/admin-edit-footer' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                                            Footerzeile
+                                                        </li>
+                                                    </Link>
                                                     <Link
                                                         to={{
                                                             pathname: '/admin-edit-milestones',

@@ -105,10 +105,9 @@ const Storfalle = () => {
             </div>
             {/*<div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>*/}
             {/*</div>*/}
-            <div className="flex flex-col p-10 bg-white">
+            <div className="flex flex-col p-10 bg-white" style={{height: '75vh'}}>
                 <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8"
-                         style={{minHeight: '60vh'}}>
+                    <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div className="overflow-hidden pt-1">
                             {
                                 (data?.length === 0 && !loading) &&

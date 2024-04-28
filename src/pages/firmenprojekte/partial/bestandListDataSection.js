@@ -237,7 +237,7 @@ const BestandListDataSection = ({
                                 </div>
                             }
                             <div className='overflow-x-hidden table-wrp block' ref={printPDFRef}
-                                 style={view === 'Firmenprojekte' ? {maxHeight: '60vh'} : {maxHeight: '60vh'}}>
+                                 style={{maxHeight: '58vh'}}>
                                 <table className='min-w-full text-left bg-white' id="table-to-xls">
                                     <thead
                                         className="whitespace-nowrap bg-white border-y border-silver border-x-0 sticky top-0">
