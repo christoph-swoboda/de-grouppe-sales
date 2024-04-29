@@ -360,13 +360,13 @@ const InfoMail = () => {
                                                 <input
                                                     className={`${(milestoneSelected) ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
                                                     type="submit"
-                                                    value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
+                                                    value={`${loadingSave ? 'speichere...' : 'Speichern'}`}
                                                 /> :
                                                 <input
                                                     className={`bg-grey cursor-no-drop w-44 float-right mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
                                                     type="submit"
                                                     disabled
-                                                    value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
+                                                    value={`${loadingSave ? 'speichere...' : 'Speichern'}`}
                                                 />
                                         }
                                         <input

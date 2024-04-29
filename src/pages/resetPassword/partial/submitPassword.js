@@ -81,7 +81,7 @@ const SubmitPassword = () => {
                     <input
                         className={(isValid) ? 'bg-mainBlue text-white cursor-pointer' : 'bg-disableBlue text-white'}
                         disabled={!isValid} type="submit"
-                        value={(!loading) ? 'Speichern' : 'Sparen...'}
+                        value={(!loading) ? 'Speichern' : 'speichere...'}
                     />
                 </section>
             </form>

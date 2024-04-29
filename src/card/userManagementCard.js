@@ -193,7 +193,7 @@ const UserManagementCard = ({email, prtnrNo, valid, userID, name, lastLogin, cre
                         disabled={loadingName}
                         className={`border border-mainBlue rounded-3xl px-3 py-1 bg-mainBlue ${loadingName && 'bg-grey'} text-white font-extrabold uppercase cursor-pointer`}
                 >
-                    {loading ? 'Das Sparen...' : 'Speichern'}
+                    {loading ? 'speichere...' : 'Speichern'}
                 </button>
             </td>
         </tr>

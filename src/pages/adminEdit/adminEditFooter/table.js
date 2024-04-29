@@ -47,7 +47,7 @@ const AdminEditFooterTable = ({id, portal, string, index}) => {
             </td>
             <td onClick={save}>
                 <button className='px-3 py-1 bg-mainBlue text-white rounded rounded-md'>
-                    {loading ? 'sparen...' : 'Speichern'}
+                    {loading ? 'speichere...' : 'Speichern'}
                 </button>
             </td>
         </tr>

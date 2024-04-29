@@ -25,14 +25,17 @@ const AdminEditNotes = () => {
 
 
     useEffect(() => {
-        getData().then(r=>r)
+        getData().then(r => r)
     }, [portal]);
 
-    const getData=async ()=>{
+    const getData = async () => {
         if (portal) {
             setLoading(true)
             await Api().get(`/reminderOptions/${portal}/${user.ID}`).then(res => {
-                    setTableData(res.data.options)
+                    const sortedOptions = res.data.options.sort((a, b) => {
+                        return a.rmID - b.rmID;
+                    });
+                    setTableData(sortedOptions);
                 }
             ).catch(e => {
                 toast.error('Etwas ist schief gelaufen!!')
@@ -59,7 +62,7 @@ const AdminEditNotes = () => {
             if (res.status === 200) {
                 toast.success('Der Datensatz wurde erfolgreich geändert.')
             }
-            getData().then(r=>r)
+            getData().then(r => r)
             setLoadingSave(false)
         }).catch(e => {
             setLoadingSave(false)
@@ -71,7 +74,7 @@ const AdminEditNotes = () => {
     return (
         <div className='dashboardContainer'>
             <div className='flex justify-start items-center content-center pb-5'>
-                <h2 className='text-2xl lg:text-left'> MS Verwaltung</h2>
+                <h2 className='text-2xl lg:text-left'>  WV Optionen</h2>
                 {
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
                         <p className='w-fit mr-2 text-grey'>Portal: </p>
@@ -117,23 +120,23 @@ const AdminEditNotes = () => {
                 <hr/>
                 <div className='flex flex-col w-12/12 text-center mt-12'>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                      <section>
-                          <h2 className='font-bold text-lg my-2'>Neue WV Option hinzufügen</h2>
-                          <input type='text'
-                                 placeholder='Neue WV Option'
-                                 className='w-96'
-                                 {...register('newNote')}
-                                 style={{border: errors.newNote && '1px solid red'}}
-                          />
-                      </section>
-                       <section>
-                           <input
-                               className={`${(watch('newNote')!=='') ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-52 mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
-                               type="submit"
-                               disabled={watch('newNote')===''}
-                               value={`${loadingSave ? 'Sparen...' : 'Speichern'}`}
-                           />
-                       </section>
+                        <section>
+                            <h2 className='font-bold text-lg my-2'>Neue WV Option hinzufügen</h2>
+                            <input type='text'
+                                   placeholder='Neue WV Option'
+                                   className='w-96'
+                                   {...register('newNote')}
+                                   style={{border: errors.newNote && '1px solid red'}}
+                            />
+                        </section>
+                        <section>
+                            <input
+                                className={`${(watch('newNote') !== '') ? 'bg-mainBlue cursor-pointer' : 'bg-grey cursor-no-drop '} w-52 mt-4 text-white hover:bg-offWhite hover:text-mainBlue text-center px-3 py-2 rounded-md`}
+                                type="submit"
+                                disabled={watch('newNote') === ''}
+                                value={`${loadingSave ? 'speichere...' : 'Speichern'}`}
+                            />
+                        </section>
                     </form>
                 </div>
             </div>

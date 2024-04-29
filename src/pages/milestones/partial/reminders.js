@@ -156,7 +156,7 @@ const Reminders = ({id, userID, role, portal}) => {
                    visible={remindersModal}
                    component={
                        <div>
-                           <small className='flex justify-start items-start ml-20 mt-24 text-grey'>* picthefield</small>
+                           <small className='flex justify-start items-start ml-20 mt-24 text-grey'>Wiedervorlage erstellen ( * Pflichtfelder )</small>
                            <p style={{float: 'right', cursor: 'pointer', marginTop:"-10vh"}}
                               onClick={() => dispatch({type: "SET_REMINDERS_MODAL", item: !remindersModal})}>
                                <AiFillCloseCircle size='35px' color={'#232323'}/>
@@ -190,7 +190,7 @@ const Reminders = ({id, userID, role, portal}) => {
                                <section className='col-span-1'>
                                    <input hidden {...register('uID')} value={userID}/>
                                    <input hidden {...register('fpID')} value={id}/>
-                                   <h3 className='text-grey font-thin my-2 text-sm'>Weidervorlage Datum *</h3>
+                                   <h3 className='text-grey font-thin my-2 text-sm'>Wiedervorlage Datum: *</h3>
                                    <Controller
                                        control={control}
                                        name='date'
@@ -222,7 +222,7 @@ const Reminders = ({id, userID, role, portal}) => {
 
                                </section>
                                <section className='col-span-1'>
-                                      <h3 className='text-grey font-thin my-2 text-sm'>benachrichtigungen an: *</h3>
+                                      <h3 className='text-grey font-thin my-2 text-sm'>Benachrichtgungen an: *</h3>
                                       <input
                                           className={`p-3 bg-white border border-whiteDark rounded-md subStepSelect`}
                                           placeholder='Email an: '
@@ -298,14 +298,14 @@ const Reminders = ({id, userID, role, portal}) => {
                                </section>
                               <section className='col-span-2'>
                                   <input
-                                      className={`bg-mainBlue w-6/12 rounded-sm col-span-2 px-3 py-2 mt-5 text-white cursor-pointer text-sm ${(!watch('date')) || !isValid || watch('rmTitle') === 'Wähle eine Option *' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
+                                      className={`bg-mainBlue w-56 rounded-lg col-span-2 mr-2 px-3 py-2 mt-5 text-white cursor-pointer text-sm ${(!watch('date')) || !isValid || watch('rmTitle') === 'Wähle eine Option *' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
                                       type="submit"
                                       disabled={(!watch('date')) || watch('rmTitle') === 'Wähle eine Option *' || !isValid || (role === 'ManRUV' || role === 'ManDGG')}
-                                      value={`${!loading ? 'Speichern' : 'sparen...'}`}
+                                      value={`${!loading ? 'Speichern' : 'speichere...'}`}
                                   />
 
                                   <input
-                                      className={`bg-grey w-6/12 hover:bg-cancel col-span-2 rounded-sm px-3 py-2 mt-2 cursor-pointer text-white text-sm text-center`}
+                                      className={`bg-grey w-56 hover:bg-cancel col-span-2 rounded-lg px-3 py-2 mt-2 cursor-pointer text-white text-sm text-center`}
                                       value={`abbrechen`}
                                       onClick={cancelEditStates}
                                   />

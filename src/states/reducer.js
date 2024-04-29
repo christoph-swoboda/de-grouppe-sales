@@ -15,7 +15,7 @@ export const initialState = {
     milestone3HasDate: false,
     sendMail: false,
     subStepSaved: false,
-    sortUserColum: 1,
+    sortUserColum: 5,
     noteRows: 3,
     sortUserMethod: 'desc',
     portal: localStorage.getItem('portal'),

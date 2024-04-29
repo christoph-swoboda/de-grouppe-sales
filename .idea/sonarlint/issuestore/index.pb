@@ -138,3 +138,7 @@ _
 /src/pages/userManagement/partial/excelExport.js,2\a\2a7e643e86076c04d5ad3623a1e2dc898fd6d48a
 J
 src/styles/_variables.scss,6\e\6e88623165185942088538437e725abdb02427a4
+W
+'src/staticData/userManagementHeaders.js,4\d\4dfb708d67387eb5239f54a78ca85120a3ea91d4
+a
+1src/pages/resetPassword/partial/submitPassword.js,a\7\a7b353ba4914a84b9c74badd2bdd2550c22f02c5
