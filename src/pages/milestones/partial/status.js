@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BestantStatus from "../../../components/bestantStatus";
 import Api from "../../../Api/api";
 import {toast} from "react-toastify";
@@ -105,7 +105,6 @@ const Status = ({notes, company, loadingNotes, count, role, companyID, portal}) 
             </div>
             <div>
                 {loadingNotes && <div className='centerItemsRelative'><ClipLoader color={'#757575'}/></div>}
-
                 {
                     notes?.map((n, index) => (
                         <BestantStatus

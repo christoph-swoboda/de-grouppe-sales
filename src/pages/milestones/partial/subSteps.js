@@ -193,7 +193,7 @@ const SubSteps = ({data, loading, next, lastDoneIndex, grid, options, firma, tit
                                    disabled={!isValid}
                                    className={`${(role === 'ManDGG' || role === 'ManRUV'  || role === 'Controller') && 'hidden'} hover:bg-lightBlue ml-auto bg-mainBlue text-white cursor-pointer px-4 my-2 text-sm py-2  rounded-3xl`}
                                >
-                                   {Loading ? 'Sparen...' : 'Speichern'}
+                                   {Loading ? 'speichere...' : 'Speichern'}
                                </button>
                            </div>
                         </div>

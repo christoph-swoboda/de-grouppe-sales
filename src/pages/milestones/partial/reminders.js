@@ -22,7 +22,7 @@ const Reminders = ({id, userID, role, portal}) => {
     const [author, setAuthor] = useState([])
     const [exists, setExists] = useState('0')
     const {toggleRemindersModal} = useModal();
-    const [{remindersModal, secretKey}, dispatch] = useStateValue();
+    const [{remindersModal, remindersSaved, secretKey}, dispatch] = useStateValue();
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
     const datePickerRef2 = useRef(null);
@@ -68,6 +68,7 @@ const Reminders = ({id, userID, role, portal}) => {
             setUpdated(updated + 1)
             setEditing(false)
             dispatch({type: "SET_REMINDERS_MODAL", item: !remindersModal})
+            dispatch({type: "SET_REMINDERS_SAVED", item: !remindersSaved})
         }).catch(e => {
             toast.error('irgendwas ist schief gelaufen!')
             setLoading(false)
@@ -79,7 +80,7 @@ const Reminders = ({id, userID, role, portal}) => {
         Api().get(`/deleteReminders/${portal}/${id}`).then(res => {
             setUpdated(updated + 1)
             toast.success('Erfolgreich gelöscht')
-            setValue('rmTitle', 'Wähle eine Option')
+            setValue('rmTitle', 'Wähle eine Option *')
             reset()
         }).catch(e => {
             toast.error('Etwas ist schief gelaufen!')
@@ -155,18 +156,19 @@ const Reminders = ({id, userID, role, portal}) => {
                    visible={remindersModal}
                    component={
                        <div>
-                           <p style={{float: 'right', cursor: 'pointer'}}
+                           <small className='flex justify-start items-start ml-20 mt-24 text-grey'>Wiedervorlage erstellen ( * Pflichtfelder )</small>
+                           <p style={{float: 'right', cursor: 'pointer', marginTop:"-10vh"}}
                               onClick={() => dispatch({type: "SET_REMINDERS_MODAL", item: !remindersModal})}>
                                <AiFillCloseCircle size='35px' color={'#232323'}/>
                            </p>
-                           <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: '-5vh'}}
+                           <form onSubmit={handleSubmit(onSubmit)} style={{marginTop: '-1vh'}}
                                  className='centerItemsAbsolute grid grid-cols-2 gap-2'>
                                <section className='col-span-2'>
                                    <select {...register('rmTitle', {required: true})}
                                            className={`w-full p-3 md:w-full cursor-pointer bg-white border border-whiteDark rounded-md subStepSelect`}
                                    >
                                        <option hidden>
-                                           Wähle eine Option
+                                           Wähle eine Option *
                                        </option>
                                        {
                                            options?.filter(o => o.rmTitle !== null).map((op, index) => (
@@ -184,25 +186,11 @@ const Reminders = ({id, userID, role, portal}) => {
                                            {...register('rmText', {required: false})}
                                        />
                                </section>
-                               <input
-                                   className={`w-full p-3 md:w-full bg-white border border-whiteDark rounded-md subStepSelect`}
-                                   placeholder='Email an: '
-                                   type='email'
-                                   {...register('uEmail', {
-                                       required: 'Email is required',
-                                       pattern: {
-                                           value: /^\S+@\S+\.\S+$/,
-                                           message: 'Please enter a valid email address',
-                                       }
-                                   })}
-                                   style={{border: (!watch('uEmail')) && '1px solid red'}}
-                               />
-                               <section className='col-span-1'>
 
-                               </section>
                                <section className='col-span-1'>
                                    <input hidden {...register('uID')} value={userID}/>
                                    <input hidden {...register('fpID')} value={id}/>
+                                   <h3 className='text-grey font-thin my-2 text-sm'>Wiedervorlage Datum: *</h3>
                                    <Controller
                                        control={control}
                                        name='date'
@@ -229,6 +217,27 @@ const Reminders = ({id, userID, role, portal}) => {
                                        )}
                                    />
                                </section>
+
+                               <section className='col-span-1'>
+
+                               </section>
+                               <section className='col-span-1'>
+                                      <h3 className='text-grey font-thin my-2 text-sm'>Benachrichtgungen an: *</h3>
+                                      <input
+                                          className={`p-3 bg-white border border-whiteDark rounded-md subStepSelect`}
+                                          placeholder='Email an: '
+                                          type='email'
+                                          {...register('uEmail', {
+                                              required: 'Email is required',
+                                              pattern: {
+                                                  value: /^\S+@\S+\.\S+$/,
+                                                  message: 'Please enter a valid email address',
+                                              }
+                                          })}
+                                          style={{border: (!watch('uEmail')) && '1px solid red'}}
+                                      />
+                               </section>
+
                                <section className='col-span-1'>
 
                                </section>
@@ -287,18 +296,20 @@ const Reminders = ({id, userID, role, portal}) => {
                                    />
                                    <label>infomail in der Zwischenzeit pausieren</label>
                                </section>
-                               <input
-                                   className={`bg-mainBlue rounded-2xl col-span-2 px-3 py-2 mt-2 text-white cursor-pointer text-sm ${(!watch('date')) || !isValid || watch('rmTitle') === 'Wähle eine Option' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
-                                   type="submit"
-                                   disabled={(!watch('date')) || watch('rmTitle') === 'Wähle eine Option' || !isValid || (role === 'ManRUV' || role === 'ManDGG')}
-                                   value={`${!loading ? 'Speichern' : 'sparen...'}`}
-                               />
+                              <section className='col-span-2'>
+                                  <input
+                                      className={`bg-mainBlue w-56 rounded-lg col-span-2 mr-2 px-3 py-2 mt-5 text-white cursor-pointer text-sm ${(!watch('date')) || !isValid || watch('rmTitle') === 'Wähle eine Option *' ? 'bg-disableBlue cursor-no-drop' : 'bg-mainBlue hover:bg-lightBlue'}`}
+                                      type="submit"
+                                      disabled={(!watch('date')) || watch('rmTitle') === 'Wähle eine Option *' || !isValid || (role === 'ManRUV' || role === 'ManDGG')}
+                                      value={`${!loading ? 'Speichern' : 'speichere...'}`}
+                                  />
 
-                               <input
-                                   className={`bg-grey hover:bg-cancel col-span-2 rounded-2xl px-3 py-2 mt-2 cursor-pointer text-white text-sm text-center`}
-                                   value={`abbrechen`}
-                                   onClick={cancelEditStates}
-                               />
+                                  <input
+                                      className={`bg-grey w-56 hover:bg-cancel col-span-2 rounded-lg px-3 py-2 mt-2 cursor-pointer text-white text-sm text-center`}
+                                      value={`abbrechen`}
+                                      onClick={cancelEditStates}
+                                  />
+                              </section>
                            </form>
                        </div>
                    }

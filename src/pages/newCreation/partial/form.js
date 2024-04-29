@@ -366,7 +366,7 @@ const Form = ({name, dropdown, role}) => {
                         className={isValid ? 'pl-5 pr-5 bg-mainBlue rounded-3xl text-white cursor-pointer' : 'disabled'}
                         disabled={!isValid}
                         type="submit"
-                        value={(!loading) ? 'Anlegen' : 'sparen...'}
+                        value={(!loading) ? 'Anlegen' : 'speichere...'}
                     />
                 }
             </form>

@@ -4,6 +4,7 @@ export const initialState = {
     newCreation: {},
     companyInfoModal: false,
     remindersModal: false,
+    remindersSaved: false,
     addUsersModal: false,
     currentMilestone: null,
     userValidated: false,
@@ -14,7 +15,7 @@ export const initialState = {
     milestone3HasDate: false,
     sendMail: false,
     subStepSaved: false,
-    sortUserColum: 1,
+    sortUserColum: 5,
     noteRows: 3,
     sortUserMethod: 'desc',
     portal: localStorage.getItem('portal'),
@@ -49,6 +50,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 remindersModal: action.item
+            }
+            case "SET_REMINDERS_SAVED":
+            return {
+                ...state,
+                remindersSaved: action.item
             }
         case "SET_ADDUSERS_MODAL":
             return {
