@@ -169,20 +169,20 @@ const Navbar = () => {
                                                 <div className="dropdown-content-nested">
                                                     <Link
                                                         to={{
-                                                            pathname: '/admin-edit',
-                                                            state: {data: user.isSAdmin},
-                                                        }}>
-                                                        <li className={`items ${path.pathname === '/admin-edit' && 'text-mainBlue'} hover:text-mainBlue`}>
-                                                            MS Schritte
-                                                        </li>
-                                                    </Link>
-                                                    <Link
-                                                        to={{
                                                             pathname: '/admin-edit-footer',
                                                             state: {data: user.isSAdmin},
                                                         }}>
                                                         <li className={`items ${path.pathname === '/admin-edit-footer' && 'text-mainBlue'} hover:text-mainBlue`}>
                                                             Footerzeile
+                                                        </li>
+                                                    </Link>
+                                                    <Link
+                                                        to={{
+                                                            pathname: '/admin-edit-options',
+                                                            state: {data: user.isSAdmin},
+                                                        }}>
+                                                        <li className={`items ${path.pathname === '/admin-edit-options' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                                            WV Optionen
                                                         </li>
                                                     </Link>
                                                     <Link
@@ -196,11 +196,11 @@ const Navbar = () => {
                                                     </Link>
                                                     <Link
                                                         to={{
-                                                            pathname: '/admin-edit-options',
+                                                            pathname: '/admin-edit',
                                                             state: {data: user.isSAdmin},
                                                         }}>
-                                                        <li className={`items ${path.pathname === '/admin-edit-options' && 'text-mainBlue'} hover:text-mainBlue`}>
-                                                            WV Optionen
+                                                        <li className={`items ${path.pathname === '/admin-edit' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                                            MS Schritte
                                                         </li>
                                                     </Link>
                                                 </div>
