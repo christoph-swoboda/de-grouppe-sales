@@ -450,7 +450,7 @@ const BestandListDataSection = ({
                 </div>
                 <div className={`centerItemsRelative mt-5 mb-2 pb-2 ${loading && 'opacity-0'}`}>
                     {
-                        users.length > 0 &&
+                        users?.length > 0 &&
                         <Pagination
                             className="pagination-bar"
                             currentPage={pageBestand}

@@ -163,7 +163,7 @@ const Dashboard = () => {
                                             </div> :
                                             !loadingStrofalle && strofalles.length === 0 &&
                                             <div className='centerItemsRelative border-b border-whiteDark mt-5 pb-5'>
-                                                <p className='px-2 py-1 text-mainBlue'>Es liegen keine Störfälle vor.</p>
+                                                <p className='px-2 py-1 text-grey'>Es liegen keine Störfälle vor.</p>
                                             </div>
                                     }
                                 </div>
