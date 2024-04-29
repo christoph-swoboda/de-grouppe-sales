@@ -21,6 +21,7 @@ const Bestant = () => {
         currentMilestone,
         noteSent,
         noteRows,
+        remindersSaved,
         subStepSaved,
         secretKey
     }, dispatch] = useStateValue();
@@ -149,7 +150,7 @@ const Bestant = () => {
             setLoadingNotes(false)
             toast.error('Notizen konnten nicht geladen werden!')
         })
-    }, [noteRows, noteSent]);
+    }, [noteRows, noteSent, remindersSaved]);
 
     useEffect(() => {
         let arr = []
