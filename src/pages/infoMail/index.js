@@ -270,7 +270,7 @@ const InfoMail = () => {
                                                        {...register('informFKB')}
                                                        style={{border: errors.remind1FKB && '1px solid red'}}
                                                 />
-                                                An Berater
+                                                An Berater (Closer)
                                             </label>
                                             <label>
                                                 <input
@@ -278,7 +278,7 @@ const InfoMail = () => {
                                                     {...register('informDGAPIAMS')}
                                                     style={{border: errors.remind1DGAPI && '1px solid red'}}
                                                 />
-                                                An DGAPI AMS
+                                                cc DG AMS
                                             </label>
                                         </div>
                                         <div className='lg:w-6/12 grid grid-cols-4 gap-6 my-2'>
@@ -288,14 +288,14 @@ const InfoMail = () => {
                                                     {...register('informKBD')}
                                                     style={{border: errors.remind1BD && '1px solid red'}}
                                                 />
-                                                cc KBD
+                                                cc ADM
                                             </label>
                                             <label>
                                                 <input type='checkbox' className='mr-3 ml-1.5'
                                                        {...register('informVBLF')}
                                                        style={{border: errors.remind1VBLF && '1px solid red'}}
                                                 />
-                                                cc VBLF
+                                                cc KGS
                                             </label>
                                             <label>
                                                 <input
@@ -303,7 +303,7 @@ const InfoMail = () => {
                                                     {...register('informDGAPIKAM')}
                                                     style={{border: errors.remind1BD && '1px solid red'}}
                                                 />
-                                                cc DGAPI KAM
+                                                cc DG KAM
                                             </label>
                                             <label>
                                                 <input type='checkbox' className='mr-3'
