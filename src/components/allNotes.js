@@ -3,8 +3,6 @@ import BestantStatus from "./bestantStatus";
 import Api from "../Api/api";
 import {BeatLoader} from "react-spinners";
 import {toast} from "react-toastify";
-import {MdKeyboardBackspace} from "react-icons/md";
-import {useNavigate} from "react-router-dom";
 import {useParams} from "react-router";
 
 const AllNotes = () => {
@@ -12,7 +10,6 @@ const AllNotes = () => {
     const [notes, setNotes] = useState([])
     const [name, setName] = useState([])
     const [loadingNotes, setLoadingNotes] = useState(true)
-    const navigate = useNavigate();
     const param = useParams()
 
     useEffect(() => {
@@ -31,7 +28,7 @@ const AllNotes = () => {
 
 
     return (
-        <div className='bg-white min-h-screen mx-2 '>
+        <div className='bg-white mx-2' style={{height:'93.5vh', overflowY:'scroll', overflowX:'hidden'}}>
             <div className='xl:px-72 md:px-20 py-24'>
                 <div className='flex justify-between px-2 mb-8'>
                     <h2 className='text-xl text-text '>Alle notizen für:
