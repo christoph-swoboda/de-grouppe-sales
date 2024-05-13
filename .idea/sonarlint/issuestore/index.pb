@@ -142,3 +142,5 @@ W
 'src/staticData/userManagementHeaders.js,4\d\4dfb708d67387eb5239f54a78ca85120a3ea91d4
 a
 1src/pages/resetPassword/partial/submitPassword.js,a\7\a7b353ba4914a84b9c74badd2bdd2550c22f02c5
+L
+src/pages/reporting/index.js,6\5\657ae0e6c389b652b663c2dd6e54e9a26f79a72e

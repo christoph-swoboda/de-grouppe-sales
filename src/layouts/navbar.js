@@ -210,6 +210,9 @@ const Navbar = () => {
                                 )}
                             </div>
                         </div>
+                        <Link to={'/reporting'} onClick={toggleNav}>
+                            <li className={`items ${path.pathname === '/reporting' && 'text-mainBlue'}  hover:text-mainBlue`}>Reporting</li>
+                        </Link>
                         <li className='userInfo cursor-pointer'>
                             {user?.role === 'Internal' ? (
                                 <GrUserAdmin size={'30px'} color={'#565c8c'}/>
