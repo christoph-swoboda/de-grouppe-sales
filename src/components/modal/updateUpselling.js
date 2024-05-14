@@ -109,13 +109,20 @@ const UpdateUpselling = ({data, toggle, options, FPID, dataFull}) => {
                         <div
                             className='px-4 py-2 w-full rounded-md bg-white cursor-pointer text-left border border-whiteDark'
                             onClick={() => setShowOptions(!showOptions)}>
-                            {selectedOption ? selectedOption.title : 'Status wählen'}
-                            {
-                                !showOptions?
-                                    <i className="dropdown-icon float-right">▼</i>
-                                    :
-                                    <i className="dropdown-icon float-right">▲</i>
-                            }
+                            {selectedOption ?    <div>
+                                <div className='flex justify-start items-center gap-2'>
+                                    <img src={`${window.location.origin}/icons/${selectedOption.icon}`} alt={ selectedOption.title}/>
+                                    <span>{ selectedOption.title}</span>
+                                    <div className='ml-auto'>
+                                        {
+                                            !showOptions?
+                                                <i className="dropdown-icon float-right">▼</i>
+                                                :
+                                                <i className="dropdown-icon float-right">▲</i>
+                                        }
+                                    </div>
+                                </div>
+                            </div>: 'Status wählen'}
 
                         </div>
                         {showOptions && (
