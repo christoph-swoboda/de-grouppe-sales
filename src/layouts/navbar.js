@@ -104,6 +104,16 @@ const Navbar = () => {
                                         Firmenprojekte
                                     </li>
                                 </Link>
+
+                                {
+                                    (user.role === 'ExtDGG' || user.role === 'ManDGG' || user.role === 'Internal'|| user.role === 'Controller') &&
+                                    <Link to={'/upselling'} onClick={toggleNav}>
+                                        <li className={`items ${path.pathname === '/upselling' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                            Upselling
+                                        </li>
+                                    </Link>
+                                }
+
                             </div>
                         </div>
                         {(user?.role === 'Internal' || user?.role === 'Controller') && (
@@ -210,6 +220,9 @@ const Navbar = () => {
                                 )}
                             </div>
                         </div>
+                        <Link to={'/reporting'} onClick={toggleNav}>
+                            <li className={`items ${path.pathname === '/reporting' && 'text-mainBlue'}  hover:text-mainBlue`}>Reporting</li>
+                        </Link>
                         <li className='userInfo cursor-pointer'>
                             {user?.role === 'Internal' ? (
                                 <GrUserAdmin size={'30px'} color={'#565c8c'}/>

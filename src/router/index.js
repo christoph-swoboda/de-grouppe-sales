@@ -13,6 +13,8 @@ import AdminEditSubsteps from "../pages/adminEdit/adminEditSubsteps";
 import AdminEditNotes from "../pages/adminEdit/adminEditNotes";
 import AdminEditMilestones from "../pages/adminEdit/adminEditMilestones";
 import AdminEditFooter from "../pages/adminEdit/adminEditFooter";
+import Reporting from "../pages/reporting";
+import Upselling from "../pages/Upselling";
 
 
 export const RouteData = [
@@ -126,6 +128,20 @@ export const RouteData = [
         path: 'admin-edit-options',
         name: 'adminEditOptions',
         component: <AdminEditNotes/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 15,
+        path: 'reporting/:portal/:id',
+        name: 'reporting',
+        component: <Reporting/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 15,
+        path: 'upselling',
+        name: 'upselling',
+        component: <Upselling/>,
         redirection: '/anmeldung'
     },
 ]

@@ -3,6 +3,7 @@ export const initialState = {
     secretKey: 'yourSecretKey',
     newCreation: {},
     companyInfoModal: false,
+    upsellingModal: false,
     remindersModal: false,
     remindersSaved: false,
     addUsersModal: false,
@@ -15,7 +16,9 @@ export const initialState = {
     milestone3HasDate: false,
     sendMail: false,
     subStepSaved: false,
+    upsellingSaved: false,
     sortUserColum: 5,
+    sortUpsellingColum: 1,
     noteRows: 3,
     sortUserMethod: 'desc',
     portal: localStorage.getItem('portal'),
@@ -27,6 +30,7 @@ export const initialState = {
     footerUpdated: false,
     sortColumn: 7,
     sortMethod: 'asc',
+    sortMethodUpselling: 'asc',
     ICSaved: false,
     dateFilter: {id: null, value: null},
     filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null, i: null, j: null},
@@ -46,6 +50,11 @@ const reducer = (state, action) => {
                 ...state,
                 companyInfoModal: action.item
             }
+            case "SET_UPSELLING_MODAL":
+            return {
+                ...state,
+                upsellingModal: action.item
+            }
         case "SET_REMINDERS_MODAL":
             return {
                 ...state,
@@ -55,6 +64,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 remindersSaved: action.item
+            }
+            case "SET_UPSELLING_SAVED":
+            return {
+                ...state,
+                upsellingSaved: action.item
             }
         case "SET_ADDUSERS_MODAL":
             return {

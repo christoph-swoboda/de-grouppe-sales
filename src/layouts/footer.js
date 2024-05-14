@@ -25,7 +25,7 @@ const Footer = () => {
                     <AiOutlineCopyrightCircle size='19px'/>
                     <span className='ml-1'> Helmsauer Gruppe</span>
                 </span>
-                <p className='text-left text-xs'>FE V3.1.0</p>
+                <p className='text-left text-xs'>FE V3.1.1</p>
             </h1>
             {errorText && <p className='text-red'>{errorText}</p>}
             <div className='flex justify-end text-sm'>

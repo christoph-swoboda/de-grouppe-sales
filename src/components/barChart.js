@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip,} from 'chart.js';
 import {Bar} from 'react-chartjs-2';
-import {BarLoader, FadeLoader, SkewLoader} from "react-spinners";
+import {SkewLoader} from "react-spinners";
 
 ChartJS.register(
     CategoryScale,

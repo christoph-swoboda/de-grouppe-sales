@@ -273,33 +273,33 @@ input[type=number] {
   border-bottom: 1px solid white;
 
   @media screen and (min-width: 1920px) {
-    padding-top: 1.1vh;
+    padding-top: 1vh;
     font-size: 1vh;
     padding-bottom: 1.14vh;
   }
   @media screen and (max-width: 1920px) and (min-width: 1440px) {
-    padding-top: .59vh;
+    padding-top: .52vh;
     font-size: 1.53vh;
     padding-bottom: .60vh;
   }
   @media only screen and (max-width: 1440px) and (min-width: 768px) {
-    font-size: 1.85vh;
+    font-size: 1.84vh;
     padding-top: .25vh;
     padding-bottom: .25vh;
   }
 }
 
 #canvas-container {
-  height: 60vh;
+  height: 69.5vh;
   width: 35vw;
   position: relative;
 }
 #canvas-container2 {
-  height: 60vh;
+  height: 69.5vh;
   width: 35vw;
   position: relative;
   @media only screen and (max-width: 1440px) and (min-width: 1290px) {
-    height: 62.2vh;
+    height: 69.1vh;
   }
 }
 

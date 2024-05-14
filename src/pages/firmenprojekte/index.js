@@ -218,6 +218,7 @@ const BestantList = () => {
     };
 
     function portalSelect(e) {
+        clearFilters()
         dispatch({type:'SET_PORTAL', item:e.target.value})
         localStorage.setItem('portal', e.target.value)
     }
