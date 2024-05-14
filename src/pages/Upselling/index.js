@@ -3,22 +3,20 @@ import Api from "../../Api/api";
 import {toast} from "react-toastify";
 import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
-import {StorfalleHeaders} from "../../staticData/storfalleHeaders";
-import StrofalleTable from "./partial/strofalleTable";
+import UpsellingTable from "./partial/upsellingTable";
 import {useStateValue} from "../../states/StateProvider";
 import {formatDate} from '../../helper/formatDate'
 import {AES, enc} from "crypto-js";
-import {useLocation} from "react-router-dom";
-import {StorfalleHeadersDGG} from "../../staticData/storfalleHeadersDGG";
+import {UpsellingHeadersDGG} from "../../staticData/upsellingHeadersDGG";
 
-const Storfalle = () => {
+const Upselling = () => {
 
-    const searChableFields = []
-    const sortableFields = []
+    const searChableFields = [0,1,2,3,4,5,6,7,8,9]
+    const sortableFields = [0,1,2,3,4,5,6,7,8,9]
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
     const [headers, setHeaders] = useState([])
-    const [{sortColumn, sortMethod, secretKey, portal}, dispatch] = useStateValue();
+    const [{sortUpsellingColum, sortMethodUpselling, secretKey, portal}, dispatch] = useStateValue();
     const [superAdmin, setSuperAdmin] = useState('')
 
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
@@ -32,12 +30,12 @@ const Storfalle = () => {
         setData([])
         if (portal) {
             if (portal === 'dgg') {
-                setHeaders(StorfalleHeadersDGG)
+                setHeaders(UpsellingHeadersDGG)
             } else if (portal === 'ruv') {
-                setHeaders(StorfalleHeaders)
+                setHeaders(UpsellingHeadersDGG)
             }
             try {
-                Api().get(`sp_getDataStoerfaelle/${portal}/${userID}`).then(res => {
+                Api().get(`sp_getDataUpselling/dgg/${userID}`).then(res => {
                     setData(res.data)
                     setLoading(false)
                 }).catch(e => {
@@ -86,7 +84,7 @@ const Storfalle = () => {
     return (
         <div className='dashboardContainer'>
             <div className='flex justify-start items-center content-center pb-5'>
-                <h2 className='text-2xl lg:text-left'> Störfälle</h2>
+                <h2 className='text-2xl lg:text-left'> Upselling</h2>
                 {
                     (superAdmin === '1' || role === 'i' || role === 'c') &&
                     <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
@@ -132,18 +130,18 @@ const Storfalle = () => {
                                                 >
                                                 <span className='flex justify-left'>
                                                     <span
-                                                        className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
+                                                        className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortUpsellingColum === header.id && 'text-mainBlue'}`}
                                                     >
                                                             {header.title}
                                                         </span>
                                                         <span
                                                             className={`${!(sortableFields.includes(header.id)) && 'opacity-0'}`}>
-                                                            <p className={`cursor-pointer ${sortColumn === header.id && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
+                                                            <p className={`cursor-pointer ${sortUpsellingColum === header.id && sortMethodUpselling === 'asc' ? 'text-mainBlue' : ''}`}
                                                                onClick={() => ascSort(header.id)}
                                                             >
                                                                 <RiArrowUpSFill size='22px'/>
                                                             </p>
-                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumn === header.id && sortMethod === 'desc' ? 'text-mainBlue' : ''}`}
+                                                            <p className={`-mt-3.5 cursor-pointer ${sortUpsellingColum === header.id && sortMethodUpselling === 'desc' ? 'text-mainBlue' : ''}`}
                                                                onClick={() => descSort(header.id)}
                                                             >
                                                                 <RiArrowDownSFill size='22px'/>
@@ -160,10 +158,6 @@ const Storfalle = () => {
                                                         />
                                                     </span>
                                                     <br/>
-                                                    {/*<span  className={`${header.title==='MA' && 'opacity-0'}`}>*/}
-                                                    {/*  <input className='w-full mb-4 opacity-0' type='text'*/}
-                                                    {/*  />*/}
-                                                    {/*</span>*/}
                                                     {
                                                         header.mouseOver?.length > 0 &&
                                                         <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
@@ -183,23 +177,21 @@ const Storfalle = () => {
                                     }
                                     {
                                         data?.map((u) => (
-                                            <StrofalleTable
+                                            <UpsellingTable
                                                 key={u.FP_ID}
-                                                portal={portal}
-                                                FirmaKurz={u.FirmaKurz}
-                                                Firma={u.Firma}
                                                 FirmaID={u.FP_ID}
-                                                ZustFKB={u.ZustFKB}
-                                                ZustBerater={u.ZustBerater}
-                                                DGAPIKAM={u.DGAPIKAM}
-                                                Bank={u.Bank}
-                                                MA={u.MA}
-                                                PStatus={u.PStatus}
-                                                Bemerkung={u.Bemerkung}
-                                                PDatum={formatDate(u.PDatum, false)}
-                                                StorfallDatum={formatDate(u.StörfallDatum, false)}
-                                                sortColumn={sortColumn}
-                                                sortMethod={sortMethod}
+                                                portal={portal}
+                                                Firma={u.Firma}
+                                                Closer={u.Closer}
+                                                bav={u.bav}
+                                                bkv={u.bkv}
+                                                GehaltsExtras={u.GehaltsExtras}
+                                                CLS={u.CLS}
+                                                HRMT={u.HRMT}
+                                                NBG={u.NBG}
+                                                bbu={u.bbu}
+                                                sortColumn={sortUpsellingColum}
+                                                sortMethod={sortMethodUpselling}
                                             />
                                         ))
                                     }
@@ -209,16 +201,9 @@ const Storfalle = () => {
                         </div>
                     </div>
                 </div>
-                {
-                    data[0] &&
-                    <div className={`text-center flex justify-center mt-4`}>
-                        <p className='font-bold text-text border border-whiteDark px-5 py-2 w-fit rounded-md'>{data[0]?.totalSF} Gesamtprojekte</p>
-                    </div>
-                }
-
             </div>
         </div>
     )
 }
 
-export default Storfalle
+export default Upselling

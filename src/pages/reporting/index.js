@@ -4,185 +4,78 @@ import useModal from "../../hooks/useModal";
 import {useStateValue} from "../../states/StateProvider";
 import CompanyInfoPopUp from "../../components/modal/companyInfoPopUp";
 import CompanyData from "./partial/companyData";
-import Status from "./partial/status";
 import Api from "../../Api/api";
-import MilestoneTabs from "../../card/milestoneTabs";
-import {ClipLoader} from "react-spinners";
-import SubSteps from "./partial/subSteps";
 import {useParams} from "react-router";
 import {toast} from "react-toastify";
 import {AES, enc} from "crypto-js";
-import {useLocation} from "react-router-dom";
 import CompanyInfoPopUpDGG from "../../components/modal/companyInfoPopUpDGG";
+import {ClipLoader} from "react-spinners";
+import {FaUserInjured} from "react-icons/fa";
+import {formatDate} from "../../helper/formatDate";
+import UpdateUpselling from "../../components/modal/updateUpselling";
 
 const Reporting = () => {
     const [{
         companyInfoModal,
-        currentMilestone,
-        noteSent,
-        noteRows,
-        remindersSaved,
-        subStepSaved,
-        secretKey
+        upsellingModal,
+        secretKey,
+        upsellingSaved
     }, dispatch] = useStateValue();
-    const {toggleCompanyInfoModal} = useModal();
-    const [loading, setLoading] = useState(true)
-    const [loadingNotes, setLoadingNotes] = useState(false)
+    const {toggleCompanyInfoModal, toggleUpsellingModal} = useModal();
     const [stepsLoading, setStepsLoading] = useState(true)
     const [info, setInfo] = useState(null)
-    const [infoLoading, setInfoLoading] = useState(false)
-    const [notes, setNotes] = useState([])
-    const [subSteps, setSubSteps] = useState([])
-    const [filtered, setFiltered] = useState([])
-    const [companyName, setCompanyName] = useState('')
-    const [grid, setGrid] = useState([])
-    const [milestoneTabs, setMilestoneTabs] = useState([])
-    const [lastIndex, setLastIndex] = useState(null)
-    const [lastDoneIndex, setLastDoneIndex] = useState(0)
-    const [notesCount, setNotesCount] = useState(20)
-    const [subString, setSubString] = useState(2)
-    const [currentSubStep, setCurrentSubStep] = useState([])
-    const param = useParams()
+    const [edit, setEdit] = useState(false)
+    const [editInfo, setEditInfo] = useState('')
+    const [data, setData] = useState([])
     const [options, setOptions] = useState([])
+    const [infoLoading, setInfoLoading] = useState(false)
+    const [companyName, setCompanyName] = useState('')
+    const param = useParams()
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
-    const role = user.role
-
-    useEffect(() => {
-        setSubSteps([])
-        setOptions([])
-    }, [currentMilestone]);
-
-    useEffect(() => {
-        // let index = (Object.keys(milestoneTabs).length) - 1
-        // let index = (Object.keys(milestoneTabs).length)
-        setLastIndex(99)
-    }, [milestoneTabs]);
-
-    useEffect(() => {
-        Api().get(`/milestones/${param.portal}/${param.id}`).then(res => {
-            setMilestoneTabs(res.data.tabs)
-            setLastDoneIndex(res.data.done)
-            setCompanyName(res.data.companyName)
-            if (Number(res.data.done) !== (Object.keys(res.data.tabs).length) - 1) {
-                dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done) + 1})
-            } else {
-                dispatch({type: "SET_CURRENTMILESTONE", item: Number(res.data.done)})
-            }
-            setLoading(false)
-        }).catch(e => {
-            setLoading(false)
-            toast.error('Meilensteinschritte konnten nicht geladen werden!')
-        })
-    }, [dispatch, param.id, subStepSaved]);
 
     useEffect(() => {
         setStepsLoading(true)
         setInfoLoading(true)
         Api().get(`/customerDetails/${param.portal}/${param.id}`).then(res => {
+
             setInfo(res.data[0])
         }).catch(e => {
             toast.error('Firmendetails konnten nicht geladen werden!')
         })
+
         setInfoLoading(false)
+
+        Api().get(`sp_getUpsellingOptions/${'dgg'}`)
+            .then(res => {
+                setOptions(res.data)
+            })
+
     }, []);
 
     useEffect(() => {
         setStepsLoading(true)
-        if (lastDoneIndex >= 0 && currentMilestone) {
-            Api().get(`/sub-steps/${param.portal}/${currentMilestone}/${param.id}`).then(res => {
-                setSubSteps(res.data.subSteps)
-                let filter = res.data.subSteps.filter(d => d.fieldType === 'option')
-                setFiltered(filter)
-                if (filter.length === 0) {
-                    setStepsLoading(false)
-                }
-
-                const unsaved = localStorage.data ? JSON.parse(localStorage.data) : []
-                if (unsaved?.length > 0) {
-                    res.data.grid.map(r => {
-                        unsaved?.map(u => {
-                            if (currentMilestone === u.milestone && r.stepID === u.id && Number(param.id) === Number(u.firma) && user.ID === u.user) {
-                                const formatted = formatDate(u.value);
-                                if (u.type === 'date' && u.value !== null) {
-                                    r.fieldValue = formatted
-                                } else {
-                                    if (u.value !== null) {
-                                        r.fieldValue = u.value
-                                    }
-                                }
-                            }
-                        })
-                    })
-                }
-                setGrid(res.data.grid)
-                // setNextStep(res.data.next)
-            }).catch(e => {
-                setStepsLoading(false)
-                toast.error('Unterschritte konnten nicht geladen werden!')
-            })
-        }
-    }, [lastDoneIndex, currentMilestone, param.id, subStepSaved]);
-
-    useEffect(() => {
-        if (filtered.length > 0) {
-            let data = new FormData()
-            data.append('portal', param.portal)
-            data.append('milestoneID', currentMilestone)
-            data.append('subSteps', JSON.stringify(filtered))
-            Api().post('/options', data).then(res => {
-                setOptions(res.data)
-                setStepsLoading(false)
-            }).catch(e => {
-                toast.error('Einige gespeicherte Werte konnten nicht geladen werden!')
-                setStepsLoading(false)
-            })
-        }
-    }, [currentMilestone, filtered]);
-
-    useEffect(() => {
-        setLoadingNotes(true)
-        Api().get(`/getNotes/${param.portal}/${param.id}/${noteRows}`).then(res => {
-            setNotes(res.data)
-            setNotesCount(res.data[0]?.total)
-            setLoadingNotes(false)
+        setInfoLoading(true)
+        Api().get(`/sp_getDataCustUpselling/${param.portal}/${param.id}`).then(res => {
+            setCompanyName(res.data.companyName)
+            const sortedOptions = res.data.data.sort((a, b) => {
+                return a.FP_ID - b.FP_ID;
+            });
+            setData(sortedOptions[0])
+            setStepsLoading(false)
         }).catch(e => {
-            setLoadingNotes(false)
-            toast.error('Notizen konnten nicht geladen werden!')
+            toast.error('Firmendetails konnten nicht geladen werden!')
+            setStepsLoading(false)
         })
-    }, [noteRows, noteSent, remindersSaved]);
+        setInfoLoading(false)
 
-    useEffect(() => {
-        let arr = []
-        if (filtered?.length > 0) {
-            filtered.map(async (f, i) => {
-                arr.push(f.substepID)
-                setCurrentSubStep(arr)
-            })
-        }
-    }, [currentMilestone, filtered]);
+    }, [upsellingSaved]);
 
-    useEffect(() => {
-        if (Number(currentMilestone) === lastIndex) {
-            setSubString(0)
-        } else {
-            setSubString(2)
-        }
-    }, [currentMilestone, lastIndex, subString]);
-
-    const formatDate = (input) => {
-        const dt = new Date(input);
-        if (!isNaN(dt)) {
-            // Format the date as "yyyy-MM-dd"
-            const year = dt.getFullYear();
-            const month = String(dt.getMonth() + 1).padStart(2, '0');
-            const day = String(dt.getDate()).padStart(2, '0');
-            const formatted = `${year}-${month}-${day}`;
-            return formatted;
-        } else {
-            return false;
-        }
-    };
+    function setEditStates(u) {
+        setEditInfo(u[1].split(',')[0])
+        setEdit(true)
+        toggleUpsellingModal()
+    }
 
     return (
         <div className='dashboardContainer'>
@@ -192,10 +85,64 @@ const Reporting = () => {
                          loading={infoLoading}
                          toggle={toggleCompanyInfoModal}
             />
+            {
+                stepsLoading &&
+                <tr className='centerItemsAbsolute'>
+                    <td><ClipLoader size={50} color={'#b4b4b4'}/></td>
+                </tr>
+            }
+            {
+                !stepsLoading &&
+                <div className='my-3 rounded-lg sm:block w-6/12 bg-white'>
+                    <div className="p-3 text-left font-bold">Upselling Bousteine</div>
+                    <table className='text-left bg-white'>
+                        <thead
+                            className="whitespace-nowrap bg-white sticky top-0">
+                        <tr>
+                            <th scope="col" className="text-sm text-grey pl-1.5 tooltip">
 
-            <div className='lg:flex justify-between my-3 rounded-lg sm:block'>
+                            </th>
+                            <th scope="col" className="text-sm text-grey pl-1.5 tooltip">
 
-            </div>
+                            </th>
+                            <th scope="col" className="text-sm text-grey pl-1.5 tooltip">
+
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody className='gap-4'>
+                        {
+                            Object.entries(data)?.slice(1)?.map((u) => (
+                                <tr key={u[0]} className="text-sm">
+                                    <td>{u[0]}</td>
+                                    <td className='flex gap-4 border border-offWhite p-2 mt-2'>
+                                        {/*<FaUserInjured size='20px' color={'#171c3d'}/>*/}
+                                        <img src={'https://www.dg-gruppe.eu/public/download/pp/Icons/10_akquise.png'}/>
+                                        <div className='flex justify-between w-60'>
+                                            <span>{u[1].split(',')[0]}</span>
+                                            <span>{formatDate(u[1].split(',')[1]?.split(':')[1])}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button  className='rounded-lg bg-mainBlue py-2 px-4 text-offWhite text-center'
+                                                 onClick={()=>setEditStates(u)}
+                                        >
+                                            bearbeiten
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            <Modal toggle={toggleUpsellingModal}
+                   visible={upsellingModal}
+                   small
+                   component={<UpdateUpselling FPID={param.id} options={options} data={editInfo} toggle={toggleUpsellingModal}/>}
+            />
 
             <Modal toggle={toggleCompanyInfoModal}
                    visible={companyInfoModal}
