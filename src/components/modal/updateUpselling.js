@@ -29,9 +29,9 @@ const UpdateUpselling = ({data, toggle, options, FPID, dataFull}) => {
     const onSubmit = async (data) => {
 
         let OptionID
-        options?.map(op=>{
-            if(op.title===data.status){
-                OptionID=op.ID
+        options?.map(op => {
+            if (op.title === data.status) {
+                OptionID = op.ID
             }
         })
 
@@ -57,16 +57,28 @@ const UpdateUpselling = ({data, toggle, options, FPID, dataFull}) => {
             <div className='float-right cursor-pointer -mt-20'>
                 <FaWindowClose size='30px' color={'#212121'} onClick={toggle}/>
             </div>
-            <div className='flex justify-between items-center mt-20 w-6/12 mx-auto text-text'>
-                <h2>{dataFull[0]}</h2>
-               <div className='flex justify-between w-52 border border-offWhite p-2'>
-                   <h3>{dataFull[1].split(',')[0]}</h3>
-                   <h3>{formatDate(dataFull[1].split(',')[1]?.split(':')[1])}</h3>
-               </div>
+            <div className='flex justify-between items-center mt-20 w-8/12 mx-auto text-text'>
+                <h3 className='text-sm'>{dataFull[0]}</h3>
+                <div className='flex justify-between items-center border border-offWhite p-2'>
+                    {
+                        dataFull[1].split(',')[0] !== 'Keine Information' &&
+                        <img
+                            style={{width:'25px'}}
+                            src={`${window.location.origin}/icons/${dataFull[1].split(',')[0].replace(/\s/g, "")}.png`}
+                            alt=''
+                        />
+
+                    }
+                    <div className='flex text-sm justify-between w-56 ml-1'>
+                        <h3>{dataFull[1].split(',')[0]}</h3>
+                        <h3>{formatDate(dataFull[1].split(',')[1]?.split(':')[1])}</h3>
+                    </div>
+
+                </div>
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)}
-                  className='bg-white rounded-lg centerItemsAbsolute w-6/12'
+                  className='bg-white rounded-lg centerItemsAbsolute w-8/12'
             >
                 <section className='flex flex-col text-left text-grey text-sm'>
                     <label className='py-2'> neuer status *</label>
@@ -78,7 +90,7 @@ const UpdateUpselling = ({data, toggle, options, FPID, dataFull}) => {
                             className='px-4 py-2 rounded-md bg-offWhite cursor-pointer mb-7'
                     >
                         {
-                            watch('status')==='Keine Information' &&
+                            watch('status') === 'Keine Information' &&
                             <option value=''>Wähle eine Option</option>
                         }
                         {
@@ -93,20 +105,20 @@ const UpdateUpselling = ({data, toggle, options, FPID, dataFull}) => {
                     {errors.role && touchedFields &&
                         <p>{errors.role.message}</p>}
                 </section>
-               <div className='flex justify-between gap-2'>
-                   <input
-                       className={(isValid) ? 'bg-mainBlue w-full text-white cursor-pointer rounded-md' : 'rounded-md bg-disableBlue w-full text-white'}
-                       disabled={!isValid} type="submit"
-                       value={(!loading) ? 'speichern' : 'speichere...'}
-                   />
-                   <button
-                       className="text-red-500background-transparent w-full font-bold px-6 hover:bg-text hover:text-white bg-whiteDark rounded-md text-sm outline-none focus:outline-none"
-                       type="button"
-                       onClick={toggle}
-                   >
-                       abbrechen
-                   </button>
-               </div>
+                <div className='flex justify-between gap-2'>
+                    <input
+                        className={(isValid) ? 'bg-mainBlue w-full text-white cursor-pointer rounded-md' : 'rounded-md bg-disableBlue w-full text-white'}
+                        disabled={!isValid} type="submit"
+                        value={(!loading) ? 'speichern' : 'speichere...'}
+                    />
+                    <button
+                        className="text-red-500background-transparent w-full font-bold px-6 hover:bg-text hover:text-white bg-whiteDark rounded-md text-sm outline-none focus:outline-none"
+                        type="button"
+                        onClick={toggle}
+                    >
+                        abbrechen
+                    </button>
+                </div>
             </form>
         </>
     );
