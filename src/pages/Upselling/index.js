@@ -85,21 +85,21 @@ const Upselling = () => {
         <div className='dashboardContainer'>
             <div className='flex justify-start items-center content-center pb-5'>
                 <h2 className='text-2xl lg:text-left'> Upselling</h2>
-                {
-                    (superAdmin === '1' || role === 'i' || role === 'c') &&
-                    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>
-                        <p className='w-fit mr-2 text-grey'>Portal: </p>
-                        <select
-                            disabled={loading}
-                            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'
-                            onChange={portalSelect}
-                            value={portal}
-                        >
-                            <option selected value='dgg'>DGG</option>
-                            <option value='ruv'>R+V</option>
-                        </select>
-                    </div>
-                }
+                {/*{*/}
+                {/*    (superAdmin === '1' || role === 'i' || role === 'c') &&*/}
+                {/*    <div className='flex justify-start items-center w-fit bg-transparent py-2 px-4 ml-2 rounded-sm'>*/}
+                {/*        <p className='w-fit mr-2 text-grey'>Portal: </p>*/}
+                {/*        <select*/}
+                {/*            disabled={loading}*/}
+                {/*            className='col-span-2 text-center text-mainBlue mx-auto pr-1 bg-transparent border border-offWhite rounded-sm lg:w-fit'*/}
+                {/*            onChange={portalSelect}*/}
+                {/*            value={portal}*/}
+                {/*        >*/}
+                {/*            <option selected value='dgg'>DGG</option>*/}
+                {/*            <option value='ruv'>R+V</option>*/}
+                {/*        </select>*/}
+                {/*    </div>*/}
+                {/*}*/}
             </div>
             {/*<div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>*/}
             {/*</div>*/}
