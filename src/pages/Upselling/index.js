@@ -5,15 +5,16 @@ import {RiArrowDownSFill, RiArrowUpSFill} from "react-icons/ri";
 import {ClipLoader} from "react-spinners";
 import UpsellingTable from "./partial/upsellingTable";
 import {useStateValue} from "../../states/StateProvider";
-import {formatDate} from '../../helper/formatDate'
 import {AES, enc} from "crypto-js";
 import {UpsellingHeadersDGG} from "../../staticData/upsellingHeadersDGG";
 
 const Upselling = () => {
 
-    const searChableFields = [0,1,2,3,4,5,6,7,8,9]
-    const sortableFields = [0,1,2,3,4,5,6,7,8,9]
+    const searchableFields = [0, 1, 2]
+    const dropdownsearchFields = [3, 4, 5, 6, 7, 8, 9]
+    const sortableFields = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     const [loading, setLoading] = useState(false)
+    const [options, setOptions] = useState([])
     const [data, setData] = useState([])
     const [headers, setHeaders] = useState([])
     const [{sortUpsellingColum, sortMethodUpselling, secretKey, portal}, dispatch] = useStateValue();
@@ -46,6 +47,11 @@ const Upselling = () => {
             } catch (e) {
                 window.location.replace('/anmeldung')
             }
+
+            Api().get(`sp_getUpsellingOptions/${'dgg'}`)
+                .then(res => {
+                    setOptions(res.data)
+                })
         }
     }, [portal]);
 
@@ -126,7 +132,7 @@ const Upselling = () => {
                                             headers?.map(header => (
                                                 <th key={header.id} scope="col"
                                                     className="text-sm text-grey pl-1.5 tooltip"
-                                                    style={{minWidth: searChableFields.includes(header.id) ? '8rem' : 'fit-content'}}
+                                                    style={{minWidth: searchableFields.includes(header.id)? '8rem' : 'fit-content'}}
                                                 >
                                                 <span className='flex justify-left'>
                                                     <span
@@ -149,13 +155,31 @@ const Upselling = () => {
                                                         </span>
                                                     </span>
                                                     <span
-                                                        className={`${!(searChableFields.includes(header.id)) && 'hideDiv'}`}>
-                                                        <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
+                                                        className={`${!(searchableFields.includes(header.id)) && 'hideDiv'}`}>
+                                                        <input className='w-full h-8 px-2 py-3 search mb-7' type='text'
                                                                maxLength="50"
                                                             // value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : header.id === 6 ? filter.f : filter.g}
                                                             // onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />
+                                                    </span>
+                                                    <span
+                                                        className={`${!(dropdownsearchFields.includes(header.id)) && 'hideDiv'}`}>
+                                                         <select className='px-4 text-xs py-2 search rounded-md bg-white cursor-pointer mb-7'>
+                                                            {
+                                                                // watch('status') === 'Keine Information' &&
+                                                                <option value=''>Status wählen</option>
+                                                            }
+                                                             {
+                                                                 options?.map(op => (
+                                                                     <option key={op.ID} value={op.title}>
+                                                                         <img
+                                                                             src={`${window.location.origin}/icons/${op.icon}`}/>
+                                                                         <span className='ml-2'>{op.title}</span>
+                                                                     </option>
+                                                                 ))
+                                                             }
+                                                        </select>
                                                     </span>
                                                     <br/>
                                                     {
