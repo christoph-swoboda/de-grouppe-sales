@@ -95,7 +95,7 @@ const Reporting = () => {
             {
                 !stepsLoading &&
                 <div className='my-3 rounded-lg sm:block w-6/12 bg-white'>
-                    <div className="p-3 text-left font-bold">Upselling Bousteine</div>
+                    <div className="p-3 text-left font-bold">Bousteine</div>
                     <table className='text-left bg-white'>
                         <thead
                             className="whitespace-nowrap bg-white sticky top-0">
