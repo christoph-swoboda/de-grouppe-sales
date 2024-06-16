@@ -20,6 +20,7 @@ const Login = () => {
             if (res.status === 200) {
                 localStorage.setItem('user', AES.encrypt(JSON.stringify(res.data[0]), secretKey).toString());
                 localStorage.setItem('portal', '')
+                localStorage.setItem('loginTimestamp', Date.now().toString());
                 window.location.replace(`/`)
                 setLoading(false)
             }

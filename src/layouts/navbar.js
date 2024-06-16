@@ -12,19 +12,34 @@ import {AES, enc} from "crypto-js";
 import {useStateValue} from "../states/StateProvider";
 
 const Navbar = () => {
+
+    const location = useLocation();
+
+    useEffect(() => {
+        const loginTimestamp = localStorage.getItem('loginTimestamp');
+        const now = Date.now().toString();
+
+        if (loginTimestamp && (now - loginTimestamp) >= 12 * 60 * 60 * 1000) { // 12 hours in milliseconds
+            localStorage.clear();
+            window.location.replace('/#/anmeldung');
+        } else if (!loginTimestamp) {
+            localStorage.setItem('loginTimestamp', now);
+        }
+
+    }, [location]);
+
+
     const [toggleMenu, setToggleMenu] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showNestedDropdown, setShowNestedDropdown] = useState(false); // State to control the nested dropdown visibility
 
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-    const path = useLocation();
     const toggleNav = () => {
         setToggleMenu(!toggleMenu);
     };
     const [modal, setModal] = useState(false);
     const [version, setVersion] = useState('');
     const modalRef = useRef();
-    const location = useLocation();
 
     const [{secretKey}] = useStateValue();
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
@@ -76,16 +91,16 @@ const Navbar = () => {
                 {(toggleMenu || screenWidth > 1200) && (
                     <>
                         <Link to={'/'} onClick={toggleNav}>
-                            <li className={`items ${path.pathname === '/' && 'text-mainBlue'}  hover:text-mainBlue`}>Dashboard</li>
+                            <li className={`items ${location.pathname === '/' && 'text-mainBlue'}  hover:text-mainBlue`}>Dashboard</li>
                         </Link>
                         <div className="dropdown">
-                            <li className={`items ${(path.pathname === '/neu' || path.pathname === '/firmenprojekte-liste'
-                                || path.pathname === '/storfalle') && 'text-mainBlue'}  hover:text-mainBlue`}>
+                            <li className={`items ${(location.pathname === '/neu' || location.pathname === '/firmenprojekte-liste'
+                                || location.pathname === '/storfalle') && 'text-mainBlue'}  hover:text-mainBlue`}>
                                 Firmenprojekte <i className="dropdown-icon">▼</i>
                             </li>
                             <div className="dropdown-content">
                                 <Link to={'/storfalle'} onClick={toggleNav}>
-                                    <li className={`items ${path.pathname === '/storfalle' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                    <li className={`items ${location.pathname === '/storfalle' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                         Störfälle
                                     </li>
                                 </Link>
@@ -93,22 +108,22 @@ const Navbar = () => {
                                 {
                                     (user.role === 'ExtDGG' || user.role === 'ExtRUV' || (user.role === 'Internal' && user.isSAdmin === '1')) &&
                                     <Link to={'/neu'} onClick={toggleNav}>
-                                        <li className={`items ${path.pathname === '/neu' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                        <li className={`items ${location.pathname === '/neu' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             Neu
                                         </li>
                                     </Link>
                                 }
 
                                 <Link to={'/firmenprojekte-liste'} onClick={toggleNav}>
-                                    <li className={`items ${path.pathname === '/firmenprojekte-liste' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                    <li className={`items ${location.pathname === '/firmenprojekte-liste' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                         Firmenprojekte
                                     </li>
                                 </Link>
 
                                 {
-                                    (user.role === 'ExtDGG' || user.role === 'ManDGG' || user.role === 'Internal'|| user.role === 'Controller') &&
+                                    (user.role === 'ExtDGG' || user.role === 'ManDGG' || user.role === 'Internal' || user.role === 'Controller') &&
                                     <Link to={'/upselling'} onClick={toggleNav}>
-                                        <li className={`items ${path.pathname === '/upselling' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                        <li className={`items ${location.pathname === '/upselling' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                             Upselling
                                         </li>
                                     </Link>
@@ -118,7 +133,7 @@ const Navbar = () => {
                         </div>
                         {(user?.role === 'Internal' || user?.role === 'Controller') && (
                             <Link to={'/mail-verlauf'} onClick={toggleNav}>
-                                <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                <li className={`items ${location.pathname === '/mail-verlauf' && 'text-mainBlue'}  hover:text-mainBlue`}>
                                     Mailverlauf
                                 </li>
                             </Link>
@@ -141,7 +156,7 @@ const Navbar = () => {
                             <div className="dropdown-content">
                                 {(user?.role === 'Internal' && (user.isUserAdmin === '1' || user.isSAdmin === '1')) && (
                                     <Link to={'/benutzerverwaltung'}>
-                                        <li className={`items ${path.pathname === '/benutzerverwaltung' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                        <li className={`items ${location.pathname === '/benutzerverwaltung' && 'text-mainBlue'} hover:text-mainBlue`}>
                                             Benutzerverwaltung
                                         </li>
                                     </Link>
@@ -152,14 +167,14 @@ const Navbar = () => {
                                             pathname: '/info-crawler',
                                             state: {data: user.isICAdmin},
                                         }}>
-                                        <li className={`items ${path.pathname === '/info-crawler' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                        <li className={`items ${location.pathname === '/info-crawler' && 'text-mainBlue'} hover:text-mainBlue`}>
                                             InfoCrawler
                                         </li>
                                     </Link>
                                 )}
                                 {(user?.role === 'Internal' && (user.isIMAdmin === '1' || user.isSAdmin === '1')) && (
                                     <Link to={'/info-mail'} onClick={toggleNav}>
-                                        <li className={`items ${path.pathname === '/mail-verlauf' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                        <li className={`items ${location.pathname === '/mail-verlauf' && 'text-mainBlue'} hover:text-mainBlue`}>
                                             InfoMail
                                         </li>
                                     </Link>
@@ -171,7 +186,7 @@ const Navbar = () => {
                                              onMouseEnter={() => setShowNestedDropdown(true)}
                                              onMouseLeave={() => setShowNestedDropdown(false)}
                                         >
-                                            <li className={`items ${path.pathname === '/admin-edit' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                            <li className={`items ${location.pathname === '/admin-edit' && 'text-mainBlue'} hover:text-mainBlue`}>
                                                 Verwaltung <i className="dropdown-icon">▼</i>
                                             </li>
                                             {
@@ -182,7 +197,7 @@ const Navbar = () => {
                                                             pathname: '/admin-edit-footer',
                                                             state: {data: user.isSAdmin},
                                                         }}>
-                                                        <li className={`items ${path.pathname === '/admin-edit-footer' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                                        <li className={`items ${location.pathname === '/admin-edit-footer' && 'text-mainBlue'} hover:text-mainBlue`}>
                                                             Footerzeile
                                                         </li>
                                                     </Link>
@@ -191,7 +206,7 @@ const Navbar = () => {
                                                             pathname: '/admin-edit-options',
                                                             state: {data: user.isSAdmin},
                                                         }}>
-                                                        <li className={`items ${path.pathname === '/admin-edit-options' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                                        <li className={`items ${location.pathname === '/admin-edit-options' && 'text-mainBlue'} hover:text-mainBlue`}>
                                                             WV Optionen
                                                         </li>
                                                     </Link>
@@ -200,7 +215,7 @@ const Navbar = () => {
                                                             pathname: '/admin-edit-milestones',
                                                             state: {data: user.isSAdmin},
                                                         }}>
-                                                        <li className={`items ${path.pathname === '/admin-edit-milestones' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                                        <li className={`items ${location.pathname === '/admin-edit-milestones' && 'text-mainBlue'} hover:text-mainBlue`}>
                                                             Meilensteine
                                                         </li>
                                                     </Link>
@@ -209,7 +224,7 @@ const Navbar = () => {
                                                             pathname: '/admin-edit',
                                                             state: {data: user.isSAdmin},
                                                         }}>
-                                                        <li className={`items ${path.pathname === '/admin-edit' && 'text-mainBlue'} hover:text-mainBlue`}>
+                                                        <li className={`items ${location.pathname === '/admin-edit' && 'text-mainBlue'} hover:text-mainBlue`}>
                                                             MS Schritte
                                                         </li>
                                                     </Link>
@@ -221,7 +236,7 @@ const Navbar = () => {
                             </div>
                         </div>
                         {/*<Link to={'/reporting'} onClick={toggleNav}>*/}
-                        {/*    <li className={`items ${path.pathname === '/reporting' && 'text-mainBlue'}  hover:text-mainBlue`}>Reporting</li>*/}
+                        {/*    <li className={`items ${location.pathname === '/reporting' && 'text-mainBlue'}  hover:text-mainBlue`}>Reporting</li>*/}
                         {/*</Link>*/}
                         <li className='userInfo cursor-pointer'>
                             {user?.role === 'Internal' ? (
