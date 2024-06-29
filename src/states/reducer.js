@@ -26,6 +26,7 @@ export const initialState = {
     hmFilter: localStorage.getItem('hmFilter')??true,
     page: 1,
     pageBestand: 1,
+    pageWvHistory: 1,
     noteSent: true,
     footerUpdated: false,
     sortColumn: 7,
@@ -99,6 +100,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 pageBestand: action.item
+            }
+            case "SET_PAGE_WVHISTORY":
+            return {
+                ...state,
+                pageWvHistory: action.item
             }
         case "SET_NOTE_SENT":
             return {

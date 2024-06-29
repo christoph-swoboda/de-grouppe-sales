@@ -15,6 +15,7 @@ import AdminEditMilestones from "../pages/adminEdit/adminEditMilestones";
 import AdminEditFooter from "../pages/adminEdit/adminEditFooter";
 import Reporting from "../pages/reporting";
 import Upselling from "../pages/Upselling";
+import WVHistorie from "../pages/WV-Historie";
 
 
 export const RouteData = [
@@ -142,6 +143,13 @@ export const RouteData = [
         path: 'upselling',
         name: 'upselling',
         component: <Upselling/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 15,
+        path: 'WV-Historie',
+        name: 'WV-Historie',
+        component: <WVHistorie/>,
         redirection: '/anmeldung'
     },
 ]

@@ -156,3 +156,5 @@ Z
 *src/pages/reporting/partial/companyData.js,d\b\dbd9f3dd91c80371c08ba31c9e8b488ad4df52ac
 W
 'src/components/modal/updateUpselling.js,e\3\e302902e1a639aa1cb2e5cbce01a3e9401e50af1
+N
+src/pages/WV-Historie/index.js,0\c\0c965b1da310c160d549db79e5e9f5ad099a64d3

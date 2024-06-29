@@ -138,6 +138,13 @@ const Navbar = () => {
                                 </li>
                             </Link>
                         )}
+                        {(user?.role === 'Internal' || user?.role === 'Controller') && (
+                            <Link to={'/WV-Historie'} onClick={toggleNav}>
+                                <li className={`items ${location.pathname === '/WV-Historie' && 'text-mainBlue'}  hover:text-mainBlue`}>
+                                    WV-Historie
+                                </li>
+                            </Link>
+                        )}
                         <div
                             className="dropdown"
                             style={{marginLeft: '20px'}}
