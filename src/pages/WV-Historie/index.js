@@ -19,7 +19,7 @@ const MailHistory = () => {
     const [rows, setRows] = useState('10');
     const navigate = useNavigate();
     const location = useLocation();
-    const [total, setTotal] = useState(100);
+    const [total, setTotal] = useState(0);
     let PageSize = rows;
 
     useEffect(() => {
@@ -36,6 +36,7 @@ const MailHistory = () => {
 
                 Api().post('/sp_getDataWVHistorie',data).then(res => {
                     setData(res.data)
+                    setTotal(res.data[0]?.total)
                     setLoading(false)
                 }).catch(e => {
                     toast.error('etwas ist schief gelaufen!')
