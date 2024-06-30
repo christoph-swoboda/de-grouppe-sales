@@ -8,18 +8,29 @@ import StrofalleTable from "./partial/strofalleTable";
 import {useStateValue} from "../../states/StateProvider";
 import {formatDate} from '../../helper/formatDate'
 import {AES, enc} from "crypto-js";
-import {useLocation} from "react-router-dom";
 import {StorfalleHeadersDGG} from "../../staticData/storfalleHeadersDGG";
+import Pagination from "../../components/pagination";
 
 const Storfalle = () => {
+    const [{
+        sortColumnStorfalle,
+        sortMethodStorfalle,
+        secretKey,
+        portal,
+        pageStorfalle,
+        filterStorfalle,
+        filterIDStorfalle
+    }, dispatch] = useStateValue();
 
-    const searChableFields = []
-    const sortableFields = []
+    const searChableFields = portal==='dgg'? [1, 2, 4, 5, 7]: [1, 2, 4, 5, 6, 7]
+    const sortableFields =  portal==='dgg'? [1, 2, 3, 4, 5, 6, 7, 8, 9]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState([])
     const [headers, setHeaders] = useState([])
-    const [{sortColumn, sortMethod, secretKey, portal}, dispatch] = useStateValue();
     const [superAdmin, setSuperAdmin] = useState('')
+    const [rows, setRows] = useState('10');
+    const [total, setTotal] = useState(0);
+    let PageSize = rows;
 
     const decryptedBytes = localStorage.getItem('user') ? AES.decrypt(localStorage.getItem('user'), secretKey) : false;
     const user = JSON.parse(decryptedBytes.toString(enc.Utf8))
@@ -28,6 +39,7 @@ const Storfalle = () => {
 
 
     useEffect(() => {
+        const delayQuery = setTimeout(async () => {
         setLoading(true)
         setData([])
         if (portal) {
@@ -37,8 +49,19 @@ const Storfalle = () => {
                 setHeaders(StorfalleHeaders)
             }
             try {
-                Api().get(`sp_getDataStoerfaelle/${portal}/${userID}`).then(res => {
+                let Data = new FormData
+                Data.append('portal', portal)
+                Data.append('userID', userID)
+                Data.append('perPage', rows)
+                Data.append('page', pageStorfalle)
+                Data.append('sortMethod', sortMethodStorfalle)
+                Data.append('sortColumn', sortColumnStorfalle)
+                Data.append('filterID', JSON.stringify(filterIDStorfalle))
+                Data.append('filter', JSON.stringify(filterStorfalle))
+
+                Api().post(`sp_getDataStoerfaelle`, Data).then(res => {
                     setData(res.data)
+                    setTotal(res.data[0]?.totalSF)
                     setLoading(false)
                 }).catch(e => {
                     toast.error('Etwas ist schief gelaufen!!')
@@ -46,10 +69,51 @@ const Storfalle = () => {
                 })
 
             } catch (e) {
-                window.location.replace('/anmeldung')
+                console.log(e)
+                // window.location.replace('/anmeldung')
             }
         }
-    }, [portal]);
+        }, filterStorfalle ? 1500 : 0)
+
+        return () => clearTimeout(delayQuery)
+
+    }, [portal, pageStorfalle, rows, sortColumnStorfalle, sortMethodStorfalle, filterStorfalle, filterIDStorfalle]);
+
+    useEffect(() => {
+        dispatch({type: "SET_PAGE_STORFALLE", item: 1})
+    }, [filterStorfalle]);
+
+    function enableFilter(id, val) {
+        console.log('id', id)
+        if (id === 1) {
+            dispatch({type: "SET_SORTSTORFALLEFILTER", item: {...filterStorfalle, a: val}})
+            dispatch({type: "SET_SORTSTORFALLEFILTERID", item: {...filterIDStorfalle, a: 1}})
+        }
+        if (id === 2) {
+            dispatch({type: "SET_SORTSTORFALLEFILTER", item: {...filterStorfalle, b: val}})
+            dispatch({type: "SET_SORTSTORFALLEFILTERID", item: {...filterIDStorfalle, b: 2}})
+        }
+        if (id === 3) {
+            dispatch({type: "SET_SORTSTORFALLEFILTER", item: {...filterStorfalle, c: val}})
+            dispatch({type: "SET_SORTSTORFALLEFILTERID", item: {...filterIDStorfalle, c: 3}})
+        }
+        if (id === 4) {
+            dispatch({type: "SET_SORTSTORFALLEFILTER", item: {...filterStorfalle, d: val}})
+            dispatch({type: "SET_SORTSTORFALLEFILTERID", item: {...filterIDStorfalle, d: 4}})
+        }
+        if (id === 5) {
+            dispatch({type: "SET_SORTSTORFALLEFILTER", item: {...filterStorfalle, e: val}})
+            dispatch({type: "SET_SORTSTORFALLEFILTERID", item: {...filterIDStorfalle, e: 5}})
+        }
+        if (id === 6) {
+            dispatch({type: "SET_SORTSTORFALLEFILTER", item: {...filterStorfalle, f: val}})
+            dispatch({type: "SET_SORTSTORFALLEFILTERID", item: {...filterIDStorfalle, f: 6}})
+        }
+        if (id === 7) {
+            dispatch({type: "SET_SORTSTORFALLEFILTER", item: {...filterStorfalle, g: val}})
+            dispatch({type: "SET_SORTSTORFALLEFILTERID", item: {...filterIDStorfalle, g: 7}})
+        }
+    }
 
     useEffect(() => {
         setSuperAdmin(user.isSAdmin)
@@ -68,19 +132,36 @@ const Storfalle = () => {
         }
     }, []);
 
+    function setPageStates(e) {
+        dispatch({type: "SET_PAGE_STORFALLE", item: 1})
+        setRows(e.target.value)
+    }
+
     function portalSelect(e) {
+        clearFilters()
         dispatch({type: 'SET_PORTAL', item: e.target.value})
         localStorage.setItem('portal', e.target.value)
     }
 
     function ascSort(id) {
-        dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
-        dispatch({type: "SET_SORTBESTANDMETHOD", item: 'asc'})
+        dispatch({type: "SET_SORT_COLUMN_STORFALLE", item: id})
+        dispatch({type: "SET_SORT_STORFALLE_METHOD", item: 'asc'})
     }
 
     function descSort(id) {
-        dispatch({type: "SET_SORTBESTANDCOLUMN", item: id})
-        dispatch({type: "SET_SORTBESTANDMETHOD", item: 'desc'})
+        dispatch({type: "SET_SORT_COLUMN_STORFALLE", item: id})
+        dispatch({type: "SET_SORT_STORFALLE_METHOD", item: 'desc'})
+    }
+
+    function clearFilters() {
+        dispatch({
+            type: "SET_SORTSTORFALLEFILTER",
+            item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null,}
+        })
+        dispatch({
+            type: "SET_SORTSTORFALLEFILTERID",
+            item: {a: null, b: null, c: null, d: null, e: null, f: null, g: null,}
+        })
     }
 
     return (
@@ -106,7 +187,7 @@ const Storfalle = () => {
             {/*<div className={`bg-white pt-3 pb-1 px-3 lg:flex sm:block`}>*/}
             {/*</div>*/}
             <div className="flex flex-col p-10 bg-white" style={{height: '75vh'}}>
-                <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="overflow-x-auto overflow-y-hidden sm:-mx-6 lg:-mx-8">
                     <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div className="overflow-hidden pt-1">
                             {
@@ -132,18 +213,18 @@ const Storfalle = () => {
                                                 >
                                                 <span className='flex justify-left'>
                                                     <span
-                                                        className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumn === header.id && 'text-mainBlue'}`}
+                                                        className={`tooltip mt-1.5 text-center xl:h-fit lg:h-14 ${sortColumnStorfalle === header.id && 'text-mainBlue'}`}
                                                     >
                                                             {header.title}
                                                         </span>
                                                         <span
                                                             className={`${!(sortableFields.includes(header.id)) && 'opacity-0'}`}>
-                                                            <p className={`cursor-pointer ${sortColumn === header.id && sortMethod === 'asc' ? 'text-mainBlue' : ''}`}
+                                                            <p className={`cursor-pointer ${sortColumnStorfalle === header.id && sortMethodStorfalle === 'asc' ? 'text-mainBlue' : ''}`}
                                                                onClick={() => ascSort(header.id)}
                                                             >
                                                                 <RiArrowUpSFill size='22px'/>
                                                             </p>
-                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumn === header.id && sortMethod === 'desc' ? 'text-mainBlue' : ''}`}
+                                                            <p className={`-mt-3.5 cursor-pointer ${sortColumnStorfalle === header.id && sortMethodStorfalle === 'desc' ? 'text-mainBlue' : ''}`}
                                                                onClick={() => descSort(header.id)}
                                                             >
                                                                 <RiArrowDownSFill size='22px'/>
@@ -152,18 +233,18 @@ const Storfalle = () => {
                                                     </span>
                                                     <span
                                                         className={`${!(searChableFields.includes(header.id)) && 'hideDiv'}`}>
-                                                        <input className='w-full h-2 px-2 py-3 search mb-4' type='text'
+                                                        <input className={`w-full h-2 px-2 py-3 search mb-4`} type='text'
                                                                maxLength="50"
-                                                            // value={header.id === 1 ? filter.a : header.id === 2 ? filter.b : header.id === 3 ? filter.c : header.id === 4 ? filter.d : header.id === 5 ? filter.e : header.id === 6 ? filter.f : filter.g}
-                                                            // onChange={(e) => enableFilter(header.id, e.target.value)}
+                                                               value={header.id === 1 ? filterStorfalle.a : header.id === 2 ? filterStorfalle.b : header.id === 3 ? filterStorfalle.c : header.id === 4 ? filterStorfalle.d : header.id === 5 ? filterStorfalle.e :header.id === 6 ? filterStorfalle.f: header.id === 7 && filterStorfalle.g}
+                                                               onChange={(e) => enableFilter(header.id, e.target.value)}
                                                                placeholder='Suche...'
                                                         />
                                                     </span>
-                                                    <br/>
-                                                    {/*<span  className={`${header.title==='MA' && 'opacity-0'}`}>*/}
-                                                    {/*  <input className='w-full mb-4 opacity-0' type='text'*/}
-                                                    {/*  />*/}
-                                                    {/*</span>*/}
+                                                    {/*<br/>*/}
+                                                    <span  className={`${header.title==='MA' && 'opacity-0'}`}>
+                                                      <input className='w-full mb-4 opacity-0' type='text'
+                                                      />
+                                                    </span>
                                                     {
                                                         header.mouseOver?.length > 0 &&
                                                         <p className='tooltiptextInstantOver'>{header.mouseOver}</p>
@@ -198,8 +279,8 @@ const Storfalle = () => {
                                                 Bemerkung={u.Bemerkung}
                                                 PDatum={formatDate(u.PDatum, false)}
                                                 StorfallDatum={formatDate(u.StörfallDatum, false)}
-                                                sortColumn={sortColumn}
-                                                sortMethod={sortMethod}
+                                                sortColumn={sortColumnStorfalle}
+                                                sortMethod={sortMethodStorfalle}
                                             />
                                         ))
                                     }
@@ -209,12 +290,36 @@ const Storfalle = () => {
                         </div>
                     </div>
                 </div>
-                {
-                    data[0] &&
-                    <div className={`text-center flex justify-center mt-4`}>
-                        <p className='font-bold text-text border border-whiteDark px-5 py-2 w-fit rounded-md'>{data[0]?.totalSF} Gesamtprojekte</p>
+                <div className={`flex justify-end gap-20 ${loading && 'opacity-0'}`}>
+                    <div className={`mt-10 ${loading && 'opacity-0'}`}>
+                        {
+                            data.length > 0 &&
+                            <Pagination
+                                className="pagination-bar"
+                                currentPage={pageStorfalle}
+                                totalCount={total}
+                                pageSize={PageSize}
+                                onPageChange={pageNo => dispatch({
+                                    type: "SET_PAGE_STORFALLE",
+                                    item: pageNo
+                                })}
+                            />
+                        }
                     </div>
-                }
+                    <p className={`${(data?.length === 0) && 'hideDiv'} mr-2 text-sm text-grey ml-10 mt-10`}>
+                        {pageStorfalle === 1 ? pageStorfalle : (1 + (Number(rows) * pageStorfalle)) - Number(rows)} bis {(data?.length < Number(rows)) ? data.length + Number(rows) < total ? data.length + (Number(rows) * pageStorfalle) - Number(rows) : total : (Number(rows) + (Number(rows) * pageStorfalle)) - Number(rows)} von {total} Einträge
+                    </p>
+                    <h2 className={`${(data?.length === 0) && 'hideDiv'}  text-sm text-grey mt-10`}>
+                        Einträge anzeigen:
+                        <span>
+                        <select onChange={setPageStates} className={` bg-transparent text-mainBlue`}>
+                            <option value={'10'}>{10}</option>
+                            <option value={'25'}>{25}</option>
+                            <option value={'10000'}>Alle</option>
+                        </select>
+                    </span>
+                    </h2>
+                </div>
 
             </div>
         </div>

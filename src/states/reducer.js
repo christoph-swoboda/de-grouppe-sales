@@ -22,20 +22,25 @@ export const initialState = {
     noteRows: 3,
     sortUserMethod: 'desc',
     portal: localStorage.getItem('portal'),
-    dggFilter: localStorage.getItem('dggFilter')??true,
-    hmFilter: localStorage.getItem('hmFilter')??true,
+    dggFilter: localStorage.getItem('dggFilter') ?? true,
+    hmFilter: localStorage.getItem('hmFilter') ?? true,
     page: 1,
     pageBestand: 1,
     pageWvHistory: 1,
+    pageStorfalle: 1,
     noteSent: true,
     footerUpdated: false,
     sortColumn: 7,
+    sortColumnStorfalle: 7,
     sortMethod: 'asc',
+    sortMethodStorfalle: 'asc',
     sortMethodUpselling: 'asc',
     ICSaved: false,
     dateFilter: {id: null, value: null},
     filterID: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: null, i: null, j: null},
     filter: {a: null, b: null, c: null, d: null, e: null, f: null, g: null, h: 1, i: 0, j: 0},
+    filterIDStorfalle: {a: null, b: null, c: null, d: null, e: null, f: null, g: null,},
+    filterStorfalle: {a: null, b: null, c: null, d: null, e: null, f: null, g: null,},
     filterIDUM: {a: null, c: null},
     filterUM: {a: null, c: null},
 };
@@ -51,7 +56,7 @@ const reducer = (state, action) => {
                 ...state,
                 companyInfoModal: action.item
             }
-            case "SET_UPSELLING_MODAL":
+        case "SET_UPSELLING_MODAL":
             return {
                 ...state,
                 upsellingModal: action.item
@@ -61,12 +66,12 @@ const reducer = (state, action) => {
                 ...state,
                 remindersModal: action.item
             }
-            case "SET_REMINDERS_SAVED":
+        case "SET_REMINDERS_SAVED":
             return {
                 ...state,
                 remindersSaved: action.item
             }
-            case "SET_UPSELLING_SAVED":
+        case "SET_UPSELLING_SAVED":
             return {
                 ...state,
                 upsellingSaved: action.item
@@ -101,10 +106,15 @@ const reducer = (state, action) => {
                 ...state,
                 pageBestand: action.item
             }
-            case "SET_PAGE_WVHISTORY":
+        case "SET_PAGE_WVHISTORY":
             return {
                 ...state,
                 pageWvHistory: action.item
+            }
+        case "SET_PAGE_STORFALLE":
+            return {
+                ...state,
+                pageStorfalle: action.item
             }
         case "SET_NOTE_SENT":
             return {
@@ -156,6 +166,16 @@ const reducer = (state, action) => {
                 ...state,
                 sortMethod: action.item
             }
+        case "SET_SORT_COLUMN_STORFALLE":
+            return {
+                ...state,
+                sortColumnStorfalle: action.item
+            }
+        case "SET_SORT_STORFALLE_METHOD":
+            return {
+                ...state,
+                sortMethodStorfalle: action.item
+            }
         case "SET_SORTBESTANDFILTER":
             return {
                 ...state,
@@ -165,6 +185,16 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 filterID: action.item
+            }
+        case "SET_SORTSTORFALLEFILTER":
+            return {
+                ...state,
+                filterStorfalle: action.item
+            }
+        case "SET_SORTSTORFALLEFILTERID":
+            return {
+                ...state,
+                filterIDStorfalle: action.item
             }
         case "SET_SORTBESTANDFILTERUM":
             return {

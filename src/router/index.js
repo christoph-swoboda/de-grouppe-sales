@@ -132,23 +132,30 @@ export const RouteData = [
         redirection: '/anmeldung'
     },
     {
-        id: 15,
+        id: 16,
         path: 'reporting/:portal/:id',
         name: 'reporting',
         component: <Reporting/>,
         redirection: '/anmeldung'
     },
     {
-        id: 15,
+        id: 17,
         path: 'upselling',
         name: 'upselling',
         component: <Upselling/>,
         redirection: '/anmeldung'
     },
     {
-        id: 15,
+        id: 18,
         path: 'WV-Historie',
         name: 'WV-Historie',
+        component: <WVHistorie/>,
+        redirection: '/anmeldung'
+    },
+    {
+        id: 19,
+        path: 'document',
+        name: 'document',
         component: <WVHistorie/>,
         redirection: '/anmeldung'
     },

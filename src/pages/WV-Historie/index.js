@@ -107,17 +107,7 @@ const MailHistory = () => {
                         </tbody>
                     </table>
             }
-            <div className={`flex justify-evenly ${loading && 'opacity-0'}`}>
-                <h2 className={`${(data?.length === 0) && 'hideDiv'}  text-sm text-grey mt-10`}>
-                    Einträge anzeigen:
-                    <span>
-                        <select onChange={setPageStates} className={` bg-transparent text-mainBlue`}>
-                            <option value={'10'}>{10}</option>
-                            <option value={'25'}>{25}</option>
-                            <option value={'10000'}>Alle</option>
-                        </select>
-                    </span>
-                </h2>
+            <div className={`flex justify-end gap-20 ${loading && 'opacity-0'}`}>
                 <div className={`mt-10 ${loading && 'opacity-0'}`}>
                     {
                         data.length > 0 &&
@@ -133,9 +123,19 @@ const MailHistory = () => {
                         />
                     }
                 </div>
-                <p className={`${(data?.length === 0) && 'hideDiv'} mr-2 text-sm text-grey  mt-10`}>
+                <p className={`${(data?.length === 0) && 'hideDiv'} mr-2 text-sm text-grey ml-10 mt-10`}>
                     {pageWvHistory === 1 ? pageWvHistory : (1 + (Number(rows) * pageWvHistory)) - Number(rows)} bis {(data?.length < Number(rows)) ? data.length + Number(rows) < total ? data.length + (Number(rows) * pageWvHistory) - Number(rows) : total : (Number(rows) + (Number(rows) * pageWvHistory)) - Number(rows)} von {total} Einträge
                 </p>
+                <h2 className={`${(data?.length === 0) && 'hideDiv'}  text-sm text-grey mt-10`}>
+                    Einträge anzeigen:
+                    <span>
+                        <select onChange={setPageStates} className={` bg-transparent text-mainBlue`}>
+                            <option value={'10'}>{10}</option>
+                            <option value={'25'}>{25}</option>
+                            <option value={'10000'}>Alle</option>
+                        </select>
+                    </span>
+                </h2>
             </div>
         </div>
     );
