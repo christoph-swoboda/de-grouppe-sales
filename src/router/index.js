@@ -152,11 +152,4 @@ export const RouteData = [
         component: <WVHistorie/>,
         redirection: '/anmeldung'
     },
-    {
-        id: 19,
-        path: 'document',
-        name: 'document',
-        component: <WVHistorie/>,
-        redirection: '/anmeldung'
-    },
 ]

@@ -68,7 +68,7 @@ const MailHistory = () => {
                     :
                     <table className='min-w-full text-left bg-white rounded-lg'>
                         <thead className="whitespace-nowrap border-y border-silver border-x-0">
-                        <tr className='text-sm text-grey pl-1.5'>
+                        <tr className='text-sm text-grey pl-1.5 font-bold'>
                             <td>Ersteller</td>
                             <td>Erstellungs Datum</td>
                             <td>Firma</td>
